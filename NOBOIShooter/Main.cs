@@ -10,8 +10,10 @@ namespace NOBOIShooter
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Vector2 Position;
-        public Texture2D _texture;
+        List<GameObject> _gameObjects;
+        int _numObject;
+
+        SpriteFont _font;
 
         //Constructor
         public Main()
@@ -24,9 +26,13 @@ namespace NOBOIShooter
         //initialize (run once)
         protected override void Initialize()
         {
+            //setting screen size
             _graphics.PreferredBackBufferHeight = Singleton.Instance.ScreenHeight;
             _graphics.PreferredBackBufferWidth = Singleton.Instance.ScreenWidth;
             _graphics.ApplyChanges();
+
+            //load game objects
+            _gameObjects = new List<GameObject>();
 
             base.Initialize();
         }
@@ -36,7 +42,8 @@ namespace NOBOIShooter
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //load font
+            //_font = Content.Load<SpriteFont>("GameFont");
         }
 
         //update screen

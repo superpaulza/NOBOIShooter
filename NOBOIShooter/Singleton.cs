@@ -19,7 +19,7 @@ namespace NOBOIShooter
         //Constructor
         private Singleton()
         {
-            //Leave it blank
+
         }
 
         public static Singleton Instance
