@@ -1,6 +1,8 @@
 ﻿using System;
 
 //EiEi is me!
+
+// hey deam
 namespace NOBOIShooter
 {
     public static class Program
