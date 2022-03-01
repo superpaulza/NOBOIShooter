@@ -10,65 +10,12 @@ namespace NOBOIShooter.States
 {
     public class MenuState : State
     {
-        private List<Component> _components;
 
-        public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
-          : base(game, graphicsDevice, content)
+        private Texture2D menuBackGroundTexture;
+
+        public MenuState(Main game, ContentManager content) : base(game, content)
         {
-            var buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
 
-            var newGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(300, 200),
-                Text = "New Game",
-            };
-
-            newGameButton.Click += NewGameButton_Click;
-
-<<<<<<< HEAD
-            var saveGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(300, 250),
-                Text = "Save Game",
-            };
-
-            saveGameButton.Click += SaveGameButton_Click;
-
-            var loadGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(300, 300),
-                Text = "Load Game",
-            };
-
-            loadGameButton.Click += LoadGameButton_Click;
-
-            var quitGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(300, 350),
-                Text = "Quit Game",
-            };
-
-            quitGameButton.Click += QuitGameButton_Click;
-
-            _components = new List<Component>()
-<<<<<<< HEAD
-      {
-        newGameButton,
-        saveGameButton,
-        loadGameButton,
-        quitGameButton,
-      };
-=======
-            {
-                newGameButton,
-                loadGameButton,
-                quitGameButton,
-            };
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-        }
-
-=======
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 250),
@@ -93,54 +40,26 @@ namespace NOBOIShooter.States
       };
         }
 
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void LoadContent()
         {
-            spriteBatch.Begin();
-
-            foreach (var component in _components)
-                component.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-        }
-
-<<<<<<< HEAD
-        private void SaveGameButton_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Save Game");
-        }
-
-        private void LoadGameButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new LoadStage(_game, _graphicsDevice, _content));
-        }
-
-=======
-        private void LoadGameButton_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Load Game");
-        }
-
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-        private void NewGameButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
-        }
-
-        public override void PostUpdate(GameTime gameTime)
-        {
-            // remove sprites if they're not needed
+            var buttonTexture = _content.Load<Texture2D>("");
+            var buttonFont = _content.Load<Texture2D>("");
+            menuBackGroundTexture = _content.Load<Texture2D>("");
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var component in _components)
-                component.Update(gameTime);
+            throw new NotImplementedException();
         }
 
-        private void QuitGameButton_Click(object sender, EventArgs e)
+        public override void PostUpdate(GameTime gameTime)
         {
-            _game.Exit();
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(GameTime game, SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
         }
     }
 }
