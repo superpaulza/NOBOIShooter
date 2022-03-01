@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NOBOIShooter.States;
 
 namespace NOBOIShooter
 {
@@ -12,6 +13,9 @@ namespace NOBOIShooter
 
         List<GameObject> _gameObjects;
         int _numObject;
+
+        private State _currentState;
+        private State _nextState;
 
         SpriteFont _font;
 
@@ -41,7 +45,10 @@ namespace NOBOIShooter
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
+            _currentState = new SpriteBatch(GraphicsDevice);
+            _currentState.LoadContent();
+            _nextState = null;
             //load font
             //_font = Content.Load<SpriteFont>("GameFont");
         }
@@ -52,9 +59,25 @@ namespace NOBOIShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            {
+                if (_nextState != null)
+                {
+                    _currentState = _nextState;
+                    _currentState.LoadContent();
+
+                    _nextState = null;
+                }
+
+                _currentState.Update(gameTime);
+                _currentState.PostUpdate(gameTime);
+            }
 
             base.Update(gameTime);
+        }
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
         }
 
         //draw
@@ -62,7 +85,7 @@ namespace NOBOIShooter
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
