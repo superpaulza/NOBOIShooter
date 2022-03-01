@@ -15,9 +15,15 @@ namespace NOBOIShooter
         int _numObject;
 
         private State _currentState;
+
         private State _nextState;
 
         SpriteFont _font;
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
+        }
 
         //Constructor
         public Main()
@@ -71,10 +77,6 @@ namespace NOBOIShooter
             base.Update(gameTime);
         }
 
-        public void ChangeState(State state)
-        {
-            _nextState = state;
-        }
 
         //draw
         protected override void Draw(GameTime gameTime)
