@@ -13,30 +13,27 @@ namespace NOBOIShooter.States
         #region Fields
 
         protected ContentManager _content;
-
         protected GraphicsDevice _graphicsDevice;
-
         protected Main _game;
 
         #endregion
 
         #region Methods
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
-
-        public abstract void PostUpdate(GameTime gameTime);
-
+        //constructor
         public State(Main game, GraphicsDevice graphicsDevice, ContentManager content)
         {
             _game = game;
-
             _graphicsDevice = graphicsDevice;
-
             _content = content;
         }
 
         public abstract void Update(GameTime gameTime);
 
+        public abstract void PostUpdate(GameTime gameTime);
+
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        
         #endregion
     }
 }

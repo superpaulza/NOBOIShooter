@@ -21,6 +21,10 @@ namespace NOBOIShooter.Controls
 
         private Texture2D _texture;
 
+        private Rectangle mouseRectangle;
+
+        private Color colour;
+
         #endregion
 
         #region Properties
@@ -58,7 +62,7 @@ namespace NOBOIShooter.Controls
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var colour = Color.White;
+            colour = Color.White;
 
             if (_isHovering)
                 colour = Color.Gray;
@@ -79,7 +83,7 @@ namespace NOBOIShooter.Controls
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
-            var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+            mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
             _isHovering = false;
 

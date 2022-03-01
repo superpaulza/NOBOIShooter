@@ -53,8 +53,7 @@ namespace NOBOIShooter
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
-            //load font
-            //_font = Content.Load<SpriteFont>("GameFont");
+
         }
 
         //update screen
@@ -81,7 +80,7 @@ namespace NOBOIShooter
         //draw
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _currentState.Draw(gameTime, _spriteBatch);
 

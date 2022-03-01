@@ -11,64 +11,88 @@ namespace NOBOIShooter.States
     //Menu screen
     public class MenuState : State
     {
+        //variables decoration
         private List<Component> _components;
+        private Texture2D buttonTexture, BG;
+        private SpriteFont buttonFont;
+        private Button playButton, leaderboardButton, quitGameButton;
 
+        //constructor inherit from base class
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
-            var buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            //load content aka. assets files (picture, BG)
+            buttonTexture = _content.Load<Texture2D>("Controls/Button");
+            buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            BG = _content.Load<Texture2D>("Backgrouds/wild-west");
 
-            var newGameButton = new Button(buttonTexture, buttonFont)
+            //buttons config
+            playButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 200),
-                Text = "New Game",
+                Position = new Vector2(800, 100),
+                Text = "Play",
             };
 
-            newGameButton.Click += NewGameButton_Click;
+            playButton.Click += playButton_onClick;
 
-            var loadGameButton = new Button(buttonTexture, buttonFont)
+            leaderboardButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 250),
-                Text = "Load Game",
+                Position = new Vector2(800, 200),
+                Text = "Leaderboard",
             };
 
-            loadGameButton.Click += LoadGameButton_Click;
+            leaderboardButton.Click += leaderboardButton_onClick;
 
-            var quitGameButton = new Button(buttonTexture, buttonFont)
+            quitGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 300),
+                PenColour = new Color(Color.Red, 1f),
+                Position = new Vector2(800, 300),
                 Text = "Quit Game",
             };
 
-            quitGameButton.Click += QuitGameButton_Click;
+            quitGameButton.Click += QuitGameButton_onClick;
 
+            //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
-                newGameButton,
-                loadGameButton,
+                playButton,
+                leaderboardButton,
                 quitGameButton,
             };
+        }
+
+        //Buttons behavior 
+        private void playButton_onClick(object sender, EventArgs e)
+        {
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+        }
+
+        private void leaderboardButton_onClick(object sender, EventArgs e)
+        {
+            Console.WriteLine("Leaderboard click");
+        }
+
+        private void QuitGameButton_onClick(object sender, EventArgs e)
+        {
+            _game.Exit();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
-            foreach (var component in _components)
+            spriteBatch.Draw(BG, new Vector2(0, 0), Color.White);
+
+            foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
         }
 
-        private void LoadGameButton_Click(object sender, EventArgs e)
+        public override void Update(GameTime gameTime)
         {
-            Console.WriteLine("Load Game");
-        }
-
-        private void NewGameButton_Click(object sender, EventArgs e)
-        {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            foreach (Component component in _components)
+                component.Update(gameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -76,15 +100,5 @@ namespace NOBOIShooter.States
             // remove sprites if they're not needed
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            foreach (var component in _components)
-                component.Update(gameTime);
-        }
-
-        private void QuitGameButton_Click(object sender, EventArgs e)
-        {
-            _game.Exit();
-        }
     }
 }
