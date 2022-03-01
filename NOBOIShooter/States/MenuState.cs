@@ -27,6 +27,49 @@ namespace NOBOIShooter.States
 
             newGameButton.Click += NewGameButton_Click;
 
+<<<<<<< HEAD
+            var saveGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 250),
+                Text = "Save Game",
+            };
+
+            saveGameButton.Click += SaveGameButton_Click;
+
+            var loadGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 300),
+                Text = "Load Game",
+            };
+
+            loadGameButton.Click += LoadGameButton_Click;
+
+            var quitGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 350),
+                Text = "Quit Game",
+            };
+
+            quitGameButton.Click += QuitGameButton_Click;
+
+            _components = new List<Component>()
+<<<<<<< HEAD
+      {
+        newGameButton,
+        saveGameButton,
+        loadGameButton,
+        quitGameButton,
+      };
+=======
+            {
+                newGameButton,
+                loadGameButton,
+                quitGameButton,
+            };
+>>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
+        }
+
+=======
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 250),
@@ -51,6 +94,7 @@ namespace NOBOIShooter.States
             };
         }
 
+>>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -61,11 +105,24 @@ namespace NOBOIShooter.States
             spriteBatch.End();
         }
 
+<<<<<<< HEAD
+        private void SaveGameButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Save Game");
+        }
+
+        private void LoadGameButton_Click(object sender, EventArgs e)
+        {
+            _game.ChangeState(new LoadStage(_game, _graphicsDevice, _content));
+        }
+
+=======
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Load Game");
         }
 
+>>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));

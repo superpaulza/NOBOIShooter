@@ -1,10 +1,5 @@
 ﻿using System;
 
-//EiEi is me!
-
-// hey deam
-//Hi All
-//YAYYYYYYYY
 namespace NOBOIShooter
 {
     //main method

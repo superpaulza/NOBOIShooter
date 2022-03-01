@@ -51,7 +51,10 @@ namespace NOBOIShooter
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+<<<<<<< HEAD
+=======
 
+>>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
             //load font
             //_font = Content.Load<SpriteFont>("GameFont");
@@ -66,9 +69,18 @@ namespace NOBOIShooter
             if (_nextState != null)
             {
                 _currentState = _nextState;
+<<<<<<< HEAD
+                _nextState = null;
+            }
+
+            _currentState.Update(gameTime);
+
+            _currentState.PostUpdate(gameTime);
+=======
 
                 _nextState = null;
             }
+>>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
 
             _currentState.Update(gameTime);
 
