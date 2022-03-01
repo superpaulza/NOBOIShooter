@@ -4,39 +4,86 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NOBOIShooter.Controls;
 
 namespace NOBOIShooter.States
 {
     public class MenuState : State
     {
+        private List<Component> _components;
 
-        private Texture2D menuBackGroundTexture;
-
-        public MenuState(Main game, ContentManager content) : base(game, content)
+        public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+          : base(game, graphicsDevice, content)
         {
+            var buttonTexture = _content.Load<Texture2D>("Controls/Button");
+            var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
 
+            var newGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 200),
+                Text = "New Game",
+            };
+
+            newGameButton.Click += NewGameButton_Click;
+
+            var loadGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 250),
+                Text = "Load Game",
+            };
+
+            loadGameButton.Click += LoadGameButton_Click;
+
+            var quitGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 300),
+                Text = "Quit Game",
+            };
+
+            quitGameButton.Click += QuitGameButton_Click;
+
+            _components = new List<Component>()
+      {
+        newGameButton,
+        loadGameButton,
+        quitGameButton,
+      };
         }
 
-        public override void LoadContent()
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var buttonTexture = _content.Load<Texture2D>("");
-            var buttonFont = _content.Load<Texture2D>("");
-            menuBackGroundTexture = _content.Load<Texture2D>("");
+            spriteBatch.Begin();
+
+            foreach (var component in _components)
+                component.Draw(gameTime, spriteBatch);
+
+            spriteBatch.End();
         }
 
-        public override void Update(GameTime gameTime)
+        private void LoadGameButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Load Game");
+        }
+
+        private void NewGameButton_Click(object sender, EventArgs e)
+        {
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
         }
 
         public override void PostUpdate(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            // remove sprites if they're not needed
         }
 
-        public override void Draw(GameTime game, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            foreach (var component in _components)
+                component.Update(gameTime);
+        }
+
+        private void QuitGameButton_Click(object sender, EventArgs e)
+        {
+            _game.Exit();
         }
     }
 }
