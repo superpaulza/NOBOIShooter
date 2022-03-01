@@ -7,7 +7,6 @@ using System.Text;
 
 namespace NOBOIShooter.States
 {
-    //every screen must inheritance from this class 
     public abstract class State
     {
         #region Fields

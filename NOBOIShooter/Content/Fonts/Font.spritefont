@@ -11,29 +11,13 @@ with.
     <!--
     Modify this string to change the font that will be imported.
     -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <FontName>Arial</FontName>
-=======
     <FontName>Beardbone.ttf</FontName>
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-=======
-    <FontName>Beardbone.ttf</FontName>
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
 
     <!--
     Size is a float value, measured in points. Modify this value to change
     the size of the font.
     -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <Size>12</Size>
-=======
     <Size>30</Size>
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-=======
-    <Size>30</Size>
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
 
     <!--
     Spacing is a float value, measured in pixels. Modify this value to change

@@ -7,14 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     //Game screen
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-=======
-    //Game screen
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
     public class GameState : State
     {
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
