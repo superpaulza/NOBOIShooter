@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NOBOIShooter.States
 {
-    class GameState
+    class HighscoreState
     {
     }
 }
