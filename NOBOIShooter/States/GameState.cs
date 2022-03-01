@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
@@ -12,10 +9,6 @@ namespace NOBOIShooter.States
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

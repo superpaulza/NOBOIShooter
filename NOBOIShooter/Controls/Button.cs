@@ -25,9 +25,19 @@ namespace NOBOIShooter.Controls
 
         #region Properties
 
-        public event EventHandler Click;
+        public EventHandler Click;
 
         public bool Clicked { get; private set; }
+
+        public float Layer { get; set; }
+
+        public Vector2 Origin
+        {
+            get
+            {
+                return new Vector2(_texture.Width / 2, _texture.Height / 2);
+            }
+        }
 
         public Color PenColour { get; set; }
 
@@ -37,11 +47,11 @@ namespace NOBOIShooter.Controls
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X - ((int)Origin.X), (int)Position.Y - (int)Origin.Y, _texture.Width, _texture.Height);
             }
         }
 
-        public string Text { get; set; }
+        public string Text;
 
         #endregion
 
@@ -52,29 +62,27 @@ namespace NOBOIShooter.Controls
             _texture = texture;
 
             _font = font;
-
-            PenColour = Color.Black;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var colour = Color.White;
 
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
+            spriteBatch.Draw(_texture, Position, null, colour, 0f, Origin, 1f, SpriteEffects.None, Layer);
 
             if (!string.IsNullOrEmpty(Text))
             {
                 var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
                 var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
 
-                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
@@ -93,7 +101,6 @@ namespace NOBOIShooter.Controls
                 }
             }
         }
-
         #endregion
     }
 }
