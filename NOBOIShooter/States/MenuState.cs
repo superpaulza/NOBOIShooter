@@ -4,10 +4,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NOBOIShooter.Controls;
 
 namespace NOBOIShooter.States
 {
-    //Menu screen
     public class MenuState : State
     {
 
@@ -16,6 +16,28 @@ namespace NOBOIShooter.States
         public MenuState(Main game, ContentManager content) : base(game, content)
         {
 
+            var loadGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 250),
+                Text = "Load Game",
+            };
+
+            loadGameButton.Click += LoadGameButton_Click;
+
+            var quitGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 300),
+                Text = "Quit Game",
+            };
+
+            quitGameButton.Click += QuitGameButton_Click;
+
+            _components = new List<Component>()
+      {
+        newGameButton,
+        loadGameButton,
+        quitGameButton,
+      };
         }
 
         public override void LoadContent()
