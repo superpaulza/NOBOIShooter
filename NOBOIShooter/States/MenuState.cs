@@ -11,13 +11,8 @@ namespace NOBOIShooter.States
     //Menu screen
     public class MenuState : State
     {
-        private List<Component> _components;
 
-        public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
-          : base(game, graphicsDevice, content)
-        {
-            var buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+        private Texture2D menuBackGroundTexture;
 
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
@@ -53,12 +48,9 @@ namespace NOBOIShooter.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-
-            foreach (var component in _components)
-                component.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
+            var buttonTexture = _content.Load<Texture2D>("");
+            var buttonFont = _content.Load<Texture2D>("");
+            menuBackGroundTexture = _content.Load<Texture2D>("");
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e)
@@ -73,18 +65,12 @@ namespace NOBOIShooter.States
 
         public override void PostUpdate(GameTime gameTime)
         {
-            // remove sprites if they're not needed
+            throw new NotImplementedException();
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Draw(GameTime game, SpriteBatch spriteBatch)
         {
-            foreach (var component in _components)
-                component.Update(gameTime);
-        }
-
-        private void QuitGameButton_Click(object sender, EventArgs e)
-        {
-            _game.Exit();
+            throw new NotImplementedException();
         }
     }
 }

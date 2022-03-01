@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
-    //Game screen
     public class GameState : State
     {
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)

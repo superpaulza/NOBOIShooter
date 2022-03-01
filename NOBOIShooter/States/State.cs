@@ -1,42 +1,32 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
     //every screen must inheritance from this class 
     public abstract class State
     {
-        #region Fields
+        protected Main _game;
 
         protected ContentManager _content;
 
-        protected GraphicsDevice _graphicsDevice;
-
-        protected Main _game;
-
-        #endregion
-
-        #region Methods
-
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
-
-        public abstract void PostUpdate(GameTime gameTime);
-
-        public State(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        public State(Main game, ContentManager content)
         {
             _game = game;
-
-            _graphicsDevice = graphicsDevice;
-
             _content = content;
         }
 
+        public abstract void LoadContent();
+
         public abstract void Update(GameTime gameTime);
 
-        #endregion
+        public abstract void PostUpdate(GameTime gameTime);
+
+        public abstract void Draw(GameTime game, SpriteBatch spriteBatch);
+
     }
 }
