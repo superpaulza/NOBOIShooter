@@ -8,6 +8,7 @@ using NOBOIShooter.Controls;
 
 namespace NOBOIShooter.States
 {
+    //Menu screen
     public class MenuState : State
     {
         private List<Component> _components;
@@ -43,11 +44,11 @@ namespace NOBOIShooter.States
             quitGameButton.Click += QuitGameButton_Click;
 
             _components = new List<Component>()
-      {
-        newGameButton,
-        loadGameButton,
-        quitGameButton,
-      };
+            {
+                newGameButton,
+                loadGameButton,
+                quitGameButton,
+            };
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

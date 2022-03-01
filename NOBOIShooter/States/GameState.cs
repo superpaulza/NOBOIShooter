@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
+    //Game screen
     public class GameState : State
     {
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
