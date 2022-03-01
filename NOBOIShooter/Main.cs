@@ -15,15 +15,9 @@ namespace NOBOIShooter
         int _numObject;
 
         private State _currentState;
-
         private State _nextState;
 
         SpriteFont _font;
-
-        public void ChangeState(State state)
-        {
-            _nextState = state;
-        }
 
         //Constructor
         public Main()
@@ -51,11 +45,10 @@ namespace NOBOIShooter
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-<<<<<<< HEAD
-=======
-
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-            _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
+            
+            _currentState = new SpriteBatch(GraphicsDevice);
+            _currentState.LoadContent();
+            _nextState = null;
             //load font
             //_font = Content.Load<SpriteFont>("GameFont");
         }
@@ -66,29 +59,26 @@ namespace NOBOIShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (_nextState != null)
             {
-                _currentState = _nextState;
-<<<<<<< HEAD
-                _nextState = null;
+                if (_nextState != null)
+                {
+                    _currentState = _nextState;
+                    _currentState.LoadContent();
+
+                    _nextState = null;
+                }
+
+                _currentState.Update(gameTime);
+                _currentState.PostUpdate(gameTime);
             }
-
-            _currentState.Update(gameTime);
-
-            _currentState.PostUpdate(gameTime);
-=======
-
-                _nextState = null;
-            }
->>>>>>> fb840adbd0b2cb0492ef204f216221a74ee5ca6c
-
-            _currentState.Update(gameTime);
-
-            _currentState.PostUpdate(gameTime);
 
             base.Update(gameTime);
         }
 
+        public void ChangeState(State state)
+        {
+            _nextState = state;
+        }
 
         //draw
         protected override void Draw(GameTime gameTime)
