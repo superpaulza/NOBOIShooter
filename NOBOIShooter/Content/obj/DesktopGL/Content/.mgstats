@@ -1,2 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/BGM.wav","C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BGM.xnb","SoundEffectProcessor","SoundEffectContent",29122854,29122853,1.7138634
+"D:/Users/Star/Desktop/Git/NOBOIShooter/Content/Backgrouds/wild-west.jpg","D:/Users/Star/Desktop/Git/NOBOIShooter/Content/bin/DesktopGL/Content/Backgrouds/wild-west.xnb","TextureProcessor","Texture2DContent",38251,3686485,0.3421764
+"D:/Users/Star/Desktop/Git/NOBOIShooter/Content/BGM/BGM.wav","D:/Users/Star/Desktop/Git/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BGM.xnb","SoundEffectProcessor","SoundEffectContent",29122854,29122853,1.4314474
+"D:/Users/Star/Desktop/Git/NOBOIShooter/Content/Controls/Button.png","D:/Users/Star/Desktop/Git/NOBOIShooter/Content/bin/DesktopGL/Content/Controls/Button.xnb","TextureProcessor","Texture2DContent",689,128245,0.0371442
+"D:/Users/Star/Desktop/Git/NOBOIShooter/Content/Fonts/Font.spritefont","D:/Users/Star/Desktop/Git/NOBOIShooter/Content/bin/DesktopGL/Content/Fonts/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2076,70690,0.1892245
