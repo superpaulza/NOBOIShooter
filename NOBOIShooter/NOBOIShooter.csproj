@@ -12,6 +12,8 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+    <None Remove="Content\Assets\" />
+    <None Remove="Content\Assets\Sprite\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -30,5 +32,7 @@
   <ItemGroup>
     <Folder Include="Content\BGM\" />
     <Folder Include="Content\SFX\" />
+    <Folder Include="Content\Assets\" />
+    <Folder Include="Content\Assets\Sprite\" />
   </ItemGroup>
 </Project>
