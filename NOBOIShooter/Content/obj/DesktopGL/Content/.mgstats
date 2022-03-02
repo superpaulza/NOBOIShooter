@@ -1,2 +1,8 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+<<<<<<< HEAD
+"/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Backgrouds/wild-west.jpg","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Backgrouds/wild-west.xnb","TextureProcessor","Texture2DContent",38251,3686485,0.876055
+"/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Controls/Button.png","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Controls/Button.xnb","TextureProcessor","Texture2DContent",689,128245,0.01123
+"/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Fonts/Font.spritefont","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Fonts/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2016,70690,0.559152
+=======
 "C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/BGM.wav","C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BGM.xnb","SoundEffectProcessor","SoundEffectContent",29122854,29122853,1.7138634
+>>>>>>> de3c5d417a9e06bb6bf5df5429bcb0eecd0d6ddb
