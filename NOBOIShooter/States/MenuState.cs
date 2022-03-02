@@ -18,6 +18,7 @@ namespace NOBOIShooter.States
         private Button playButton, leaderboardButton, quitGameButton;
 
         private SoundEffect soundEffect;
+        private SoundEffectInstance Instance;
 
         //constructor inherit from base class
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
@@ -70,6 +71,7 @@ namespace NOBOIShooter.States
         private void playButton_onClick(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            Instance.Stop();
         }
 
         private void leaderboardButton_onClick(object sender, EventArgs e)
@@ -82,12 +84,12 @@ namespace NOBOIShooter.States
             _game.Exit();
         }
 
-        //BGM behavior
+        //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
             soundEffect = content.Load<SoundEffect>("BGM/BGM");
 
-            var Instance = soundEffect.CreateInstance();
+            Instance = soundEffect.CreateInstance();
             Instance.IsLooped = true;
 
             Instance.Play();
