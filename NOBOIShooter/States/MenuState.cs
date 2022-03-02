@@ -71,7 +71,7 @@ namespace NOBOIShooter.States
         private void playButton_onClick(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
-            Instance.Stop();
+            Instance.Dispose();
         }
 
         private void leaderboardButton_onClick(object sender, EventArgs e)
@@ -111,6 +111,7 @@ namespace NOBOIShooter.States
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
+
         }
 
         public override void PostUpdate(GameTime gameTime)
