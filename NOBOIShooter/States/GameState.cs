@@ -43,7 +43,7 @@ namespace NOBOIShooter.States
             spriteBatch.Begin();
             BackButton.Draw(gameTime, spriteBatch);
             gameArea.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(whiteRectangle, new Rectangle(40, 40, 40, 40), Color.Pink);
+            
             spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(900, 100), Color.Black);
             spriteBatch.End();
         }
