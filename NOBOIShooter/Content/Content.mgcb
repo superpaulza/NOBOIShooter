@@ -25,6 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
 
+#begin BGM/BGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/BGM.wav
+
 #begin Controls/Button.png
 /importer:TextureImporter
 /processor:TextureProcessor
