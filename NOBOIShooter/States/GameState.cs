@@ -57,7 +57,5 @@ namespace NOBOIShooter.States
         {
             BackButton.Update(gameTime);
         }
-
-
     }
 }
