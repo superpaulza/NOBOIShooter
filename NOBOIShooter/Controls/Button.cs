@@ -60,6 +60,11 @@ namespace NOBOIShooter.Controls
             PenColour = Color.Black;
         }
 
+        public Button(Texture2D texture)
+        {
+            _texture = texture;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             colour = Color.White;

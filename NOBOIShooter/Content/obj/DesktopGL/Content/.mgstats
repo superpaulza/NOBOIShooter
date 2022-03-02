@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/BGM.wav","C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BGM.xnb","SoundEffectProcessor","SoundEffectContent",29122854,29122853,1.7138634
+"C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/Controls/BackButton.png","C:/Users/Nzeed/Desktop/Game Project/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Controls/BackButton.xnb","TextureProcessor","Texture2DContent",1391,12853,0.1207979

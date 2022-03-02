@@ -82,7 +82,7 @@ namespace NOBOIShooter.States
             _game.Exit();
         }
 
-        //BGM behavior
+        //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
             soundEffect = content.Load<SoundEffect>("BGM/BGM");
