@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
+using System;
+using System.Collections.Generic;
 
 namespace NOBOIShooter.States
 {
@@ -16,6 +16,8 @@ namespace NOBOIShooter.States
         private Texture2D buttonTexture, BG;
         private SpriteFont buttonFont;
         private Button playButton, leaderboardButton, quitGameButton;
+
+        private SoundEffect soundEffect;
 
         //constructor inherit from base class
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
@@ -59,6 +61,9 @@ namespace NOBOIShooter.States
                 leaderboardButton,
                 quitGameButton,
             };
+
+            //Load BGM
+            ControllerBGM(content);
         }
 
         //Buttons behavior 
@@ -75,6 +80,17 @@ namespace NOBOIShooter.States
         private void QuitGameButton_onClick(object sender, EventArgs e)
         {
             _game.Exit();
+        }
+
+        //BGM behavior
+        private void ControllerBGM(ContentManager content) 
+        {
+            soundEffect = content.Load<SoundEffect>("BGM/BGM");
+
+            var Instance = soundEffect.CreateInstance();
+            Instance.IsLooped = true;
+
+            Instance.Play();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using NOBOIShooter.States;
 
 namespace NOBOIShooter
@@ -53,7 +54,6 @@ namespace NOBOIShooter
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
-
         }
 
         //update screen
@@ -72,6 +72,8 @@ namespace NOBOIShooter
             _currentState.Update(gameTime);
 
             _currentState.PostUpdate(gameTime);
+
+
 
             base.Update(gameTime);
         }
