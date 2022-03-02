@@ -26,7 +26,7 @@ namespace NOBOIShooter.States
 
             BackButton = new Button(BackImage)
             {
-                Position = new Vector2(100, 100),
+                Position = new Vector2(1200, 20),
             };
 
             BackButton.Click += BackButton_Click;
@@ -37,16 +37,11 @@ namespace NOBOIShooter.States
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
         }
 
-        private void BackButton_Onclick(object sender, EventArgs e)
-        {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
-        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            //BackButton.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(300,300), Color.Black);
+            BackButton.Draw(gameTime, spriteBatch);
             gameArea.Draw(gameTime, spriteBatch);
             spriteBatch.Draw(whiteRectangle, new Rectangle(40, 40, 40, 40), Color.Pink);
             spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(900, 100), Color.Black);
@@ -60,7 +55,7 @@ namespace NOBOIShooter.States
 
         public override void Update(GameTime gameTime)
         {
-
+            BackButton.Update(gameTime);
         }
 
 
