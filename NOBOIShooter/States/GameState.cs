@@ -39,7 +39,8 @@ namespace NOBOIShooter.States
             whiteRectangle.SetData(new[] { Color.White });
             BackImage = _content.Load<Texture2D>("Controls/BackButton");
             ballBubble = _content.Load<Texture2D>("Item/bubble");
-            gun = _content.Load<Texture2D>("Item/Gun");
+            //gun = _content.Load<Texture2D>("Item/Gun");
+            gun = _content.Load<Texture2D>("Item/bubble-shoot");
             BackButton = new Button(BackImage)
             {
                 Position = new Vector2(1200, 20),
@@ -61,7 +62,7 @@ namespace NOBOIShooter.States
             Gun = new Gun(gun, ballBubble)
             {
                 Name = "Gun",
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - gun.Width / 2, 700 - gun.Height),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 50, Singleton.Instance.ScreenHeight - 120),
                 color = Color.White,
                 IsActive = true,
             };
