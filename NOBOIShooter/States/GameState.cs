@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
@@ -30,6 +31,9 @@ namespace NOBOIShooter.States
         private int alpha = 255;
         private float timerPerUpdate = 0.05f;
         private float tickPerUpdate = 5f; // 30f
+        private SoundEffect Effect1, Effect2;
+        private SoundEffectInstance Instance1, Instance2; 
+        private int count = 0;
 
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
@@ -83,6 +87,9 @@ namespace NOBOIShooter.States
 
 
             BackButton.Click += BackButton_Click;
+
+            // BG
+            ControllerBGM(content);
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -92,7 +99,17 @@ namespace NOBOIShooter.States
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
         }
 
+        private void ControllerBGM(ContentManager content)
+        {
+            Effect1 = content.Load<SoundEffect>("BGM/BACK");
+            Effect2 = content.Load<SoundEffect>("BGM/GameOverBGM");
 
+            Instance1 = Effect1.CreateInstance();
+            Instance2 = Effect2.CreateInstance();
+            Instance1.IsLooped = true;
+
+            Instance1.Play();
+        }
 
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -280,6 +297,26 @@ namespace NOBOIShooter.States
                     Singleton.Instance.Score = 0;
                     //ScreenManager.Instance.LoadScreen(ScreenManager.GameScreenName.MenuScreen);
                 }
+
+                if (gameWin)
+                {
+                    if (count == 0)
+                    {
+                        count++;
+                        Instance1.Dispose();
+                        Instance2.Play();
+                    }
+                }
+                else if (gameOver)
+                {
+                    if (count == 0)
+                    {
+                        count++;
+                        Instance1.Dispose();
+                        Instance2.Play();
+                    }
+                }
+
             }
             // fade out
             if (!fadeFinish)
