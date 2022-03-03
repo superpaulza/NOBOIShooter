@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NOBOIShooter.GameObjects;
 
 namespace NOBOIShooter
 {
@@ -16,6 +17,7 @@ namespace NOBOIShooter
         public Vector2 Scale;
 
         public Vector2 Velocity;
+        public bool IsActive;
 
         public string Name;
 
@@ -37,7 +39,7 @@ namespace NOBOIShooter
         }
 
         //Virtual method (parent class) is only accept "override" from child class 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, Bubble[,] gameObjects)
         {
 
         }
