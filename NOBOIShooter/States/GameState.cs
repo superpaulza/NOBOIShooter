@@ -18,7 +18,7 @@ namespace NOBOIShooter.States
         private int posX, posY;
         private Vector2 Position, gunPoint;
         private int width, height;
-        Texture2D ballBubble , gun;
+        Texture2D ballBubble, gun, line;
         private Bubble[,] bubble = new Bubble[9, 8];
         private Color _Color;
         private Random random = new Random();
@@ -41,6 +41,9 @@ namespace NOBOIShooter.States
             ballBubble = _content.Load<Texture2D>("Item/bubble");
             //gun = _content.Load<Texture2D>("Item/Gun");
             gun = _content.Load<Texture2D>("Item/bubble-shoot");
+            line = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            line.SetData(new[] {Color.White});
+
             BackButton = new Button(BackImage)
             {
                 Position = new Vector2(1200, 20),
@@ -59,7 +62,7 @@ namespace NOBOIShooter.States
                     };
                 }
             }
-            Gun = new Gun(gun, ballBubble)
+            Gun = new Gun(gun, ballBubble, line)
             {
                 Name = "Gun",
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 50, Singleton.Instance.ScreenHeight - 120),
