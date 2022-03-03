@@ -7,17 +7,21 @@ using System;
 namespace NOBOIShooter.GameObjects {
 	class Gun : GameObject {
 		private Random random = new Random();
-		private Texture2D bubbleTexture;
+		private Texture2D bubbleTexture, _line;
 		private Bubble BubbleOnGun;
 		private Color _color;
 		private float angle;
+		private float gunScale;
 
-		public SoundEffectInstance _deadSFX, _stickSFX;
+        public SoundEffectInstance _deadSFX, _stickSFX;
         internal Color color;
 
-        public Gun(Texture2D texture, Texture2D bubble) : base(texture) {
+        public Gun(Texture2D texture, Texture2D bubble, Texture2D line) : base(texture)
+        {
+            _line = line;
 			bubbleTexture = bubble;
 			_color = GetRandomColor();
+			gunScale = 100f / texture.Width;
 		}
 
 		public override void Update(GameTime gameTime, Bubble[,] gameObjects) {
@@ -25,11 +29,11 @@ namespace NOBOIShooter.GameObjects {
 			Singleton.Instance.MousePrevious = Singleton.Instance.MouseCurrent;
 			Singleton.Instance.MouseCurrent = Mouse.GetState();
 			if (Singleton.Instance.MouseCurrent.Y < 625) {
-				angle = (float) Math.Atan2((Position.Y + _texture.Height / 2) - Singleton.Instance.MouseCurrent.Y, (Position.X + _texture.Width / 2) - Singleton.Instance.MouseCurrent.X);
+				angle = (float) Math.Atan2((Position.Y + 50) - Singleton.Instance.MouseCurrent.Y, (Position.X + 50) - Singleton.Instance.MouseCurrent.X);
 				if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.LeftButton == ButtonState.Pressed && Singleton.Instance.MousePrevious.LeftButton == ButtonState.Released) {
 					BubbleOnGun = new Bubble(bubbleTexture) {
 						Name = "Bubble",
-						Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 35, Singleton.Instance.ScreenHeight - 100),
+						Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 35, Singleton.Instance.ScreenHeight - 120),
 						deadSFX = _deadSFX,
 						stickSFX = _stickSFX,
 						color = _color,
@@ -46,13 +50,16 @@ namespace NOBOIShooter.GameObjects {
 				BubbleOnGun.Update(gameTime, gameObjects);
 			
 		}
-		public override void Draw(SpriteBatch spriteBatch) {
-			spriteBatch.Draw(_texture, Position + new Vector2(50, 50), null, Color.White, angle + MathHelper.ToRadians(-90f), new Vector2(50, 50), 1.5f, SpriteEffects.None, 0f);
-			
-			if (!Singleton.Instance.Shooting)
-				spriteBatch.Draw(bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - 35, Singleton.Instance.ScreenHeight - 100, 70,70),_color);
-			else
-				BubbleOnGun.Draw(spriteBatch);
+
+        public override void Draw(SpriteBatch spriteBatch) {
+			spriteBatch.Draw(_texture, Position + new Vector2(50, 50), null, Color.White, angle + MathHelper.ToRadians(-90f), new Vector2(_texture.Width/2, _texture.Height / 2), gunScale, SpriteEffects.None, 0f);
+            if (!Singleton.Instance.Shooting)
+            {
+                spriteBatch.Draw(_line, new Rectangle(Singleton.Instance.ScreenWidth / 2, Singleton.Instance.ScreenHeight - 100, 200, 1), null, Color.AliceBlue, angle + MathHelper.ToRadians(-180f), new Vector2(0,0), SpriteEffects.None, 0);
+                spriteBatch.Draw(bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - 35, Singleton.Instance.ScreenHeight - 100, 70, 70), _color);
+			}
+            else
+                BubbleOnGun.Draw(spriteBatch);
 			
 		}
 		public Color GetRandomColor() {
@@ -79,5 +86,5 @@ namespace NOBOIShooter.GameObjects {
 			}
 			return _color;
 		}
-	}
+    }
 }
