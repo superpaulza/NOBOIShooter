@@ -97,6 +97,8 @@ namespace NOBOIShooter.States
             Singleton.Instance.removeBubble.Clear();
             Singleton.Instance.Shooting = false;
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            Instance1.Dispose();
+            Instance2.Dispose();
         }
 
         private void ControllerBGM(ContentManager content)
