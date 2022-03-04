@@ -20,17 +20,17 @@ namespace NOBOIShooter.States
         private Vector2 Position, gunPoint;
         private int width, height;
         Texture2D ballBubble, gun, line;
-        private Bubble[,] bubble = new Bubble[9, 8];
+        private Bubble[,] bubbleArea = new Bubble[9, 8];
         private Color _Color;
         private Random random = new Random();
         private Shooter Gun;
         private bool gameOver = false, gameWin = false, fadeFinish = false;
         private float _timer = 0f;
         private float __timer = 0f;
-        private float Timer = 0f;
+        private float PlayTime = 0f;
         private int alpha = 255;
         private float timerPerUpdate = 0.05f;
-        private float tickPerUpdate = 5f; // 30f
+        private float tickPerUpdate = 30f; // 30f
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
@@ -53,24 +53,22 @@ namespace NOBOIShooter.States
                 Position = new Vector2(1200, 20),
             };
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
                 for (int j = 0; j < 8 - (i % 2); j++)
                 {
-                    bubble[i, j] = new Bubble(ballBubble)
+                    bubbleArea[i, j] = new Bubble(ballBubble, (i % 2) == 0)
                     {
                         Name = "Bubble",
                         Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40),
                         color = GetRandomColor(),
-                        IsActive = false,
+                        isMove = false,
                     };
                 }
             }
             Gun = new Shooter(gun, ballBubble, line)
             {
                 Name = "Shooter",
-                
-                IsActive = true,
             };
 
             //
@@ -118,7 +116,7 @@ namespace NOBOIShooter.States
             spriteBatch.Begin();
             BackButton.Draw(gameTime, spriteBatch);
             
-            spriteBatch.Draw(whiteRectangle, new Rectangle(320, 0, 630, Singleton.Instance.ScreenHeight), Color.Chocolate);
+            spriteBatch.Draw(whiteRectangle, new Rectangle(320, 40, 640, 560), Color.Chocolate);
             
 /*
             //spriteBatch.Draw(gun, new Rectangle((int)gunPoint.X, (int)gunPoint.Y, size - 2, size - 2), Color.Red);
@@ -134,8 +132,8 @@ namespace NOBOIShooter.States
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (bubble[i, j] != null)
-                        bubble[i, j].Draw(spriteBatch);
+                    if (bubbleArea[i, j] != null)
+                        bubbleArea[i, j].Draw(spriteBatch);
                 }
             }
             Gun.Draw(spriteBatch);
@@ -176,25 +174,23 @@ namespace NOBOIShooter.States
             BackButton.Update(gameTime);
             if (!gameOver && !gameWin)
             {
-                for (int i = 0; i < 9; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if (bubble[i, j] != null)
-                            bubble[i, j].Update(gameTime, bubble);
-                    }
-                }
-                Gun.Update(gameTime, bubble);
-                Timer += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+                //ObjeCT UPDATE
+                foreach (Bubble bubble in bubbleArea) if (bubble != null) bubble.Update(gameTime, bubbleArea); 
+                Gun.Update(gameTime, bubbleArea);
+
+
+                PlayTime += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+
                 for (int i = 0; i < 8; i++)
                 {
-                    if (bubble[8, i] != null)
+                    if (bubbleArea[8, i] != null)
                     {
                         gameOver = true;
                         Singleton.Instance.BestScore = Singleton.Instance.Score.ToString();
-                        Singleton.Instance.BestTime = Timer.ToString("F");
+                        Singleton.Instance.BestTime = PlayTime.ToString("F");
                     }
                 }
+
                 //Check ball flying
                 for (int i = 1; i < 9; i++)
                 {
@@ -202,32 +198,32 @@ namespace NOBOIShooter.States
                     {
                         if (i % 2 != 0)
                         {
-                            if (bubble[i - 1, j] == null && bubble[i - 1, j + 1] == null)
+                            if (bubbleArea[i - 1, j] == null && bubbleArea[i - 1, j + 1] == null)
                             {
-                                bubble[i, j] = null;
+                                bubbleArea[i, j] = null;
                             }
-                            if (bubble[i, 1] == null && bubble[i - 1, 0] == null && bubble[i - 1, 1] == null)
+                            if (bubbleArea[i, 1] == null && bubbleArea[i - 1, 0] == null && bubbleArea[i - 1, 1] == null)
                             {
-                                bubble[i, 0] = null;
+                                bubbleArea[i, 0] = null;
                             }
-                            if (bubble[i, 5] == null && bubble[i - 1, 7] == null && bubble[i - 1, 6] == null)
+                            if (bubbleArea[i, 5] == null && bubbleArea[i - 1, 7] == null && bubbleArea[i - 1, 6] == null)
                             {
-                                bubble[i, 6] = null;
+                                bubbleArea[i, 6] = null;
                             }
                         }
                         else
                         {
-                            if (bubble[i - 1, j - 1] == null && bubble[i - 1, j] == null)
+                            if (bubbleArea[i - 1, j - 1] == null && bubbleArea[i - 1, j] == null)
                             {
-                                bubble[i, j] = null;
+                                bubbleArea[i, j] = null;
                             }
-                            if (bubble[i - 1, 0] == null && bubble[i, 1] == null)
+                            if (bubbleArea[i - 1, 0] == null && bubbleArea[i, 1] == null)
                             {
-                                bubble[i, 0] = null;
+                                bubbleArea[i, 0] = null;
                             }
-                            if (bubble[i - 1, 6] == null && bubble[i, 6] == null)
+                            if (bubbleArea[i - 1, 6] == null && bubbleArea[i, 6] == null)
                             {
-                                bubble[i, 7] = null;
+                                bubbleArea[i, 7] = null;
                             }
                         }
                     }
@@ -241,11 +237,11 @@ namespace NOBOIShooter.States
                     {
                         for (int j = 0; j < 8 - (i % 2); j++)
                         {
-                            if (bubble[i, j] != null)
+                            if (bubbleArea[i, j] != null)
                             {
                                 gameOver = true;
                                 Singleton.Instance.BestScore = Singleton.Instance.Score.ToString();
-                                Singleton.Instance.BestTime = Timer.ToString("F");
+                                Singleton.Instance.BestTime = PlayTime.ToString("F");
                             }
                         }
                     }
@@ -254,7 +250,7 @@ namespace NOBOIShooter.States
                     {
                         for (int j = 0; j < 8 - (i % 2); j++)
                         {
-                            bubble[i + 2, j] = bubble[i, j];
+                            bubbleArea[i + 2, j] = bubbleArea[i, j];
                         }
                     }
                     // Draw new scroll position
@@ -262,9 +258,9 @@ namespace NOBOIShooter.States
                     {
                         for (int j = 0; j < 8 - (i % 2); j++)
                         {
-                            if (bubble[i, j] != null)
+                            if (bubbleArea[i, j] != null)
                             {
-                                bubble[i, j].Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40);
+                                bubbleArea[i, j].Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40);
                             }
                         }
                     }
@@ -273,12 +269,12 @@ namespace NOBOIShooter.States
                     {
                         for (int j = 0; j < 8 - (i % 2); j++)
                         {
-                            bubble[i, j] = new Bubble(ballBubble)
+                            bubbleArea[i, j] = new Bubble(ballBubble, (i % 2) == 0)
                             {
                                 Name = "Bubble",
                                 Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40),
                                 color = GetRandomColor(),
-                                IsActive = false,
+                                isMove = false,
                             };
                         }
                     }
@@ -286,7 +282,7 @@ namespace NOBOIShooter.States
                     __timer -= tickPerUpdate;
                 }
 
-                gameWin = CheckWin(bubble);
+                gameWin = CheckWin(bubbleArea);
 
             }
             else

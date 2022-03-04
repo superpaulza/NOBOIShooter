@@ -10,10 +10,10 @@ namespace NOBOIShooter.GameObjects {
 		// Create Variable
 		private Random _random = new Random();
 
-		private static int SHOOTER_SIZE = 100;
-		private static int SHOOTER_RADIAN = SHOOTER_SIZE / 2;
-		private static int BUBBLE_WIDTH = 70;
-		private static int BUBBLE_RADIAN = BUBBLE_WIDTH / 2;
+		private readonly static int SHOOTER_SIZE = 100;
+		private readonly static int SHOOTER_RADIAN = SHOOTER_SIZE / 2;
+		private readonly static int BUBBLE_WIDTH = 70;
+		private readonly static int BUBBLE_RADIAN = BUBBLE_WIDTH / 2;
 		private int AIMER_LENGHT = 200;
 		private int AIMER_THICK = 1;
 
@@ -71,9 +71,9 @@ namespace NOBOIShooter.GameObjects {
 						deadSFX = _deadSFX,
 						stickSFX = _stickSFX,
 						color = shooterBubbleColor,
-						IsActive = true,
-						Angle = shooterAngle + MathHelper.Pi, 
-						Speed = 1000,
+						isMove = true,
+						angle = shooterAngle + MathHelper.Pi, 
+						speed = 1000,
 					};
 
 					//Creagte 
