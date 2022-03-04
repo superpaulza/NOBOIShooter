@@ -23,7 +23,7 @@ namespace NOBOIShooter.States
         private Bubble[,] bubble = new Bubble[9, 8];
         private Color _Color;
         private Random random = new Random();
-        private Gun Gun;
+        private Shooter Gun;
         private bool gameOver = false, gameWin = false, fadeFinish = false;
         private float _timer = 0f;
         private float __timer = 0f;
@@ -66,11 +66,10 @@ namespace NOBOIShooter.States
                     };
                 }
             }
-            Gun = new Gun(gun, ballBubble, line)
+            Gun = new Shooter(gun, ballBubble, line)
             {
-                Name = "Gun",
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 50, Singleton.Instance.ScreenHeight - 120),
-                color = Color.White,
+                Name = "Shooter",
+                
                 IsActive = true,
             };
 
