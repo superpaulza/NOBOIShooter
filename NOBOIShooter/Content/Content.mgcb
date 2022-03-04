@@ -25,17 +25,17 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
 
-#begin BGM/BGM.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:BGM/BGM.wav
-
 #begin BGM/BACK.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:BGM/BACK.wav
+
+#begin BGM/BGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/BGM.wav
 
 #begin BGM/GameOverBGM.wav
 /importer:WavImporter
@@ -109,6 +109,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Item/gun.png
+
+#begin Item/logo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/logo.png
+
+#begin Item/logo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/logo.png
 
 #begin Item/sheriff-cursor.png
 /importer:TextureImporter
