@@ -11,7 +11,7 @@ namespace NOBOIShooter
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        List<GameObject> _gameObjects;
+        List<GameObjectT> _gameObjects;
         int _numObject;
 
         private State _currentState;
@@ -42,7 +42,7 @@ namespace NOBOIShooter
             _graphics.ApplyChanges();
 
             //load game objects
-            _gameObjects = new List<GameObject>();
+            _gameObjects = new List<GameObjectT>();
 
             base.Initialize();
         }

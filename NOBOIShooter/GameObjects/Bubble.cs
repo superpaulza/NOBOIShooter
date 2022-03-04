@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.GameObjects {
-	public class Bubble : GameObject {
+	public class Bubble : GameObjectT {
 		public float Speed;
 		public float Angle;
 		
