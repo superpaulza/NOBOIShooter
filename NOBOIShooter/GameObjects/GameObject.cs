@@ -8,7 +8,7 @@ using NOBOIShooter.GameObjects;
 namespace NOBOIShooter
 {
     //Every game object must inherit from this class
-    public class GameObjectT
+    public class GameObject
     {
         protected Texture2D _texture;
 
@@ -30,7 +30,7 @@ namespace NOBOIShooter
         }
 
         //Constructor
-        public GameObjectT(Texture2D texture)
+        public GameObject(Texture2D texture)
         {
             _texture = texture;
             Position = Vector2.Zero;

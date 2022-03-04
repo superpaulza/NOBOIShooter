@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace NOBOIShooter.GameObjects {
-	class Shooter : GameObjectT {
+	class Shooter : GameObject {
 
 		// Create Variable
 		private Random _random = new Random();
