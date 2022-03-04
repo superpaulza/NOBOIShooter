@@ -16,7 +16,8 @@ namespace NOBOIShooter.States
         private Texture2D buttonTexture, BG;
         private SpriteFont buttonFont;
         private Button playButton, leaderboardButton, quitGameButton;
-
+        //private Texture2D cursorTexture;
+        
         private SoundEffect soundEffect;
         private SoundEffectInstance Instance;
 
@@ -28,6 +29,8 @@ namespace NOBOIShooter.States
             buttonTexture = _content.Load<Texture2D>("Controls/Button");
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             BG = _content.Load<Texture2D>("Backgrouds/wild-west");
+            //sheriff cursor added
+            //cursorTexture = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             //buttons config
             playButton = new Button(buttonTexture, buttonFont)
