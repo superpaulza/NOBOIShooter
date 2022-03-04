@@ -13,7 +13,7 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D buttonTexture, BG;
+        private Texture2D buttonTexture, BG, logo;
         private SpriteFont buttonFont;
         private Button playButton, leaderboardButton, quitGameButton;
         //private Texture2D cursorTexture;
@@ -29,6 +29,8 @@ namespace NOBOIShooter.States
             buttonTexture = _content.Load<Texture2D>("Controls/Button");
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             BG = _content.Load<Texture2D>("Backgrouds/wild-west");
+            logo = _content.Load<Texture2D>("Item/logo");
+            
             //sheriff cursor added
             //cursorTexture = _content.Load<Texture2D>("Item/sheriff-cursor");
 
@@ -103,6 +105,10 @@ namespace NOBOIShooter.States
             spriteBatch.Begin();
 
             spriteBatch.Draw(BG, new Vector2(0, 0), Color.White);
+
+            // resize logo
+            Rectangle rectangleFrame = new Rectangle(115, 100, 500, 200);
+            spriteBatch.Draw(logo, rectangleFrame, Color.White);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);

@@ -18,6 +18,7 @@ namespace NOBOIShooter
 
         private State _nextState;
 
+        //Vector2 position;
         SpriteFont _font;
 
         public void ChangeState(State state)
@@ -43,6 +44,8 @@ namespace NOBOIShooter
 
             //load game objects
             _gameObjects = new List<GameObject>();
+            
+            //position = new Vector2(graphics.GraphicsDevice.Viewport.Height, )
 
             base.Initialize();
         }
@@ -60,6 +63,18 @@ namespace NOBOIShooter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            MouseState state = Mouse.GetState();
+
+            if (state.LeftButton == ButtonState.Pressed)
+            {
+                int xPosition = state.X;
+                int yPosition = state.Y;
+
+                System.Diagnostics.Debug.WriteLine(xPosition.ToString() + " ," + yPosition.ToString());
+            }
+
+            
 
             if (_nextState != null)
             {

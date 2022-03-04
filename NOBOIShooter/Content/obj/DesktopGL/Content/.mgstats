@@ -1,3 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/BACK.wav","D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BACK.xnb","SoundEffectProcessor","SoundEffectContent",47714650,47714329,0.8747618
-"D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/GameOverBGM.wav","D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/GameOverBGM.xnb","SoundEffectProcessor","SoundEffectContent",315740,315753,0.4450792
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/BGM/BACK.wav","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BACK.xnb","SoundEffectProcessor","SoundEffectContent",47714650,47714329,1.1182101
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/BGM/GameOverBGM.wav","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/GameOverBGM.xnb","SoundEffectProcessor","SoundEffectContent",315740,315753,0.4857621
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/bubble.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/bubble.xnb","TextureProcessor","Texture2DContent",92541,1060985,0.044141
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/logo.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/logo.xnb","TextureProcessor","Texture2DContent",12007,118489,0.1066477
