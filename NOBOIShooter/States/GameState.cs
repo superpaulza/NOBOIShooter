@@ -12,46 +12,50 @@ namespace NOBOIShooter.States
     //Game screen
     public class GameState : State
     {
+        private int BUBBLE_WIDTH = Singleton.Instance.BALL_SHOW_WIDTH;
+        private int top = Singleton.Instance.GAME_DISPLAY_TOP;
+        private int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
+        private int left = Singleton.Instance.GAME_DISPLAY_LEFT;
+        private int bottom = Singleton.Instance.GAME_DISPLAY_BOTTOM;
+
+        private static int GAME_GRID_X = (Singleton.Instance.GAME_DISPLAY_RIGHT - Singleton.Instance.GAME_DISPLAY_LEFT) / Singleton.Instance.BALL_SHOW_WIDTH;
+        private static int GAME_GRID_Y = (Singleton.Instance.GAME_DISPLAY_BOTTOM - Singleton.Instance.GAME_DISPLAY_TOP) / Singleton.Instance.BALL_SHOW_WIDTH;
+
+        private int GAME_BUBBLE_START = 2;
+        private int GAME_BUBBLE_DEATH = GAME_GRID_Y - 1;
+
+        private Bubble[,] bubbleArea = new Bubble[GAME_GRID_Y + 2, GAME_GRID_X];
+        
         private SpriteFont myText;
-        Texture2D whiteRectangle;
         private Texture2D BackImage;
         private Button BackButton;
-        private int posX, posY;
-        private Vector2 Position, gunPoint;
-        private int width, height;
-        Texture2D ballBubble, gun, line;
-        private Bubble[,] bubbleArea = new Bubble[9, 8];
+        Texture2D _bubbleTexture, shooterTexture, line;
+        
         private Color _Color;
-        private Random random = new Random();
-        private Shooter Gun;
+        private Random _random = new Random();
+        private Shooter Player;
         private bool gameOver = false, gameWin = false, fadeFinish = false;
         private float _timer = 0f;
         private float __timer = 0f;
         private float PlayTime = 0f;
         private int alpha = 255;
         private float timerPerUpdate = 0.05f;
-        private float tickPerUpdate = 5f; // 30f
+        private float tickPerUpdate = 15f; // 30f
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
 
 
-        int ballDrawWidth = Singleton.Instance.BALL_SHOW_WIDTH;
-        int top = Singleton.Instance.GAME_DISPLAY_TOP;
-        int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
-        int left = Singleton.Instance.GAME_DISPLAY_LEFT;
-
-
+        
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
             myText = _content.Load<SpriteFont>("Fonts/Font");
-            whiteRectangle = new Texture2D(graphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
+     
             BackImage = _content.Load<Texture2D>("Controls/BackButton");
-            ballBubble = _content.Load<Texture2D>("Item/bubble");
-            //gun = _content.Load<Texture2D>("Item/Gun");
-            gun = _content.Load<Texture2D>("Item/bubble-shoot");
+            _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
+            shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
+
             line = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             line.SetData(new[] {Color.White});
 
@@ -60,34 +64,31 @@ namespace NOBOIShooter.States
                 Position = new Vector2(1200, 20),
             };
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < GAME_BUBBLE_START; i++)
             {
-                for (int j = 0; j < 8 - (i % 2); j++)
+                for (int j = 0; j < GAME_GRID_X; j++)
                 {
-                    bubbleArea[i, j] = new Bubble(ballBubble, (i % 2) == 0)
+                   
+                    int BallPositionX = (j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2);
+                    if (BallPositionX + BUBBLE_WIDTH  > right) break;
+                    int BallPositionY = top + (i * BUBBLE_WIDTH);
+                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) == 0)
                     {
                         Name = "Bubble",
-                        Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth / 2),top + (i * ballDrawWidth)),
+                        Position = new Vector2(BallPositionX, BallPositionY),
                         color = GetRandomColor(),
                         isMove = false,
                     };
                 }
             }
-            Gun = new Shooter(gun, ballBubble, line)
+            Player = new Shooter(shooterTexture, _bubbleTexture, line)
             {
                 Name = "Shooter",
             };
 
-            //
-            posX = 30;
-            posY = 30;
-            Position = new Vector2(posX, posY);
-            width = 800;
-            height = 650;
 
-            whiteRectangle = new Texture2D(graphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
-            gunPoint = new Vector2(posX + width / 2 - 20, posY + height - 20);
+            line = new Texture2D(graphicsDevice, 1, 1);
+            line.SetData(new[] { Color.White });
 
 
             BackButton.Click += BackButton_Click;
@@ -121,29 +122,25 @@ namespace NOBOIShooter.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            BackButton.Draw(gameTime, spriteBatch);
-            
-            spriteBatch.Draw(whiteRectangle, new Rectangle(320, 40, 640, 560), Color.Chocolate);
-            
-/*
-            //spriteBatch.Draw(gun, new Rectangle((int)gunPoint.X, (int)gunPoint.Y, size - 2, size - 2), Color.Red);
-            //spriteBatch.Draw(whiteRectangle, new Vector2(posX, posY), null, Color.Red, MathHelper.Pi / 2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(gun, gunPoint, null, Color.Red, getShooterAngle(), Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            /*
 
             spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(900, 100), Color.Black);
             //spriteBatch.DrawString(myText, "Post : " + Mouse.GetState().X + " , " + Mouse.GetState().Y, new Vector2(900, 400), Color.Black);
-
             */
 
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (bubbleArea[i, j] != null)
-                        bubbleArea[i, j].Draw(spriteBatch);
-                }
-            }
-            Gun.Draw(spriteBatch);
+            BackButton.Draw(gameTime, spriteBatch);
+            
+            spriteBatch.Draw(line, new Rectangle(left, top, right - left, bottom - top), Color.Chocolate);
+            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_GRID_Y)*BUBBLE_WIDTH), Color.Gray);
+            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH)*BUBBLE_WIDTH), Color.Brown);
+            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH - 2)*BUBBLE_WIDTH), Color.Orange);
+            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_START)*BUBBLE_WIDTH), Color.Green);
+            
+
+
+            foreach (Bubble _bubble in bubbleArea) if (_bubble != null) _bubble.Draw(spriteBatch);
+        
+            Player.Draw(spriteBatch);
             /*
             spriteBatch.DrawString(myText, "Score : " + Singleton.Instance.Score, new Vector2(1060, 260), _Color);
             spriteBatch.DrawString(myText, "Time : " + Timer.ToString("F"), new Vector2(20, 260), _Color);
@@ -153,20 +150,20 @@ namespace NOBOIShooter.States
             Rectangle FullDisplay = new Rectangle(100, 0, Singleton.Instance.ScreenWidth - 200, Singleton.Instance.ScreenHeight);
             if (gameOver)
             {
-                spriteBatch.Draw(whiteRectangle, FullDisplay, new Color(0, 0, 0, 210));
+                spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
                 spriteBatch.DrawString(myText, "Game Over", textDisply, Color.White);
             }
 
             if (gameWin)
             {
-                spriteBatch.Draw(whiteRectangle, FullDisplay, new Color(0, 0, 0, 210));
+                spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
                 spriteBatch.DrawString(myText, "You Won", textDisply, Color.White);
             }
 
             // Draw fade out
             if (!fadeFinish)
             {
-                spriteBatch.Draw(whiteRectangle, FullDisplay, _Color);
+                spriteBatch.Draw(line, FullDisplay, _Color);
             }
             spriteBatch.End();
         }
@@ -183,12 +180,12 @@ namespace NOBOIShooter.States
             {
                 //ObjeCT UPDATE
                 foreach (Bubble bubble in bubbleArea) if (bubble != null) bubble.Update(gameTime, bubbleArea); 
-                Gun.Update(gameTime, bubbleArea);
+                Player.Update(gameTime, bubbleArea);
 
 
                 PlayTime += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
 
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < GAME_GRID_X; i++)
                 {
                     if (bubbleArea[6, i] != null)
                     {
@@ -237,12 +234,12 @@ namespace NOBOIShooter.States
                 }
                 
                 __timer += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
-                if (__timer >= tickPerUpdate)
+                if (__timer >= tickPerUpdate && !Singleton.Instance.Shooting)
                 {
                     // Check game over before scroll
-                    for (int i = 6; i < 9; i++)
+                    for (int i = GAME_BUBBLE_DEATH; i < GAME_GRID_Y; i++)
                     {
-                        for (int j = 0; j < 8 - (i % 2); j++)
+                        for (int j = 0; j < GAME_GRID_Y; j++)
                         {
                             if (bubbleArea[i, j] != null)
                             {
@@ -253,33 +250,31 @@ namespace NOBOIShooter.States
                         }
                     }
                     // Scroll position 
-                    for (int i = 5; i >= 0; i--)
+                    
+                    for (int layer = GAME_GRID_Y - 2; layer >= 0; layer--)
                     {
-                        for (int j = 0; j < 8 - (i % 2); j++)
+                        for (int index = 0; index < GAME_GRID_X - (layer % 2); index++)
                         {
-                            bubbleArea[i + 2, j] = bubbleArea[i, j];
-                        }
-                    }
-                    // Draw new scroll position
-                    for (int i = 0; i < 9; i++)
-                    {
-                        for (int j = 0; j < 8 - (i % 2); j++)
-                        {
-                            if (bubbleArea[i, j] != null)
+                            if (bubbleArea[layer, index] != null)
                             {
-                                bubbleArea[i, j].Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth/2),top + (i * ballDrawWidth));
+                                // Draw new scroll position
+                                bubbleArea[layer, index].Position += new Vector2(0,2*BUBBLE_WIDTH);
+                                bubbleArea[layer + 2, index] = bubbleArea[layer, index];
+
                             }
                         }
                     }
+                    
+                  
                     //Random ball after scroll
                     for (int i = 0; i < 2; i++)
                     {
-                        for (int j = 0; j < 8 - (i % 2); j++)
+                        for (int j = 0; j < GAME_GRID_X - (i % 2); j++)
                         {
-                            bubbleArea[i, j] = new Bubble(ballBubble)
+                            bubbleArea[i, j] = new Bubble(_bubbleTexture)
                             {
                                 Name = "Bubble",
-                                Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth / 2),top + (i * ballDrawWidth)),
+                                Position = new Vector2((j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2),top + (i * BUBBLE_WIDTH)),
                                 color = GetRandomColor(),
                                 isMove = false,
                             };
@@ -344,7 +339,7 @@ namespace NOBOIShooter.States
         public Color GetRandomColor()
         {
             Color _color = Color.Black;
-            switch (random.Next(0, 6))
+            switch (_random.Next(0, 6))
             {
                 case 0:
                     _color = Color.White;
@@ -368,18 +363,11 @@ namespace NOBOIShooter.States
             return _color;
         }
         
-        public bool CheckWin(Bubble[,] bubble)
+        public bool CheckWin(Bubble[,] allBubble)
         {
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 8 - (i % 2); j++)
-                {
-                    if (bubble[i, j] != null)
-                    {
-                        return false;
-                    }
-                }
-            }
+            // Check all position in null
+            foreach(Bubble _bubble in allBubble) if (_bubble != null) return false;
+     
             return true;
         }
     }

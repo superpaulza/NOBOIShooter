@@ -12,16 +12,13 @@ namespace NOBOIShooter.GameObjects {
 
 		private readonly static int SHOOTER_SIZE = 100;
 		private readonly static int SHOOTER_RADIAN = SHOOTER_SIZE / 2;
-		private readonly static int BUBBLE_WIDTH = Singleton.Instance.BALL_SHOW_WIDTH;
+		private readonly static int BUBBLE_WIDTH = Singleton.Instance.BALL_ART_WIDTH;
 		private readonly static int BUBBLE_RADIAN = BUBBLE_WIDTH / 2;
 		private int AIMER_LENGHT = 200;
 		private int AIMER_THICK = 1;
 
 
-		//private static int BORDER_RIGHT = 100;
-		//private static int BORDER_LEFT = 100;
-		//private static int BORDER_TOP = 100;
-		private static int BORDER_UNDER = 600;
+		private static int BORDER_UNDER = Singleton.Instance.GAME_DISPLAY_BOTTOM;
 
 		private Bubble _shooterBubble;
 		private Texture2D _bubbleTexture, _lineTexture;
@@ -44,7 +41,7 @@ namespace NOBOIShooter.GameObjects {
 			shooterBubbleColor = GetRandomColor();
 			nextBubbleColor = GetRandomColor();
 			scaleShooter = (float)SHOOTER_SIZE / shooterTexture.Width;
-			Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - SHOOTER_RADIAN, Singleton.Instance.ScreenHeight - 120);
+			Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - SHOOTER_RADIAN , Singleton.Instance.ScreenHeight - SHOOTER_SIZE - 20);
 			
 		}
 
@@ -66,8 +63,8 @@ namespace NOBOIShooter.GameObjects {
 					// Create new bubble went mouse release
 					_shooterBubble = new Bubble(_bubbleTexture) {
 						Name = "Bubble",
-						Position = new Vector2((Singleton.Instance.ScreenWidth - BUBBLE_RADIAN) / 2, 
-							Singleton.Instance.ScreenHeight - SHOOTER_SIZE - 30),
+						Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN, 
+							Singleton.Instance.ScreenHeight - SHOOTER_SIZE + (SHOOTER_SIZE - BUBBLE_RADIAN)/2 - 20),
 						deadSFX = _deadSFX,
 						stickSFX = _stickSFX,
 						color = shooterBubbleColor,
@@ -95,24 +92,27 @@ namespace NOBOIShooter.GameObjects {
 				Color.White, shooterAngle + MathHelper.ToRadians(-90f), new Vector2(_texture.Width/2, _texture.Height / 2),
 				scaleShooter, SpriteEffects.None, 0f);
 
+			// Draw Aimer
+			spriteBatch.Draw(_lineTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2, Singleton.Instance.ScreenHeight - SHOOTER_RADIAN - 20, AIMER_LENGHT, AIMER_THICK), null,
+				Color.AliceBlue, shooterAngle + MathHelper.ToRadians(-180f), new Vector2(0, 0), SpriteEffects.None, 0);
+
 			if (!Singleton.Instance.Shooting)
 			{
-				// Draw Aimer
-				spriteBatch.Draw(_lineTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, AIMER_LENGHT, AIMER_THICK), null,
-					Color.AliceBlue, shooterAngle + MathHelper.ToRadians(-180f), new Vector2(0, 0), SpriteEffects.None, 0);
+				
 				// Draw Bubble on Gun
-				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, BUBBLE_WIDTH, BUBBLE_WIDTH),
+				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN,
+							Singleton.Instance.ScreenHeight - (SHOOTER_RADIAN + BUBBLE_RADIAN + 20), BUBBLE_WIDTH, BUBBLE_WIDTH),
 					shooterBubbleColor);
 				// Draw Bubble next
-				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN - 200, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, BUBBLE_WIDTH, BUBBLE_WIDTH),
+				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN - 150, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, BUBBLE_WIDTH, BUBBLE_WIDTH),
 					nextBubbleColor);
 			}
 			else {
-				// Draw Bubble on Gun
+				// Draw Bubble on Fly
 				_shooterBubble.Draw(spriteBatch);
 
 				// Draw Drawer Bubble next
-				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN - 200, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, BUBBLE_WIDTH, BUBBLE_WIDTH),
+				spriteBatch.Draw(_bubbleTexture, new Rectangle(Singleton.Instance.ScreenWidth / 2 - BUBBLE_RADIAN - 150, Singleton.Instance.ScreenHeight - SHOOTER_SIZE, BUBBLE_WIDTH, BUBBLE_WIDTH),
 					nextBubbleColor);
 			}
 			
