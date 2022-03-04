@@ -31,6 +31,18 @@
 /processorParam:Quality=Best
 /build:BGM/BGM.wav
 
+#begin BGM/BACK.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/BACK.wav
+
+#begin BGM/GameOverBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/GameOverBGM.wav
+
 #begin Controls/BackButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
