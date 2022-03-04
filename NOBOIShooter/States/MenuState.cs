@@ -81,7 +81,8 @@ namespace NOBOIShooter.States
 
         private void leaderboardButton_onClick(object sender, EventArgs e)
         {
-            Console.WriteLine("Leaderboard click");
+            _game.ChangeState(new LeaderboardState(_game, _graphicsDevice, _content));
+            //Console.WriteLine("Leaderboard click");
         }
 
         private void QuitGameButton_onClick(object sender, EventArgs e)
