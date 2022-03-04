@@ -7,6 +7,7 @@ namespace NOBOIShooter.Controls
 {
     public class Button : Component
     {
+        //Note: "#region" just break logic section or part for IDEs not effect any program logic
         #region Fields
 
         private MouseState _currentMouse;
