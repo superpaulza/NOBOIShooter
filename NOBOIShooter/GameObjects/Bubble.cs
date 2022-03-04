@@ -16,11 +16,11 @@ namespace NOBOIShooter.GameObjects {
 		private bool shiftFloor;
 		private Vector2 velocity;
 
-		readonly int ballDrawWidth = 80;
-		readonly int ballObjectWidth = 70;
-		readonly int top = 40;
-		readonly int right = 880;
-		readonly int left = 320;
+		readonly int ballDrawWidth = Singleton.Instance.BALL_SHOW_WIDTH;
+		readonly int ballObjectWidth = Singleton.Instance.BALL_ART_WIDTH;
+		readonly int top = Singleton.Instance.GAME_DISPLAY_TOP;
+		readonly int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
+		readonly int left = Singleton.Instance.GAME_DISPLAY_LEFT;
 
 
 
@@ -50,7 +50,7 @@ namespace NOBOIShooter.GameObjects {
 						if (Position.X > left + ballDrawWidth * (i) && Position.X < left + ballDrawWidth * (i+1))
 						{
 							gameObjects[0, i] = this;
-							Position = new Vector2((i * ballDrawWidth) + (!shiftFloor ? 320 : 360), top);
+							Position = new Vector2((i * ballDrawWidth) + (!shiftFloor ? left : left + (ballDrawWidth/2)), top);
 						}
                     }
 					Singleton.Instance.Shooting = false;
@@ -87,20 +87,20 @@ namespace NOBOIShooter.GameObjects {
 								{
 									if (indexBall == 7)
 									{
-										Position = new Vector2(((indexBall - 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? 320 : 360), ((iLayer + 1) * ballObjectWidth) + 40);
+										Position = new Vector2(((indexBall - 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + 40);
 										gameObjects[iLayer + 1, indexBall - 1] = this;
 										CheckRemoveBubble(gameObjects, color, new Vector2(indexBall - 1, iLayer + 1));
 									}
 									else
 									{
-										Position = new Vector2((indexBall * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? 320 : 360), ((iLayer + 1) * ballObjectWidth) + 40);
+										Position = new Vector2((indexBall * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + 40);
 										gameObjects[iLayer + 1, indexBall] = this;
 										CheckRemoveBubble(gameObjects, color, new Vector2(indexBall, iLayer + 1));
 									}
 								}
 								else
 								{
-									Position = new Vector2(((indexBall + 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? 320 : 360), ((iLayer + 1) * ballObjectWidth) + 40);
+									Position = new Vector2(((indexBall + 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + 40);
 									gameObjects[iLayer + 1, indexBall + 1] = this;
 									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall + 1, iLayer + 1));
 								}
@@ -109,13 +109,13 @@ namespace NOBOIShooter.GameObjects {
 							{
 								if (iLayer % 2 == 0)
 								{
-									Position = new Vector2(((indexBall - 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? 320 : 360), ((iLayer + 1) * ballObjectWidth) + 40);
+									Position = new Vector2(((indexBall - 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + 40);
 									gameObjects[iLayer + 1, indexBall - 1] = this;
 									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall - 1, iLayer + 1));
 								}
 								else
 								{
-									Position = new Vector2((indexBall * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? 320 : 360), ((iLayer + 1) * 70) + ballObjectWidth);
+									Position = new Vector2((indexBall * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * 70) + ballObjectWidth);
 									gameObjects[(iLayer + 1), indexBall] = this;
 									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall, iLayer + 1));
 								}
@@ -141,10 +141,10 @@ namespace NOBOIShooter.GameObjects {
 
 								foreach (Vector2 targetBubble in Singleton.Instance.removeBubble)
 								{
-									gameObjects[(int)targetBubble.Y, (int)targetBubble.X] = new Bubble(_texture, (targetBubble.Y % 2) == 0)
+									gameObjects[(int)targetBubble.Y, (int)targetBubble.X] = new Bubble(_texture)
 									{
 										Name = "Bubble",
-										Position = new Vector2((targetBubble.X * 80) + ((targetBubble.Y % 2) == 0 ? 320 : 360), (targetBubble.Y * 70) + 40),
+										Position = new Vector2((targetBubble.X * ballDrawWidth) + ((targetBubble.Y % 2) == 0 ? left : left + (ballDrawWidth/2)),top + (targetBubble.Y * ballDrawWidth)),
 										color = color,
 										isMove = false,
 									};

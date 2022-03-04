@@ -30,10 +30,17 @@ namespace NOBOIShooter.States
         private float PlayTime = 0f;
         private int alpha = 255;
         private float timerPerUpdate = 0.05f;
-        private float tickPerUpdate = 30f; // 30f
+        private float tickPerUpdate = 5f; // 30f
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
+
+
+        int ballDrawWidth = Singleton.Instance.BALL_SHOW_WIDTH;
+        int top = Singleton.Instance.GAME_DISPLAY_TOP;
+        int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
+        int left = Singleton.Instance.GAME_DISPLAY_LEFT;
+
 
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
@@ -53,14 +60,14 @@ namespace NOBOIShooter.States
                 Position = new Vector2(1200, 20),
             };
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 8 - (i % 2); j++)
                 {
                     bubbleArea[i, j] = new Bubble(ballBubble, (i % 2) == 0)
                     {
                         Name = "Bubble",
-                        Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40),
+                        Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth / 2),top + (i * ballDrawWidth)),
                         color = GetRandomColor(),
                         isMove = false,
                     };
@@ -183,7 +190,7 @@ namespace NOBOIShooter.States
 
                 for (int i = 0; i < 8; i++)
                 {
-                    if (bubbleArea[8, i] != null)
+                    if (bubbleArea[6, i] != null)
                     {
                         gameOver = true;
                         Singleton.Instance.BestScore = Singleton.Instance.Score.ToString();
@@ -260,7 +267,7 @@ namespace NOBOIShooter.States
                         {
                             if (bubbleArea[i, j] != null)
                             {
-                                bubbleArea[i, j].Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40);
+                                bubbleArea[i, j].Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth/2),top + (i * ballDrawWidth));
                             }
                         }
                     }
@@ -269,10 +276,10 @@ namespace NOBOIShooter.States
                     {
                         for (int j = 0; j < 8 - (i % 2); j++)
                         {
-                            bubbleArea[i, j] = new Bubble(ballBubble, (i % 2) == 0)
+                            bubbleArea[i, j] = new Bubble(ballBubble)
                             {
                                 Name = "Bubble",
-                                Position = new Vector2((j * 80) + ((i % 2) == 0 ? 320 : 360), (i * 70) + 40),
+                                Position = new Vector2((j * ballDrawWidth) + ((i % 2) == 0 ? left : left + ballDrawWidth / 2),top + (i * ballDrawWidth)),
                                 color = GetRandomColor(),
                                 isMove = false,
                             };

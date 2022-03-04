@@ -12,7 +12,7 @@ namespace NOBOIShooter.GameObjects {
 
 		private readonly static int SHOOTER_SIZE = 100;
 		private readonly static int SHOOTER_RADIAN = SHOOTER_SIZE / 2;
-		private readonly static int BUBBLE_WIDTH = 70;
+		private readonly static int BUBBLE_WIDTH = Singleton.Instance.BALL_SHOW_WIDTH;
 		private readonly static int BUBBLE_RADIAN = BUBBLE_WIDTH / 2;
 		private int AIMER_LENGHT = 200;
 		private int AIMER_THICK = 1;
@@ -67,7 +67,7 @@ namespace NOBOIShooter.GameObjects {
 					_shooterBubble = new Bubble(_bubbleTexture) {
 						Name = "Bubble",
 						Position = new Vector2((Singleton.Instance.ScreenWidth - BUBBLE_RADIAN) / 2, 
-							Singleton.Instance.ScreenHeight - SHOOTER_SIZE - 20),
+							Singleton.Instance.ScreenHeight - SHOOTER_SIZE - 30),
 						deadSFX = _deadSFX,
 						stickSFX = _stickSFX,
 						color = shooterBubbleColor,
