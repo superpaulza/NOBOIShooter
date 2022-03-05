@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
+
 
 namespace NOBOIShooter.States
 {
@@ -14,9 +14,9 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo;
+        private Texture2D _buttonTexture, _background, _logo, volume_on, volume_off, volume_state;
         private SpriteFont buttonFont;
-        private Button _playButton, _leaderboardButton, _quitGameButton;
+        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
@@ -30,7 +30,10 @@ namespace NOBOIShooter.States
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             _background = _content.Load<Texture2D>("Backgrouds/wild-west");
             _logo = _content.Load<Texture2D>("Item/logo");
-            
+            volume_on = _content.Load<Texture2D>("Item/volume-on");
+            volume_off = _content.Load<Texture2D>("Item/volume-off");
+
+            volume_state = volume_on;
 
             //buttons config
             _playButton = new Button(_buttonTexture, buttonFont)
@@ -58,12 +61,22 @@ namespace NOBOIShooter.States
 
             _quitGameButton.Click += QuitGameButtonOnClick;
 
+            _volumeControlButton = new Button(volume_state)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(1220, 20),
+                Text = "",
+            };
+
+            _volumeControlButton.Click += volumeControlButtonOnClick;
+
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
                 _playButton,
                 _leaderboardButton,
                 _quitGameButton,
+                _volumeControlButton,
             };
 
             //Load BGM
@@ -88,6 +101,20 @@ namespace NOBOIShooter.States
             _game.Exit();
         }
 
+        private void volumeControlButtonOnClick(object sender, EventArgs e) 
+        {
+            switch (_instance.State) {
+                case SoundState.Playing:
+                    _instance.Pause();
+                    volume_state = volume_off;
+                    break;
+                case SoundState.Stopped:
+                    _instance.Resume();
+                    volume_state = volume_on;
+                    break;
+            }
+        }
+
         //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
@@ -109,6 +136,10 @@ namespace NOBOIShooter.States
             Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
+            // draw On-Off Volume Icon
+           /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
+            spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);*/
+
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
@@ -120,6 +151,7 @@ namespace NOBOIShooter.States
             //if click condition
             foreach (Component component in _components)
                 component.Update(gameTime);
+
 
         }
 

@@ -22,9 +22,6 @@ namespace NOBOIShooter
 
         private Texture2D _cursor;
 
-
-        
-
         public void ChangeState(State state)
         {
             _nextState = state;

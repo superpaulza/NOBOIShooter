@@ -135,6 +135,8 @@
 /build:Item/logo.png
 
 #begin Item/sheriff-cursor.png
+<<<<<<< HEAD
+=======
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -145,4 +147,29 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Item/sheriff-cursor.png
+
+#begin Item/volume-off.png
+>>>>>>> 2ad038c89010c70329f62222c8a2c5834d7bbf08
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/volume-off.png
+
+#begin Item/volume-on.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/volume-on.png
 
