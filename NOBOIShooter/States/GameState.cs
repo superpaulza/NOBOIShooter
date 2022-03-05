@@ -167,6 +167,9 @@ namespace NOBOIShooter.States
             }
 
             spriteBatch.DrawString(myText, "Time", new Vector2(200, 100), Color.Black);
+            spriteBatch.DrawString(myText, "xxx", new Vector2(200, 140), Color.Black);
+            spriteBatch.DrawString(myText, "Score", new Vector2(900,100), Color.Black);
+            spriteBatch.DrawString(myText, "xxx", new Vector2(900, 140), Color.Black); 
             spriteBatch.End();
         }
 
