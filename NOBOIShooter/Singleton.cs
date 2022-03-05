@@ -19,16 +19,16 @@ namespace NOBOIShooter
         public int Score = 0;
         public string BestTime, BestScore;
 
-        public readonly int BALL_SHOW_WIDTH = 60;
-        public readonly int BALL_ART_WIDTH = 58;
-        public readonly int GAME_DISPLAY_TOP = 40;
-        public readonly int GAME_DISPLAY_RIGHT = 880;
-        public readonly int GAME_DISPLAY_LEFT = 320;
-        public readonly int GAME_DISPLAY_BOTTOM = 600;
+        public readonly int BubbleGridWidth = 60;
+        public readonly int BubblePictureWidth = 58;
+        public readonly int GameDisplayBorderTop = 40;
+        public readonly int GameDisplayBorderRight = 880;
+        public readonly int GameDisplayBorderLeft = 320;
+        public readonly int GameDisplayBorderBottom = 600;
 
        
         //Base of singleton
-        private static Singleton instance;
+        private static Singleton s_instance;
 
         //Constructor
         private Singleton()
@@ -40,12 +40,12 @@ namespace NOBOIShooter
         {
             get
             {
-                if (instance == null)
+                if (s_instance == null)
                 {
-                    instance = new Singleton();
+                    s_instance = new Singleton();
                 }
 
-                return instance;
+                return s_instance;
             }
         }
     }
