@@ -14,14 +14,10 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo, _cursor;
+        private Texture2D _buttonTexture, _background, _logo;
         private SpriteFont buttonFont;
         private Button _playButton, _leaderboardButton, _quitGameButton;
-        private Vector2 _position;
 
-        private Vector2 _origin = new Vector2(64, 64);
-        
-        
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
 
@@ -29,14 +25,12 @@ namespace NOBOIShooter.States
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
-            //load content aka. assets files (picture, background)
+            //load content eg. assets files (picture, background)
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             _background = _content.Load<Texture2D>("Backgrouds/wild-west");
             _logo = _content.Load<Texture2D>("Item/logo");
             
-            //sheriff cursor added
-            _cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             //buttons config
             _playButton = new Button(_buttonTexture, buttonFont)
@@ -111,15 +105,9 @@ namespace NOBOIShooter.States
 
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
-            // resize logo
+            // resize Noboi logo
             Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
-
-            spriteBatch.Draw(
-                _cursor,
-                _origin,
-                Color.White
-                );
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -128,12 +116,7 @@ namespace NOBOIShooter.States
         }
 
         public override void Update(GameTime gameTime)
-        {
-            MouseState state = Mouse.GetState();
-
-            int xPosition = state.X;
-            int yPostition = state.Y;
-
+        { 
             //if click condition
             foreach (Component component in _components)
                 component.Update(gameTime);
