@@ -72,7 +72,7 @@ namespace NOBOIShooter.States
                     int BallPositionX = (j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2);
                     if (BallPositionX + BUBBLE_WIDTH  > right) break;
                     int BallPositionY = top + (i * BUBBLE_WIDTH);
-                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) == 0)
+                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) != 0)
                     {
                         Name = "Bubble",
                         Position = new Vector2(BallPositionX, BallPositionY),
@@ -187,7 +187,7 @@ namespace NOBOIShooter.States
 
                 for (int i = 0; i < GAME_GRID_X; i++)
                 {
-                    if (bubbleArea[6, i] != null)
+                    if (bubbleArea[GAME_BUBBLE_DEATH - 2 , i] != null)
                     {
                         gameOver = true;
                         Singleton.Instance.BestScore = Singleton.Instance.Score.ToString();
@@ -196,6 +196,7 @@ namespace NOBOIShooter.States
                 }
 
                 //Check ball flying
+                /*
                 for (int i = 1; i < 9; i++)
                 {
                     for (int j = 1; j < 7 - (i % 2); j++)
@@ -231,7 +232,7 @@ namespace NOBOIShooter.States
                             }
                         }
                     }
-                }
+                }*/
                 
                 __timer += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
                 if (__timer >= tickPerUpdate && !Singleton.Instance.Shooting)
