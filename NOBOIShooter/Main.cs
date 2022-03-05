@@ -54,15 +54,18 @@ namespace NOBOIShooter
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //load menu screen as first state
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
         }
 
         //update screen
         protected override void Update(GameTime gameTime)
         {
+            //if press "esc" key then exit game
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //get mouse state
             MouseState state = Mouse.GetState();
 
             if (state.LeftButton == ButtonState.Pressed)

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.States
 {
-    //every screen must inheritance from this class 
+    //every screen must inherit from this class 
     public abstract class State
     {
         #region Fields
