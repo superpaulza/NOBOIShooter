@@ -14,66 +14,62 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTex, _homeTex, _logoTex, _cursorTex;
-        private SpriteFont _buttonFont;
-        private Button _playBtn, _scoreBtn, _quitGameBtn;
+        private Texture2D _buttonTexture, _background, _logo, _cursor;
+        private SpriteFont buttonFont;
+        private Button _playButton, _leaderboardButton, _quitGameButton;
         private Vector2 _position;
 
         private Vector2 _origin = new Vector2(64, 64);
         
         
-        private SoundEffect _homeSoundEffect;
+        private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
 
         //constructor inherit from base class
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
-            //load content aka. assets files (picture, BG)
-            _buttonTex = _content.Load<Texture2D>("Controls/Button");
-            _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            _homeTex = _content.Load<Texture2D>("Backgrouds/wild-west");
-            _logoTex = _content.Load<Texture2D>("Item/logo");
+            //load content aka. assets files (picture, background)
+            _buttonTexture = _content.Load<Texture2D>("Controls/Button");
+            buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            _background = _content.Load<Texture2D>("Backgrouds/wild-west");
+            _logo = _content.Load<Texture2D>("Item/logo");
             
             //sheriff cursor added
-            _cursorTex = _content.Load<Texture2D>("Item/sheriff-cursor");
-
-            // Set cursor mouse
-            //Mouse.SetCursor(MouseCursor.FromTexture2D(cursor, 1, 1));
-            //Mouse.SetCursor(MouseCursor.Hand);
+            _cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             //buttons config
-            _playBtn = new Button(_buttonTex, _buttonFont)
+            _playButton = new Button(_buttonTexture, buttonFont)
             {
                 Position = new Vector2(800, 100),
                 Text = "Play",
             };
 
-            _playBtn.Click += playButton_onClick;
+            _playButton.Click += PlayButtonOnClick;
 
-            _scoreBtn = new Button(_buttonTex, _buttonFont)
+            _leaderboardButton = new Button(_buttonTexture, buttonFont)
             {
                 Position = new Vector2(800, 200),
                 Text = "Leaderboard",
             };
 
-            _scoreBtn.Click += leaderboardButton_onClick;
+            _leaderboardButton.Click += LeaderboardButtonOnClick;
 
-            _quitGameBtn = new Button(_buttonTex, _buttonFont)
+            _quitGameButton = new Button(_buttonTexture, buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
                 Position = new Vector2(800, 300),
                 Text = "Quit Game",
             };
 
-            _quitGameBtn.Click += QuitGameButton_onClick;
+            _quitGameButton.Click += QuitGameButtonOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
-                _playBtn,
-                _scoreBtn,
-                _quitGameBtn,
+                _playButton,
+                _leaderboardButton,
+                _quitGameButton,
             };
 
             //Load BGM
@@ -81,19 +77,19 @@ namespace NOBOIShooter.States
         }
 
         //Buttons behavior 
-        private void playButton_onClick(object sender, EventArgs e)
+        private void PlayButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
             _instance.Dispose();
         }
 
-        private void leaderboardButton_onClick(object sender, EventArgs e)
+        private void LeaderboardButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeState(new LeaderboardState(_game, _graphicsDevice, _content));
             //Console.WriteLine("Leaderboard click");
         }
 
-        private void QuitGameButton_onClick(object sender, EventArgs e)
+        private void QuitGameButtonOnClick(object sender, EventArgs e)
         {
             _game.Exit();
         }
@@ -101,9 +97,9 @@ namespace NOBOIShooter.States
         //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
-            _homeSoundEffect = content.Load<SoundEffect>("BGM/BGM");
+            _soundEffect = content.Load<SoundEffect>("BGM/BGM");
 
-            _instance = _homeSoundEffect.CreateInstance();
+            _instance = _soundEffect.CreateInstance();
             _instance.IsLooped = true;
 
             _instance.Play();
@@ -113,27 +109,21 @@ namespace NOBOIShooter.States
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_homeTex, new Vector2(0, 0), Color.White);
-            
+            spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
+
             // resize logo
             Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
-            spriteBatch.Draw(_logoTex, logoFrame, Color.White);
+            spriteBatch.Draw(_logo, logoFrame, Color.White);
+
+            spriteBatch.Draw(
+                _cursor,
+                _origin,
+                Color.White
+                );
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            /*
-             spriteBatch.Draw(
-                 cursor,
-                 _position,
-                 Color.White
-                 );
-            
-            */
-            spriteBatch.Draw(_cursorTex, _position, null,
-                Color.White, 0f, new Vector2(_cursorTex.Width / 2, _cursorTex.Height / 2),
-                30f / _cursorTex.Width, SpriteEffects.None, 0f);
-            
             spriteBatch.End();
         }
 
@@ -141,9 +131,8 @@ namespace NOBOIShooter.States
         {
             MouseState state = Mouse.GetState();
 
-            //int xPosition = state.X;
-            //int yPostition = state.Y;
-            _position = new Vector2(state.X, state.Y);
+            int xPosition = state.X;
+            int yPostition = state.Y;
 
             //if click condition
             foreach (Component component in _components)
