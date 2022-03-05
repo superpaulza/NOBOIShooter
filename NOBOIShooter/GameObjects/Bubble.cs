@@ -8,24 +8,24 @@ namespace NOBOIShooter.GameObjects {
 	public class Bubble : GameObject
 	{
 
-		public float speed;
-		public float angle;
+		public float Speed;
+		public float Angle;
 
-		public SoundEffectInstance deadSFX, stickSFX;
-		internal Color color;
+		public SoundEffectInstance DeadSFX, StickSFX;
+		internal Color _color;
 
-		public bool isMove;
-		private bool shiftFloor;
-		private Vector2 velocity;
+		public bool IsMoving;
+		private bool _shiftFloor;
+		private Vector2 _velocity;
 
-		readonly int ballDrawWidth = Singleton.Instance.BALL_SHOW_WIDTH;
-		readonly int ballObjectWidth = Singleton.Instance.BALL_ART_WIDTH;
-		readonly int top = Singleton.Instance.GAME_DISPLAY_TOP;
-		readonly int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
-		readonly int left = Singleton.Instance.GAME_DISPLAY_LEFT;
+		private readonly int _ballDrawWidth = Singleton.Instance.BubbleGridWidth;
+		private readonly int _ballObjectWidth = Singleton.Instance.BubblePictureWidth;
+		private readonly int _topOfBubbleArea = Singleton.Instance.GameDisplayBorderTop;
+		private readonly int _rightOfbubbleArea = Singleton.Instance.GameDisplayBorderRight;
+		private readonly int _leftOfbubbleArea = Singleton.Instance.GameDisplayBorderLeft;
 
-		private int minIndex = 0, maxIndex = (Singleton.Instance.GAME_DISPLAY_RIGHT - Singleton.Instance.GAME_DISPLAY_LEFT) / Singleton.Instance.BALL_SHOW_WIDTH;
-		private int minLayer = 0, maxLayer = (Singleton.Instance.GAME_DISPLAY_BOTTOM - Singleton.Instance.GAME_DISPLAY_TOP) / Singleton.Instance.BALL_SHOW_WIDTH;
+		private int _minOfIndex = 0, _maxOfIndex = (Singleton.Instance.GameDisplayBorderRight - Singleton.Instance.GameDisplayBorderLeft) / Singleton.Instance.BubbleGridWidth;
+		private int _minOfLayer = 0, _maxOfLayer = (Singleton.Instance.GameDisplayBorderBottom - Singleton.Instance.GameDisplayBorderTop) / Singleton.Instance.BubbleGridWidth;
 
 		private Vector2 positionLass;
 
@@ -36,31 +36,31 @@ namespace NOBOIShooter.GameObjects {
 
 		public Bubble(Texture2D texture, bool isShift) : base(texture)
 		{
-			shiftFloor = isShift;
+			_shiftFloor = isShift;
 		}
 
 		public override void Update(GameTime gameTime, Bubble[,] gameObjects)
 		{
-			if (isMove)
+			if (IsMoving)
 			{
-				velocity.X = (float)Math.Cos(angle) * speed;
-				velocity.Y = (float)Math.Sin(angle) * speed;
+				_velocity.X = (float)Math.Cos(Angle) * Speed;
+				_velocity.Y = (float)Math.Sin(Angle) * Speed;
 
-				Position += velocity * gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+				Position += _velocity * gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
 
 				DetectCollision(gameObjects);
 
 
 
-				if (Position.Y <= top)
+				if (Position.Y <= _topOfBubbleArea)
 				{
-					isMove = false;
-					for (int i = 0; i < maxIndex; i++)
+					IsMoving = false;
+					for (int i = 0; i < _maxOfIndex; i++)
 					{
-						if (Position.X > left + ballDrawWidth * (i) && Position.X < left + ballDrawWidth * (i + 1))
+						if (Position.X > _leftOfbubbleArea + _ballDrawWidth * (i) && Position.X < _leftOfbubbleArea + _ballDrawWidth * (i + 1))
 						{
 							gameObjects[0, i] = this;
-							Position = new Vector2((i * ballDrawWidth) + (!shiftFloor ? left : left + (ballDrawWidth / 2)), top);
+							Position = new Vector2((i * _ballDrawWidth) + (!_shiftFloor ? _leftOfbubbleArea : _leftOfbubbleArea + (_ballDrawWidth / 2)), _topOfBubbleArea);
 						}
 					}
 					Singleton.Instance.Shooting = false;
@@ -68,193 +68,92 @@ namespace NOBOIShooter.GameObjects {
 					//stickSFX.Play();
 				}
 
-				if (Position.X - ballDrawWidth + ballObjectWidth <= left)
+				if (Position.X - _ballDrawWidth + _ballObjectWidth <= _leftOfbubbleArea)
 				{
-					angle = -angle;
-					angle += MathHelper.ToRadians(180);
+					Angle = -Angle;
+					Angle += MathHelper.ToRadians(180);
 				}
 
-				if (Position.X + ballDrawWidth >= right)
+				if (Position.X + _ballDrawWidth >= _rightOfbubbleArea)
 				{
-					angle = -angle;
-					angle += MathHelper.ToRadians(180);
+					Angle = -Angle;
+					Angle += MathHelper.ToRadians(180);
 				}
 			}
 		}
-
 		private void DetectCollision(Bubble[,] gameObjects)
 		{
-			for (int iLayer = 0; iLayer < maxLayer; iLayer++)
+			for (int i = 0; i < _maxOfLayer; i++)
 			{
-				for (int indexBall = 0; indexBall < maxIndex; indexBall++)
+				for (int j = 0; j < _maxOfIndex; j++)
 				{
-					if (gameObjects[iLayer, indexBall] != null && !gameObjects[iLayer, indexBall].isMove)
+					if (gameObjects[i, j] != null && !gameObjects[i, j].IsMoving)
 					{
-						if (CheckCollision(gameObjects[iLayer, indexBall]) < ballDrawWidth)
+						if (CheckCollision(gameObjects[i, j]) <= _ballObjectWidth)
 						{
-							// -- MY LOGIC UN SUCCESSFULL
-							snapBubble(gameObjects, gameObjects[iLayer, indexBall], false);
-							/*
-						int gridy = (int)Math.Ceiling((Position.Y - top) / ballDrawWidth);
-
-						bool hitItemShift = gameObjects[iLayer, indexBall].shiftFloor;
-						bool thisFloorShift = (iLayer == gridy) ? hitItemShift : !hitItemShift;
-
-						// Check for offset
-						int xoffset = thisFloorShift ? left + (ballDrawWidth / 2) : left;
-
-
-						int gridx = (int)Math.Round((Position.X - xoffset) / ballDrawWidth);
-						//if (!thisFloorShift) gridx++;
-						// TODO: check is not out side
-						//if (gridx * ballDrawWidth + xoffset >= right) continue;
-
-						// TODO : find next nearesed
-						if (gridx >= 0 && gridy >= 0 && gridx < gameObjects.GetLength(1) && gridy < gameObjects.GetLength(0) && gameObjects[gridy, gridx] == null)
-						{
-							isMove = false;
-							//shiftFloor = thisFloorShift;
-							//Position = new Vector2(gridx * ballDrawWidth, gridy * ballDrawWidth + top);
-							gameObjects[gridy, gridx] = this;
-							//CheckRemoveBubble(gameObjects, color, new Vector2(gridx, gridy));
-						}
-						else
-						{
-							if (iLayer == gridy && indexBall == gridx)
+							if (Position.X >= gameObjects[i, j].Position.X)
 							{
-
-								int newgridx = Position.X >= gameObjects[iLayer, indexBall].Position.X ? (!thisFloorShift ? gridx + 1 : gridx) : ( !thisFloorShift ?  gridx - 1 : gridx - 1);
-								//int newgridx = Position.X >= gameObjects[iLayer, indexBall].Position.X ? gridx + 1 : gridx - 1;
-								if (newgridx > 0 && newgridx < gameObjects.GetLength(1) && gameObjects[gridy, newgridx] == null)
+								if (i % 2 == 0)
 								{
-									Position = new Vector2((newgridx) * ballDrawWidth + xoffset, gridy * ballDrawWidth + top);
-									isMove = false;
-									gameObjects[gridy, (newgridx)] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2((newgridx), gridy));
-								}
-
-							}
-							else
-							{
-								int newgridx = iLayer == gridy ? indexBall <= gridx ? gridx - 1 : gridx + 1 : gridx;// thisFloorShift ? gridx - 1: gridx ;
-								int nextgridy = gridy + 1;
-								int nextgridx = gridx;//!thisFloorShift ? gridx - 2 : gridx - 3;
-								int nextoffset = !thisFloorShift ? left + (ballDrawWidth / 2) : left;
-
-								if (gameObjects[gridy, newgridx] == null && newgridx < gameObjects.GetLength(1))
-								{
-									Position = new Vector2((newgridx) * ballDrawWidth + xoffset, gridy * ballDrawWidth + top);
-									isMove = false;
-									gameObjects[gridy, (newgridx)] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2((newgridx), gridy));
-								} 
-
-								else if (gameObjects[nextgridy, nextgridx] == null && nextgridx < gameObjects.GetLength(1) && nextgridy < gameObjects.GetLength(0))
-								{
-									Position = new Vector2((nextgridx) * ballDrawWidth + nextoffset, nextgridy * ballDrawWidth + top);
-									isMove = false;
-									gameObjects[nextgridy, (nextgridx)] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2((nextgridx), nextgridy));
-								}
-							}
-						}
-
-						if (gameObjects[gridy, gridx] != null) { 
-
-
-							List<Vector2> neighbors =  getNeighbors(this,gameObjects);
-							foreach (Vector2 n in neighbors) {
-								int newgridx = gridx + (int)n.X, newgridy = gridy + (int)n.Y;
-								if (newgridx < 0 || newgridx > gameObjects.GetLength(1) || newgridy < 0 || newgridy > gameObjects.GetLength(0)) continue;
-
-								if (gameObjects[newgridy, newgridx] == null) { 							
-									Position = new Vector2(newgridx * ballDrawWidth + xoffset, newgridy * ballDrawWidth + top);
-									gameObjects[newgridy, gridx] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2(newgridx, newgridy));
-									break;
-								}
-							}
-
-						} else
-						{
-
-
-						}
-*/
-
-
-							/*
-							// -- OLD LOGIC
-							bool checkShift = gameObjects[iLayer, indexBall].shiftFloor;
-							if (Position.X >= gameObjects[iLayer, indexBall].Position.X)
-							{
-
-								if (!checkShift)
-								{
-										Position = new Vector2(((indexBall+1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + top);
-										gameObjects[iLayer + 1, indexBall + 1] = this;
-										CheckRemoveBubble(gameObjects, color, new Vector2(indexBall, iLayer + 1));
-									
+									if (j == _maxOfIndex - 1)
+									{
+										gameObjects[i + 1, j - 1] = this;
+										gameObjects[i + 1, j - 1].Position = new Vector2(((j - 1) * _ballDrawWidth) + (((i + 1) % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth/2), ((i + 1) * _ballDrawWidth) + _topOfBubbleArea);
+										CheckRemoveBubble(gameObjects, _color, new Vector2(j - 1, i + 1));
+									}
+									else
+									{
+										gameObjects[i + 1, j] = this;
+										gameObjects[i + 1, j].Position = new Vector2((j * _ballDrawWidth) + (((i + 1) % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth / 2), ((i + 1) * _ballDrawWidth) + _topOfBubbleArea);
+										CheckRemoveBubble(gameObjects, _color, new Vector2(j, i + 1));
+									}
 								}
 								else
 								{
-									shiftFloor = true;
-									Position = new Vector2(((indexBall + 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + top);
-									gameObjects[iLayer + 1, indexBall + 1] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall + 1, iLayer + 1));
+									gameObjects[i + 1, j + 1] = this;
+									gameObjects[i + 1, j + 1].Position = new Vector2(((j + 1) * _ballDrawWidth) + (((i + 1) % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth / 2), ((i + 1) * _ballDrawWidth) + _topOfBubbleArea);
+									CheckRemoveBubble(gameObjects, _color, new Vector2(j + 1, i + 1));
 								}
 							}
 							else
 							{
-								if (!checkShift)
+								if (i % 2 == 0)
 								{
-									Position = new Vector2(((indexBall - 1) * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * ballObjectWidth) + top);
-									gameObjects[iLayer + 1, indexBall - 1] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall - 1, iLayer + 1));
+									gameObjects[i + 1, j - 1] = this;
+									gameObjects[i + 1, j - 1].Position = new Vector2(((j - 1) * _ballDrawWidth) + (((i + 1) % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth / 2), ((i + 1) * _ballDrawWidth) + _topOfBubbleArea);
+									CheckRemoveBubble(gameObjects, _color, new Vector2(j - 1, i + 1));
 								}
 								else
 								{
-									shiftFloor = true;
-									Position = new Vector2((indexBall * ballDrawWidth) + (((iLayer + 1) % 2) == 0 ? left : left + (ballDrawWidth/2)), ((iLayer + 1) * 70) + ballObjectWidth);
-									gameObjects[(iLayer + 1), indexBall] = this;
-									CheckRemoveBubble(gameObjects, color, new Vector2(indexBall, iLayer + 1));
+									gameObjects[(i + 1), j] = this;
+									gameObjects[(i + 1), j].Position = new Vector2((j * _ballDrawWidth) + (((i + 1) % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth / 2), ((i + 1) * _ballDrawWidth) + _topOfBubbleArea);
+									CheckRemoveBubble(gameObjects, _color, new Vector2(j, i + 1));
 								}
 							}
-							*/
-
-
-							int minToRemove = 3;
-							int scorePerRemovedBall = 100;
-							if (Singleton.Instance.removeBubble.Count >= minToRemove)
+							IsMoving = false;
+							if (Singleton.Instance.removeBubble.Count >= 3)
 							{
-
-								Singleton.Instance.Score += Singleton.Instance.removeBubble.Count * scorePerRemovedBall;
+								Singleton.Instance.Score += Singleton.Instance.removeBubble.Count * 100;
 								//deadSFX.Volume = Singleton.Instance.SFX_MasterVolume;
 								//deadSFX.Play();
-
 							}
 							else if (Singleton.Instance.removeBubble.Count > 0)
 							{
-
 								//stickSFX.Volume = Singleton.Instance.SFX_MasterVolume;
 								//stickSFX.Play();
-
-								foreach (Vector2 targetBubble in Singleton.Instance.removeBubble)
+								foreach (Vector2 v in Singleton.Instance.removeBubble)
 								{
-									gameObjects[(int)targetBubble.Y, (int)targetBubble.X] = new Bubble(_texture)
+									gameObjects[(int)v.Y, (int)v.X] = new Bubble(_texture)
 									{
 										Name = "Bubble",
-										Position = new Vector2((targetBubble.X * ballDrawWidth) + ((targetBubble.Y % 2) == 0 ? left : left + (ballDrawWidth / 2)), top + (targetBubble.Y * ballDrawWidth)),
-										color = color,
-										isMove = false,
+										Position = new Vector2((v.X * _ballDrawWidth) + ((v.Y % 2) == 0 ? _leftOfbubbleArea : _leftOfbubbleArea + _ballDrawWidth  / 2), (v.Y * _ballDrawWidth) + _topOfBubbleArea),
+										_color = _color,
+										IsMoving = false,
 									};
 								}
-
 							}
 							Singleton.Instance.removeBubble.Clear();
-
 							Singleton.Instance.Shooting = false;
-
 							return;
 						}
 
@@ -264,7 +163,7 @@ namespace NOBOIShooter.GameObjects {
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, ballObjectWidth, ballObjectWidth), color);
+			spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, _ballObjectWidth, _ballObjectWidth), _color);
 			base.Draw(spriteBatch);
 		}
 
@@ -276,11 +175,11 @@ namespace NOBOIShooter.GameObjects {
 		public void CheckRemoveBubble(Bubble[,] bubbleAll, Color colorRemove, Vector2 bubbleInGrid)
 		{
 
-			if (bubbleInGrid.X < minIndex || bubbleInGrid.Y < minLayer) return;
-			if (bubbleInGrid.X > maxIndex - 1 || bubbleInGrid.Y > maxLayer - 1) return;
+			if (bubbleInGrid.X < _minOfIndex || bubbleInGrid.Y < _minOfLayer) return;
+			if (bubbleInGrid.X > _maxOfIndex - 1 || bubbleInGrid.Y > _maxOfLayer - 1) return;
 
 			if (bubbleAll[(int)bubbleInGrid.Y, (int)bubbleInGrid.X] == null) return;
-			if (bubbleAll[(int)bubbleInGrid.Y, (int)bubbleInGrid.X].color != colorRemove) return;
+			if (bubbleAll[(int)bubbleInGrid.Y, (int)bubbleInGrid.X]._color != colorRemove) return;
 
 			Singleton.Instance.removeBubble.Add(bubbleInGrid);
 			bubbleAll[(int)bubbleInGrid.Y, (int)bubbleInGrid.X] = null;
@@ -306,7 +205,7 @@ namespace NOBOIShooter.GameObjects {
 		// Get the neighbors of the specified tile
 		private List<Vector2> getNeighbors(Bubble finder, Bubble[,] gameObjects)
 		{
-			int tilerow = finder.shiftFloor ? 1 : 0; // Even or odd row
+			int tilerow = finder._shiftFloor ? 1 : 0; // Even or odd row
 			List<Vector2> neighbors = new List<Vector2>();
 			Vector2 tile = new Vector2();
 
@@ -324,7 +223,7 @@ namespace NOBOIShooter.GameObjects {
 				float ny = tile.Y + neighborsoffsets[tilerow, i, 1];
 
 				// Make sure the tile is valid
-				if (nx >= 0 && nx < finder.Position.X + ballDrawWidth && ny >= 0 && ny < finder.Position.Y + ballDrawWidth)
+				if (nx >= 0 && nx < finder.Position.X + _ballDrawWidth && ny >= 0 && ny < finder.Position.Y + _ballDrawWidth)
 				{
 					neighbors.Add(new Vector2(nx, ny));
 				}
@@ -347,101 +246,110 @@ namespace NOBOIShooter.GameObjects {
 		// Get the tile coordinate
 		private Vector2 getTileCoordinate(int x, int y)
 		{
-			float tilex = maxLayer * ballDrawWidth + left;
+			float tilex = _maxOfLayer * _ballDrawWidth + _leftOfbubbleArea;
 
 			// X offset for odd rows
 			if (x % 2 != 0)
 			{
-				tilex += ballDrawWidth / 2;
+				tilex += _ballDrawWidth / 2;
 			}
 
-			float tiley = y * ballDrawWidth + top;
+			float tiley = y * _ballDrawWidth + _topOfBubbleArea;
 			return new Vector2(tilex, tiley);
 		}
 		
-		private void snapBubble(Bubble[,] bubbleGrid,Bubble target, bool firstFloorIsShift)
+		private void snapBubble(Bubble[,] bubbleGrid,Bubble target)
 		{
-
-			float centerx = Position.X + ballDrawWidth / 2 - left;
-			float centery = Position.Y + ballDrawWidth / 2 - top;
+			float centerx = Position.X + _ballDrawWidth / 2 - _leftOfbubbleArea;
+			float centery = Position.Y + _ballDrawWidth / 2 - _topOfBubbleArea;
 			var gridpos = getGridPosition(centerx, centery);
-			if (gridpos.Y < 0)
-			{
-				gridpos.Y = 0;
 
+			var targetpos = target.getGridPosition();
+			bool thisFloorIsShift = ((int)targetpos.Y - (int)gridpos.Y) % 2 == 0 ? target._shiftFloor : !target._shiftFloor;
+
+			int gridx = (int)Math.Floor(gridpos.X);
+			int gridy = (int)Math.Floor(gridpos.Y);
+			if (gridy < 0)
+			{
+				gridy = 0;
 			}
-			if (gridpos.Y >= bubbleGrid.GetLength(0))
+			if (gridy >= bubbleGrid.GetLength(0))
 			{
-				gridpos.Y = bubbleGrid.GetLength(0) - 1;
-
+				gridy = bubbleGrid.GetLength(0) - 1;
 			}
 
-
-			if (gridpos.X < 0)
+			if (gridx < 0)
 			{
-				gridpos.X = 0;
-
+				gridx = 0;
 			}
-			if (gridpos.X >= bubbleGrid.GetLength(1))
+			if (gridx >= bubbleGrid.GetLength(1))
 			{
-				gridpos.X = bubbleGrid.GetLength(1) - 1;
-				if (gridpos.Y % 2 != 0) gridpos.X -= 1;
-
+				gridx = bubbleGrid.GetLength(1) - 1;
+				//if (gridy % 2 != 0) gridx -= 1;
 			}
-		
-
-			var an = false;
-			if (bubbleGrid[(int)gridpos.Y, (int)gridpos.X] != null)
+			if (bubbleGrid[gridy, gridx] != null)
 			{
-				for (int checkY = (int)gridpos.Y ; checkY < bubbleGrid.GetLength(0); checkY++)
+				for (int checkY = gridy ; checkY < bubbleGrid.GetLength(0); checkY++)
 				{
-					//int xrange = 1; // Position.X <= target.Position.X ? -1 : 1; 
-					int xoffset = left;
-						if (checkY % 2 == 0 && shiftFloor) xoffset += ballDrawWidth / 2; 
-						if (checkY % 2 != 0 && !shiftFloor) xoffset += ballDrawWidth / 2; 
+					int moveX = gridx;
+					moveX += Position.X <= target.Position.X ? -1 : 1;
 
-						gridpos.Y = checkY;
-					if (bubbleGrid[ checkY , (int)gridpos.X] == null)
+					bool moveFloorIsShift = (checkY - gridy) % 2 == 0 ? thisFloorIsShift : !thisFloorIsShift;
+					//if (checkY % 2 == 0 && firstFloorIsShift) moveX--;
+
+					if (moveX < 0) moveX = 0;
+					if (moveX >= bubbleGrid.GetLength(1)) _ = bubbleGrid.GetLength(1) - 1;
+
+
+					int xoffset = _leftOfbubbleArea;
+					if (moveFloorIsShift) xoffset += _ballDrawWidth / 2;
+					
+
+					gridy = checkY;
+					if (bubbleGrid[checkY, gridx] == null)
 					{
-						isMove = false;
-						Position = new Vector2(((int)gridpos.X) * ballDrawWidth + xoffset, ((int)gridpos.Y) * ballDrawWidth + top);
-						bubbleGrid[(int)gridpos.Y, (int)gridpos.X] = this;
-						an = true;
+						thisFloorIsShift = moveFloorIsShift;
+						IsMoving = false;
+						Position = new Vector2(gridx * _ballDrawWidth + xoffset, checkY * _ballDrawWidth + _topOfBubbleArea);
+						bubbleGrid[checkY, gridx] = this;
+						CheckRemoveBubble(bubbleGrid, _color, new Vector2(gridx, checkY));
 						break;
-					}/* else if (bubbleGrid[checkY, (int)gridpos.X + xrange] == null)
+					}
+					/*
+					else if (bubbleGrid[checkY, moveX] == null)
                     {
 						isMove = false;
-						Position = new Vector2(((int)gridpos.X + xrange) * ballDrawWidth + xoffset, ((int)gridpos.Y) * ballDrawWidth + top);
-						bubbleGrid[(int)gridpos.Y, (int)gridpos.X + xrange] = this;
+						Position = new Vector2((moveX) * ballDrawWidth + xoffset, checkY * ballDrawWidth + top);
+						bubbleGrid[checkY, moveX] = this;
 
 						an = true;
 						break;
-					}*/
+					} */
+
 				}
 			}
 			else
 			{
-				an = true;
-				int xoffset = left;
-				if ((int)gridpos.Y % 2 == 0 && firstFloorIsShift) xoffset += ballDrawWidth / 2;
-				if ((int)gridpos.Y % 2 != 0 && !firstFloorIsShift) xoffset += ballDrawWidth / 2;
-
-				isMove = false;
-				Position = new Vector2(((int)gridpos.X) * ballDrawWidth + xoffset, (int)gridpos.Y * ballDrawWidth + top);
-				bubbleGrid[(int)gridpos.Y, (int)gridpos.X] = this;
+                int xoffset = _leftOfbubbleArea;
+				if (thisFloorIsShift) xoffset += _ballDrawWidth / 2;
+				_shiftFloor = thisFloorIsShift;
+				IsMoving = false;
+				Position = new Vector2(gridx * _ballDrawWidth + xoffset, gridy * _ballDrawWidth + _topOfBubbleArea);
+				CheckRemoveBubble(bubbleGrid, _color, new Vector2(gridx, gridy));
+				bubbleGrid[gridy, gridx] = this;
 			}
 
 			/*
 			if (an)
 			{
 				//ah.bubble.visible = false;
-				bubbleGrid[(int)gridpos.Y, (int)gridpos.X]  = this;
+				bubbleGrid[(int)gridy, (int)gridx]  = this;
 				if (U())
 				{
 					return;
 				}
 			}
-				M = G(gridpos.X, gridpos.Y, true, true, false);
+				M = G(gridx, gridy, true, true, false);
 				if (M.length >= 3)
 				{
 					m(v.removecluster);
@@ -466,14 +374,14 @@ namespace NOBOIShooter.GameObjects {
 			*/
 
 	/*
-			if (gridpos.Y > 0 && bubbleGrid[(int)gridpos.Y, (int)gridpos.X] == null)
+			if (gridy > 0 && bubbleGrid[(int)gridy, (int)gridx] == null)
             {
 				positionLass = gridpos;
 				return false;
 			}
-			if(positionLass != null && bubbleGrid[(int)gridpos.Y, (int)gridpos.X] != null)
+			if(positionLass != null && bubbleGrid[(int)gridy, (int)gridx] != null)
             {
-				bubbleGrid[(int)gridpos.Y, (int)gridpos.X] = this;
+				bubbleGrid[(int)gridy, (int)gridx] = this;
 				isMove = false;
 				return true;
             }
@@ -483,30 +391,31 @@ namespace NOBOIShooter.GameObjects {
 
 		private Vector2 getGridPosition(float x, float y)
 		{
-			float gridy = (float)Math.Floor((y) / ballDrawWidth);
+			float gridy = (float) ((y) / _ballDrawWidth);
 
 			// Check for offset
 			float xoffset = 0;
 			if ((gridy) % 2 == 0)
 			{
-				xoffset = ballDrawWidth / 2;
+				xoffset = _ballDrawWidth / 2;
 			}
-			float gridx = (float)Math.Floor((x - xoffset) / ballDrawWidth);
+			float gridx = (float) ((x - xoffset) / _ballDrawWidth);
 
 			return new Vector2(gridx, gridy);
 		}
 
 		private Vector2 getGridPosition()
 		{
-			float gridy = (float)Math.Floor((Position.Y - top) / ballDrawWidth);
+			float gridy = (float)Math.Floor((Position.Y - _topOfBubbleArea) / _ballDrawWidth);
 
 			// Check for offset
-			float xoffset = left;
+			float xoffset = _leftOfbubbleArea;
 			if ((gridy) % 2 == 0)
 			{
-				xoffset = ballDrawWidth / 2;
+				xoffset = _ballDrawWidth / 2;
 			}
-			float gridx = (float)Math.Floor((Position.X - xoffset) / ballDrawWidth);
+
+			float gridx = (float)Math.Floor((Position.X - xoffset) / _ballDrawWidth);
 
 			return new Vector2(gridx, gridy);
 		}
