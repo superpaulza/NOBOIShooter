@@ -11,14 +11,13 @@ namespace NOBOIShooter
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        List<GameObject> _gameObjects;
-        int _numObject;
+        private List<GameObject> _gameObjects;
 
         private State _currentState;
 
         private State _nextState;
 
-        SpriteFont _font;
+        private SpriteFont _font;
 
         public void ChangeState(State state)
         {
@@ -66,40 +65,46 @@ namespace NOBOIShooter
                 Exit();
 
             //get mouse state
-            MouseState state = Mouse.GetState();
+            MouseState mouseState = Mouse.GetState();
 
-            if (state.LeftButton == ButtonState.Pressed)
+            // test write text to debug console when click 
+            /*
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                int xPosition = state.X;
-                int yPosition = state.Y;
+                var xPosition = mouseState.X;
+                var yPosition = mouseState.Y;
 
+                
+                
+                 
                 System.Diagnostics.Debug.WriteLine(xPosition.ToString() + " ," + yPosition.ToString());
+                
+                 
             }
+            */
 
-            
-
+            // change state working
             if (_nextState != null)
             {
                 _currentState = _nextState;
-
                 _nextState = null;
             }
 
             _currentState.Update(gameTime);
-
             _currentState.PostUpdate(gameTime);
-
 
 
             base.Update(gameTime);
         }
 
 
-        //draw
+        //draw method
         protected override void Draw(GameTime gameTime)
         {
+            // Clear programpage with white colour
             GraphicsDevice.Clear(Color.White);
 
+            // draw program current state   
             _currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);

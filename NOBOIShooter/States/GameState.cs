@@ -12,14 +12,14 @@ namespace NOBOIShooter.States
     //Game screen
     public class GameState : State
     {
-        private int BUBBLE_WIDTH = Singleton.Instance.BALL_SHOW_WIDTH;
-        private int top = Singleton.Instance.GAME_DISPLAY_TOP;
-        private int right = Singleton.Instance.GAME_DISPLAY_RIGHT;
-        private int left = Singleton.Instance.GAME_DISPLAY_LEFT;
-        private int bottom = Singleton.Instance.GAME_DISPLAY_BOTTOM;
+        private int BUBBLE_WIDTH = Singleton.Instance.BubbleGridWidth;
+        private int top = Singleton.Instance.GameDisplayBorderTop;
+        private int right = Singleton.Instance.GameDisplayBorderRight;
+        private int left = Singleton.Instance.GameDisplayBorderLeft;
+        private int bottom = Singleton.Instance.GameDisplayBorderBottom;
 
-        private static int GAME_GRID_X = (Singleton.Instance.GAME_DISPLAY_RIGHT - Singleton.Instance.GAME_DISPLAY_LEFT) / Singleton.Instance.BALL_SHOW_WIDTH;
-        private static int GAME_GRID_Y = (Singleton.Instance.GAME_DISPLAY_BOTTOM - Singleton.Instance.GAME_DISPLAY_TOP) / Singleton.Instance.BALL_SHOW_WIDTH;
+        private static int GAME_GRID_X = (Singleton.Instance.GameDisplayBorderRight - Singleton.Instance.GameDisplayBorderLeft) / Singleton.Instance.BubbleGridWidth;
+        private static int GAME_GRID_Y = (Singleton.Instance.GameDisplayBorderBottom - Singleton.Instance.GameDisplayBorderTop) / Singleton.Instance.BubbleGridWidth;
 
         private int GAME_BUBBLE_START = 2;
         private int GAME_BUBBLE_DEATH = GAME_GRID_Y - 1;
@@ -72,12 +72,12 @@ namespace NOBOIShooter.States
                     int BallPositionX = (j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2);
                     if (BallPositionX + BUBBLE_WIDTH  > right) break;
                     int BallPositionY = top + (i * BUBBLE_WIDTH);
-                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) == 0)
+                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) != 0)
                     {
                         Name = "Bubble",
                         Position = new Vector2(BallPositionX, BallPositionY),
-                        color = GetRandomColor(),
-                        isMove = false,
+                        _color = GetRandomColor(),
+                        IsMoving = false,
                     };
                 }
             }
@@ -187,7 +187,7 @@ namespace NOBOIShooter.States
 
                 for (int i = 0; i < GAME_GRID_X; i++)
                 {
-                    if (bubbleArea[6, i] != null)
+                    if (bubbleArea[GAME_BUBBLE_DEATH - 2 , i] != null)
                     {
                         gameOver = true;
                         Singleton.Instance.BestScore = Singleton.Instance.Score.ToString();
@@ -196,9 +196,10 @@ namespace NOBOIShooter.States
                 }
 
                 //Check ball flying
-                for (int i = 1; i < 9; i++)
+                
+                for (int i = 1; i < GAME_GRID_Y; i++)
                 {
-                    for (int j = 1; j < 7 - (i % 2); j++)
+                    for (int j = 1; j < GAME_GRID_X - 1; j++)
                     {
                         if (i % 2 != 0)
                         {
@@ -275,8 +276,8 @@ namespace NOBOIShooter.States
                             {
                                 Name = "Bubble",
                                 Position = new Vector2((j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2),top + (i * BUBBLE_WIDTH)),
-                                color = GetRandomColor(),
-                                isMove = false,
+                                _color = GetRandomColor(),
+                                IsMoving = false,
                             };
                         }
                     }
@@ -339,7 +340,7 @@ namespace NOBOIShooter.States
         public Color GetRandomColor()
         {
             Color _color = Color.Black;
-            switch (_random.Next(0, 6))
+            switch (_random.Next(0, 4))
             {
                 case 0:
                     _color = Color.White;
