@@ -31,10 +31,13 @@ namespace NOBOIShooter.GameObjects {
 		// Create Effect Sound Value
         private SoundEffectInstance _deadSFX, _stickSFX;
 
-        public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, Texture2D aimerTexture) 
+        public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, GraphicsDevice graphicsDevice) 
 			: base(shooterTexture)
         {
-            _lineTex = aimerTexture;
+			// Build Aiming Line
+			_lineTex = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+			_lineTex.SetData(new[] { Color.White });
+
 			_bubbleTex = bubbleTexture;
 
 			//Set details
@@ -117,6 +120,7 @@ namespace NOBOIShooter.GameObjects {
 			}
 			
 		}
+
 		public Color GetRandomColor() {
 			Color _color = Color.Black;
 			switch (_random.Next(0, 4)) {
