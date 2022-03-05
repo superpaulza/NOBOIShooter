@@ -9,6 +9,7 @@ namespace NOBOIShooter
     public class Main : Game
     {
         private GraphicsDeviceManager _graphics;
+        //private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
 
         private List<GameObject> _gameObjects;
@@ -18,6 +19,11 @@ namespace NOBOIShooter
         private State _nextState;
 
         private SpriteFont _font;
+
+        private Texture2D _cursor;
+
+
+        
 
         public void ChangeState(State state)
         {
@@ -55,6 +61,8 @@ namespace NOBOIShooter
 
             //load menu screen as first state
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
+
+            _cursor = Content.Load<Texture2D>("Item/sheriff-cursor");
         }
 
         //update screen
@@ -63,6 +71,11 @@ namespace NOBOIShooter
             //if press "esc" key then exit game
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //MouseState state = new MouseState();
+
+            // change cursor
+            Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
 
             //get mouse state
             MouseState mouseState = Mouse.GetState();
@@ -74,12 +87,7 @@ namespace NOBOIShooter
                 var xPosition = mouseState.X;
                 var yPosition = mouseState.Y;
 
-                
-                
-                 
-                System.Diagnostics.Debug.WriteLine(xPosition.ToString() + " ," + yPosition.ToString());
-                
-                 
+                System.Diagnostics.Debug.WriteLine(xPosition.ToString() + " ," + yPosition.ToString
             }
             */
 
