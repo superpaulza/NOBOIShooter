@@ -196,10 +196,10 @@ namespace NOBOIShooter.States
                 }
 
                 //Check ball flying
-                /*
-                for (int i = 1; i < 9; i++)
+                
+                for (int i = 1; i < GAME_GRID_Y; i++)
                 {
-                    for (int j = 1; j < 7 - (i % 2); j++)
+                    for (int j = 1; j < GAME_GRID_X - 1; j++)
                     {
                         if (i % 2 != 0)
                         {
@@ -232,7 +232,7 @@ namespace NOBOIShooter.States
                             }
                         }
                     }
-                }*/
+                }
                 
                 __timer += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
                 if (__timer >= tickPerUpdate && !Singleton.Instance.Shooting)
@@ -340,7 +340,7 @@ namespace NOBOIShooter.States
         public Color GetRandomColor()
         {
             Color _color = Color.Black;
-            switch (_random.Next(0, 6))
+            switch (_random.Next(0, 4))
             {
                 case 0:
                     _color = Color.White;

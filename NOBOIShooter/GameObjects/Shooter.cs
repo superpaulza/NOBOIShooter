@@ -119,7 +119,7 @@ namespace NOBOIShooter.GameObjects {
 		}
 		public Color GetRandomColor() {
 			Color _color = Color.Black;
-			switch (_random.Next(0, 6)) {
+			switch (_random.Next(0, 4)) {
 				case 0:
 					_color = Color.White;
 					break;
