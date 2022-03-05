@@ -38,6 +38,10 @@ namespace NOBOIShooter.States
             //sheriff cursor added
             cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
+            // Set cursor mouse
+            //Mouse.SetCursor(MouseCursor.FromTexture2D(cursor, 1, 1));
+            Mouse.SetCursor(MouseCursor.Hand);
+
             //buttons config
             playButton = new Button(buttonTexture, buttonFont)
             {
@@ -110,20 +114,26 @@ namespace NOBOIShooter.States
             spriteBatch.Begin();
 
             spriteBatch.Draw(BG, new Vector2(0, 0), Color.White);
-
+            
             // resize logo
             Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
             spriteBatch.Draw(logo, logoFrame, Color.White);
 
-            spriteBatch.Draw(
-                cursor,
-                _origin,
-                Color.White
-                );
-
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
+            /*
+             spriteBatch.Draw(
+                 cursor,
+                 _position,
+                 Color.White
+                 );
+            
+            */
+            spriteBatch.Draw(cursor, _position, null,
+                Color.White, 0f, new Vector2(cursor.Width / 2, cursor.Height / 2),
+                30f / cursor.Width, SpriteEffects.None, 0f);
+            
             spriteBatch.End();
         }
 
@@ -131,8 +141,9 @@ namespace NOBOIShooter.States
         {
             MouseState state = Mouse.GetState();
 
-            int xPosition = state.X;
-            int yPostition = state.Y;
+            //int xPosition = state.X;
+            //int yPostition = state.Y;
+            _position = new Vector2(state.X, state.Y);
 
             //if click condition
             foreach (Component component in _components)
