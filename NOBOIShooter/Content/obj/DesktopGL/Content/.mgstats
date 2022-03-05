@@ -1,1 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/BGM/BACK.wav","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/BACK.xnb","SoundEffectProcessor","SoundEffectContent",47714650,47714329,1.1182101
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/BGM/GameOverBGM.wav","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/GameOverBGM.xnb","SoundEffectProcessor","SoundEffectContent",315740,315753,0.4857621
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/bubble.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/bubble.xnb","TextureProcessor","Texture2DContent",92541,1060985,0.044141
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/logo.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/logo.xnb","TextureProcessor","Texture2DContent",33732,841029,0.1101771
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/sheriff-cursor.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/sheriff-cursor.xnb","TextureProcessor","Texture2DContent",20931,510241,0.1058967

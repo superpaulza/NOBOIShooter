@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.States
 {
@@ -13,10 +14,13 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D buttonTexture, BG, logo;
+        private Texture2D buttonTexture, BG, logo, cursor;
         private SpriteFont buttonFont;
         private Button playButton, leaderboardButton, quitGameButton;
-        //private Texture2D cursorTexture;
+        private Vector2 _position;
+
+        private Vector2 _origin = new Vector2(64, 64);
+        
         
         private SoundEffect soundEffect;
         private SoundEffectInstance Instance;
@@ -32,7 +36,7 @@ namespace NOBOIShooter.States
             logo = _content.Load<Texture2D>("Item/logo");
             
             //sheriff cursor added
-            //cursorTexture = _content.Load<Texture2D>("Item/sheriff-cursor");
+            cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             //buttons config
             playButton = new Button(buttonTexture, buttonFont)
@@ -107,8 +111,14 @@ namespace NOBOIShooter.States
             spriteBatch.Draw(BG, new Vector2(0, 0), Color.White);
 
             // resize logo
-            Rectangle rectangleFrame = new Rectangle(115, 100, 500, 200);
-            spriteBatch.Draw(logo, rectangleFrame, Color.White);
+            Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
+            spriteBatch.Draw(logo, logoFrame, Color.White);
+
+            spriteBatch.Draw(
+                cursor,
+                _origin,
+                Color.White
+                );
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -118,6 +128,12 @@ namespace NOBOIShooter.States
 
         public override void Update(GameTime gameTime)
         {
+            MouseState state = Mouse.GetState();
+
+            int xPosition = state.X;
+            int yPostition = state.Y;
+
+            //if click condition
             foreach (Component component in _components)
                 component.Update(gameTime);
 

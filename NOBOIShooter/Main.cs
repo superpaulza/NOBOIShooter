@@ -18,7 +18,6 @@ namespace NOBOIShooter
 
         private State _nextState;
 
-        //Vector2 position;
         SpriteFont _font;
 
         public void ChangeState(State state)
