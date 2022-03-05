@@ -66,6 +66,7 @@ namespace NOBOIShooter.States
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),
                 Text = "",
+                
             };
 
             _volumeControlButton.Click += volumeControlButtonOnClick;
@@ -105,11 +106,11 @@ namespace NOBOIShooter.States
             switch (_instance.State) {
                 case SoundState.Playing:
                     _instance.Pause();
-                    volume_state = volume_off;
+                    _volumeControlButton.Texture = volume_off;
                     break;
-                case SoundState.Stopped:
+                case SoundState.Paused:
                     _instance.Resume();
-                    volume_state = volume_on;
+                    _volumeControlButton.Texture = volume_on;
                     break;
             }
         }
@@ -142,7 +143,10 @@ namespace NOBOIShooter.States
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            spriteBatch.End();
+
+                _volumeControlButton.Draw(gameTime, spriteBatch);
+
+                spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
@@ -151,7 +155,7 @@ namespace NOBOIShooter.States
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-
+            _volumeControlButton.Update(gameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
