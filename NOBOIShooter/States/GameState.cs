@@ -56,9 +56,6 @@ namespace NOBOIShooter.States
             _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
             shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
 
-            line = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            line.SetData(new[] {Color.White});
-
             BackButton = new Button(BackImage)
             {
                 Position = new Vector2(1200, 20),
@@ -81,7 +78,8 @@ namespace NOBOIShooter.States
                     };
                 }
             }
-            Player = new Shooter(shooterTexture, _bubbleTexture, line)
+
+            Player = new Shooter(shooterTexture, _bubbleTexture, graphicsDevice)
             {
                 Name = "Shooter",
             };
