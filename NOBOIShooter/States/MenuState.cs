@@ -14,62 +14,62 @@ namespace NOBOIShooter.States
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D buttonTexture, BG, logo, cursor;
+        private Texture2D _buttonTexture, _background, _logo, _cursor;
         private SpriteFont buttonFont;
-        private Button playButton, leaderboardButton, quitGameButton;
+        private Button _playButton, _leaderboardButton, _quitGameButton;
         private Vector2 _position;
 
         private Vector2 _origin = new Vector2(64, 64);
         
         
-        private SoundEffect soundEffect;
-        private SoundEffectInstance Instance;
+        private SoundEffect _soundEffect;
+        private SoundEffectInstance _instance;
 
         //constructor inherit from base class
         public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
-            //load content aka. assets files (picture, BG)
-            buttonTexture = _content.Load<Texture2D>("Controls/Button");
+            //load content aka. assets files (picture, background)
+            _buttonTexture = _content.Load<Texture2D>("Controls/Button");
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            BG = _content.Load<Texture2D>("Backgrouds/wild-west");
-            logo = _content.Load<Texture2D>("Item/logo");
+            _background = _content.Load<Texture2D>("Backgrouds/wild-west");
+            _logo = _content.Load<Texture2D>("Item/logo");
             
             //sheriff cursor added
-            cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
+            _cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             //buttons config
-            playButton = new Button(buttonTexture, buttonFont)
+            _playButton = new Button(_buttonTexture, buttonFont)
             {
                 Position = new Vector2(800, 100),
                 Text = "Play",
             };
 
-            playButton.Click += playButton_onClick;
+            _playButton.Click += PlayButtonOnClick;
 
-            leaderboardButton = new Button(buttonTexture, buttonFont)
+            _leaderboardButton = new Button(_buttonTexture, buttonFont)
             {
                 Position = new Vector2(800, 200),
                 Text = "Leaderboard",
             };
 
-            leaderboardButton.Click += leaderboardButton_onClick;
+            _leaderboardButton.Click += LeaderboardButtonOnClick;
 
-            quitGameButton = new Button(buttonTexture, buttonFont)
+            _quitGameButton = new Button(_buttonTexture, buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
                 Position = new Vector2(800, 300),
                 Text = "Quit Game",
             };
 
-            quitGameButton.Click += QuitGameButton_onClick;
+            _quitGameButton.Click += QuitGameButtonOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
-                playButton,
-                leaderboardButton,
-                quitGameButton,
+                _playButton,
+                _leaderboardButton,
+                _quitGameButton,
             };
 
             //Load BGM
@@ -77,18 +77,18 @@ namespace NOBOIShooter.States
         }
 
         //Buttons behavior 
-        private void playButton_onClick(object sender, EventArgs e)
+        private void PlayButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
-            Instance.Dispose();
+            _instance.Dispose();
         }
 
-        private void leaderboardButton_onClick(object sender, EventArgs e)
+        private void LeaderboardButtonOnClick(object sender, EventArgs e)
         {
             Console.WriteLine("Leaderboard click");
         }
 
-        private void QuitGameButton_onClick(object sender, EventArgs e)
+        private void QuitGameButtonOnClick(object sender, EventArgs e)
         {
             _game.Exit();
         }
@@ -96,26 +96,26 @@ namespace NOBOIShooter.States
         //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
-            soundEffect = content.Load<SoundEffect>("BGM/BGM");
+            _soundEffect = content.Load<SoundEffect>("BGM/BGM");
 
-            Instance = soundEffect.CreateInstance();
-            Instance.IsLooped = true;
+            _instance = _soundEffect.CreateInstance();
+            _instance.IsLooped = true;
 
-            Instance.Play();
+            _instance.Play();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(BG, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
             // resize logo
             Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
-            spriteBatch.Draw(logo, logoFrame, Color.White);
+            spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             spriteBatch.Draw(
-                cursor,
+                _cursor,
                 _origin,
                 Color.White
                 );
