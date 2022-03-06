@@ -88,6 +88,7 @@ namespace NOBOIShooter.Screens
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeScreen(ScreenSelect.Game);
+            // _instance.Stop();
             _instance.Dispose();
         }
 
@@ -133,7 +134,7 @@ namespace NOBOIShooter.Screens
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
             // resize Noboi logo
-            Rectangle logoFrame = new Rectangle(115, 100, 400, 200);
+            Rectangle logoFrame = new Rectangle(115, 0, 400, 350);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             // draw On-Off Volume Icon
