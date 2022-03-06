@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace NOBOIShooter.GameObjects {
+
 	public class Bubble : GameObject
 	{
-
-		public float Speed;
-		public float Angle;
-
-		public SoundEffectInstance DeadSFX, StickSFX;
 		internal Color _color;
 
 		public bool IsMoving;
@@ -27,7 +22,10 @@ namespace NOBOIShooter.GameObjects {
 		private int _minOfIndex = 0, _maxOfIndex = (Singleton.Instance.GameDisplayBorderRight - Singleton.Instance.GameDisplayBorderLeft) / Singleton.Instance.BubbleGridWidth;
 		private int _minOfLayer = 0, _maxOfLayer = (Singleton.Instance.GameDisplayBorderBottom - Singleton.Instance.GameDisplayBorderTop) / Singleton.Instance.BubbleGridWidth;
 
-		private Vector2 positionLass;
+		public float Speed, Angle;
+
+		//public SoundEffectInstance DeadSFX, StickSFX;
+		//private Vector2 positionLass;
 
 
 		public Bubble(Texture2D texture) : base(texture)
@@ -50,8 +48,6 @@ namespace NOBOIShooter.GameObjects {
 
 				DetectCollision(gameObjects);
 
-
-
 				if (Position.Y <= _topOfBubbleArea)
 				{
 					IsMoving = false;
@@ -64,6 +60,7 @@ namespace NOBOIShooter.GameObjects {
 						}
 					}
 					Singleton.Instance.Shooting = false;
+
 					//stickSFX.Volume = Singleton.Instance.SFX_MasterVolume;
 					//stickSFX.Play();
 				}
@@ -81,6 +78,7 @@ namespace NOBOIShooter.GameObjects {
 				}
 			}
 		}
+
 		private void DetectCollision(Bubble[,] gameObjects)
 		{
 			for (int i = 0; i < _maxOfLayer; i++)
@@ -130,7 +128,9 @@ namespace NOBOIShooter.GameObjects {
 									CheckRemoveBubble(gameObjects, _color, new Vector2(j, i + 1));
 								}
 							}
+
 							IsMoving = false;
+
 							if (Singleton.Instance.removeBubble.Count >= 3)
 							{
 								Singleton.Instance.Score += Singleton.Instance.removeBubble.Count * 100;
@@ -152,6 +152,7 @@ namespace NOBOIShooter.GameObjects {
 									};
 								}
 							}
+
 							Singleton.Instance.removeBubble.Clear();
 							Singleton.Instance.Shooting = false;
 							return;
@@ -174,7 +175,6 @@ namespace NOBOIShooter.GameObjects {
 
 		public void CheckRemoveBubble(Bubble[,] bubbleAll, Color colorRemove, Vector2 bubbleInGrid)
 		{
-
 			if (bubbleInGrid.X < _minOfIndex || bubbleInGrid.Y < _minOfLayer) return;
 			if (bubbleInGrid.X > _maxOfIndex - 1 || bubbleInGrid.Y > _maxOfLayer - 1) return;
 
@@ -186,6 +186,7 @@ namespace NOBOIShooter.GameObjects {
 
 			CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X + 1, bubbleInGrid.Y)); // Right
 			CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X - 1, bubbleInGrid.Y)); // Left
+
 			if (bubbleInGrid.Y % 2 == 0)
 			{
 				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X, bubbleInGrid.Y - 1)); // Top Right
@@ -198,14 +199,14 @@ namespace NOBOIShooter.GameObjects {
 				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X + 1, bubbleInGrid.Y - 1)); // Top Right
 				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X, bubbleInGrid.Y - 1)); // Top Left
 				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X + 1, bubbleInGrid.Y + 1)); // Bot Right
-				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X, bubbleInGrid.Y + 1)); // Bot 		}
+				CheckRemoveBubble(bubbleAll, colorRemove, new Vector2(bubbleInGrid.X, bubbleInGrid.Y + 1)); // Bot
 			}
 		}
 
 		// Get the neighbors of the specified tile
 		private List<Vector2> getNeighbors(Bubble finder, Bubble[,] gameObjects)
 		{
-			int tilerow = finder._shiftFloor ? 1 : 0; // Even or odd row
+			int tilerow = finder._shiftFloor ? 1 : 0; // Row (Odd, Even)
 			List<Vector2> neighbors = new List<Vector2>();
 			Vector2 tile = new Vector2();
 
@@ -243,6 +244,7 @@ namespace NOBOIShooter.GameObjects {
 				range[i] = (float)Math.Sqrt(Math.Pow(neighbors[i].X - target.X, 2) + Math.Pow(neighbors[i].Y - target.Y, 2));
 			return sorted;
 		}
+
 		// Get the tile coordinate
 		private Vector2 getTileCoordinate(int x, int y)
 		{

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.Screens;
 
@@ -10,11 +8,9 @@ namespace NOBOIShooter
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-
         private ScreenManager _screenManager;
 
-        // Main of Game program
+        // Main Constructure 
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -44,7 +40,6 @@ namespace NOBOIShooter
 
         }
       
-
         // Update program logic everytime
         protected override void Update(GameTime gameTime)
         {

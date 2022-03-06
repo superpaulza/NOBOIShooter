@@ -21,7 +21,7 @@ namespace NOBOIShooter.Screens
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
 
-        //constructor inherit from base class
+        //Constructor inherit from base class
         public MenuScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
@@ -137,12 +137,12 @@ namespace NOBOIShooter.Screens
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             // draw On-Off Volume Icon
-           /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
-            spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);*/
+            /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
+               spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);
+            */
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
-
 
                 _volumeControlButton.Draw(gameTime, spriteBatch);
 
@@ -162,6 +162,5 @@ namespace NOBOIShooter.Screens
         {
             // remove sprites if they're not needed
         }
-
     }
 }
