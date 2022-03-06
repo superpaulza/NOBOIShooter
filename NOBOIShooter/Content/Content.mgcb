@@ -135,8 +135,6 @@
 /build:Item/logo.png
 
 #begin Item/sheriff-cursor.png
-<<<<<<< HEAD
-=======
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -149,7 +147,6 @@
 /build:Item/sheriff-cursor.png
 
 #begin Item/volume-off.png
->>>>>>> 2ad038c89010c70329f62222c8a2c5834d7bbf08
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
