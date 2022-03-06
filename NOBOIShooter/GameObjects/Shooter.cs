@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace NOBOIShooter.GameObjects {
+
 	class Shooter : GameObject {
 
 		// Create Variable
@@ -17,24 +18,20 @@ namespace NOBOIShooter.GameObjects {
 		private int _aimerAngle = 200;
 		private int _aimerThick = 1;
 
-
 		private static int s_underBubbleField = Singleton.Instance.GameDisplayBorderBottom;
 
 		private Bubble _shooterBubble;
 		private Texture2D _bubbleTex, _lineTex;
-		private Color _bubbleInShooterColor;
-		private Color _nextbubbleColor;
-        private Color _swappingColor;
+		private Color _bubbleInShooterColor, _nextbubbleColor, _swappingColor;
 
-		private float shooterAngle;
-		private float scaleShooter;
+		private float shooterAngle, scaleShooter;
 
 		// Create Effect Sound Value
-        private SoundEffectInstance _deadSFX, _stickSFX;
+		private SoundEffectInstance _deadSFX, _stickSFX;
 
-        public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, GraphicsDevice graphicsDevice) 
+		public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, GraphicsDevice graphicsDevice) 
 			: base(shooterTexture)
-        {
+		{
 			// Build Aiming Line
 			_lineTex = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			_lineTex.SetData(new[] { Color.White });
@@ -69,8 +66,8 @@ namespace NOBOIShooter.GameObjects {
 						Name = "Bubble",
 						Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - s_bubbleRadian, 
 							Singleton.Instance.ScreenHeight - s_shooterWidth + (s_shooterWidth - s_bubbleRadian) /2 - 20),
-						DeadSFX = _deadSFX,
-						StickSFX = _stickSFX,
+						//DeadSFX = _deadSFX,
+						//StickSFX = _stickSFX,
 						_color = _bubbleInShooterColor,
 						IsMoving = true,
 						Angle = shooterAngle + MathHelper.Pi, 
@@ -85,13 +82,13 @@ namespace NOBOIShooter.GameObjects {
 				}
 
 				//swap ball
-                if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.RightButton == ButtonState.Pressed &&
-                    Singleton.Instance.MousePrevious.RightButton == ButtonState.Released)
-                {
+				if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.RightButton == ButtonState.Pressed &&
+					Singleton.Instance.MousePrevious.RightButton == ButtonState.Released)
+				{
 					_swappingColor = _bubbleInShooterColor;
-                    _bubbleInShooterColor = _nextbubbleColor;
-                    _nextbubbleColor = _swappingColor;
-                }
+					_bubbleInShooterColor = _nextbubbleColor;
+					_nextbubbleColor = _swappingColor;
+				}
 			}
 
 			if (Singleton.Instance.Shooting)
@@ -99,7 +96,7 @@ namespace NOBOIShooter.GameObjects {
 			
 		}
 
-        public override void Draw(SpriteBatch spriteBatch) {
+		public override void Draw(SpriteBatch spriteBatch) {
 			// Shooter Draw
 			spriteBatch.Draw(_texture, Position + new Vector2(s_shooterRadian, s_shooterRadian), null,
 				Color.White, shooterAngle + MathHelper.ToRadians(-90f), new Vector2(_texture.Width/2, _texture.Height / 2),
@@ -111,7 +108,6 @@ namespace NOBOIShooter.GameObjects {
 
 			if (!Singleton.Instance.Shooting)
 			{
-				
 				// Draw Bubble on Gun
 				spriteBatch.Draw(_bubbleTex, new Rectangle(Singleton.Instance.ScreenWidth / 2 - s_bubbleRadian,
 							Singleton.Instance.ScreenHeight - (s_shooterRadian + s_bubbleRadian + 20), s_bubbleWidth, s_bubbleWidth),
@@ -155,5 +151,5 @@ namespace NOBOIShooter.GameObjects {
 			}
 			return _color;
 		}
-    }
+	}
 }

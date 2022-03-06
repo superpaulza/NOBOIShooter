@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.GameObjects;
 
@@ -12,14 +9,9 @@ namespace NOBOIShooter
     {
         protected Texture2D _texture;
 
-        public Vector2 Position;
         public float Rotation;
-        public Vector2 Scale;
-
-        
-        
-
         public string Name;
+        public Vector2 Position, Scale;
 
         public Rectangle Rectangle
         {
@@ -41,17 +33,14 @@ namespace NOBOIShooter
         //Virtual method (parent class) is only accept "override" from child class 
         public virtual void Update(GameTime gameTime, Bubble[,] gameObjects)
         {
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
         }
 
         public virtual void Reset()
         {
-
         }
     }
 }

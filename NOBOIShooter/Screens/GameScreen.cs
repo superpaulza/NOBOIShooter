@@ -6,11 +6,12 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
+using System.Collections.Generic;
 
-namespace NOBOIShooter.States
+namespace NOBOIShooter.Screens
 {
     //Game screen
-    public class GameState : State
+    public class GameScreen : AScreen
     {
         private int BUBBLE_WIDTH = Singleton.Instance.BubbleGridWidth;
         private int top = Singleton.Instance.GameDisplayBorderTop;
@@ -27,7 +28,7 @@ namespace NOBOIShooter.States
         private Bubble[,] bubbleArea = new Bubble[GAME_GRID_Y + 2, GAME_GRID_X];
         
         private SpriteFont myText;
-        private Texture2D BackImage;
+        private Texture2D BackIcon, _background;
         private Button BackButton;
         Texture2D _bubbleTexture, shooterTexture, line;
         
@@ -45,21 +46,61 @@ namespace NOBOIShooter.States
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
 
+        //----------------------------------------------------------------------
+        MotorParticular particular;
+        Texture2D textParticular;
+        //----------------------------------------------------------------------
 
-        
-        public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
             myText = _content.Load<SpriteFont>("Fonts/Font");
-     
-            BackImage = _content.Load<Texture2D>("Controls/BackButton");
+            BackIcon = _content.Load<Texture2D>("Controls/BackButton");
+            _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
             shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
 
-            BackButton = new Button(BackImage)
+            //--------------------------------------------------------------// Spanish Guy Code
+            /*textParticular = _content.Load<Texture2D>("ParticulaBurbuja");
+            particular = new MotorParticular();
+            particular.addTexture(textParticular);
+            particular.randoms = true;
+
+            List<Bubble> burbujasdestruidas = new List<Bubble>();
+
+            foreach (Bubble burb in burbujasCayendo) // removing bubble object list
+            {
+                particular.IssuerPosition = burb.Position;
+                particular.startParticles(10, 1.5f, 40, burb._color);
+                burbujasdestruidas.Add(burb);
+            }
+
+            foreach (Bubble burb in burbujasdestruidas)
+            {
+                burbujasCayendo.Remove(burb);
+            }
+
+            if (burbujaLanzada == null)
+            {
+                GenerarNuevaBurbuja();
+            }
+
+            particulas.Update();
+            base.Update(gameTime);
+
+            // Draw
+            particulas.Draw(spriteBatch);
+            spriteBatch.End();*/
+
+            //--------------------------------------------------------------//
+
+            // Setting Button && Button Action
+            BackButton = new Button(BackIcon)
             {
                 Position = new Vector2(1200, 20),
             };
+
+            BackButton.Click += BackButton_Click;
 
             for (int i = 0; i < GAME_BUBBLE_START; i++)
             {
@@ -84,14 +125,10 @@ namespace NOBOIShooter.States
                 Name = "Shooter",
             };
 
-
             line = new Texture2D(graphicsDevice, 1, 1);
             line.SetData(new[] { Color.White });
 
-
-            BackButton.Click += BackButton_Click;
-
-            // BG
+            //BG Music
             ControllerBGM(content);
         }
 
@@ -99,9 +136,10 @@ namespace NOBOIShooter.States
         {
             Singleton.Instance.removeBubble.Clear();
             Singleton.Instance.Shooting = false;
-            _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            
             Instance1.Dispose();
             Instance2.Dispose();
+            _game.ChangeScreen(ScreenSelect.Menu);
         }
 
         private void ControllerBGM(ContentManager content)
@@ -116,25 +154,27 @@ namespace NOBOIShooter.States
             Instance1.Play();
         }
 
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             /*
-
             spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(900, 100), Color.Black);
-            //spriteBatch.DrawString(myText, "Post : " + Mouse.GetState().X + " , " + Mouse.GetState().Y, new Vector2(900, 400), Color.Black);
+            spriteBatch.DrawString(myText, "Post : " + Mouse.GetState().X + " , " + Mouse.GetState().Y, new Vector2(900, 400), Color.Black);
             */
 
+            // Draw Backgrounds
+            Rectangle _background_frame = new Rectangle(0, 0, 1280, 750);
+            spriteBatch.Draw(_background, _background_frame, Color.White);
+
+            // Draw Back Button
             BackButton.Draw(gameTime, spriteBatch);
             
+            // Draw Bubble Area
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, bottom - top), Color.Chocolate);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_GRID_Y)*BUBBLE_WIDTH), Color.Gray);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH)*BUBBLE_WIDTH), Color.Brown);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH - 2)*BUBBLE_WIDTH), Color.Orange);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_START)*BUBBLE_WIDTH), Color.Green);
-            
-
 
             foreach (Bubble _bubble in bubbleArea) if (_bubble != null) _bubble.Draw(spriteBatch);
         
@@ -146,6 +186,7 @@ namespace NOBOIShooter.States
             */
             Vector2 textDisply = new Vector2(1000, 200);
             Rectangle FullDisplay = new Rectangle(100, 0, Singleton.Instance.ScreenWidth - 200, Singleton.Instance.ScreenHeight);
+
             if (gameOver)
             {
                 spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
@@ -173,7 +214,6 @@ namespace NOBOIShooter.States
 
         public override void PostUpdate(GameTime gameTime)
         {
-
         }
 
         public override void Update(GameTime gameTime)
@@ -181,10 +221,9 @@ namespace NOBOIShooter.States
             BackButton.Update(gameTime);
             if (!gameOver && !gameWin)
             {
-                //ObjeCT UPDATE
+                //Object Update
                 foreach (Bubble bubble in bubbleArea) if (bubble != null) bubble.Update(gameTime, bubbleArea); 
                 Player.Update(gameTime, bubbleArea);
-
 
                 PlayTime += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
 
@@ -199,7 +238,6 @@ namespace NOBOIShooter.States
                 }
 
                 //Check ball flying
-                
                 for (int i = 1; i < GAME_GRID_Y; i++)
                 {
                     for (int j = 1; j < GAME_GRID_X - 1; j++)
@@ -238,6 +276,7 @@ namespace NOBOIShooter.States
                 }
                 
                 __timer += (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+
                 if (__timer >= tickPerUpdate && !Singleton.Instance.Shooting)
                 {
                     // Check game over before scroll
@@ -253,8 +292,8 @@ namespace NOBOIShooter.States
                             }
                         }
                     }
+
                     // Scroll position 
-                    
                     for (int layer = GAME_GRID_Y - 2; layer >= 0; layer--)
                     {
                         for (int index = 0; index < GAME_GRID_X - (layer % 2); index++)
@@ -264,13 +303,11 @@ namespace NOBOIShooter.States
                                 // Draw new scroll position
                                 bubbleArea[layer, index].Position += new Vector2(0,2*BUBBLE_WIDTH);
                                 bubbleArea[layer + 2, index] = bubbleArea[layer, index];
-
                             }
                         }
                     }
                     
-                  
-                    //Random ball after scroll
+                    //Random ball After Scroll
                     for (int i = 0; i < 2; i++)
                     {
                         for (int j = 0; j < GAME_GRID_X - (i % 2); j++)
@@ -321,6 +358,7 @@ namespace NOBOIShooter.States
                 }
 
             }
+
             // fade out
             if (!fadeFinish)
             {
@@ -336,9 +374,7 @@ namespace NOBOIShooter.States
                     _Color.A = (byte)alpha;
                 }
             }
-
         }
-
 
         public Color GetRandomColor()
         {
@@ -371,7 +407,6 @@ namespace NOBOIShooter.States
         {
             // Check all position in null
             foreach(Bubble _bubble in allBubble) if (_bubble != null) return false;
-     
             return true;
         }
     }

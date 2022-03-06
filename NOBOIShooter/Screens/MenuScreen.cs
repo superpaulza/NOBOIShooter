@@ -7,36 +7,37 @@ using System;
 using System.Collections.Generic;
 
 
-namespace NOBOIShooter.States
+namespace NOBOIShooter.Screens
 {
     //Menu screen
-    public class MenuState : State
+    public class MenuScreen : AScreen
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo, volume_on, volume_off, volume_state;
-        private SpriteFont buttonFont;
-        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton;
+        private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options;
+        private SpriteFont _buttonFont;
+        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton, _gameOptionsButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
 
-        //constructor inherit from base class
-        public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        //Constructor inherit from base class
+        public MenuScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
             //load content eg. assets files (picture, background)
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            _background = _content.Load<Texture2D>("Backgrouds/wild-west");
+            _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            _background = _content.Load<Texture2D>("Backgrouds/background");
             _logo = _content.Load<Texture2D>("Item/logo");
-            volume_on = _content.Load<Texture2D>("Item/volume-on");
-            volume_off = _content.Load<Texture2D>("Item/volume-off");
+            _volumeOn = _content.Load<Texture2D>("Item/volume-on");
+            _volumeOff = _content.Load<Texture2D>("Item/volume-off");
+            _options = _content.Load<Texture2D>("Icons/Setting");
 
-            volume_state = volume_on;
+            _volumeState = _volumeOn;
 
             //buttons config
-            _playButton = new Button(_buttonTexture, buttonFont)
+            _playButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(800, 100),
                 Text = "Play",
@@ -44,7 +45,7 @@ namespace NOBOIShooter.States
 
             _playButton.Click += PlayButtonOnClick;
 
-            _leaderboardButton = new Button(_buttonTexture, buttonFont)
+            _leaderboardButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(800, 200),
                 Text = "Leaderboard",
@@ -52,7 +53,7 @@ namespace NOBOIShooter.States
 
             _leaderboardButton.Click += LeaderboardButtonOnClick;
 
-            _quitGameButton = new Button(_buttonTexture, buttonFont)
+            _quitGameButton = new Button(_buttonTexture, _buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
                 Position = new Vector2(800, 300),
@@ -61,7 +62,7 @@ namespace NOBOIShooter.States
 
             _quitGameButton.Click += QuitGameButtonOnClick;
 
-            _volumeControlButton = new Button(volume_state)
+            _volumeControlButton = new Button(_volumeState)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),
@@ -69,7 +70,17 @@ namespace NOBOIShooter.States
                 
             };
 
-            _volumeControlButton.Click += volumeControlButtonOnClick;
+            _volumeControlButton.Click += VolumeControlButtonOnClick;
+
+            _gameOptionsButton = new Button(_options)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(1150, 20),
+                Text = "",
+
+            };
+
+            _gameOptionsButton.Click += GameOptionsButtonOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
@@ -78,6 +89,7 @@ namespace NOBOIShooter.States
                 _leaderboardButton,
                 _quitGameButton,
                 _volumeControlButton,
+                _gameOptionsButton,
             };
 
             //Load BGM
@@ -87,7 +99,8 @@ namespace NOBOIShooter.States
         //Buttons behavior 
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.ChangeScreen(ScreenSelect.Game);
+            // _instance.Stop();
             _instance.Dispose();
         }
 
@@ -102,18 +115,23 @@ namespace NOBOIShooter.States
             _game.Exit();
         }
 
-        private void volumeControlButtonOnClick(object sender, EventArgs e) 
+        private void VolumeControlButtonOnClick(object sender, EventArgs e) 
         {
             switch (_instance.State) {
                 case SoundState.Playing:
                     _instance.Pause();
-                    _volumeControlButton.Texture = volume_off;
+                    _volumeControlButton.Texture = _volumeOff;
                     break;
                 case SoundState.Paused:
                     _instance.Resume();
-                    _volumeControlButton.Texture = volume_on;
+                    _volumeControlButton.Texture = _volumeOn;
                     break;
             }
+        }
+
+        private void GameOptionsButtonOnClick(object sender, EventArgs e)
+        {
+            _game.ChangeScreen(ScreenSelect.Setting);
         }
 
         //BGM Controller
@@ -134,16 +152,16 @@ namespace NOBOIShooter.States
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
             // resize Noboi logo
-            Rectangle logoFrame = new Rectangle(115, 100, 400, 200);
+            Rectangle logoFrame = new Rectangle(115, 0, 400, 350);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             // draw On-Off Volume Icon
-           /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
-            spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);*/
+            /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
+               spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);
+            */
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
-
 
                 _volumeControlButton.Draw(gameTime, spriteBatch);
 
@@ -163,6 +181,5 @@ namespace NOBOIShooter.States
         {
             // remove sprites if they're not needed
         }
-
     }
 }
