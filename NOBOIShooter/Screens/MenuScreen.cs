@@ -88,6 +88,7 @@ namespace NOBOIShooter.Screens
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeScreen(ScreenSelect.Game);
+            // _instance.Stop();
             _instance.Dispose();
         }
 

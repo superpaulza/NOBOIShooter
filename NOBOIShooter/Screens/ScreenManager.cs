@@ -63,12 +63,12 @@ namespace NOBOIShooter.Screens
         {
             if(screenSelect == ScreenSelect.Menu) 
             {
-                if (_menuScreen == null)
-                {
+                // if (_menuScreen == null)
+                // {
                     _menuScreen = new MenuScreen(_game, _graphicsDevice, _content);
-                }
+                    _nextScreen = _menuScreen;
+                // }
 
-                _nextScreen = _menuScreen;
             }
             else if (screenSelect == ScreenSelect.Game)
             { 
