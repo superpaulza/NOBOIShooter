@@ -66,6 +66,7 @@ namespace NOBOIShooter.States
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),
                 Text = "",
+                
             };
 
             _volumeControlButton.Click += volumeControlButtonOnClick;
@@ -106,11 +107,11 @@ namespace NOBOIShooter.States
             switch (_instance.State) {
                 case SoundState.Playing:
                     _instance.Pause();
-                    volume_state = volume_off;
+                    _volumeControlButton.Texture = volume_off;
                     break;
-                case SoundState.Stopped:
+                case SoundState.Paused:
                     _instance.Resume();
-                    volume_state = volume_on;
+                    _volumeControlButton.Texture = volume_on;
                     break;
             }
         }
@@ -133,7 +134,7 @@ namespace NOBOIShooter.States
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
             // resize Noboi logo
-            Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
+            Rectangle logoFrame = new Rectangle(115, 100, 400, 200);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             // draw On-Off Volume Icon
@@ -143,7 +144,10 @@ namespace NOBOIShooter.States
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            spriteBatch.End();
+
+                _volumeControlButton.Draw(gameTime, spriteBatch);
+
+                spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
@@ -152,7 +156,7 @@ namespace NOBOIShooter.States
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-
+            _volumeControlButton.Update(gameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
