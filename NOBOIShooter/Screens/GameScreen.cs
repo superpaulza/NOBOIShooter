@@ -7,10 +7,10 @@ using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
 
-namespace NOBOIShooter.States
+namespace NOBOIShooter.Screens
 {
     //Game screen
-    public class GameState : State
+    public class GameScreen : AScreen
     {
         private int BUBBLE_WIDTH = Singleton.Instance.BubbleGridWidth;
         private int top = Singleton.Instance.GameDisplayBorderTop;
@@ -45,7 +45,7 @@ namespace NOBOIShooter.States
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
         
-        public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
             myText = _content.Load<SpriteFont>("Fonts/Font");
@@ -100,9 +100,10 @@ namespace NOBOIShooter.States
         {
             Singleton.Instance.removeBubble.Clear();
             Singleton.Instance.Shooting = false;
-            _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            
             Instance1.Dispose();
             Instance2.Dispose();
+            _game.ChangeScreen(ScreenSelect.Menu);
         }
 
         private void ControllerBGM(ContentManager content)
