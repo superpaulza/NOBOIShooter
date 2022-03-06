@@ -28,7 +28,7 @@ namespace NOBOIShooter.States
             //load content eg. assets files (picture, background)
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
             buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            _background = _content.Load<Texture2D>("Backgrouds/wild-west");
+            _background = _content.Load<Texture2D>("Backgrouds/background");
             _logo = _content.Load<Texture2D>("Item/logo");
             volume_on = _content.Load<Texture2D>("Item/volume-on");
             volume_off = _content.Load<Texture2D>("Item/volume-off");
