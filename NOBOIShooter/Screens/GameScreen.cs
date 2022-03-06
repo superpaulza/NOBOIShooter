@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
+using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
@@ -44,7 +45,12 @@ namespace NOBOIShooter.Screens
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
-        
+
+        //----------------------------------------------------------------------
+        MotorParticular particular;
+        Texture2D textParticular;
+        //----------------------------------------------------------------------
+
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
@@ -53,6 +59,40 @@ namespace NOBOIShooter.Screens
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
             shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
+
+            //--------------------------------------------------------------// Spanish Guy Code
+            /*textParticular = _content.Load<Texture2D>("ParticulaBurbuja");
+            particular = new MotorParticular();
+            particular.addTexture(textParticular);
+            particular.randoms = true;
+
+            List<Bubble> burbujasdestruidas = new List<Bubble>();
+
+            foreach (Bubble burb in burbujasCayendo) // removing bubble object list
+            {
+                particular.IssuerPosition = burb.Position;
+                particular.startParticles(10, 1.5f, 40, burb._color);
+                burbujasdestruidas.Add(burb);
+            }
+
+            foreach (Bubble burb in burbujasdestruidas)
+            {
+                burbujasCayendo.Remove(burb);
+            }
+
+            if (burbujaLanzada == null)
+            {
+                GenerarNuevaBurbuja();
+            }
+
+            particulas.Update();
+            base.Update(gameTime);
+
+            // Draw
+            particulas.Draw(spriteBatch);
+            spriteBatch.End();*/
+
+            //--------------------------------------------------------------//
 
             // Setting Button && Button Action
             BackButton = new Button(BackIcon)
