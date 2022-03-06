@@ -2,13 +2,10 @@
 {
     public enum ScreenSelect
     {
-       
             Menu,
             Game,
             Score,
             Setting
-       
-
     }
 }
 

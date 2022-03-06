@@ -48,7 +48,6 @@ namespace NOBOIShooter.Controls
 
         public Texture2D Texture;
 
-
         #endregion
 
         #region Methods

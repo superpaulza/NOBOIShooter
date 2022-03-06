@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace NOBOIShooter.GameObjects {
+
 	class Shooter : GameObject {
 
 		// Create Variable
@@ -17,17 +18,13 @@ namespace NOBOIShooter.GameObjects {
 		private int _aimerAngle = 200;
 		private int _aimerThick = 1;
 
-
 		private static int s_underBubbleField = Singleton.Instance.GameDisplayBorderBottom;
 
 		private Bubble _shooterBubble;
 		private Texture2D _bubbleTex, _lineTex;
-		private Color _bubbleInShooterColor;
-		private Color _nextbubbleColor;
-        private Color _swappingColor;
+		private Color _bubbleInShooterColor, _nextbubbleColor, _swappingColor;
 
-		private float shooterAngle;
-		private float scaleShooter;
+		private float shooterAngle, scaleShooter;
 
 		// Create Effect Sound Value
         private SoundEffectInstance _deadSFX, _stickSFX;
@@ -69,8 +66,8 @@ namespace NOBOIShooter.GameObjects {
 						Name = "Bubble",
 						Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - s_bubbleRadian, 
 							Singleton.Instance.ScreenHeight - s_shooterWidth + (s_shooterWidth - s_bubbleRadian) /2 - 20),
-						DeadSFX = _deadSFX,
-						StickSFX = _stickSFX,
+						//DeadSFX = _deadSFX,
+						//StickSFX = _stickSFX,
 						_color = _bubbleInShooterColor,
 						IsMoving = true,
 						Angle = shooterAngle + MathHelper.Pi, 
@@ -111,7 +108,6 @@ namespace NOBOIShooter.GameObjects {
 
 			if (!Singleton.Instance.Shooting)
 			{
-				
 				// Draw Bubble on Gun
 				spriteBatch.Draw(_bubbleTex, new Rectangle(Singleton.Instance.ScreenWidth / 2 - s_bubbleRadian,
 							Singleton.Instance.ScreenHeight - (s_shooterRadian + s_bubbleRadian + 20), s_bubbleWidth, s_bubbleWidth),
