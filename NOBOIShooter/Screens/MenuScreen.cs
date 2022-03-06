@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 
 
-namespace NOBOIShooter.States
+namespace NOBOIShooter.Screens
 {
     //Menu screen
-    public class MenuState : State
+    public class MenuScreen : AScreen
     {
         //variables decoration
         private List<Component> _components;
@@ -22,7 +22,7 @@ namespace NOBOIShooter.States
         private SoundEffectInstance _instance;
 
         //constructor inherit from base class
-        public MenuState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        public MenuScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
             //load content eg. assets files (picture, background)
@@ -87,7 +87,7 @@ namespace NOBOIShooter.States
         //Buttons behavior 
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.ChangeScreen(ScreenSelect.Game);
             _instance.Dispose();
         }
 

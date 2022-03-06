@@ -1,33 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using NOBOIShooter.States;
+using NOBOIShooter.Screens;
 
 namespace NOBOIShooter
 {
     public class Main : Game
     {
         private GraphicsDeviceManager _graphics;
-        //private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
 
-        private List<GameObject> _gameObjects;
 
-        private State _currentState;
+        private ScreenManager _screenManager;
 
-        private State _nextState;
-
-        private SpriteFont _font;
-
-        private Texture2D _cursor, _currentCursor;
-
-        public void ChangeState(State state)
-        {
-            _nextState = state;
-        }
-
-        //Constructor
+        // Main of Game program
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -35,7 +22,7 @@ namespace NOBOIShooter
             IsMouseVisible = Singleton.Instance.IsMouseVisible;
         }
 
-        //initialize (run once)
+        // Initialize (Run on start)
         protected override void Initialize()
         {
             //setting screen size
@@ -43,76 +30,45 @@ namespace NOBOIShooter
             _graphics.PreferredBackBufferWidth = Singleton.Instance.ScreenWidth;
             _graphics.ApplyChanges();
 
-            //load game objects
-            _gameObjects = new List<GameObject>();
-            
-            //position = new Vector2(graphics.GraphicsDevice.Viewport.Height, )
-
             base.Initialize();
         }
 
-        //load content (such as assets, picture, music)
+        // Load content (such as assets, picture, music)
         protected override void LoadContent()
         {
+            // Create a spriteBatch
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //load menu screen as first state
-            _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
+            // Load screen manager
+            _screenManager = new ScreenManager(this, _graphics.GraphicsDevice, Content);
 
-            _cursor = Content.Load<Texture2D>("Item/sheriff-cursor");
         }
+      
 
-        //update screen
+        // Update program logic everytime
         protected override void Update(GameTime gameTime)
         {
-            //if press "esc" key then exit game
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            //MouseState state = new MouseState();
-
-            // change cursor
-             Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
-
-            //get mouse state
-            MouseState mouseState = Mouse.GetState();
-
-            // test write text to debug console when click 
-            /*
-            if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                var xPosition = mouseState.X;
-                var yPosition = mouseState.Y;
-
-                System.Diagnostics.Debug.WriteLine(xPosition.ToString() + " ," + yPosition.ToString
-            }
-            */
-
-            // change state working
-            if (_nextState != null)
-            {
-                _currentState = _nextState;
-                _nextState = null;
-            }
-
-            _currentState.Update(gameTime);
-            _currentState.PostUpdate(gameTime);
-
+            // Update screen
+            _screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
 
-
-        //draw method
+        // Draw Main Method 
         protected override void Draw(GameTime gameTime)
         {
             // Clear programpage with white colour
             GraphicsDevice.Clear(Color.White);
 
-            // draw program current state   
-            _currentState.Draw(gameTime, _spriteBatch);
+            // Draw program current screen
+            _screenManager.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
+        }
+
+        public void ChangeScreen(ScreenSelect screenSelect)
+        {
+            _screenManager.ChangeScreen(screenSelect);
         }
     }
 }
