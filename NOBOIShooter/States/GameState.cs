@@ -27,7 +27,7 @@ namespace NOBOIShooter.States
         private Bubble[,] bubbleArea = new Bubble[GAME_GRID_Y + 2, GAME_GRID_X];
         
         private SpriteFont myText;
-        private Texture2D BackImage;
+        private Texture2D BackIcon, _background;
         private Button BackButton;
         Texture2D _bubbleTexture, shooterTexture, line;
         
@@ -44,19 +44,20 @@ namespace NOBOIShooter.States
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
-
-
         
         public GameState(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
             myText = _content.Load<SpriteFont>("Fonts/Font");
      
-            BackImage = _content.Load<Texture2D>("Controls/BackButton");
+            BackIcon = _content.Load<Texture2D>("Controls/BackButton");
+            _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
             shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
 
-            BackButton = new Button(BackImage)
+
+
+            BackButton = new Button(BackIcon)
             {
                 Position = new Vector2(1200, 20),
             };
@@ -126,6 +127,11 @@ namespace NOBOIShooter.States
             //spriteBatch.DrawString(myText, "Post : " + Mouse.GetState().X + " , " + Mouse.GetState().Y, new Vector2(900, 400), Color.Black);
             */
 
+            // Draw Backgrounds
+            Rectangle _background_frame = new Rectangle(0, 0, 1280, 750);
+            spriteBatch.Draw(_background, _background_frame, Color.White);
+
+            // Draw Back Button
             BackButton.Draw(gameTime, spriteBatch);
             
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, bottom - top), Color.Chocolate);
@@ -133,8 +139,6 @@ namespace NOBOIShooter.States
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH)*BUBBLE_WIDTH), Color.Brown);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH - 2)*BUBBLE_WIDTH), Color.Orange);
             spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_START)*BUBBLE_WIDTH), Color.Green);
-            
-
 
             foreach (Bubble _bubble in bubbleArea) if (_bubble != null) _bubble.Draw(spriteBatch);
         
