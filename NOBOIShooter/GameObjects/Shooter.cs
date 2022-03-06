@@ -27,11 +27,11 @@ namespace NOBOIShooter.GameObjects {
 		private float shooterAngle, scaleShooter;
 
 		// Create Effect Sound Value
-        private SoundEffectInstance _deadSFX, _stickSFX;
+		private SoundEffectInstance _deadSFX, _stickSFX;
 
-        public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, GraphicsDevice graphicsDevice) 
+		public Shooter(Texture2D shooterTexture, Texture2D bubbleTexture, GraphicsDevice graphicsDevice) 
 			: base(shooterTexture)
-        {
+		{
 			// Build Aiming Line
 			_lineTex = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			_lineTex.SetData(new[] { Color.White });
@@ -82,13 +82,13 @@ namespace NOBOIShooter.GameObjects {
 				}
 
 				//swap ball
-                if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.RightButton == ButtonState.Pressed &&
-                    Singleton.Instance.MousePrevious.RightButton == ButtonState.Released)
-                {
+				if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.RightButton == ButtonState.Pressed &&
+					Singleton.Instance.MousePrevious.RightButton == ButtonState.Released)
+				{
 					_swappingColor = _bubbleInShooterColor;
-                    _bubbleInShooterColor = _nextbubbleColor;
-                    _nextbubbleColor = _swappingColor;
-                }
+					_bubbleInShooterColor = _nextbubbleColor;
+					_nextbubbleColor = _swappingColor;
+				}
 			}
 
 			if (Singleton.Instance.Shooting)
@@ -96,7 +96,7 @@ namespace NOBOIShooter.GameObjects {
 			
 		}
 
-        public override void Draw(SpriteBatch spriteBatch) {
+		public override void Draw(SpriteBatch spriteBatch) {
 			// Shooter Draw
 			spriteBatch.Draw(_texture, Position + new Vector2(s_shooterRadian, s_shooterRadian), null,
 				Color.White, shooterAngle + MathHelper.ToRadians(-90f), new Vector2(_texture.Width/2, _texture.Height / 2),
@@ -151,5 +151,5 @@ namespace NOBOIShooter.GameObjects {
 			}
 			return _color;
 		}
-    }
+	}
 }

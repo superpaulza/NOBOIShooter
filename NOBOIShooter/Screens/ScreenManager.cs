@@ -12,6 +12,7 @@ namespace NOBOIShooter.Screens
 
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
+        private OptionScreen _optionScreen;
 
         public ScreenManager(Main game, GraphicsDevice graphicsDevice, ContentManager content)
            : base(game, graphicsDevice, content)
@@ -61,19 +62,20 @@ namespace NOBOIShooter.Screens
         // Method to change sceen
         public void ChangeScreen(ScreenSelect screenSelect)
         {
-            if(screenSelect == ScreenSelect.Menu) 
+            switch (screenSelect)
             {
-                // if (_menuScreen == null)
-                // {
+                case ScreenSelect.Game:
+                    _gameScreen = new GameScreen(_game, _graphicsDevice, _content);
+                    _nextScreen = _gameScreen;
+                    break;
+                case ScreenSelect.Setting:
+                    _optionScreen = new OptionScreen(_game, _graphicsDevice, _content);
+                    _nextScreen = _optionScreen;
+                    break;
+                default:
                     _menuScreen = new MenuScreen(_game, _graphicsDevice, _content);
                     _nextScreen = _menuScreen;
-                // }
-
-            }
-            else if (screenSelect == ScreenSelect.Game)
-            { 
-                _gameScreen = new GameScreen(_game, _graphicsDevice, _content);
-                _nextScreen = _gameScreen;
+                    break;
             }
         }
 

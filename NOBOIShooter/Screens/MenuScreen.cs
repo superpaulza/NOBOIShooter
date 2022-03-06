@@ -14,9 +14,9 @@ namespace NOBOIShooter.Screens
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo, volume_on, volume_off, volume_state;
-        private SpriteFont buttonFont;
-        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton;
+        private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options;
+        private SpriteFont _buttonFont;
+        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton, _gameOptionsButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
@@ -27,16 +27,17 @@ namespace NOBOIShooter.Screens
         {
             //load content eg. assets files (picture, background)
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _logo = _content.Load<Texture2D>("Item/logo");
-            volume_on = _content.Load<Texture2D>("Item/volume-on");
-            volume_off = _content.Load<Texture2D>("Item/volume-off");
+            _volumeOn = _content.Load<Texture2D>("Item/volume-on");
+            _volumeOff = _content.Load<Texture2D>("Item/volume-off");
+            _options = _content.Load<Texture2D>("Icons/Setting");
 
-            volume_state = volume_on;
+            _volumeState = _volumeOn;
 
             //buttons config
-            _playButton = new Button(_buttonTexture, buttonFont)
+            _playButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(800, 100),
                 Text = "Play",
@@ -44,7 +45,7 @@ namespace NOBOIShooter.Screens
 
             _playButton.Click += PlayButtonOnClick;
 
-            _leaderboardButton = new Button(_buttonTexture, buttonFont)
+            _leaderboardButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(800, 200),
                 Text = "Leaderboard",
@@ -52,7 +53,7 @@ namespace NOBOIShooter.Screens
 
             _leaderboardButton.Click += LeaderboardButtonOnClick;
 
-            _quitGameButton = new Button(_buttonTexture, buttonFont)
+            _quitGameButton = new Button(_buttonTexture, _buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
                 Position = new Vector2(800, 300),
@@ -61,7 +62,7 @@ namespace NOBOIShooter.Screens
 
             _quitGameButton.Click += QuitGameButtonOnClick;
 
-            _volumeControlButton = new Button(volume_state)
+            _volumeControlButton = new Button(_volumeState)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),
@@ -69,7 +70,17 @@ namespace NOBOIShooter.Screens
                 
             };
 
-            _volumeControlButton.Click += volumeControlButtonOnClick;
+            _volumeControlButton.Click += VolumeControlButtonOnClick;
+
+            _gameOptionsButton = new Button(_options)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(1150, 20),
+                Text = "",
+
+            };
+
+            _gameOptionsButton.Click += GameOptionsButtonOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
@@ -78,6 +89,7 @@ namespace NOBOIShooter.Screens
                 _leaderboardButton,
                 _quitGameButton,
                 _volumeControlButton,
+                _gameOptionsButton,
             };
 
             //Load BGM
@@ -102,18 +114,23 @@ namespace NOBOIShooter.Screens
             _game.Exit();
         }
 
-        private void volumeControlButtonOnClick(object sender, EventArgs e) 
+        private void VolumeControlButtonOnClick(object sender, EventArgs e) 
         {
             switch (_instance.State) {
                 case SoundState.Playing:
                     _instance.Pause();
-                    _volumeControlButton.Texture = volume_off;
+                    _volumeControlButton.Texture = _volumeOff;
                     break;
                 case SoundState.Paused:
                     _instance.Resume();
-                    _volumeControlButton.Texture = volume_on;
+                    _volumeControlButton.Texture = _volumeOn;
                     break;
             }
+        }
+
+        private void GameOptionsButtonOnClick(object sender, EventArgs e)
+        {
+            _game.ChangeScreen(ScreenSelect.Setting);
         }
 
         //BGM Controller
