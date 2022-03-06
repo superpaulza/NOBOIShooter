@@ -50,7 +50,7 @@ namespace NOBOIShooter.Screens
         {
             myText = _content.Load<SpriteFont>("Fonts/Font");
             BackIcon = _content.Load<Texture2D>("Controls/BackButton");
-            _background = content.Load<Texture2D>("Backgrouds/background");
+            _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
             shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
 
