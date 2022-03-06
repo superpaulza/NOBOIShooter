@@ -134,7 +134,7 @@ namespace NOBOIShooter.States
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
             // resize Noboi logo
-            Rectangle logoFrame = new Rectangle(115, 100, 500, 200);
+            Rectangle logoFrame = new Rectangle(115, 100, 400, 200);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
             // draw On-Off Volume Icon

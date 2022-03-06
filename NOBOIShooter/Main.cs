@@ -20,7 +20,7 @@ namespace NOBOIShooter
 
         private SpriteFont _font;
 
-        private Texture2D _cursor;
+        private Texture2D _cursor, _currentCursor;
 
         public void ChangeState(State state)
         {
@@ -72,7 +72,7 @@ namespace NOBOIShooter
             //MouseState state = new MouseState();
 
             // change cursor
-            Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
+             Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
 
             //get mouse state
             MouseState mouseState = Mouse.GetState();
