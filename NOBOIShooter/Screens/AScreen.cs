@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace NOBOIShooter.States
+namespace NOBOIShooter.Screens
 {
     //every screen must inherit from this class 
-    public abstract class State
+    public abstract class AScreen
     {
         #region Fields
 
@@ -18,7 +19,7 @@ namespace NOBOIShooter.States
         #region Methods
 
         //constructor
-        public State(Main game, GraphicsDevice graphicsDevice, ContentManager content)
+        public AScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
         {
             _game = game;
             _graphicsDevice = graphicsDevice;
@@ -30,7 +31,7 @@ namespace NOBOIShooter.States
         public abstract void PostUpdate(GameTime gameTime);
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
-        
+
         #endregion
     }
 }
