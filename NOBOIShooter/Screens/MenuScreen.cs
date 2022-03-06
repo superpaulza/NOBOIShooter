@@ -16,7 +16,8 @@ namespace NOBOIShooter.Screens
         private List<Component> _components;
         private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options;
         private SpriteFont _buttonFont;
-        private Button _playButton, _leaderboardButton, _quitGameButton, _volumeControlButton, _gameOptionsButton;
+        private Button _playButton, _leaderboardButton, _quitGameButton, _gameOptionsButton;
+        private DynamicButton _volumeControlButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
@@ -62,7 +63,7 @@ namespace NOBOIShooter.Screens
 
             _quitGameButton.Click += QuitGameButtonOnClick;
 
-            _volumeControlButton = new Button(_volumeState)
+            _volumeControlButton = new DynamicButton(_volumeState)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),

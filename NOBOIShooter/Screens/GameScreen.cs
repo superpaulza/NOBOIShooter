@@ -46,10 +46,10 @@ namespace NOBOIShooter.Screens
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
 
-        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------//
         MotorParticular particular;
         Texture2D textParticular;
-        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------//
 
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)

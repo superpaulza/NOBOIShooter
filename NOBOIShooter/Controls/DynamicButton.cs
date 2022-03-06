@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.Controls
 {
-    public class Button : Component
+    public class DynamicButton : Component
     {
         //Note: "#region" just break logic section or part for IDEs not effect any program logic
         #region Fields
@@ -17,8 +17,6 @@ namespace NOBOIShooter.Controls
         private bool _isHovering;
 
         private MouseState _previousMouse;
-
-        private Texture2D _texture;
 
         private Rectangle mouseRectangle;
 
@@ -40,28 +38,30 @@ namespace NOBOIShooter.Controls
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
             }
         }
 
         public string Text { get; set; }
 
+        public Texture2D Texture;
+
         #endregion
 
         #region Methods
 
-        public Button(Texture2D texture, SpriteFont font)
+        public DynamicButton(Texture2D texture, SpriteFont font)
         {
-            _texture = texture;
+            Texture = texture;
 
             _font = font;
 
             PenColour = Color.Black;
         }
 
-        public Button(Texture2D texture)
+        public DynamicButton(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -71,7 +71,7 @@ namespace NOBOIShooter.Controls
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
+            spriteBatch.Draw(Texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
             {
