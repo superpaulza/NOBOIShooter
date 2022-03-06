@@ -24,6 +24,7 @@ namespace NOBOIShooter.GameObjects {
 		private Texture2D _bubbleTex, _lineTex;
 		private Color _bubbleInShooterColor;
 		private Color _nextbubbleColor;
+        private Color _swappingColor;
 
 		private float shooterAngle;
 		private float scaleShooter;
@@ -76,12 +77,21 @@ namespace NOBOIShooter.GameObjects {
 						Speed = 1000,
 					};
 
-					//Creagte 
+					//Show next ball
 					_bubbleInShooterColor = _nextbubbleColor;
 					_nextbubbleColor = GetRandomColor();
 
 					Singleton.Instance.Shooting = true;
 				}
+
+				//swap ball
+                if (!Singleton.Instance.Shooting && Singleton.Instance.MouseCurrent.RightButton == ButtonState.Pressed &&
+                    Singleton.Instance.MousePrevious.RightButton == ButtonState.Released)
+                {
+					_swappingColor = _bubbleInShooterColor;
+                    _bubbleInShooterColor = _nextbubbleColor;
+                    _nextbubbleColor = _swappingColor;
+                }
 			}
 
 			if (Singleton.Instance.Shooting)
@@ -97,7 +107,7 @@ namespace NOBOIShooter.GameObjects {
 
 			// Draw Aimer
 			spriteBatch.Draw(_lineTex, new Rectangle(Singleton.Instance.ScreenWidth / 2, Singleton.Instance.ScreenHeight - s_shooterRadian - 20, _aimerAngle, _aimerThick), null,
-				Color.AliceBlue, shooterAngle + MathHelper.ToRadians(-180f), new Vector2(0, 0), SpriteEffects.None, 0);
+				Color.White, shooterAngle + MathHelper.ToRadians(-180f), new Vector2(0, 0), SpriteEffects.None, 0);
 
 			if (!Singleton.Instance.Shooting)
 			{

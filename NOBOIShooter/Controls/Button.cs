@@ -18,7 +18,7 @@ namespace NOBOIShooter.Controls
 
         private MouseState _previousMouse;
 
-        private Texture2D _texture;
+        //private Texture2D _texture;
 
         private Rectangle mouseRectangle;
 
@@ -40,11 +40,14 @@ namespace NOBOIShooter.Controls
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
             }
         }
 
         public string Text { get; set; }
+
+        public Texture2D Texture;
+
 
         #endregion
 
@@ -52,7 +55,7 @@ namespace NOBOIShooter.Controls
 
         public Button(Texture2D texture, SpriteFont font)
         {
-            _texture = texture;
+            Texture = texture;
 
             _font = font;
 
@@ -61,7 +64,7 @@ namespace NOBOIShooter.Controls
 
         public Button(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -71,7 +74,7 @@ namespace NOBOIShooter.Controls
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
+            spriteBatch.Draw(Texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
             {
