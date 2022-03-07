@@ -46,10 +46,10 @@ namespace NOBOIShooter.Screens
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
 
-        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------//
         MotorParticular particular;
         Texture2D textParticular;
-        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------//
 
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
@@ -144,7 +144,7 @@ namespace NOBOIShooter.Screens
 
         private void ControllerBGM(ContentManager content)
         {
-            Effect1 = content.Load<SoundEffect>("BGM/BACK");
+            Effect1 = content.Load<SoundEffect>("BGM/GameScreenBGM");
             Effect2 = content.Load<SoundEffect>("BGM/GameOverBGM");
 
             Instance1 = Effect1.CreateInstance();

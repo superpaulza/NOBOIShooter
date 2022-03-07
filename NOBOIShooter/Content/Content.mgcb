@@ -49,23 +49,23 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
 
-#begin BGM/BACK.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:BGM/BACK.wav
-
-#begin BGM/BGM.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:BGM/BGM.wav
-
 #begin BGM/GameOverBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:BGM/GameOverBGM.wav
+
+#begin BGM/GameScreenBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/GameScreenBGM.wav
+
+#begin BGM/MainMenuBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/MainMenuBGM.wav
 
 #begin Controls/BackButton.png
 /importer:TextureImporter
