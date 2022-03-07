@@ -137,7 +137,7 @@ namespace NOBOIShooter.Screens
         //BGM Controller
         private void ControllerBGM(ContentManager content) 
         {
-            _soundEffect = content.Load<SoundEffect>("BGM/BGM");
+            _soundEffect = content.Load<SoundEffect>("BGM/MainMenuBGM");
 
             _instance = _soundEffect.CreateInstance();
             _instance.IsLooped = true;

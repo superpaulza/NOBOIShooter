@@ -144,7 +144,7 @@ namespace NOBOIShooter.Screens
 
         private void ControllerBGM(ContentManager content)
         {
-            Effect1 = content.Load<SoundEffect>("BGM/BACK");
+            Effect1 = content.Load<SoundEffect>("BGM/GameScreenBGM");
             Effect2 = content.Load<SoundEffect>("BGM/GameOverBGM");
 
             Instance1 = Effect1.CreateInstance();
