@@ -5,7 +5,8 @@
             Menu,
             Game,
             Score,
-            Setting
+            Setting,
+            Leaderboard
     }
 }
 

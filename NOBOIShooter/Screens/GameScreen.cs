@@ -45,6 +45,7 @@ namespace NOBOIShooter.Screens
         private SoundEffect Effect1, Effect2;
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
+        private int bubblenull = 0;
 
         //----------------------------------------------------------------------//
         MotorParticular particular;
@@ -187,7 +188,9 @@ namespace NOBOIShooter.Screens
             Vector2 textDisply = new Vector2(1000, 200);
             Rectangle FullDisplay = new Rectangle(100, 0, Singleton.Instance.ScreenWidth - 200, Singleton.Instance.ScreenHeight);
 
+            // Score Display. 
             spriteBatch.DrawString(myText, "Score", new Vector2(900, 100), Color.Black);
+            spriteBatch.DrawString(myText, "10", new Vector2(900, 180), Color.Black);
 
             if (gameOver)
             {
@@ -269,6 +272,7 @@ namespace NOBOIShooter.Screens
                                 bubbleArea[i, 7] = null;
                             }
                         }
+                        bubblenull++;
                     }
                 }
                 
