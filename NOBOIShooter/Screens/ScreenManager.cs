@@ -13,6 +13,7 @@ namespace NOBOIShooter.Screens
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
         private OptionScreen _optionScreen;
+        private LeaderboardScreen _leaderboardScreen;
 
         public ScreenManager(Main game, GraphicsDevice graphicsDevice, ContentManager content)
            : base(game, graphicsDevice, content)
@@ -71,6 +72,10 @@ namespace NOBOIShooter.Screens
                 case ScreenSelect.Setting:
                     _optionScreen = new OptionScreen(_game, _graphicsDevice, _content);
                     _nextScreen = _optionScreen;
+                    break;
+                case ScreenSelect.Leaderboard:
+                    _leaderboardScreen = new LeaderboardScreen(_game, _graphicsDevice, _content);
+                    _nextScreen = _leaderboardScreen;
                     break;
                 default:
                     _menuScreen = new MenuScreen(_game, _graphicsDevice, _content);
