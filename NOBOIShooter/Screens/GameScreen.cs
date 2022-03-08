@@ -187,6 +187,8 @@ namespace NOBOIShooter.Screens
             Vector2 textDisply = new Vector2(1000, 200);
             Rectangle FullDisplay = new Rectangle(100, 0, Singleton.Instance.ScreenWidth - 200, Singleton.Instance.ScreenHeight);
 
+            spriteBatch.DrawString(myText, "Score", new Vector2(900, 100), Color.Black);
+
             if (gameOver)
             {
                 spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
