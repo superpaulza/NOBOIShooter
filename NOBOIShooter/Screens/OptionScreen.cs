@@ -12,7 +12,7 @@ namespace NOBOIShooter.Screens
     class OptionScreen : AScreen
     {
         private List<Component> _components;
-        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon;
+        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState;
         private SpriteFont _font, _publicsans;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton;
@@ -29,6 +29,10 @@ namespace NOBOIShooter.Screens
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
             _increaseIcon = _content.Load<Texture2D>("Controls/increase");
             _decreaseIcon = _content.Load<Texture2D>("Controls/decrease");
+
+            _volumeBGMState = Singleton.Instance.IsBGMEnable ? _volumeOn : _volumeOff;
+
+            _volumeSFXState = Singleton.Instance.IsSFXEnable ? _volumeOn : _volumeOff;
 
             _backButton = new Button(_backIcon)
             {
@@ -65,7 +69,7 @@ namespace NOBOIShooter.Screens
 
             _decreaseBGMButton.Click += _decreaseBGMButtonOnClick;
 
-            _volumeSFXControlButton = new DynamicButton(_volumeOn)
+            _volumeSFXControlButton = new DynamicButton(_volumeSFXState)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
@@ -75,7 +79,7 @@ namespace NOBOIShooter.Screens
 
             _volumeSFXControlButton.Click += _volumeSFXControlButtonOnClick;
 
-            _volumeBGMControlButton = new DynamicButton(_volumeOn)
+            _volumeBGMControlButton = new DynamicButton(_volumeBGMState)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),
@@ -106,59 +110,67 @@ namespace NOBOIShooter.Screens
 
         private void _increaseSFXButtonOnClick(object sender, EventArgs e)
         {
-            if (_sfxVolume < 100)
+            if (Singleton.Instance.SFXVolume < 1.0f)
             {
-                _sfxVolume++;
+                Singleton.Instance.SFXVolume += 0.01f;
             }
             
         }
         
         private void _decreaseSFXButtonOnClick(object sender, EventArgs e)
         {
-            if (_sfxVolume > 0)
+            if (Singleton.Instance.SFXVolume > 0.0f)
             {
-                _sfxVolume--;
+                Singleton.Instance.SFXVolume -= 0.01f;
             }
             
         }
 
         private void _increaseBGMButtonOnClick(object sender, EventArgs e)
         {
-            if (_bgmVolume < 100)
+            if (Singleton.Instance.BGMVolume < 1.0f)
             {
-                _bgmVolume++;
+                Singleton.Instance.BGMVolume += 0.01f;
             }
         }
 
         private void _decreaseBGMButtonOnClick(object sender, EventArgs e)
         {
-            if (_bgmVolume > 0)
+            if (Singleton.Instance.BGMVolume > 0.0f)
             {
-                _bgmVolume--;
+                Singleton.Instance.BGMVolume -= 0.01f;
             }
         }
 
         private void _volumeSFXControlButtonOnClick(object sender, EventArgs e)
         {
-            if (_volumeSFXControlButton.Texture == _volumeOn)
+            if (Singleton.Instance.IsSFXEnable)
             {
                 _volumeSFXControlButton.Texture = _volumeOff;
+                Singleton.Instance.IsSFXEnable = false;
+                Singleton.Instance.SFXVolume = 0.0f;
             }
-            else if (_volumeSFXControlButton.Texture == _volumeOff)
+            else
             {
                 _volumeSFXControlButton.Texture = _volumeOn;
+                Singleton.Instance.IsSFXEnable = true;
+                Singleton.Instance.SFXVolume = 1.0f;
             }
         }
 
         private void _volumeBGMControlButtonOnClick(object sender, EventArgs e)
         {
-            if (_volumeBGMControlButton.Texture == _volumeOn)
+            if (Singleton.Instance.IsBGMEnable)
             {
                 _volumeBGMControlButton.Texture = _volumeOff;
+                Singleton.Instance.IsBGMEnable = false;
+                Singleton.Instance.BGMVolume = 0.0f;
             }
-            else if (_volumeBGMControlButton.Texture == _volumeOff)
+            else
             {
                 _volumeBGMControlButton.Texture = _volumeOn;
+                Singleton.Instance.IsBGMEnable = true;
+                Singleton.Instance.BGMVolume = 1.0f;
             }
         }
 
@@ -176,9 +188,9 @@ namespace NOBOIShooter.Screens
 
             spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.White, 0f, _font.MeasureString("BGM") * 0.5f, 1.5f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _sfxVolume.ToString(), new Vector2(Singleton.Instance.ScreenWidth / 2 + 125, 200), Color.White, 0f, _font.MeasureString(_sfxVolume.ToString()) * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_publicsans, (Singleton.Instance.SFXVolume * 100).ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _bgmVolume.ToString(), new Vector2(Singleton.Instance.ScreenWidth / 2 + 125, 300), Color.White, 0f, _font.MeasureString(_bgmVolume.ToString()) * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_publicsans, (Singleton.Instance.BGMVolume * 100).ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
 
             foreach (Component component in _components)

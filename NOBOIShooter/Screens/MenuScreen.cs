@@ -44,6 +44,7 @@ namespace NOBOIShooter.Screens
             _soundEffect = _content.Load<SoundEffect>("BGM/MainMenuBGM");
             _instance = _soundEffect.CreateInstance();
             _instance.IsLooped = true;
+            _instance.Volume = Singleton.Instance.BGMVolume;
             _instance.Play();
 
             _volumeState = _volumeOn;
