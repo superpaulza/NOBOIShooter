@@ -28,12 +28,20 @@ namespace NOBOIShooter.Screens
         {
             //load content eg. assets files (picture, background)
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
-            _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _logo = _content.Load<Texture2D>("Item/logo");
             _volumeOn = _content.Load<Texture2D>("Item/volume-on");
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
             _options = _content.Load<Texture2D>("Icons/Setting");
+
+            //font
+            _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
+            
+            //sound
+            _soundEffect = _content.Load<SoundEffect>("BGM/MainMenuBGM");
+            _instance = _soundEffect.CreateInstance();
+            _instance.IsLooped = true;
+            _instance.Play();
 
             _volumeState = _volumeOn;
 
@@ -92,9 +100,6 @@ namespace NOBOIShooter.Screens
                 _volumeControlButton,
                 _gameOptionsButton,
             };
-
-            //Load BGM
-            ControllerBGM(content);
         }
 
         //Buttons behavior 
@@ -132,17 +137,7 @@ namespace NOBOIShooter.Screens
         private void GameOptionsButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeScreen(ScreenSelect.Setting);
-        }
-
-        //BGM Controller
-        private void ControllerBGM(ContentManager content) 
-        {
-            _soundEffect = content.Load<SoundEffect>("BGM/MainMenuBGM");
-
-            _instance = _soundEffect.CreateInstance();
-            _instance.IsLooped = true;
-
-            _instance.Play();
+            _instance.Dispose();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -163,9 +158,7 @@ namespace NOBOIShooter.Screens
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-                _volumeControlButton.Draw(gameTime, spriteBatch);
-
-                spriteBatch.End();
+            spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
@@ -173,8 +166,6 @@ namespace NOBOIShooter.Screens
             //if click condition
             foreach (Component component in _components)
                 component.Update(gameTime);
-
-            _volumeControlButton.Update(gameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
