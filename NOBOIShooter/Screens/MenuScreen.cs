@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.Screens
 {
@@ -14,7 +14,7 @@ namespace NOBOIShooter.Screens
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options;
+        private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options, _human, _leftEye, _rightEye;
         private SpriteFont _buttonFont;
         private Button _playButton, _leaderboardButton, _quitGameButton, _gameOptionsButton;
         private DynamicButton _volumeControlButton;
@@ -30,6 +30,9 @@ namespace NOBOIShooter.Screens
             _buttonTexture = _content.Load<Texture2D>("Controls/Button");
             _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
             _background = _content.Load<Texture2D>("Backgrouds/background");
+            _human = _content.Load<Texture2D>("Item/human/body");
+            _leftEye = _content.Load<Texture2D>("Item/human/left-eye");
+            _rightEye = _content.Load<Texture2D>("Item/human/right-eye");
             _logo = _content.Load<Texture2D>("Item/logo");
             _volumeOn = _content.Load<Texture2D>("Item/volume-on");
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
@@ -152,10 +155,22 @@ namespace NOBOIShooter.Screens
 
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
 
-            // resize Noboi logo
+            // Draw Noboi logo
             Rectangle logoFrame = new Rectangle(115, 0, 400, 350);
             spriteBatch.Draw(_logo, logoFrame, Color.White);
 
+            // Draw human
+            Rectangle humanFrame = new Rectangle(494, 349, 171, 316);
+            spriteBatch.Draw(_human, humanFrame, Color.White);
+
+            // Draw eyes of human
+            Rectangle leftEyeFrame = new Rectangle(535, 439, 29, 29);
+            spriteBatch.Draw(_leftEye, leftEyeFrame, Color.White);
+
+            Rectangle rightEyeFrame = new Rectangle(600, 442, 29, 29);
+            spriteBatch.Draw(_rightEye, rightEyeFrame, Color.White);
+
+           
             // draw On-Off Volume Icon
             /* Rectangle resized_volume_icon = new Rectangle(1210, 10, 60, 60);
                spriteBatch.Draw(volume_state, resized_volume_icon, Color.White);
@@ -176,6 +191,13 @@ namespace NOBOIShooter.Screens
                 component.Update(gameTime);
 
             _volumeControlButton.Update(gameTime);
+
+            MouseState mouse = Mouse.GetState();
+
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                System.Diagnostics.Debug.WriteLine(mouse.X.ToString() + " , " + mouse.Y.ToString());
+            }
         }
 
         public override void PostUpdate(GameTime gameTime)
