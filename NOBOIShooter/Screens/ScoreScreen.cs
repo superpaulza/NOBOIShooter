@@ -29,7 +29,7 @@ namespace NOBOIShooter.Screens
             _font = _content.Load<SpriteFont>("Fonts/Font");
             _scoreBord = new ScoreData();
 
-            _backButton = new Button(_backIcon)
+            _backButton = new Button(_backIcon, content)
             {
                 Position = new Vector2(1200, 20),
             };
