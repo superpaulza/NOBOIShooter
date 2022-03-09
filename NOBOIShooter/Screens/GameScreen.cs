@@ -19,7 +19,6 @@ namespace NOBOIShooter.Screens
         private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
         private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
 
-<<<<<<< HEAD
         private Bubble[,] bubbleArea = new Bubble[GAME_GRID_Y + 2, GAME_GRID_X];
         
         private SpriteFont myText;
@@ -41,10 +40,8 @@ namespace NOBOIShooter.Screens
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
         private int bubblenull = 0;
-=======
         private BallGridManager _bord;
         private Player _player;
->>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
 
         private Button _backButton;
 
@@ -102,7 +99,6 @@ namespace NOBOIShooter.Screens
 
             new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3);
 
-<<<<<<< HEAD
             // Score Display. 
             spriteBatch.DrawString(myText, "Score", new Vector2(900, 100), Color.Black);
             spriteBatch.DrawString(myText, "10", new Vector2(900, 180), Color.Black);
@@ -110,7 +106,6 @@ namespace NOBOIShooter.Screens
             if (gameOver)
 =======
             if (!_bord.GamePause)
->>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
             {
                 spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
@@ -306,7 +301,6 @@ namespace NOBOIShooter.Screens
             _backButton.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
->>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
         }
 
         private void BackButton_Click(object sender, EventArgs e)
