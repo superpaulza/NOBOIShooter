@@ -38,7 +38,6 @@ namespace NOBOIShooter.Screens
         {
             //State = GameState.init;
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
-            _numberFront = _content.Load<SpriteFont>("Fonts/PublicSans");
 
             _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
@@ -87,7 +86,7 @@ namespace NOBOIShooter.Screens
             if (!_bord.GamePause)
             {
                 spriteBatch.DrawString(_textFront, "Score", new Vector2(1000, 180), Color.White);
-                spriteBatch.DrawString(_numberFront, _bord.GameScore.ToString(), new Vector2(1000, 300), Color.White);
+                spriteBatch.DrawString(_textFront, _bord.GameScore.ToString(), new Vector2(1000, 300), Color.White);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
