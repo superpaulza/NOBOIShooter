@@ -79,7 +79,7 @@ namespace NOBOIShooter.GameObjects
             _processed = new bool[Columns, Rows];
             _removed = new bool[Columns, Rows];
             Width = (int)(Columns * TileWidth + (float)TileWidth / 2);
-            Height = (int)(RowHeight * Rows);
+            Height = (int)(RowHeight * (Rows));
             GameScore = 0;
 
             FirstShift = false;
@@ -474,7 +474,7 @@ namespace NOBOIShooter.GameObjects
             // Check the deadline
             for (int x = 0; x < Columns; x++)
             {
-                if (BallTiles[x, Rows - 1] > 1)
+                if (BallTiles[x, Rows - 1] > 0)
                 {
                     //pickBubble();
                     GameEnd = true;
