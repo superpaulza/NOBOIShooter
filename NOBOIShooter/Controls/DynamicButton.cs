@@ -11,7 +11,7 @@ namespace NOBOIShooter.Controls
     {
         //Note: "#region" just break logic section or part for IDEs not effect any program logic
         #region Fields
-        SoundEffect _sound;
+        SoundEffectInstance _sound;
 
         private MouseState _currentMouse;
 
@@ -61,7 +61,7 @@ namespace NOBOIShooter.Controls
 
             PenColour = Color.Black;
 
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM");
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
         }
 
@@ -69,7 +69,8 @@ namespace NOBOIShooter.Controls
         {
             Texture = texture;
 
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM");
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -92,6 +93,8 @@ namespace NOBOIShooter.Controls
 
         public override void Update(GameTime gameTime)
         {
+            _sound.Volume = Singleton.Instance.SFXVolume;
+
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
