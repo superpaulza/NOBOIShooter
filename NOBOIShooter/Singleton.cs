@@ -12,9 +12,6 @@ namespace NOBOIShooter
         public int Score = 0;
         public bool IsMouseVisible = true, Shooting = false;
         public string ContentRootDir = "Content";
-        public string BestTime, BestScore;
-        public MouseState MousePrevious, MouseCurrent;
-        public List<Vector2> removeBubble = new List<Vector2>();
         public bool IsBGMEnable = true;
         public bool IsSFXEnable = true;
         public float BGMVolume = 1.0f;
@@ -22,12 +19,6 @@ namespace NOBOIShooter
 
         public readonly int ScreenHeight = 720;
         public readonly int ScreenWidth = 1280;
-        public readonly int BubbleGridWidth = 60;
-        public readonly int BubblePictureWidth = 58;
-        public readonly int GameDisplayBorderTop = 40;
-        public readonly int GameDisplayBorderRight = 880;
-        public readonly int GameDisplayBorderLeft = 320;
-        public readonly int GameDisplayBorderBottom = 600;
 
         //Base of singleton
         private static Singleton s_instance;

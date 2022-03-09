@@ -91,7 +91,7 @@ namespace NOBOIShooter.Screens
 
             if (!_bord.GamePause)
             {
-                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
+                spriteBatch.DrawString(_textFront, "Score \n\n " + _bord.GameScore, _textPosition, Color.Black);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 

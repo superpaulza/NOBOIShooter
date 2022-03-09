@@ -455,6 +455,7 @@ namespace NOBOIShooter.GameObjects
 
         public bool gameWinCheck()
         {
+            if (GameWin) return true;
             // Check the First Line
             for (int x = 0; x < Columns; x++)
             {
@@ -465,7 +466,7 @@ namespace NOBOIShooter.GameObjects
                 }
             
             }
-            GameScore += (int) Math.Pow(10, START_FLOOR);
+            GameScore += (int) Math.Pow(10, TotalColor);
             GameWin = true;
             return true;
         }
@@ -473,6 +474,7 @@ namespace NOBOIShooter.GameObjects
 
         public bool GameoverLineCheck()
         {
+            if (GameEnd) return true;
             // Check the deadline
             for (int x = 0; x < Columns; x++)
             {
