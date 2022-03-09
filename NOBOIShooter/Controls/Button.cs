@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +11,7 @@ namespace NOBOIShooter.Controls
     {
         //Note: "#region" just break logic section or part for IDEs not effect any program logic
         #region Fields
+        SoundEffectInstance _sound;
 
         private MouseState _currentMouse;
 
@@ -18,7 +21,7 @@ namespace NOBOIShooter.Controls
 
         private MouseState _previousMouse;
 
-        //private Texture2D _texture;
+        private Texture2D _texture;
 
         private Rectangle mouseRectangle;
 
@@ -40,30 +43,34 @@ namespace NOBOIShooter.Controls
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
 
         public string Text { get; set; }
 
-        public Texture2D Texture;
-
         #endregion
 
         #region Methods
 
-        public Button(Texture2D texture, SpriteFont font)
+        public Button(Texture2D texture, SpriteFont font, ContentManager _content)
         {
-            Texture = texture;
+            _texture = texture;
 
             _font = font;
 
             PenColour = Color.Black;
+
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
+
         }
 
-        public Button(Texture2D texture)
+        public Button(Texture2D texture, ContentManager _content)
         {
-            Texture = texture;
+            _texture = texture;
+
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -73,7 +80,7 @@ namespace NOBOIShooter.Controls
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(Texture, Rectangle, colour);
+            spriteBatch.Draw(_texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
             {
@@ -86,6 +93,7 @@ namespace NOBOIShooter.Controls
 
         public override void Update(GameTime gameTime)
         {
+            _sound.Volume = Singleton.Instance.SFXVolume;
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
@@ -100,6 +108,7 @@ namespace NOBOIShooter.Controls
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
                     Click?.Invoke(this, new EventArgs());
+                    _sound.Play();
                 }
             }
         }
