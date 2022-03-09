@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using NOBOIShooter.Screens;
 
 namespace NOBOIShooter
@@ -43,6 +44,7 @@ namespace NOBOIShooter
         // Update program logic everytime
         protected override void Update(GameTime gameTime)
         {
+           
             // Update screen
             _screenManager.Update(gameTime);
 

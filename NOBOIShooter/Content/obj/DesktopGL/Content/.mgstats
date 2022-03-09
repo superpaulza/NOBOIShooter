@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+<<<<<<< HEAD
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Backgrouds/background.png","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Backgrouds/background.xnb","TextureProcessor","Texture2DContent",483452,3686485,0.610393
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Backgrouds/gameBackground.png","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Backgrouds/gameBackground.xnb","TextureProcessor","Texture2DContent",328905,3686485,0.108369
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/BGM/GameOverBGM.wav","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/GameOverBGM.xnb","SoundEffectProcessor","SoundEffectContent",2545624,2545329,2.932151
@@ -6,3 +7,6 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/BGM/MainMenuBGM.wav","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/MainMenuBGM.xnb","SoundEffectProcessor","SoundEffectContent",29122922,29122853,0.488637
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Icons/Setting.png","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Icons/Setting.xnb","TextureProcessor","Texture2DContent",991,9301,0.026011
 "/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/Item/logo.png","/Users/poomyimyuean/Desktop/Poomkun/Hub/Code/ProjectCS/comgame/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/logo.xnb","TextureProcessor","Texture2DContent",51446,1950725,0.082831
+=======
+"D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/BGM/ButtonBGM.wav","D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/ButtonBGM.xnb","SoundEffectProcessor","SoundEffectContent",77014,76905,0.4921381
+>>>>>>> superpaulza-master
