@@ -149,6 +149,8 @@ namespace NOBOIShooter.Screens
 
             Instance1 = Effect1.CreateInstance();
             Instance2 = Effect2.CreateInstance();
+            Instance1.Volume = Singleton.Instance.BGMVolume;
+            Instance2.Volume = Singleton.Instance.BGMVolume;
             Instance1.IsLooped = true;
 
             Instance1.Play();
