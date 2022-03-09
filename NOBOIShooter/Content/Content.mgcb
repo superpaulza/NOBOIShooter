@@ -61,6 +61,12 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
 
+#begin BGM/ButtonBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/ButtonBGM.wav
+
 #begin BGM/GameOverBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

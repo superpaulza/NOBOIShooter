@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
-using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
@@ -58,7 +56,7 @@ namespace NOBOIShooter.Screens
             _pen = new Texture2D(graphicsDevice, 1, 1);
             _pen.SetData(new[] { Color.White });
 
-            _backButton = new Button(_backIcon)
+            _backButton = new Button(_backIcon, content)
             {
                 Position = new Vector2(1200, 20),
             };

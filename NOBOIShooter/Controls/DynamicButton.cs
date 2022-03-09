@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +11,7 @@ namespace NOBOIShooter.Controls
     {
         //Note: "#region" just break logic section or part for IDEs not effect any program logic
         #region Fields
+        SoundEffect _sound;
 
         private MouseState _currentMouse;
 
@@ -50,18 +53,23 @@ namespace NOBOIShooter.Controls
 
         #region Methods
 
-        public DynamicButton(Texture2D texture, SpriteFont font)
+        public DynamicButton(Texture2D texture, SpriteFont font, ContentManager _content)
         {
             Texture = texture;
 
             _font = font;
 
             PenColour = Color.Black;
+
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM");
+
         }
 
-        public DynamicButton(Texture2D texture)
+        public DynamicButton(Texture2D texture, ContentManager _content)
         {
             Texture = texture;
+
+            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -98,6 +106,7 @@ namespace NOBOIShooter.Controls
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
                     Click?.Invoke(this, new EventArgs());
+                    _sound.Play();
                 }
             }
         }
