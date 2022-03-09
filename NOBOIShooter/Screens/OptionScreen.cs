@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using NOBOIShooter.Controls;
+using NOBOIShooter.Data;
 
 namespace NOBOIShooter.Screens
 {

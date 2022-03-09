@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace NOBOIShooter.Controls
+namespace NOBOIShooter.Data
 {
     [Serializable]
     public class Score
