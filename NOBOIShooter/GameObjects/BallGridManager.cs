@@ -18,7 +18,7 @@ namespace NOBOIShooter.GameObjects
         private const int TILES_ROWS_HEIGHT = 34;
         private const int BALL_RADIAN = 20;
         private const int START_FLOOR = 6;
-        private const int ToTAL_BALL_COLOR = 5;
+        private const int ToTAL_BALL_COLOR = 2;
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
 
@@ -85,6 +85,7 @@ namespace NOBOIShooter.GameObjects
             FirstShift = false;
             AnimationFadeManager = new List<BallFadeOut>();
             AnimationDropManager = new List<BallDrop>();
+
             Position = new Vector2((Singleton.Instance.ScreenWidth - Width) / 2f, GRID_MOVE_DOWN);
             for (int floor = 0; floor < START_FLOOR; floor++)
                 Scrolling();
@@ -141,14 +142,16 @@ namespace NOBOIShooter.GameObjects
 
         public Color GetColor(int i)
         {
+            
+
             // Int value to color of ball
-            if (i == 1) return Color.Purple;
-            else if (i == 2) return Color.DarkBlue;
-            else if (i == 3) return Color.Blue;
-            else if (i == 4) return Color.DarkCyan;
-            else if (i == 5) return Color.Green;
-            else if (i == 5) return Color.Yellow;
-            else if (i == 5) return Color.Red;
+            if (i == 1) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange; // Color.FromNonPremultiplied(225, 78, 175, 255); //pink 
+            else if (i == 2) return Color.FromNonPremultiplied(124, 90, 188, 255); // purple
+            else if (i == 3) return Color.FromNonPremultiplied(249, 219, 99, 255); // yellow // Color.FromNonPremultiplied(50, 85, 166, 255); // blue
+            else if (i == 4) return Color.FromNonPremultiplied(76, 176, 99, 255); // greenn
+            else if (i == 5) return Color.FromNonPremultiplied(210, 71, 51, 255); // red
+            // else if (i == 6) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange;
+            // else if (i == 5) return Color.FromNonPremultiplied(249, 219, 99, 255); // yellow
             return new Color(Color.White,.1f);
         }
 
@@ -445,6 +448,7 @@ namespace NOBOIShooter.GameObjects
                     }
                 }
                 _removeClusterEffect = 0;
+                gameWinCheck();
 
             }
         }
@@ -461,6 +465,7 @@ namespace NOBOIShooter.GameObjects
                 }
             
             }
+            GameScore += (int) Math.Pow(10, START_FLOOR);
             GameWin = true;
             return true;
         }

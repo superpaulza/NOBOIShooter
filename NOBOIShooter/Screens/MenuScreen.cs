@@ -50,7 +50,7 @@ namespace NOBOIShooter.Screens
             // _volumeState = _volumeOn;
 
             //buttons config
-            _playButton = new Button(_buttonTexture, _buttonFont)
+            _playButton = new Button(_buttonTexture, _buttonFont, content)
             {
                 Position = new Vector2(730, 100),
                 Text = "Play",
@@ -58,7 +58,7 @@ namespace NOBOIShooter.Screens
 
             _playButton.Click += PlayButtonOnClick;
 
-            _leaderboardButton = new Button(_buttonTexture, _buttonFont)
+            _leaderboardButton = new Button(_buttonTexture, _buttonFont, content)
             {
                 Position = new Vector2(730, 240),
                 Text = "Leaderboard",
@@ -66,7 +66,7 @@ namespace NOBOIShooter.Screens
 
             _leaderboardButton.Click += LeaderboardButtonOnClick;
 
-            _quitGameButton = new Button(_buttonTexture, _buttonFont)
+            _quitGameButton = new Button(_buttonTexture, _buttonFont, content)
             {
                 PenColour = new Color(Color.Red, 1f),
                 Position = new Vector2(730, 380),
@@ -85,7 +85,7 @@ namespace NOBOIShooter.Screens
 
             // _volumeControlButton.Click += VolumeControlButtonOnClick;
 
-            _gameOptionsButton = new Button(_options)
+            _gameOptionsButton = new Button(_options, content)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(1220, 20),
@@ -116,8 +116,14 @@ namespace NOBOIShooter.Screens
 
         private void LeaderboardButtonOnClick(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             _game.ChangeScreen(ScreenSelect.Leaderboard);
             Console.WriteLine("Leaderboard click");
+=======
+            //Console.WriteLine("Leaderboard click");
+            _game.ChangeScreen(ScreenSelect.Score);
+            _instance.Dispose();
+>>>>>>> ae76db664fff0f034e79b202fd5c9ba0accb7a39
         }
 
         private void QuitGameButtonOnClick(object sender, EventArgs e)
@@ -185,13 +191,14 @@ namespace NOBOIShooter.Screens
                 component.Update(gameTime);
 
             // _volumeControlButton.Update(gameTime);
-
+            /*
             MouseState mouse = Mouse.GetState();
 
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 System.Diagnostics.Debug.WriteLine(mouse.X.ToString() + " , " + mouse.Y.ToString());
             }
+            */
         }
 
         public override void PostUpdate(GameTime gameTime)
