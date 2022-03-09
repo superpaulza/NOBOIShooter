@@ -31,7 +31,7 @@ namespace NOBOIShooter
         }
 
         //Virtual method (parent class) is only accept "override" from child class 
-        public virtual void Update(GameTime gameTime, Bubble[,] gameObjects)
+        public virtual void Update(GameTime gameTime)
         {
         }
 
