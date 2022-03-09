@@ -18,7 +18,7 @@ namespace NOBOIShooter.GameObjects
         private const int TILES_ROWS_HEIGHT = 34;
         private const int BALL_RADIAN = 20;
         private const int START_FLOOR = 6;
-        private const int ToTAL_BALL_COLOR = 5;
+        private const int ToTAL_BALL_COLOR = 2;
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
 
@@ -448,6 +448,7 @@ namespace NOBOIShooter.GameObjects
                     }
                 }
                 _removeClusterEffect = 0;
+                gameWinCheck();
 
             }
         }
@@ -464,6 +465,7 @@ namespace NOBOIShooter.GameObjects
                 }
             
             }
+            GameScore += (int) Math.Pow(10, START_FLOOR);
             GameWin = true;
             return true;
         }

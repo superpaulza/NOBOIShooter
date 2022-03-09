@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
+using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
@@ -28,8 +29,8 @@ namespace NOBOIShooter.Screens
 
         private Button _backButton;
 
-
-
+        private ScoreData _scoreTable;
+        private bool _gameScoreSave = false;
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
@@ -64,7 +65,12 @@ namespace NOBOIShooter.Screens
 
             _bord = new BallGridManager(_bubbleImg);
             _player = new Player(_bord, _shooterImg, _bubbleImg, _pen);
+            _scoreTable = new ScoreData();
+            _scoreTable.LoadSave();
 
+            //for (int i = 0; i < _scoreTable.ScoresTables.Count; i++) Debug.WriteLine(_scoreTable.ScoresTables[i].ScoreGet.ToString() + " " + _scoreTable.ScoresTables[i].ScoreDate.ToString());
+            
+            
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -89,23 +95,43 @@ namespace NOBOIShooter.Screens
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
+            
+            // Draw fade out
+            if (_bord.GameWin || _bord.GameEnd)
+            {
+                if(!_gameScoreSave)
+                {
+                    _scoreTable.Add(new Score(_bord.GameScore, DateTime.Now));
+                    _scoreTable.Sort();
+                    _scoreTable.SaveGame();
+                    _gameScoreSave = true;
+                    //Debug.WriteLine("Save Score ?: " + _bord.GameScore);
+
+                }
+
+                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .6f));
+
+                string gameEnding = "Your score is " + _bord.GameScore;
+                spriteBatch.DrawString(_textFront, gameEnding,
+                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X) / 2, 180f), Color.White);
+
+                _sfxBgInstance.Pause();
+                _sfxEndInstance2.Play();
+            }
+
+
             if (_bord.GameEnd)
             {
-                spriteBatch.DrawString(_textFront, "Game Over", _textPosition, Color.White);
+                string gameEnding = "Game Ending \n\n Thank for playing.";
+                spriteBatch.DrawString(_textFront, gameEnding,
+                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X)/2, 100f), Color.White);
             }
 
             if (_bord.GameWin)
             {
-                spriteBatch.DrawString(_textFront, "You Won", _textPosition, Color.White);
-            }
-
-            // Draw fade out
-            if (_bord.GameWin || _bord.GameEnd)
-            {
-
-                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .4f));
-                _sfxBgInstance.Pause();
-                _sfxEndInstance2.Play();
+                string gameEnding = "You Won \n\n Want to play again?";
+                spriteBatch.DrawString(_textFront, gameEnding,
+                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X) / 2, 100f), Color.White);
             }
 
             spriteBatch.End();
