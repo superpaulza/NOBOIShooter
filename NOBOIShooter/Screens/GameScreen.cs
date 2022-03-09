@@ -20,6 +20,7 @@ namespace NOBOIShooter.Screens
         private Texture2D _pen;
 
         private SpriteFont _textFront;
+        private SpriteFont _numberFront;
 
         private SoundEffect _gameSfxBg, _gameSfxEnd;
         private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2;
@@ -37,6 +38,8 @@ namespace NOBOIShooter.Screens
         {
             //State = GameState.init;
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
+            _numberFront = _content.Load<SpriteFont>("Fonts/PublicSans");
+
             _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
@@ -83,7 +86,8 @@ namespace NOBOIShooter.Screens
 
             if (!_bord.GamePause)
             {
-                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
+                spriteBatch.DrawString(_textFront, "Score", new Vector2(1000, 180), Color.White);
+                spriteBatch.DrawString(_numberFront, _bord.GameScore.ToString(), new Vector2(1000, 300), Color.White);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
