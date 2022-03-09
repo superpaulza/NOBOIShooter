@@ -52,7 +52,7 @@ namespace NOBOIShooter.Screens
             //buttons config
             _playButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(800, 100),
+                Position = new Vector2(730, 100),
                 Text = "Play",
             };
 
@@ -60,7 +60,7 @@ namespace NOBOIShooter.Screens
 
             _leaderboardButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(800, 200),
+                Position = new Vector2(730, 240),
                 Text = "Leaderboard",
             };
 
@@ -69,7 +69,7 @@ namespace NOBOIShooter.Screens
             _quitGameButton = new Button(_buttonTexture, _buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
-                Position = new Vector2(800, 300),
+                Position = new Vector2(730, 380),
                 Text = "Quit Game",
             };
 
