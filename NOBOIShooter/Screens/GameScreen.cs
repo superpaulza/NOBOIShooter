@@ -1,36 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
-using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
     //Game screen
     public class GameScreen : AScreen
     {
-        private Texture2D _bubbleImg;
-        private Texture2D _shooterImg;
-        private Texture2D _backIcon;
-        private Texture2D _background;
-        private Texture2D _pen;
+        private Texture2D _bubbleImg, _shooterImg, _backIcon, _background, _pen;
 
         private SpriteFont _textFront;
 
         private SoundEffect _gameSfxBg, _gameSfxEnd;
         private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2;
 
-
         private BallGridManager _bord;
         private Player _player;
 
         private Button _backButton;
-
-
 
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
@@ -44,13 +35,14 @@ namespace NOBOIShooter.Screens
             _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
             _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
 
+            _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
+
             _sfxBgInstance = _gameSfxBg.CreateInstance();
             _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
             _sfxBgInstance.IsLooped = true;
 
             _sfxBgInstance.Play();
 
-            _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
             _pen = new Texture2D(graphicsDevice, 1, 1);
             _pen.SetData(new[] { Color.White });
 
@@ -64,6 +56,7 @@ namespace NOBOIShooter.Screens
             _player = new Player(_bord, _shooterImg, _bubbleImg, _pen);
 
         }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -76,40 +69,13 @@ namespace NOBOIShooter.Screens
             _player.Draw(spriteBatch, gameTime);
             _bord.Draw(spriteBatch, gameTime);
 
-            Vector2 _textPosition = new Vector2(1000, 180);
-            Rectangle FullDisplay = new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight);
-
-            if (!_bord.GamePause)
-            {
-                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
-                //Debug.WriteLine("Score : " + _bord.GameScore);
-            }
-
-            if (_bord.GameEnd)
-            {
-                spriteBatch.DrawString(_textFront, "Game Over", _textPosition, Color.White);
-            }
-
-            if (_bord.GameWin)
-            {
-                spriteBatch.DrawString(_textFront, "You Won", _textPosition, Color.White);
-            }
-
-            // Draw fade out
-            if (_bord.GameWin || _bord.GameEnd)
-            {
-
-                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .4f));
-                _sfxBgInstance.Pause();
-                _sfxEndInstance2.Play();
-            }
+            new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance2);
 
             spriteBatch.End();
         }
 
         public override void PostUpdate(GameTime gameTime)
         {
-            //
         }
 
         public override void Update(GameTime gameTime)
