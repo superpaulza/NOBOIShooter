@@ -104,7 +104,6 @@ namespace NOBOIShooter.Screens
             spriteBatch.DrawString(myText, "10", new Vector2(900, 180), Color.Black);
 
             if (gameOver)
-=======
             if (!_bord.GamePause)
             {
                 spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
@@ -139,7 +138,6 @@ namespace NOBOIShooter.Screens
 
         public override void Update(GameTime gameTime)
         {
-<<<<<<< HEAD
             BackButton.Update(gameTime);
             if (!gameOver && !gameWin)
             {
@@ -297,10 +295,14 @@ namespace NOBOIShooter.Screens
                     _Color.A = (byte)alpha;
                 }
             }
-=======
             _backButton.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
+        }
+
+        private bool CheckWin(Bubble[,] bubbleArea)
+        {
+            throw new NotImplementedException();
         }
 
         private void BackButton_Click(object sender, EventArgs e)
