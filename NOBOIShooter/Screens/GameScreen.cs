@@ -45,7 +45,9 @@ namespace NOBOIShooter.Screens
             _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
 
             _sfxBgInstance = _gameSfxBg.CreateInstance();
+            _sfxBgInstance.Volume = Singleton.Instance.BGMVolume;
             _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
+            _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
             _sfxBgInstance.IsLooped = true;
 
             _sfxBgInstance.Play();
