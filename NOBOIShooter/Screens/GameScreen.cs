@@ -111,9 +111,9 @@ namespace NOBOIShooter.Screens
 
                 spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .6f));
 
-                string gameEnding = "Your score is " + _bord.GameScore;
-                spriteBatch.DrawString(_textFront, gameEnding,
-                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X) / 2, 180f), Color.White);
+                string gameScore = "Your score is " + _bord.GameScore;
+                spriteBatch.DrawString(_textFront, gameScore,
+                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameScore).X) / 2, 260f), Color.White);
 
                 _sfxBgInstance.Pause();
                 _sfxEndInstance2.Play();
