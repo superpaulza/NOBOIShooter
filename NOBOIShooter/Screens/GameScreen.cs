@@ -15,8 +15,8 @@ namespace NOBOIShooter.Screens
 
         private SpriteFont _textFront;
 
-        private SoundEffect _gameSfxBg, _gameSfxEnd;
-        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2;
+        private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
+        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
 
         private BallGridManager _bord;
         private Player _player;
@@ -34,6 +34,7 @@ namespace NOBOIShooter.Screens
 
             _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
             _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
+            _gameSfxWin = content.Load<SoundEffect>("BGM/VictoryBGM");
 
             _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
 
@@ -42,6 +43,8 @@ namespace NOBOIShooter.Screens
             _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
             _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
             _sfxBgInstance.IsLooped = true;
+            _sfxEndInstance3 = _gameSfxWin.CreateInstance();
+            _sfxEndInstance3.Volume = Singleton.Instance.SFXVolume;
 
             _sfxBgInstance.Play();
 
@@ -71,7 +74,7 @@ namespace NOBOIShooter.Screens
             _player.Draw(spriteBatch, gameTime);
             _bord.Draw(spriteBatch, gameTime);
 
-            new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance2);
+            new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3);
 
             spriteBatch.End();
         }

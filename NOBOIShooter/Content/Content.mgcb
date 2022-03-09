@@ -67,6 +67,12 @@
 /processorParam:Quality=Best
 /build:BGM/MainMenuBGM.wav
 
+#begin BGM/VictoryBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/VictoryBGM.wav
+
 #begin Controls/BackButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
