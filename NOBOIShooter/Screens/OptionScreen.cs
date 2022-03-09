@@ -268,9 +268,9 @@ namespace NOBOIShooter.Screens
 
             spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.White, 0f, _font.MeasureString("BGM") * 0.5f, 1.5f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _sfxVolume.ToString(), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_publicsans, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _bgmVolume.ToString(), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_publicsans, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
 
             foreach (Component component in _components)
