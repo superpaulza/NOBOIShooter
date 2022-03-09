@@ -20,8 +20,8 @@ namespace NOBOIShooter.Screens
 
         private SpriteFont _textFront;
 
-        private SoundEffect _gameSfxBg, _gameSfxEnd;
-        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2;
+        private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
+        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
 
 
         private BallGridManager _bord;
@@ -43,12 +43,16 @@ namespace NOBOIShooter.Screens
 
             _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
             _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
+            _gameSfxWin = content.Load<SoundEffect>("BGM/VictoryBGM");
 
             _sfxBgInstance = _gameSfxBg.CreateInstance();
             _sfxBgInstance.Volume = Singleton.Instance.BGMVolume;
             _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
             _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
-            _sfxBgInstance.IsLooped = true;
+            //_sfxBgInstance.IsLooped = true;
+            _sfxEndInstance3 = _gameSfxWin.CreateInstance();
+            _sfxEndInstance3.Volume = Singleton.Instance.SFXVolume;
+            //_sfxBgInstance.IsLooped = true;
 
             _sfxBgInstance.Play();
 
@@ -80,8 +84,6 @@ namespace NOBOIShooter.Screens
             // Draw Backgrounds
             spriteBatch.Draw(_pen, new Rectangle((int)_bord.Position.X, (int)_bord.Position.Y, _bord.Width, _bord.Height), new Color(Color.Black, 0.1f));
 
-           
-
             _backButton.Draw(gameTime, spriteBatch);
             _player.Draw(spriteBatch, gameTime);
             _bord.Draw(spriteBatch, gameTime);
@@ -95,7 +97,6 @@ namespace NOBOIShooter.Screens
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
-            
             // Draw fade out
             if (_bord.GameWin || _bord.GameEnd)
             {
@@ -116,12 +117,12 @@ namespace NOBOIShooter.Screens
                     new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameScore).X) / 2, 260f), Color.White);
 
                 _sfxBgInstance.Pause();
-                _sfxEndInstance2.Play();
             }
 
 
             if (_bord.GameEnd)
             {
+                _sfxEndInstance2.Play();
                 string gameEnding = "Game Ending \n\n Thank for playing.";
                 spriteBatch.DrawString(_textFront, gameEnding,
                     new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X)/2, 100f), Color.White);
@@ -129,6 +130,7 @@ namespace NOBOIShooter.Screens
 
             if (_bord.GameWin)
             {
+                _sfxEndInstance3.Play();
                 string gameEnding = "You Won \n\n Want to play again?";
                 spriteBatch.DrawString(_textFront, gameEnding,
                     new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X) / 2, 100f), Color.White);
