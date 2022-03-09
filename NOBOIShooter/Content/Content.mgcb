@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/gameBackground.png
 
+#begin Backgrouds/gameBackgroundVer2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrouds/gameBackgroundVer2.png
+
 #begin Backgrouds/wild-west.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,6 +60,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
+
+#begin BGM/ButtonBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/ButtonBGM.wav
 
 #begin BGM/GameOverBGM.wav
 /importer:WavImporter
@@ -254,6 +272,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Item/gun.png
+
+#begin Item/hand-gun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/hand-gun.png
+
+#begin Item/head-gun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Item/head-gun.png
 
 #begin Item/human/body.png
 /importer:TextureImporter

@@ -37,42 +37,42 @@ namespace NOBOIShooter.Screens
 
             _volumeSFXState = Singleton.Instance.IsSFXEnable ? _volumeOn : _volumeOff;
 
-            _backButton = new Button(_backIcon)
+            _backButton = new Button(_backIcon, content)
             {
                 Position = new Vector2(1200, 20),
             };
             
             _backButton.Click += _backButtonOnClick;
 
-            _increaseSFXButton = new Button(_increaseIcon)
+            _increaseSFXButton = new Button(_increaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 175),
             };
 
             _increaseSFXButton.Click += _increaseSFXButtonOnClick;
 
-            _decreaseSFXButton = new Button(_decreaseIcon)
+            _decreaseSFXButton = new Button(_decreaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2, 175),
             };
 
             _decreaseSFXButton.Click += _decreaseSFXButtonOnClick;
 
-            _increaseBGMButton = new Button(_increaseIcon)
+            _increaseBGMButton = new Button(_increaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 275),
             };
 
             _increaseBGMButton.Click += _increaseBGMButtonOnClick;
 
-            _decreaseBGMButton = new Button(_decreaseIcon)
+            _decreaseBGMButton = new Button(_decreaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2, 275),
             };
 
             _decreaseBGMButton.Click += _decreaseBGMButtonOnClick;
 
-            _volumeSFXControlButton = new DynamicButton(_volumeSFXState)
+            _volumeSFXControlButton = new DynamicButton(_volumeSFXState, content)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
@@ -82,7 +82,7 @@ namespace NOBOIShooter.Screens
 
             _volumeSFXControlButton.Click += _volumeSFXControlButtonOnClick;
 
-            _volumeBGMControlButton = new DynamicButton(_volumeBGMState)
+            _volumeBGMControlButton = new DynamicButton(_volumeBGMState, content)
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),

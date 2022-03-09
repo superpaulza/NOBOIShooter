@@ -12,6 +12,7 @@ namespace NOBOIShooter.Screens
 
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
+        private ScoreScreen _scoreScreen;
         private OptionScreen _optionScreen;
         private LeaderboardScreen _leaderboardScreen;
 
@@ -68,6 +69,10 @@ namespace NOBOIShooter.Screens
                 case ScreenSelect.Game:
                     _gameScreen = new GameScreen(_game, _graphicsDevice, _content);
                     _nextScreen = _gameScreen;
+                    break;
+                case ScreenSelect.Score:
+                    _scoreScreen = new ScoreScreen(_game, _graphicsDevice, _content);
+                    _nextScreen = _scoreScreen;
                     break;
                 case ScreenSelect.Setting:
                     _optionScreen = new OptionScreen(_game, _graphicsDevice, _content);
