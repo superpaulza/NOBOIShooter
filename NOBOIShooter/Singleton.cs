@@ -8,14 +8,20 @@ namespace NOBOIShooter
     class Singleton
     {
         //Store default value or parameter here!
-        public int ScreenHeight = 720, ScreenWidth = 1280;
+        
         public int Score = 0;
         public bool IsMouseVisible = true, Shooting = false;
         public string ContentRootDir = "Content";
         public string BestTime, BestScore;
         public MouseState MousePrevious, MouseCurrent;
         public List<Vector2> removeBubble = new List<Vector2>();
+        public bool IsBGMEnable = true;
+        public bool IsSFXEnable = true;
+        public float BGMVolume = 1.0f;
+        public float SFXVolume = 1.0f;
 
+        public readonly int ScreenHeight = 720;
+        public readonly int ScreenWidth = 1280;
         public readonly int BubbleGridWidth = 60;
         public readonly int BubblePictureWidth = 58;
         public readonly int GameDisplayBorderTop = 40;
