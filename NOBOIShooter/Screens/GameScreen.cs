@@ -158,6 +158,7 @@ namespace NOBOIShooter.Screens
             _bord.ClearGame();
             _sfxBgInstance.Dispose();
             _sfxEndInstance2.Dispose();
+            _sfxEndInstance3.Dispose();
             _game.ChangeScreen(ScreenSelect.Menu);
         }
     }
