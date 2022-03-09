@@ -145,13 +145,13 @@ namespace NOBOIShooter.GameObjects
             
 
             // Int value to color of ball
-            if (i == 1) return Color.FromNonPremultiplied(225, 78, 175, 255); //pink 
+            if (i == 1) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange; // Color.FromNonPremultiplied(225, 78, 175, 255); //pink 
             else if (i == 2) return Color.FromNonPremultiplied(124, 90, 188, 255); // purple
-            else if (i == 3) return Color.FromNonPremultiplied(50, 85, 166, 255); // blue
+            else if (i == 3) return Color.FromNonPremultiplied(249, 219, 99, 255); // yellow // Color.FromNonPremultiplied(50, 85, 166, 255); // blue
             else if (i == 4) return Color.FromNonPremultiplied(76, 176, 99, 255); // greenn
             else if (i == 5) return Color.FromNonPremultiplied(210, 71, 51, 255); // red
-            else if (i == 5) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange;
-            else if (i == 5) return Color.FromNonPremultiplied(249, 219, 99, 255); // yellow
+            // else if (i == 6) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange;
+            // else if (i == 5) return Color.FromNonPremultiplied(249, 219, 99, 255); // yellow
             return new Color(Color.White,.1f);
         }
 
