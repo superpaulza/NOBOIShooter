@@ -116,7 +116,9 @@ namespace NOBOIShooter.Screens
 
         private void LeaderboardButtonOnClick(object sender, EventArgs e)
         {
-            Console.WriteLine("Leaderboard click");
+            //Console.WriteLine("Leaderboard click");
+            _game.ChangeScreen(ScreenSelect.Score);
+            _instance.Dispose();
         }
 
         private void QuitGameButtonOnClick(object sender, EventArgs e)
@@ -184,13 +186,14 @@ namespace NOBOIShooter.Screens
                 component.Update(gameTime);
 
             // _volumeControlButton.Update(gameTime);
-
+            /*
             MouseState mouse = Mouse.GetState();
 
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 System.Diagnostics.Debug.WriteLine(mouse.X.ToString() + " , " + mouse.Y.ToString());
             }
+            */
         }
 
         public override void PostUpdate(GameTime gameTime)

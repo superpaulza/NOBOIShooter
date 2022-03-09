@@ -2,22 +2,36 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace NOBOIShooter.Controls
 {
+    [Serializable]
     public class Score
     {
-            public int Highscore { get; set; }
-            public DateTime HighscoreDate { get; set; }
+        public int ScoreGet { get; set; }
+        public DateTime ScoreDate { get;  set; }
+
+        public Score(int score, DateTime time)
+        {
+            ScoreGet = score;
+            ScoreDate = time;
+        }
     
     }
     class ScoreData
     {
         private const string SAVE_FILE_NAME = "sav.dat";
-        public List<Score> ScoresTables { get; set; }
+        public List<Score> ScoresTables { get; private set; }
 
+        public ScoreData ()
+        {
+            if (ScoresTables == null)
+                ScoresTables = new List<Score>();
+            LoadSave();
+        }
         public void Add(Score score)
         {
             ScoresTables.Add(score);
@@ -25,12 +39,13 @@ namespace NOBOIShooter.Controls
 
         public void Sort()
         {
-            ScoresTables.Sort();
+            ScoresTables.Sort(delegate(Score x, Score y) {
+                return x.ScoreGet.CompareTo(y.ScoreGet);
+            });
         }
 
         public void SaveGame()
         {
-
 
             try
             {
@@ -47,7 +62,7 @@ namespace NOBOIShooter.Controls
 
         }
 
-        public void LoadSaveState()
+        public void LoadSave()
         {
             try
             {

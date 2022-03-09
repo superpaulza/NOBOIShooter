@@ -180,6 +180,7 @@ namespace NOBOIShooter.GameObjects
                     //Debug.WriteLine("Take : " + RemoveCluster.Count);
                     _bord.RemoveCluster = RemoveCluster;
                     _bord.StateRemovecluster();
+                    _bord.gameWinCheck();
                     return;
                 }
             }
