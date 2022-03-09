@@ -1,30 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using NOBOIShooter.GameObjects;
 using System;
-using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
     //Game screen
     public class GameScreen : AScreen
     {
-        private int BUBBLE_WIDTH = Singleton.Instance.BubbleGridWidth;
-        private int top = Singleton.Instance.GameDisplayBorderTop;
-        private int right = Singleton.Instance.GameDisplayBorderRight;
-        private int left = Singleton.Instance.GameDisplayBorderLeft;
-        private int bottom = Singleton.Instance.GameDisplayBorderBottom;
+        private Texture2D _bubbleImg, _shooterImg, _backIcon, _background, _pen;
 
-        private static int GAME_GRID_X = (Singleton.Instance.GameDisplayBorderRight - Singleton.Instance.GameDisplayBorderLeft) / Singleton.Instance.BubbleGridWidth;
-        private static int GAME_GRID_Y = (Singleton.Instance.GameDisplayBorderBottom - Singleton.Instance.GameDisplayBorderTop) / Singleton.Instance.BubbleGridWidth;
+        private SpriteFont _textFront;
+        private SpriteFont _numberFront;
 
-        private int GAME_BUBBLE_START = 2;
-        private int GAME_BUBBLE_DEATH = GAME_GRID_Y - 1;
+        private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
+        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
 
+<<<<<<< HEAD
         private Bubble[,] bubbleArea = new Bubble[GAME_GRID_Y + 2, GAME_GRID_X];
         
         private SpriteFont myText;
@@ -46,169 +41,100 @@ namespace NOBOIShooter.Screens
         private SoundEffectInstance Instance1, Instance2; 
         private int count = 0;
         private int bubblenull = 0;
+=======
+        private BallGridManager _bord;
+        private Player _player;
+>>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
 
-        //----------------------------------------------------------------------//
-        MotorParticular particular;
-        Texture2D textParticular;
-        //----------------------------------------------------------------------//
+        private Button _backButton;
 
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
-            myText = _content.Load<SpriteFont>("Fonts/Font");
-            BackIcon = _content.Load<Texture2D>("Controls/BackButton");
+            //State = GameState.init;
+            _textFront = _content.Load<SpriteFont>("Fonts/Font");
+
+            _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
-            _bubbleTexture = _content.Load<Texture2D>("Item/bubble");
-            shooterTexture = _content.Load<Texture2D>("Item/bubble-shoot");
+            _bubbleImg = _content.Load<Texture2D>("Item/bubble");
 
-            //--------------------------------------------------------------// Spanish Guy Code
-            /*textParticular = _content.Load<Texture2D>("ParticulaBurbuja");
-            particular = new MotorParticular();
-            particular.addTexture(textParticular);
-            particular.randoms = true;
+            _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
+            _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
+            _gameSfxWin = content.Load<SoundEffect>("BGM/VictoryBGM");
 
-            List<Bubble> burbujasdestruidas = new List<Bubble>();
+            _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
 
-            foreach (Bubble burb in burbujasCayendo) // removing bubble object list
-            {
-                particular.IssuerPosition = burb.Position;
-                particular.startParticles(10, 1.5f, 40, burb._color);
-                burbujasdestruidas.Add(burb);
-            }
+            _sfxBgInstance = _gameSfxBg.CreateInstance();
+            _sfxBgInstance.Volume = Singleton.Instance.BGMVolume;
+            _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
+            _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
+            _sfxBgInstance.IsLooped = true;
+            _sfxEndInstance3 = _gameSfxWin.CreateInstance();
+            _sfxEndInstance3.Volume = Singleton.Instance.SFXVolume;
 
-            foreach (Bubble burb in burbujasdestruidas)
-            {
-                burbujasCayendo.Remove(burb);
-            }
+            _sfxBgInstance.Play();
 
-            if (burbujaLanzada == null)
-            {
-                GenerarNuevaBurbuja();
-            }
+            _pen = new Texture2D(graphicsDevice, 1, 1);
+            _pen.SetData(new[] { Color.White });
 
-            particulas.Update();
-            base.Update(gameTime);
-
-            // Draw
-            particulas.Draw(spriteBatch);
-            spriteBatch.End();*/
-
-            //--------------------------------------------------------------//
-
-            // Setting Button && Button Action
-            BackButton = new Button(BackIcon)
+            _backButton = new Button(_backIcon)
             {
                 Position = new Vector2(1200, 20),
             };
+            _backButton.Click += BackButton_Click;
 
-            BackButton.Click += BackButton_Click;
+            _bord = new BallGridManager(_bubbleImg);
+            _player = new Player(_bord, _shooterImg, _bubbleImg, _pen);
 
-            for (int i = 0; i < GAME_BUBBLE_START; i++)
-            {
-                for (int j = 0; j < GAME_GRID_X; j++)
-                {
-                   
-                    int BallPositionX = (j * BUBBLE_WIDTH) + ((i % 2) == 0 ? left : left + BUBBLE_WIDTH / 2);
-                    if (BallPositionX + BUBBLE_WIDTH  > right) break;
-                    int BallPositionY = top + (i * BUBBLE_WIDTH);
-                    bubbleArea[i, j] = new Bubble(_bubbleTexture, (i % 2) != 0)
-                    {
-                        Name = "Bubble",
-                        Position = new Vector2(BallPositionX, BallPositionY),
-                        _color = GetRandomColor(),
-                        IsMoving = false,
-                    };
-                }
-            }
-
-            Player = new Shooter(shooterTexture, _bubbleTexture, graphicsDevice)
-            {
-                Name = "Shooter",
-            };
-
-            line = new Texture2D(graphicsDevice, 1, 1);
-            line.SetData(new[] { Color.White });
-
-            //BG Music
-            ControllerBGM(content);
-        }
-
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            Singleton.Instance.removeBubble.Clear();
-            Singleton.Instance.Shooting = false;
-            
-            Instance1.Dispose();
-            Instance2.Dispose();
-            _game.ChangeScreen(ScreenSelect.Menu);
-        }
-
-        private void ControllerBGM(ContentManager content)
-        {
-            Effect1 = content.Load<SoundEffect>("BGM/GameScreenBGM");
-            Effect2 = content.Load<SoundEffect>("BGM/GameOverBGM");
-
-            Instance1 = Effect1.CreateInstance();
-            Instance2 = Effect2.CreateInstance();
-            Instance1.IsLooped = true;
-
-            Instance1.Play();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            /*
-            spriteBatch.DrawString(myText, "Can u see me? \n sorry It's too white!", new Vector2(900, 100), Color.Black);
-            spriteBatch.DrawString(myText, "Post : " + Mouse.GetState().X + " , " + Mouse.GetState().Y, new Vector2(900, 400), Color.Black);
-            */
-
             // Draw Backgrounds
-            Rectangle _background_frame = new Rectangle(0, 0, 1280, 750);
-            spriteBatch.Draw(_background, _background_frame, Color.White);
+            spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            // Draw Backgrounds
+            spriteBatch.Draw(_pen, new Rectangle((int)_bord.Position.X, (int)_bord.Position.Y, _bord.Width, _bord.Height), new Color(Color.Black, 0.2f));
 
-            // Draw Back Button
-            BackButton.Draw(gameTime, spriteBatch);
-            
-            // Draw Bubble Area
-            spriteBatch.Draw(line, new Rectangle(left, top, right - left, bottom - top), Color.Chocolate);
-            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_GRID_Y)*BUBBLE_WIDTH), Color.Gray);
-            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH)*BUBBLE_WIDTH), Color.Brown);
-            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_DEATH - 2)*BUBBLE_WIDTH), Color.Orange);
-            spriteBatch.Draw(line, new Rectangle(left, top, right - left, (GAME_BUBBLE_START)*BUBBLE_WIDTH), Color.Green);
+            _backButton.Draw(gameTime, spriteBatch);
+            _player.Draw(spriteBatch, gameTime);
+            _bord.Draw(spriteBatch, gameTime);
 
-            foreach (Bubble _bubble in bubbleArea) if (_bubble != null) _bubble.Draw(spriteBatch);
-        
-            Player.Draw(spriteBatch);
-            /*
-            spriteBatch.DrawString(myText, "Score : " + Singleton.Instance.Score, new Vector2(1060, 260), _Color);
-            spriteBatch.DrawString(myText, "Time : " + Timer.ToString("F"), new Vector2(20, 260), _Color);
-            spriteBatch.DrawString(myText, "Next Time : " + (tickPerUpdate - __timer).ToString("F"), new Vector2(20, 210), _Color);
-            */
-            Vector2 textDisply = new Vector2(1000, 200);
-            Rectangle FullDisplay = new Rectangle(100, 0, Singleton.Instance.ScreenWidth - 200, Singleton.Instance.ScreenHeight);
+            new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3);
 
+<<<<<<< HEAD
             // Score Display. 
             spriteBatch.DrawString(myText, "Score", new Vector2(900, 100), Color.Black);
             spriteBatch.DrawString(myText, "10", new Vector2(900, 180), Color.Black);
 
             if (gameOver)
+=======
+            if (!_bord.GamePause)
+>>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
             {
-                spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
-                spriteBatch.DrawString(myText, "Game Over", textDisply, Color.White);
+                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
+                //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
-            if (gameWin)
+            if (_bord.GameEnd)
             {
-                spriteBatch.Draw(line, FullDisplay, new Color(0, 0, 0, 210));
-                spriteBatch.DrawString(myText, "You Won", textDisply, Color.White);
+                spriteBatch.DrawString(_textFront, "Game Over", _textPosition, Color.White);
+            }
+
+            if (_bord.GameWin)
+            {
+                spriteBatch.DrawString(_textFront, "You Won", _textPosition, Color.White);
             }
 
             // Draw fade out
-            if (!fadeFinish)
+            if (_bord.GameWin || _bord.GameEnd)
             {
-                spriteBatch.Draw(line, FullDisplay, _Color);
+
+                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .4f));
+                _sfxBgInstance.Pause();
+                _sfxEndInstance2.Play();
             }
+
             spriteBatch.End();
         }
 
@@ -218,6 +144,7 @@ namespace NOBOIShooter.Screens
 
         public override void Update(GameTime gameTime)
         {
+<<<<<<< HEAD
             BackButton.Update(gameTime);
             if (!gameOver && !gameWin)
             {
@@ -375,40 +302,21 @@ namespace NOBOIShooter.Screens
                     _Color.A = (byte)alpha;
                 }
             }
+=======
+            _backButton.Update(gameTime);
+            _bord.Update(gameTime);
+            _player.Update(gameTime);
+>>>>>>> aebeac838548848d1b807f04978da5f4be7f4370
         }
 
-        public Color GetRandomColor()
+        private void BackButton_Click(object sender, EventArgs e)
         {
-            Color _color = Color.Black;
-            switch (_random.Next(0, 4))
-            {
-                case 0:
-                    _color = Color.White;
-                    break;
-                case 1:
-                    _color = Color.Blue;
-                    break;
-                case 2:
-                    _color = Color.Yellow;
-                    break;
-                case 3:
-                    _color = Color.Red;
-                    break;
-                case 4:
-                    _color = Color.Green;
-                    break;
-                case 5:
-                    _color = Color.Purple;
-                    break;
-            }
-            return _color;
-        }
-        
-        public bool CheckWin(Bubble[,] allBubble)
-        {
-            // Check all position in null
-            foreach(Bubble _bubble in allBubble) if (_bubble != null) return false;
-            return true;
+            //Singleton.Instance.removeBubble.Clear();
+            //Singleton.Instance.Shooting = false;
+            _bord.ClearGame();
+            _sfxBgInstance.Dispose();
+            _sfxEndInstance2.Dispose();
+            _game.ChangeScreen(ScreenSelect.Menu);
         }
     }
 }

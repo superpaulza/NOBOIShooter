@@ -14,7 +14,7 @@ namespace NOBOIShooter.Screens
     {
         //variables decoration
         private List<Component> _components;
-        private Texture2D _buttonTexture, _background, _logo, _volumeOn, _volumeOff, _volumeState, _options, _human, _leftEye, _rightEye;
+        private Texture2D _buttonTexture, _background, _logo, _options, _human, _leftEye, _rightEye;
         private SpriteFont _buttonFont;
         private Button _playButton, _leaderboardButton, _quitGameButton, _gameOptionsButton;
         private DynamicButton _volumeControlButton;
@@ -33,8 +33,8 @@ namespace NOBOIShooter.Screens
             _leftEye = _content.Load<Texture2D>("Item/human/left-eye");
             _rightEye = _content.Load<Texture2D>("Item/human/right-eye");
             _logo = _content.Load<Texture2D>("Item/logo");
-            _volumeOn = _content.Load<Texture2D>("Item/volume-on");
-            _volumeOff = _content.Load<Texture2D>("Item/volume-off");
+            // _volumeOn = _content.Load<Texture2D>("Item/volume-on");
+            // _volumeOff = _content.Load<Texture2D>("Item/volume-off");
             _options = _content.Load<Texture2D>("Icons/Setting");
 
             //font
@@ -44,14 +44,15 @@ namespace NOBOIShooter.Screens
             _soundEffect = _content.Load<SoundEffect>("BGM/MainMenuBGM");
             _instance = _soundEffect.CreateInstance();
             _instance.IsLooped = true;
+            _instance.Volume = Singleton.Instance.BGMVolume;
             _instance.Play();
 
-            _volumeState = _volumeOn;
+            // _volumeState = _volumeOn;
 
             //buttons config
             _playButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(800, 100),
+                Position = new Vector2(730, 100),
                 Text = "Play",
             };
 
@@ -59,7 +60,7 @@ namespace NOBOIShooter.Screens
 
             _leaderboardButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(800, 200),
+                Position = new Vector2(730, 240),
                 Text = "Leaderboard",
             };
 
@@ -68,26 +69,26 @@ namespace NOBOIShooter.Screens
             _quitGameButton = new Button(_buttonTexture, _buttonFont)
             {
                 PenColour = new Color(Color.Red, 1f),
-                Position = new Vector2(800, 300),
+                Position = new Vector2(730, 380),
                 Text = "Quit Game",
             };
 
             _quitGameButton.Click += QuitGameButtonOnClick;
 
-            _volumeControlButton = new DynamicButton(_volumeState)
-            {
-                PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(1220, 20),
-                Text = "",
-                
-            };
+            // _volumeControlButton = new DynamicButton(_volumeState)
+            // {
+            //     PenColour = new Color(Color.White, 1f),
+            //     Position = new Vector2(1220, 20),
+            //     Text = "",
+            //     
+            // };
 
-            _volumeControlButton.Click += VolumeControlButtonOnClick;
+            // _volumeControlButton.Click += VolumeControlButtonOnClick;
 
             _gameOptionsButton = new Button(_options)
             {
                 PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(1150, 20),
+                Position = new Vector2(1220, 20),
                 Text = "",
 
             };
@@ -100,7 +101,7 @@ namespace NOBOIShooter.Screens
                 _playButton,
                 _leaderboardButton,
                 _quitGameButton,
-                _volumeControlButton,
+                // _volumeControlButton,
                 _gameOptionsButton,
             };
         }
@@ -124,19 +125,19 @@ namespace NOBOIShooter.Screens
             _game.Exit();
         }
 
-        private void VolumeControlButtonOnClick(object sender, EventArgs e) 
-        {
-            switch (_instance.State) {
-                case SoundState.Playing:
-                    _instance.Pause();
-                    _volumeControlButton.Texture = _volumeOff;
-                    break;
-                case SoundState.Paused:
-                    _instance.Resume();
-                    _volumeControlButton.Texture = _volumeOn;
-                    break;
-            }
-        }
+        // private void VolumeControlButtonOnClick(object sender, EventArgs e) 
+        // {
+        //     switch (_instance.State) {
+        //         case SoundState.Playing:
+        //             _instance.Pause();
+        //             _volumeControlButton.Texture = _volumeOff;
+        //             break;
+        //         case SoundState.Paused:
+        //             _instance.Resume();
+        //             _volumeControlButton.Texture = _volumeOn;
+        //             break;
+        //     }
+        // }
 
         private void GameOptionsButtonOnClick(object sender, EventArgs e)
         {
@@ -183,7 +184,7 @@ namespace NOBOIShooter.Screens
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-            _volumeControlButton.Update(gameTime);
+            // _volumeControlButton.Update(gameTime);
 
             MouseState mouse = Mouse.GetState();
 
