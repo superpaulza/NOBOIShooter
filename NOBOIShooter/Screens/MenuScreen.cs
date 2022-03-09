@@ -183,7 +183,7 @@ namespace NOBOIShooter.Screens
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-            _volumeControlButton.Update(gameTime);
+            // _volumeControlButton.Update(gameTime);
 
             MouseState mouse = Mouse.GetState();
 
