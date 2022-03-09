@@ -14,6 +14,7 @@ namespace NOBOIShooter.Screens
         private Texture2D _bubbleImg, _shooterImg, _backIcon, _background, _pen;
 
         private SpriteFont _textFront;
+        private SpriteFont _numberFront;
 
         private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
         private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
@@ -28,6 +29,7 @@ namespace NOBOIShooter.Screens
         {
             //State = GameState.init;
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
+
             _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
@@ -75,6 +77,31 @@ namespace NOBOIShooter.Screens
             _bord.Draw(spriteBatch, gameTime);
 
             new GameStageCheck(_pen, spriteBatch, _textFront, _bord, _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3);
+
+            if (!_bord.GamePause)
+            {
+                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
+                //Debug.WriteLine("Score : " + _bord.GameScore);
+            }
+
+            if (_bord.GameEnd)
+            {
+                spriteBatch.DrawString(_textFront, "Game Over", _textPosition, Color.White);
+            }
+
+            if (_bord.GameWin)
+            {
+                spriteBatch.DrawString(_textFront, "You Won", _textPosition, Color.White);
+            }
+
+            // Draw fade out
+            if (_bord.GameWin || _bord.GameEnd)
+            {
+
+                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .4f));
+                _sfxBgInstance.Pause();
+                _sfxEndInstance2.Play();
+            }
 
             spriteBatch.End();
         }

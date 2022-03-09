@@ -104,7 +104,7 @@ namespace NOBOIShooter.GameObjects
             // find angle of shooter
             _shooterAngle = (float)Math.Atan2((_position.Y + SHOOTER_RADIAN) - MouseCurrent.Y, (_position.X + SHOOTER_RADIAN) - MouseCurrent.X);
 
-            if (!_gameBord.GamePause &&!_isShooting && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
+            if (!_gameBord.GamePause &&!_isShooting && MouseCurrent.Y < _position.Y + SHOOTER_RADIAN && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
             {
                 _ballShoot.setAnimation( _currentBall, _shooterCenterPosition - new Vector2(_gameBord.Radius, _gameBord.Radius), (float)(_shooterAngle + MathHelper.ToRadians(180f)));
                 _currentBall = _nextBall;
