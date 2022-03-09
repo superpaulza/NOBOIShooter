@@ -15,7 +15,7 @@ namespace NOBOIShooter.Screens
     {
         private List<Component> _components;
         private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState;
-        private SpriteFont _font, _publicsans;
+        private SpriteFont _font;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton;
         private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
@@ -26,7 +26,6 @@ namespace NOBOIShooter.Screens
         {
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _font = _content.Load<SpriteFont>("Fonts/Font");
-            _publicsans = _content.Load<SpriteFont>("Fonts/PublicSans");
             _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _volumeOn = _content.Load<Texture2D>("Item/volume-on");
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
@@ -268,9 +267,9 @@ namespace NOBOIShooter.Screens
 
             spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.White, 0f, _font.MeasureString("BGM") * 0.5f, 1.5f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_publicsans, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
 
             foreach (Component component in _components)

@@ -122,13 +122,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Font.spritefont
 
-#begin Fonts/PublicSans.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/PublicSans.spritefont
-
 #begin Icons/Setting.png
 /importer:TextureImporter
 /processor:TextureProcessor
