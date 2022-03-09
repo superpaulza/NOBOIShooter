@@ -38,9 +38,9 @@ namespace NOBOIShooter.Screens
         {
             //State = GameState.init;
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
-
             _backIcon = _content.Load<Texture2D>("Controls/BackButton");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
+      
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
 
             _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
@@ -54,7 +54,8 @@ namespace NOBOIShooter.Screens
 
             _sfxBgInstance.Play();
 
-            _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
+
+            _shooterImg = _content.Load<Texture2D>("Item/hand-gun");
             _pen = new Texture2D(graphicsDevice, 1, 1);
             _pen.SetData(new[] { Color.White });
 
@@ -79,7 +80,9 @@ namespace NOBOIShooter.Screens
             // Draw Backgrounds
             spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
             // Draw Backgrounds
-            spriteBatch.Draw(_pen, new Rectangle((int)_bord.Position.X, (int)_bord.Position.Y, _bord.Width, _bord.Height), new Color(Color.Black, 0.2f));
+            spriteBatch.Draw(_pen, new Rectangle((int)_bord.Position.X, (int)_bord.Position.Y, _bord.Width, _bord.Height), new Color(Color.Black, 0.1f));
+
+           
 
             _backButton.Draw(gameTime, spriteBatch);
             _player.Draw(spriteBatch, gameTime);
@@ -90,8 +93,7 @@ namespace NOBOIShooter.Screens
 
             if (!_bord.GamePause)
             {
-                spriteBatch.DrawString(_textFront, "Score", new Vector2(1000, 180), Color.White);
-                spriteBatch.DrawString(_textFront, _bord.GameScore.ToString(), new Vector2(1000, 300), Color.White);
+                spriteBatch.DrawString(_textFront, "Score : " + _bord.GameScore, _textPosition, Color.White);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
