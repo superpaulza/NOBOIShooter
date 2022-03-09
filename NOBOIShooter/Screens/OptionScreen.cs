@@ -18,7 +18,7 @@ namespace NOBOIShooter.Screens
         private SpriteFont _font, _publicsans;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton;
-        private int _sfxVolume = (int) Singleton.Instance.SFXVolume*100, _bgmVolume = (int)Singleton.Instance.BGMVolume * 100;
+        private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
         private int _speed = 5;
 
         public OptionScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
@@ -127,14 +127,14 @@ namespace NOBOIShooter.Screens
             if (_sfxVolume < 100 && Singleton.Instance.IsSFXEnable)
             {
                 _sfxVolume += _speed;
-                Singleton.Instance.SFXVolume = _sfxVolume / 100;
+                Singleton.Instance.SFXVolume = (float) _sfxVolume / 100;
             }
             else if (_sfxVolume == 0)
             {
                 Singleton.Instance.IsSFXEnable = true;
                 _volumeSFXControlButton.Texture = _volumeOn;
                 _sfxVolume += _speed;
-                Singleton.Instance.SFXVolume = _sfxVolume / 100;
+                Singleton.Instance.SFXVolume = (float) _sfxVolume / 100;
             }
         }
         
@@ -153,7 +153,7 @@ namespace NOBOIShooter.Screens
             if (_sfxVolume > _speed && Singleton.Instance.IsSFXEnable)
             {
                 _sfxVolume -= _speed;
-                Singleton.Instance.SFXVolume = _sfxVolume / 100;
+                Singleton.Instance.SFXVolume = (float) _sfxVolume / 100;
             }
             else if (_sfxVolume == _speed)
             {
@@ -180,14 +180,14 @@ namespace NOBOIShooter.Screens
             if (_bgmVolume < 100 && Singleton.Instance.IsBGMEnable)
             {
                 _bgmVolume += _speed;
-                Singleton.Instance.BGMVolume = _bgmVolume / 100;
+                Singleton.Instance.BGMVolume = (float) _bgmVolume / 100;
             }
             else if (_bgmVolume == 0)
             {
                 Singleton.Instance.IsBGMEnable = true;
                 _volumeBGMControlButton.Texture = _volumeOn;
                 _bgmVolume += _speed;
-                Singleton.Instance.BGMVolume = _bgmVolume / 100;
+                Singleton.Instance.BGMVolume = (float) _bgmVolume / 100;
             }
         }
 
@@ -207,7 +207,7 @@ namespace NOBOIShooter.Screens
             if (_bgmVolume > _speed && Singleton.Instance.IsBGMEnable)
             {
                 _bgmVolume -= _speed;
-                Singleton.Instance.BGMVolume = _bgmVolume / 100;
+                Singleton.Instance.BGMVolume = (float) _bgmVolume / 100;
             }
             else if (_bgmVolume == _speed)
             {
@@ -227,7 +227,7 @@ namespace NOBOIShooter.Screens
                 _sfxVolume = 0;
                 Singleton.Instance.SFXVolume = 0.0f;
             }
-            else
+            else if (!Singleton.Instance.IsSFXEnable)
             {
                 _volumeSFXControlButton.Texture = _volumeOn;
                 Singleton.Instance.IsSFXEnable = true;
@@ -245,7 +245,7 @@ namespace NOBOIShooter.Screens
                 _bgmVolume = 0;
                 Singleton.Instance.BGMVolume = 0.0f;
             }
-            else
+            else if (!Singleton.Instance.IsBGMEnable)
             {
                 _volumeBGMControlButton.Texture = _volumeOn;
                 Singleton.Instance.IsBGMEnable = true;
