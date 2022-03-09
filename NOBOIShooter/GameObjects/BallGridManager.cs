@@ -22,7 +22,7 @@ namespace NOBOIShooter.GameObjects
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
 
-        // Globl variable
+        // Global variable
         public int TotalColor { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -47,7 +47,7 @@ namespace NOBOIShooter.GameObjects
      
         public Vector2 Position;
         private float _ballScale;
-        public double _lastTimeScoling = 0;
+        public double lastTimeScoling = 0;
 
         public int[,] BallTiles;
         private bool[,] _removed;
@@ -119,10 +119,10 @@ namespace NOBOIShooter.GameObjects
 
         public void Update(GameTime gameTime)
         {
-            _lastTimeScoling += gameTime.ElapsedGameTime.TotalSeconds;
-            if (_lastTimeScoling > 10)
+            lastTimeScoling += gameTime.ElapsedGameTime.TotalSeconds;
+            if (lastTimeScoling > 10)
             {
-                _lastTimeScoling = 0;
+                lastTimeScoling = 0;
                 Scrolling();
             }
 

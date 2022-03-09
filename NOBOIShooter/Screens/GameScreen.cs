@@ -38,7 +38,9 @@ namespace NOBOIShooter.Screens
             _shooterImg = _content.Load<Texture2D>("Item/bubble-shoot");
 
             _sfxBgInstance = _gameSfxBg.CreateInstance();
+            _sfxBgInstance.Volume = Singleton.Instance.BGMVolume;
             _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
+            _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
             _sfxBgInstance.IsLooped = true;
 
             _sfxBgInstance.Play();
