@@ -14,7 +14,7 @@ namespace NOBOIShooter.Screens
     {
         private const int DEAD_LINE_THICK = 5;
         private BallTexture _ballTexture;
-        private Texture2D _bubbleImg, _shooterImg, _backIcon, _background, _pen;
+        private Texture2D _bubbleImg, _shooterImg, _backIcon1, _backIcon2, _background, _pen;
 
         private SpriteFont _textFront;
 
@@ -24,7 +24,7 @@ namespace NOBOIShooter.Screens
         private BallGridManager _bord;
         private Player _player;
 
-        private Button _backButton;
+        private DynamicButton _backButton1;
 
         private ScoreData _scoreTable;
         private bool _gameScoreSave = false;
@@ -37,7 +37,8 @@ namespace NOBOIShooter.Screens
             : base(game, graphicsDevice, content)
         {
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
-            _backIcon = _content.Load<Texture2D>("Controls/BackButton");
+            _backIcon1 = _content.Load<Texture2D>("Controls/BackButtonBlack");
+            _backIcon2 = _content.Load<Texture2D>("Controls/BackButtonWhite");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
       
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
@@ -59,11 +60,12 @@ namespace NOBOIShooter.Screens
             _pen = new Texture2D(graphicsDevice, 1, 1);
             _pen.SetData(new[] { Color.White });
 
-            _backButton = new Button(_backIcon, content)
+            _backButton1 = new DynamicButton(_backIcon1, content)
             {
                 Position = new Vector2(1200, 20),
             };
-            _backButton.Click += BackButton_Click;
+
+            _backButton1.Click += BackButton_Click;
 
             _ballTexture = new BallTexture();
             _ballTexture.Add(_bubbleImg);
@@ -99,7 +101,6 @@ namespace NOBOIShooter.Screens
             if (!_bord.GamePause)
             {
                 spriteBatch.DrawString(_textFront, "Score \n\n " + _bord.GameScore, _textPosition, Color.Black);
-                _backButton.Draw(gameTime, spriteBatch);
                 //Debug.WriteLine("Score : " + _bord.GameScore);
             }
 
@@ -115,6 +116,8 @@ namespace NOBOIShooter.Screens
                     //Debug.WriteLine("Save Score ?: " + _bord.GameScore);
                 }
 
+                _backButton1.Texture = _backIcon2;
+
                 spriteBatch.Draw(_pen, _fullScreen, new Color(Color.Black, .6f));
 
                 string gameScore = "Your score is " + _bord.GameScore;
@@ -123,6 +126,8 @@ namespace NOBOIShooter.Screens
 
                 _sfxBgInstance.Pause();
             }
+
+            _backButton1.Draw(gameTime, spriteBatch);
 
             if (_bord.GameWin)
             {
@@ -149,7 +154,7 @@ namespace NOBOIShooter.Screens
 
         public override void Update(GameTime gameTime)
         {
-            _backButton.Update(gameTime);
+            _backButton1.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
         }

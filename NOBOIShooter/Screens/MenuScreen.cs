@@ -37,13 +37,16 @@ namespace NOBOIShooter.Screens
 
             //font
             _buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            
+
             //sound
-            _soundEffect = _content.Load<SoundEffect>("BGM/MainMenuBGM");
-            _instance = _soundEffect.CreateInstance();
-            _instance.IsLooped = true;
-            _instance.Volume = Singleton.Instance.BGMVolume;
-            _instance.Play();
+            if ((int)SoundState.Stopped == 2)
+            {
+                _soundEffect = _content.Load<SoundEffect>("BGM/MainMenuBGM");
+                _instance = _soundEffect.CreateInstance();
+                _instance.IsLooped = true;
+                _instance.Volume = Singleton.Instance.BGMVolume;
+                _instance.Play();
+            }
 
             // _volumeState = _volumeOn;
 

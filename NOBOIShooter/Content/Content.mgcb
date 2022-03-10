@@ -91,7 +91,7 @@
 /processorParam:Quality=Best
 /build:BGM/VictoryBGM.wav
 
-#begin Controls/BackButton.png
+#begin Controls/BackButtonBlack.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -101,7 +101,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Controls/BackButton.png
+/build:Controls/BackButtonBlack.png
+
+#begin Controls/BackButtonWhite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/BackButtonWhite.png
 
 #begin Controls/Button.png
 /importer:TextureImporter
@@ -153,18 +165,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Header.spritefont
 
-#begin Icons/Setting.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Icons/Setting.png
-
 #begin Icons/ArrowLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -188,6 +188,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Icons/ArrowRight.png
+
+#begin Icons/Setting.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Icons/Setting.png
 
 #begin Item/ball/blue-ball.png
 /importer:TextureImporter

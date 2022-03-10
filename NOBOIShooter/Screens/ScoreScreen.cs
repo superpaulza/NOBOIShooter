@@ -29,7 +29,7 @@ namespace NOBOIShooter.Screens
         public ScoreScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
-            _backIcon = _content.Load<Texture2D>("Controls/BackButton");
+            _backIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
             _leftIcon = _content.Load<Texture2D>("Icons/ArrowLeft");
             _rightIcon = _content.Load<Texture2D>("Icons/ArrowRight");
             _background = _content.Load<Texture2D>("Backgrouds/background");
