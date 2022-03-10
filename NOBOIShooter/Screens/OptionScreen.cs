@@ -23,7 +23,7 @@ namespace NOBOIShooter.Screens
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _font = _content.Load<SpriteFont>("Fonts/Font");
             _headerFont = _content.Load<SpriteFont>("Fonts/Header");
-            _backIcon = _content.Load<Texture2D>("Controls/BackButton");
+            _backIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
             _volumeOn = _content.Load<Texture2D>("Item/volume-on");
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
             _increaseIcon = _content.Load<Texture2D>("Controls/increase");
