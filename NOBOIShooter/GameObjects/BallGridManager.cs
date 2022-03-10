@@ -417,7 +417,7 @@ namespace NOBOIShooter.GameObjects
                     if (BallTiles[ar.X, ar.Y] > 0)
                     {
                         // Set to null in grid
-                        AnimationFadeManager.Add(new BallFadeOut(_ballTexture.GetTexture(BallTiles[ar.X, ar.Y]), this, true, BallTiles[ar.X, ar.Y], GetTileCoordinate(ar.X, ar.Y)));
+                        AnimationFadeManager.Add(new BallFadeOut(_ballTexture.GetTexture(BallTiles[ar.X, ar.Y]), _ballTexture.GetColor(BallTiles[ar.X, ar.Y]), this, true, BallTiles[ar.X, ar.Y], GetTileCoordinate(ar.X, ar.Y)));
                         BallTiles[ar.X, ar.Y] = 0;
                     }
                 }

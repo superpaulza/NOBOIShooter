@@ -21,7 +21,7 @@ namespace NOBOIShooter.GameObjects
 
         private double _timer = 0;
 
-        public BallFadeOut(Texture2D texture, BallGridManager bord , bool fadeOut, int ballType, Vector2 position)
+        public BallFadeOut(Texture2D texture,Color color, BallGridManager bord , bool fadeOut, int ballType, Vector2 position)
         {
             _bord = bord;
             _texture = texture;
@@ -31,7 +31,7 @@ namespace NOBOIShooter.GameObjects
             FadeNow = fadeOut ? 1f : 0f;
             TileType = ballType;
             _position = position;
-            _color = _bord.GetColor(TileType);
+            _color = color;
             Visible = true;
         }
   

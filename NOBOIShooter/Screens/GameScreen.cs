@@ -65,6 +65,7 @@ namespace NOBOIShooter.Screens
             };
             _backButton.Click += BackButton_Click;
 
+            // Adding Image
             _ballTexture = new BallTexture();
             _ballTexture.Add(_bubbleImg);
             _ballTexture.Add(_bubbleImg,Color.Red);
@@ -75,6 +76,7 @@ namespace NOBOIShooter.Screens
             _scoreTable = new ScoreData();
             _scoreTable.LoadSave();
 
+            // set game value
             _fullScreen = new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight);
             _gameScreen = new Rectangle((int)_bord.Position.X, 0, _bord.Width, Singleton.Instance.ScreenHeight);
             int line = (int)(_bord.Position.Y + _bord.Height - 2 * _bord.RowHeight + _bord.TileHeight );
