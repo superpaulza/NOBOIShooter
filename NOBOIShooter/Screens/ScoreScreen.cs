@@ -4,16 +4,20 @@ using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.Controls;
 using System;
 using NOBOIShooter.Data;
-using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
     class ScoreScreen : AScreen
     {
-        private const int LIMIT_SHOW_SCORE = 7;
+        // Set Confix value
+        private const int LIMIT_SCORE_PER_PAGE = 7;
 
-        private Texture2D _backIcon, _background, _leftIcon, _rightIcon, _pen;
-
+        // Create private value
+        private Texture2D _backIcon;
+        private Texture2D _background;
+        private Texture2D _leftIcon;
+        private Texture2D _rightIcon;
+        private Texture2D _pen;
         private Button _backButton;
         private Button _leftButton;
         private Button _rightButton;
@@ -21,99 +25,88 @@ namespace NOBOIShooter.Screens
         private SpriteFont _font;
         private ScoreData _scoreBord;
 
-        List<Component> _components;
         private Rectangle _areaBackGround;
+
+        // Action value
         private int _scorePage = 0;
-        bool _hasNextPage = true;
+        private bool _hasNextPage = true;
+        private string _titleText = "Score List";
+        private string _scoretext;
+        private Vector2 _titlePosion;
 
         public ScoreScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
+            // Create and Load Context
             _backIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
             _leftIcon = _content.Load<Texture2D>("Icons/ArrowLeft");
             _rightIcon = _content.Load<Texture2D>("Icons/ArrowRight");
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _font = _content.Load<SpriteFont>("Fonts/Font");
             _scoreBord = new ScoreData();
+            
+            _pen = new Texture2D(graphicsDevice, 1, 1);
+            _pen.SetData(new[] { Color.White });
 
+            // Setting value
+            int width = Singleton.Instance.ScreenWidth / 5;
+            int height = Singleton.Instance.ScreenHeight / 15;
+            _areaBackGround = new Rectangle(width, height, width * 3 , height * 10);
+
+            _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_titleText).X) / 2, 100f);
+
+
+            // Create Button
             _backButton = new Button(_backIcon, content)
             {
                 Position = new Vector2(1200, 20),
             };
 
-            _backButton.Click += _backButtonOnClick;
+            _backButton.Click += BackButtonOnClick;
 
             _leftButton = new Button(_leftIcon, content)
             {
                 Position = new Vector2(550, 550),
             };
 
-            _leftButton.Click += _leftButtonOnClick;
+            _leftButton.Click += LeftButtonOnClick;
 
             _rightButton = new Button(_rightIcon, content)
             {
                 Position = new Vector2(700, 550),
             };
 
-            _rightButton.Click += _rightButtonOnClick;
+            _rightButton.Click += RightButtonOnClick;
 
-            _components = new List<Component>()
-            {
-                _backButton,
-                _leftButton,
-                _rightButton,
-            };
-
-
-            _pen = new Texture2D(graphicsDevice, 1, 1);
-            _pen.SetData(new[] { Color.White });
-            int width = Singleton.Instance.ScreenWidth / 5;
-            int height = Singleton.Instance.ScreenHeight / 15;
-            _areaBackGround = new Rectangle(width, height, width * 3 , height * 10);
         }
 
-        private void _backButtonOnClick(object sender, EventArgs e)
-        {
-            _game.ChangeScreen(ScreenSelect.Menu);
-        }
-
-        private void _leftButtonOnClick(object sender, EventArgs e)
-        {
-            if (_scorePage > 0)
-                _scorePage--;
-            CheckHasNextPage();
-        }
-
-        private void _rightButtonOnClick(object sender, EventArgs e)
-        {
-            if (_hasNextPage)
-                _scorePage++;
-            CheckHasNextPage();
-        }
+        
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            // Start drawing
             spriteBatch.Begin();
 
+            // Draw backgrounds
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
             spriteBatch.Draw(_pen, _areaBackGround, new Color(Color.Black,.5f));
 
-            string scoretext = "Score List";
-            spriteBatch.DrawString(_font, scoretext,
-                new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 100f), Color.Orange);
+            // Draw text title
+            spriteBatch.DrawString(_font, _titleText, _titlePosion, Color.Orange);
 
-            
-            for (int i = 0; i < LIMIT_SHOW_SCORE; i++)
+            // Write score 
+            for (int i = 0; i < LIMIT_SCORE_PER_PAGE; i++)
             {
-                int pos = _scorePage * LIMIT_SHOW_SCORE + i;
-                if(pos < _scoreBord.ScoresTables.Count)
+                int index = _scorePage * LIMIT_SCORE_PER_PAGE + i;
+                if(index < _scoreBord.ScoresTables.Count)
                 {
-                    scoretext = (pos + 1) +  ". Score : "+ _scoreBord.ScoresTables[pos].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[pos].ScoreDate.ToString("g");
-                    spriteBatch.DrawString(_font, scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 150f + i* 50), (i % 2 == 0) ? Color.White : Color.LightGray);
+                    _scoretext = (index + 1) +  ". Score : "+ _scoreBord.ScoresTables[index].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[index].ScoreDate.ToString("g");
+                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i* 50), (i % 2 == 0) ? Color.White : Color.LightGray);
                 }
 
             }
 
+            // Show button
             _backButton.Draw(gameTime, spriteBatch);
             if(_scorePage > 0)
                 _leftButton.Draw(gameTime, spriteBatch);
@@ -130,7 +123,7 @@ namespace NOBOIShooter.Screens
         public override void Update(GameTime gameTime)
         {
             
-            //if click condition
+            // Update button
             _backButton.Update(gameTime);
             if (_scorePage > 0)
                 _leftButton.Update(gameTime);
@@ -140,7 +133,27 @@ namespace NOBOIShooter.Screens
 
         private void CheckHasNextPage()
         {
-            _hasNextPage = _scorePage < _scoreBord.ScoresTables.Count / LIMIT_SHOW_SCORE;
+            _hasNextPage = _scorePage < _scoreBord.ScoresTables.Count / LIMIT_SCORE_PER_PAGE;
         }
+
+        private void BackButtonOnClick(object sender, EventArgs e)
+        {
+            _game.ChangeScreen(ScreenSelect.Menu);
+        }
+
+        private void LeftButtonOnClick(object sender, EventArgs e)
+        {
+            if (_scorePage > 0)
+                _scorePage--;
+            CheckHasNextPage();
+        }
+
+        private void RightButtonOnClick(object sender, EventArgs e)
+        {
+            if (_hasNextPage)
+                _scorePage++;
+            CheckHasNextPage();
+        }
+
     }
 }

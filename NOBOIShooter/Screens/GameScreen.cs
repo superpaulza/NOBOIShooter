@@ -12,14 +12,23 @@ namespace NOBOIShooter.Screens
     //Game screen
     public class GameScreen : AScreen
     {
+        // Create all value
         private const int DEAD_LINE_THICK = 5;
         private BallTexture _ballTexture;
-        private Texture2D _bubbleImg, _shooterImg, _backIcon1, _backIcon2, _background, _pen;
+        private Texture2D _bubbleImg;
+        private Texture2D _shooterImg;
+        private Texture2D _backBlackIcon;
+        private Texture2D _backWhiteIcon;
+        private Texture2D _background;
+        private Texture2D _pen;
 
         private SpriteFont _textFront;
-
-        private SoundEffect _gameSfxBg, _gameSfxEnd, _gameSfxWin;
-        private SoundEffectInstance _sfxBgInstance, _sfxEndInstance2, _sfxEndInstance3;
+        private SoundEffect _gameSfxBg;
+        private SoundEffect _gameSfxEnd;
+        private SoundEffect _gameSfxWin;
+        private SoundEffectInstance _sfxBgInstance;
+        private SoundEffectInstance _sfxEndInstance2;
+        private SoundEffectInstance _sfxEndInstance3;
 
         private BallGridManager _bord;
         private Player _player;
@@ -30,15 +39,16 @@ namespace NOBOIShooter.Screens
         private bool _gameScoreSave = false;
 
         private Rectangle _fullScreen, _gameScreen, _deadline;
-        private Color _gameColorBackground;
         private Vector2 _textPosition;
+        private Color _gameColorBackground;
 
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
+            // Load all Context
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
-            _backIcon1 = _content.Load<Texture2D>("Controls/BackButtonBlack");
-            _backIcon2 = _content.Load<Texture2D>("Controls/BackButtonWhite");
+            _backBlackIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
+            _backWhiteIcon = _content.Load<Texture2D>("Controls/BackButtonWhite");
             _background = content.Load<Texture2D>("Backgrouds/gameBackground");
       
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
@@ -60,7 +70,7 @@ namespace NOBOIShooter.Screens
             _pen = new Texture2D(graphicsDevice, 1, 1);
             _pen.SetData(new[] { Color.White });
 
-            _backButton1 = new DynamicButton(_backIcon1, content)
+            _backButton1 = new DynamicButton(_backBlackIcon, content)
             {
                 Position = new Vector2(1200, 20),
             };
@@ -118,7 +128,7 @@ namespace NOBOIShooter.Screens
                     //Debug.WriteLine("Save Score ?: " + _bord.GameScore);
                 }
 
-                _backButton1.Texture = _backIcon2;
+                _backButton1.Texture = _backWhiteIcon;
 
                 spriteBatch.Draw(_pen, _fullScreen, new Color(Color.Black, .6f));
 

@@ -49,11 +49,9 @@ namespace NOBOIShooter.Data
 
             try
             {
-                using (FileStream fileStream = new FileStream(SAVE_FILE_NAME, FileMode.Create))
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(fileStream, ScoresTables);
-                }
+                using FileStream fileStream = new FileStream(SAVE_FILE_NAME, FileMode.Create);
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(fileStream, ScoresTables);
             }
             catch (Exception ex)
             {
@@ -66,11 +64,9 @@ namespace NOBOIShooter.Data
         {
             try
             {
-                using (FileStream fileStream = new FileStream(SAVE_FILE_NAME, FileMode.OpenOrCreate))
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    ScoresTables = binaryFormatter.Deserialize(fileStream) as List<Score>;
-                }
+                using FileStream fileStream = new FileStream(SAVE_FILE_NAME, FileMode.OpenOrCreate);
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                ScoresTables = binaryFormatter.Deserialize(fileStream) as List<Score>;
             }
             catch (Exception ex)
             {

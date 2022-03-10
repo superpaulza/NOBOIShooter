@@ -33,8 +33,10 @@ namespace NOBOIShooter.GameObjects
 
         public BallTexture ()
         {
-            BallTextures = new List<Ball>();
-            BallTextures.Add(null);
+            BallTextures = new List<Ball>
+            {
+                null
+            };
         }
 
         public void Add(Texture2D texture)

@@ -38,35 +38,35 @@ namespace NOBOIShooter.Screens
                 Position = new Vector2(1200, 20),
             };
             
-            _backButton.Click += _backButtonOnClick;
+            _backButton.Click += BackButtonOnClick;
 
             _increaseSFXButton = new Button(_increaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 175),
             };
 
-            _increaseSFXButton.Click += _increaseSFXButtonOnClick;
+            _increaseSFXButton.Click += IncreaseSFXButtonOnClick;
 
             _decreaseSFXButton = new Button(_decreaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2, 175),
             };
 
-            _decreaseSFXButton.Click += _decreaseSFXButtonOnClick;
+            _decreaseSFXButton.Click += DecreaseSFXButtonOnClick;
 
             _increaseBGMButton = new Button(_increaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 275),
             };
 
-            _increaseBGMButton.Click += _increaseBGMButtonOnClick;
+            _increaseBGMButton.Click += IncreaseBGMButtonOnClick;
 
             _decreaseBGMButton = new Button(_decreaseIcon, content)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2, 275),
             };
 
-            _decreaseBGMButton.Click += _decreaseBGMButtonOnClick;
+            _decreaseBGMButton.Click += DecreaseBGMButtonOnClick;
 
             _volumeSFXControlButton = new DynamicButton(_volumeSFXState, content)
             {
@@ -76,7 +76,7 @@ namespace NOBOIShooter.Screens
 
             };
 
-            _volumeSFXControlButton.Click += _volumeSFXControlButtonOnClick;
+            _volumeSFXControlButton.Click += VolumeSFXControlButtonOnClick;
 
             _volumeBGMControlButton = new DynamicButton(_volumeBGMState, content)
             {
@@ -86,7 +86,7 @@ namespace NOBOIShooter.Screens
 
             };
 
-            _volumeBGMControlButton.Click += _volumeBGMControlButtonOnClick;
+            _volumeBGMControlButton.Click += VolumeBGMControlButtonOnClick;
             
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
@@ -101,12 +101,12 @@ namespace NOBOIShooter.Screens
             };
         }
 
-        private void _backButtonOnClick(object sender, EventArgs e)
+        private void BackButtonOnClick(object sender, EventArgs e)
         {
             _game.ChangeScreen(ScreenSelect.Menu);
         }
 
-        private void _increaseSFXButtonOnClick(object sender, EventArgs e)
+        private void IncreaseSFXButtonOnClick(object sender, EventArgs e)
         {
             // if (Singleton.Instance.SFXVolume < 1.0f && Singleton.Instance.IsSFXEnable)
             // {
@@ -133,7 +133,7 @@ namespace NOBOIShooter.Screens
             }
         }
         
-        private void _decreaseSFXButtonOnClick(object sender, EventArgs e)
+        private void DecreaseSFXButtonOnClick(object sender, EventArgs e)
         {
             // if (Singleton.Instance.SFXVolume > 0.0f && Singleton.Instance.IsSFXEnable)
             // {
@@ -159,7 +159,7 @@ namespace NOBOIShooter.Screens
             }
         }
 
-        private void _increaseBGMButtonOnClick(object sender, EventArgs e)
+        private void IncreaseBGMButtonOnClick(object sender, EventArgs e)
         {
             // if (Singleton.Instance.BGMVolume < 1.0f && Singleton.Instance.IsBGMEnable)
             // {
@@ -186,7 +186,7 @@ namespace NOBOIShooter.Screens
             }
         }
 
-        private void _decreaseBGMButtonOnClick(object sender, EventArgs e)
+        private void DecreaseBGMButtonOnClick(object sender, EventArgs e)
         {
             // if (Singleton.Instance.BGMVolume > 0.0f && Singleton.Instance.IsBGMEnable)
             // {
@@ -213,7 +213,7 @@ namespace NOBOIShooter.Screens
             }
         }
 
-        private void _volumeSFXControlButtonOnClick(object sender, EventArgs e)
+        private void VolumeSFXControlButtonOnClick(object sender, EventArgs e)
         {
             if (Singleton.Instance.IsSFXEnable)
             {
@@ -231,7 +231,7 @@ namespace NOBOIShooter.Screens
             }
         }
 
-        private void _volumeBGMControlButtonOnClick(object sender, EventArgs e)
+        private void VolumeBGMControlButtonOnClick(object sender, EventArgs e)
         {
             if (Singleton.Instance.IsBGMEnable)
             {

@@ -109,9 +109,9 @@ namespace NOBOIShooter.GameObjects
 
             if (!_gameBord.GamePause &&!_isShooting && MouseCurrent.Y < _position.Y + SHOOTER_RADIAN && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
             {
-                _ballShoot.setAnimation( _currentBall, _shooterCenterPosition - new Vector2(_gameBord.Radius, _gameBord.Radius), (float)(_shooterAngle + MathHelper.ToRadians(180f)));
+                _ballShoot.SetAnimation( _currentBall, _shooterCenterPosition - new Vector2(_gameBord.Radius, _gameBord.Radius), (float)(_shooterAngle + MathHelper.ToRadians(180f)));
                 _currentBall = _nextBall;
-                _nextBall = _gameBord.nextColorBubble();
+                _nextBall = _gameBord.NextColorBubble();
                 _isShooting = true;
             }
             if (_isShooting)
