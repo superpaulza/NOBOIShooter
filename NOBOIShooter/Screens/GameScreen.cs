@@ -13,6 +13,7 @@ namespace NOBOIShooter.Screens
     //Game screen
     public class GameScreen : AScreen
     {
+        private BallTexture _ballTexture;
         private Texture2D _bubbleImg;
         private Texture2D _shooterImg;
         private Texture2D _backIcon;
@@ -68,8 +69,13 @@ namespace NOBOIShooter.Screens
             };
             _backButton.Click += BackButton_Click;
 
-            _bord = new BallGridManager(_bubbleImg);
-            _player = new Player(_bord, _shooterImg, _bubbleImg, _pen);
+            _ballTexture = new BallTexture();
+            _ballTexture.Add(_bubbleImg);
+            _ballTexture.Add(_bubbleImg,Color.Red);
+            _ballTexture.Add(_bubbleImg,Color.Green);
+            _ballTexture.Add(_bubbleImg,Color.Blue);
+            _bord = new BallGridManager(_ballTexture);
+            _player = new Player(_bord, _shooterImg, _ballTexture, _pen);
             _scoreTable = new ScoreData();
             _scoreTable.LoadSave();
 

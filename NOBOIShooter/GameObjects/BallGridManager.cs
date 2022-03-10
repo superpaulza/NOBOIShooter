@@ -18,7 +18,7 @@ namespace NOBOIShooter.GameObjects
         private const int TILES_ROWS_HEIGHT = 34;
         private const int BALL_RADIAN = 20;
         private const int START_FLOOR = 6;
-        private const int ToTAL_BALL_COLOR = 2;
+        private const int TOTAL_BALL_COLOR = 2;
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
 
@@ -43,8 +43,8 @@ namespace NOBOIShooter.GameObjects
 
         private List<BallFadeOut> AnimationFadeManager;
         private List<BallDrop> AnimationDropManager;
-        private double _lastTimeAnimetion; 
-     
+
+        private BallTexture _ballTexture;
         public Vector2 Position;
         private float _ballScale;
         public double lastTimeScoling = 0;
@@ -54,13 +54,12 @@ namespace NOBOIShooter.GameObjects
         private bool[,] _processed;
         private int _removeClusterEffect = 0;
 
-        private Texture2D _ballTexture;
 
         private Random _random = new Random();
 
         private int[,,] _neighborsOffsets = new int[,,] { { { 1, 0 }, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}}, // Even row tiles
 						                                    {{1, 0}, {1, 1}, {0, 1}, {-1, 0}, {0, -1}, {1, -1}}};  // Odd row tiles
-        public BallGridManager(Texture2D texture)
+        public BallGridManager(BallTexture texture)
         {
             _ballTexture = texture;
 
@@ -69,12 +68,12 @@ namespace NOBOIShooter.GameObjects
             
             TileWidth = BALL_TILES_WIDTH;
             TileHeight = BALL_TILES_HEIGHT;
-            _ballScale = TileWidth / (float)_ballTexture.Width;
+            //_ballScale = TileWidth / _ballTexture.Width;
             
             RowHeight = TILES_ROWS_HEIGHT;
             Radius = BALL_RADIAN;
 
-            TotalColor = ToTAL_BALL_COLOR;
+            TotalColor = TOTAL_BALL_COLOR;
             BallTiles = new int[Columns, Rows];
             _processed = new bool[Columns, Rows];
             _removed = new bool[Columns, Rows];
@@ -105,7 +104,7 @@ namespace NOBOIShooter.GameObjects
                         Vector2 drawPosition = Position + new Vector2(col * TileWidth, row * RowHeight);
                         if ((FirstShift && row % 2 == 0) || (!FirstShift && row % 2 != 0))
                             drawPosition.X += (float) TileWidth / 2;
-                        spriteBatch.Draw(_ballTexture, drawPosition, null, GetColor(ball), 0f, Vector2.Zero, _ballScale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(_ballTexture.GetTexture(ball), drawPosition, null, _ballTexture.GetColor(ball), 0f, Vector2.Zero, _ballTexture.GetScale(ball), SpriteEffects.None, 0f);
 
                     }
                 }
@@ -158,7 +157,7 @@ namespace NOBOIShooter.GameObjects
         // Random method
         public int RandomBuble()
         {
-            return _random.Next(1, ToTAL_BALL_COLOR + 1);
+            return _random.Next(1, TOTAL_BALL_COLOR + 1);
         }
 
         public Point GetGridPosition(float x, float y)
@@ -427,7 +426,7 @@ namespace NOBOIShooter.GameObjects
                     if (BallTiles[ar.X, ar.Y] > 0)
                     {
                         // Set to null in grid
-                        AnimationFadeManager.Add(new BallFadeOut(_ballTexture, this, true, BallTiles[ar.X, ar.Y], GetTileCoordinate(ar.X, ar.Y)));
+                        AnimationFadeManager.Add(new BallFadeOut(_ballTexture.GetTexture(BallTiles[ar.X, ar.Y]), this, true, BallTiles[ar.X, ar.Y], GetTileCoordinate(ar.X, ar.Y)));
                         BallTiles[ar.X, ar.Y] = 0;
                     }
                 }
@@ -442,7 +441,7 @@ namespace NOBOIShooter.GameObjects
                         {
                             // Set to null in grid
                             Vector2 positionDrop = GetTileCoordinate(ball.X, ball.Y);
-                            AnimationDropManager.Add(new BallDrop(_ballTexture, this, BallTiles[ball.X, ball.Y], positionDrop, positionDrop + new Vector2(0, ANIMATION_DROP_HEIGHT)));
+                            AnimationDropManager.Add(new BallDrop(this,_ballTexture.GetTexture(BallTiles[ball.X, ball.Y]), _ballTexture.GetColor(BallTiles[ball.X, ball.Y]), _ballTexture.GetScale(BallTiles[ball.X, ball.Y]), positionDrop, positionDrop + new Vector2(0, ANIMATION_DROP_HEIGHT)));
                             BallTiles[ball.X, ball.Y] = 0;
                         }
                     }

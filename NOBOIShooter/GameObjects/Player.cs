@@ -26,8 +26,8 @@ namespace NOBOIShooter.GameObjects
         
 
 
+        private BallTexture _ballTexture;
         private Texture2D _shooterTexture;
-        private Texture2D _ballTexture;
         private Texture2D _pencilDot;
         private Vector2 _position;
         private Vector2 _shooterCenterPosition;
@@ -45,7 +45,7 @@ namespace NOBOIShooter.GameObjects
         private bool _isSwapping;
 
         private Random _random = new Random();
-        public Player(BallGridManager ballGrid, Texture2D shooterTexture, Texture2D ballTexture, Texture2D pencil)
+        public Player(BallGridManager ballGrid, Texture2D shooterTexture, BallTexture ballTexture, Texture2D pencil)
         {
             _shooterTexture = shooterTexture;
             _ballTexture = ballTexture;
@@ -58,7 +58,6 @@ namespace NOBOIShooter.GameObjects
             _nextBallPosintion = _shooterCenterPosition - new Vector2(20, -30);
 
             _shooterScale = (float) SHOOTER_WIDTH / _shooterTexture.Width;
-            _ballScale = (float)_gameBord.TileWidth / _ballTexture.Width;
 
             _ballShoot = new BallMoving(_ballTexture, _gameBord);
             _currentBall = _gameBord.RandomBuble();
@@ -79,9 +78,9 @@ namespace NOBOIShooter.GameObjects
                 new Color(Color.Red,1f), _shooterAngle + MathHelper.ToRadians(-180f), new Vector2(0, 0), SpriteEffects.None, 0);
 
             if(!_isSwapping)
-                spriteBatch.Draw(_ballTexture, _nextBallPosintion, null, _gameBord.GetColor(_nextBall), 0f, Vector2.Zero, _ballScale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(_ballTexture.GetTexture(_nextBall), _nextBallPosintion, null, _ballTexture.GetColor(_nextBall), 0f, Vector2.Zero, _ballTexture.GetScale(_nextBall), SpriteEffects.None, 0f);
 
-            spriteBatch.Draw(_ballTexture, _shooterBallPosition, null, _gameBord.GetColor(_currentBall), 0f, Vector2.Zero, _ballScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_ballTexture.GetTexture(_currentBall), _shooterBallPosition, null, _ballTexture.GetColor(_currentBall), 0f, Vector2.Zero, _ballTexture.GetScale(_currentBall), SpriteEffects.None, 0f);
             if (_ballShoot != null)
                 _ballShoot.Draw(spriteBatch, gameTime);
 
@@ -121,7 +120,7 @@ namespace NOBOIShooter.GameObjects
             if (!_isShooting && MouseCurrent.RightButton == ButtonState.Pressed &&   MousePrevious.RightButton == ButtonState.Released)
             {
                 int tempSwap = _currentBall;
-                _ballEffect = new BallDrop(_ballTexture,_gameBord, _currentBall, _shooterBallPosition,_nextBallPosintion);
+                _ballEffect = new BallDrop(_gameBord,_ballTexture.GetTexture(_currentBall), _ballTexture.GetColor(_currentBall), _ballTexture.GetScale(_currentBall), _shooterBallPosition,_nextBallPosintion);
                 _isSwapping = true;
                 _currentBall = _nextBall;
                 _nextBall = tempSwap;

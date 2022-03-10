@@ -17,7 +17,7 @@ namespace NOBOIShooter.GameObjects
         public bool Visible { get; set; }
 
         private BallGridManager _bord;
-        private Texture2D _texture;
+        private BallTexture _ballTexture;
         private float _scaleball;
 
         private Vector2 Position;
@@ -26,11 +26,11 @@ namespace NOBOIShooter.GameObjects
         private Vector2 _velocity;
         private Point _gridPosible;
 
-        public BallMoving(Texture2D texture, BallGridManager bord)
+        public BallMoving(BallTexture texture, BallGridManager bord)
         {
             _bord = bord;
-            _texture = texture;
-            _scaleball = (float)_bord.TileWidth / _texture.Width;
+            _ballTexture = texture;
+            TileType = 0;
             Speed = 1000;
             Visible = false;
         }
@@ -48,7 +48,7 @@ namespace NOBOIShooter.GameObjects
             if (Visible)
             {
                 //spriteBatch.Draw(_texture, Posible, null, Color.Orange, 0f, Vector2.Zero, scaleball, SpriteEffects.None, 0f);
-                spriteBatch.Draw(_texture, Position, null, _bord.GetColor(TileType), 0f, Vector2.Zero, _scaleball, SpriteEffects.None, 0f);
+                spriteBatch.Draw(_ballTexture.GetTexture(TileType), Position, null, _ballTexture.GetColor(TileType), 0f, Vector2.Zero, _ballTexture.GetScale(TileType), SpriteEffects.None, 0f);
             }
         }
 
