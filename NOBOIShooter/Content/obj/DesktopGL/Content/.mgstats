@@ -1,1 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/BGM/ButtonBGM.wav","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/BGM/ButtonBGM.xnb","SoundEffectProcessor","SoundEffectContent",77014,76905,0.3522005
+"C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/Item/hand-gun.png","C:/Users/idima/source/repos/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Item/hand-gun.xnb","TextureProcessor","Texture2DContent",14697,241285,0.1327875

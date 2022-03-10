@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.Screens
 {
@@ -19,6 +20,8 @@ namespace NOBOIShooter.Screens
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
+
+        public bool IsMouseVisible;
 
         //Constructor inherit from base class
         public MenuScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
@@ -190,8 +193,7 @@ namespace NOBOIShooter.Screens
 
             // _volumeControlButton.Update(gameTime);
             /*
-            MouseState mouse = Mouse.GetState();
-
+           
             if (mouse.LeftButton == ButtonState.Pressed)
             {
                 System.Diagnostics.Debug.WriteLine(mouse.X.ToString() + " , " + mouse.Y.ToString());
