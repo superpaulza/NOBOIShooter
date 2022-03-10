@@ -2,13 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 using NOBOIShooter.Controls;
-using NOBOIShooter.Data;
 
 namespace NOBOIShooter.Screens
 {
@@ -92,7 +87,6 @@ namespace NOBOIShooter.Screens
             };
 
             _volumeBGMControlButton.Click += _volumeBGMControlButtonOnClick;
-
             
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
@@ -273,7 +267,6 @@ namespace NOBOIShooter.Screens
 
             spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
@@ -282,7 +275,6 @@ namespace NOBOIShooter.Screens
 
         public override void PostUpdate(GameTime gameTime)
         {
-
         }
 
         public override void Update(GameTime gameTime)

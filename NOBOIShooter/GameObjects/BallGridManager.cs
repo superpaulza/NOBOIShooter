@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace NOBOIShooter.GameObjects
 {
@@ -47,7 +45,6 @@ namespace NOBOIShooter.GameObjects
 
         private BallTexture _ballTexture;
         public Vector2 Position;
-        private float _ballScale;
         public double lastTimeScoling = 0;
 
         public int[,] BallTiles;
@@ -89,12 +86,10 @@ namespace NOBOIShooter.GameObjects
             Position = new Vector2((Singleton.Instance.ScreenWidth - Width) / 2f, GRID_MOVE_DOWN);
             for (int floor = 0; floor < START_FLOOR; floor++)
                 Scrolling();
-          
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            
+        {   
             for (int row = 0; row < Rows; row++)
             {
                 for (int col = 0; col < Columns; col++)
@@ -129,7 +124,6 @@ namespace NOBOIShooter.GameObjects
 
             GamePause = (GameWin || GameEnd);
 
-
             for (int i = 0; i < AnimationFadeManager.Count; i++)
                 if (!AnimationFadeManager[i].Visible) AnimationFadeManager.RemoveAt(i);
                 else AnimationFadeManager[i].Update(gameTime);
@@ -142,8 +136,6 @@ namespace NOBOIShooter.GameObjects
 
         public Color GetColor(int i)
         {
-            
-
             // Int value to color of ball
             if (i == 1) return Color.FromNonPremultiplied(252, 132, 29, 255); // orange; // Color.FromNonPremultiplied(225, 78, 175, 255); //pink 
             else if (i == 2) return Color.FromNonPremultiplied(124, 90, 188, 255); // purple
@@ -179,7 +171,6 @@ namespace NOBOIShooter.GameObjects
             return new Point(gridx, gridy);
         }
 
-
         public Vector2 GetTileCoordinate(int column, int row)
         {
             var tilex = Position.X + column * TileWidth;
@@ -190,6 +181,7 @@ namespace NOBOIShooter.GameObjects
             var tiley = Position.Y + row * RowHeight;
             return new Vector2(tilex, tiley);
         }
+
         public int nextColorBubble()
         {
             var existingcolors = DetectedTileType();
@@ -232,13 +224,13 @@ namespace NOBOIShooter.GameObjects
             return found;
         }
 
-
         public List<List<Point>> FindBubbleCluster()
         {
 
             ResetProcessed();
 
             List<List<Point>> bubbleCluster = new List<List<Point>>();
+
             for (int col = 0; col < Columns; col++)
             {
                 for (int row = 0; row < Rows; row++)
@@ -252,6 +244,7 @@ namespace NOBOIShooter.GameObjects
                         }
 
                         bool isbubble = true;
+
                         for (int c = 0; c < cluster.Count; c++)
                         {
                             if (cluster[c].Y < 1)
@@ -356,8 +349,6 @@ namespace NOBOIShooter.GameObjects
             return neighbors;
         }
 
-        
-
         private void ResetRemoved()
         {
             // Set false to all in removed data
@@ -383,7 +374,6 @@ namespace NOBOIShooter.GameObjects
 
             GameoverLineCheck();
         }
-
 
         public void StateRemovecluster()
         {
@@ -449,7 +439,6 @@ namespace NOBOIShooter.GameObjects
                 }
                 _removeClusterEffect = 0;
                 gameWinCheck();
-
             }
         }
 
@@ -459,22 +448,21 @@ namespace NOBOIShooter.GameObjects
             // Check the First Line
             for (int x = 0; x < Columns; x++)
             {
-            
                 if (BallTiles[x, 0] > 0)
                 {
                     return false;
                 }
-            
             }
+
             GameScore += (int) Math.Pow(10, TotalColor);
             GameWin = true;
             return true;
         }
 
-
         public bool GameoverLineCheck()
         {
             if (GameEnd) return true;
+
             // Check the deadline
             for (int x = 0; x < Columns; x++)
             {
@@ -504,6 +492,5 @@ namespace NOBOIShooter.GameObjects
                 Scrolling();
 
         }
-
     }
 }

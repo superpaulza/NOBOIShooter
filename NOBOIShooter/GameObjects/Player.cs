@@ -9,7 +9,6 @@ namespace NOBOIShooter.GameObjects
 {
     class Player
     {
-
         // Create Variable
         private const int SHOOTER_WIDTH = 100;
         private const int SHOOTER_RADIAN = 50;
@@ -17,34 +16,28 @@ namespace NOBOIShooter.GameObjects
         private int _aimerLength = 200;
         private int _aimerThick = 3;
 
-        private MouseState MousePrevious;
-        private MouseState MouseCurrent;
-
-        private float _shooterAngle;
-        private float _shooterScale;
+        private float _shooterAngle, _shooterScale;
 
         private BallTexture _ballTexture;
-        private Texture2D _shooterTexture;
-        private Texture2D _pencilDot;
-        private Vector2 _position;
-        private Vector2 _shooterCenterPosition;
-        private Vector2 _shooterBallPosition;
-        private Vector2 _nextBallPosintion;
-        private Vector2 _currentBallPosition;
-        private Vector2 _aimerMovePosition;
-
-        private Color _aimerColor;
         private BallGridManager _gameBord;
         private BallMoving _ballShoot;
         private BallDrop _ballEffect;
 
+        private Texture2D _shooterTexture, _pencilDot;
+        private Vector2 _position, _shooterCenterPosition, _shooterBallPosition,
+                        _nextBallPosintion, _currentBallPosition, _aimerMovePosition;
+
         private int _currentBall = 0;
         private int _nextBall = 0;
 
-        private bool _isShooting;
-        private bool _isSwapping;
+        private Color _aimerColor;
+
+        private bool _isShooting, _isSwapping;
+
+        private MouseState MousePrevious, MouseCurrent;
 
         private Random _random = new Random();
+
         public Player(BallGridManager ballGrid, Texture2D shooterTexture, BallTexture ballTexture, Texture2D pencil)
         {
             _shooterTexture = shooterTexture;
@@ -96,9 +89,6 @@ namespace NOBOIShooter.GameObjects
 
             spriteBatch.Draw(_ballTexture.GetTexture(_currentBall), _shooterCenterPosition, null,
                 _ballTexture.GetColor(_currentBall), _shooterAngle + MathHelper.ToRadians(-90f), _currentBallPosition, _ballTexture.GetScale(_currentBall), SpriteEffects.None, 0f);
-            
-
-            
         }
 
         public void Update(GameTime gameTime)

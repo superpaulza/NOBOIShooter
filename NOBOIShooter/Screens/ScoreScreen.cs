@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NOBOIShooter.Data;
 
 namespace NOBOIShooter.Screens
@@ -13,12 +11,10 @@ namespace NOBOIShooter.Screens
     {
         private const int LIMIT_SHOW_SCORE = 7;
 
-        private Texture2D _backIcon;
-        private Texture2D _background;
+        private Texture2D _backIcon, _background, _pen;
         private Button _backButton;
         private SpriteFont _font;
         private ScoreData _scoreBord;
-        private Texture2D _pen;
 
         private Rectangle _areaBackGround;
 
@@ -74,7 +70,6 @@ namespace NOBOIShooter.Screens
 
         public override void PostUpdate(GameTime gameTime)
         {
-            
         }
 
         public override void Update(GameTime gameTime)
