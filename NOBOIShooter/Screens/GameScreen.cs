@@ -13,6 +13,7 @@ namespace NOBOIShooter.Screens
     //Game screen
     public class GameScreen : AScreen
     {
+        private const int DEAD_LINE_THICK = 5;
         private BallTexture _ballTexture;
         private Texture2D _bubbleImg;
         private Texture2D _shooterImg;
@@ -33,6 +34,13 @@ namespace NOBOIShooter.Screens
 
         private ScoreData _scoreTable;
         private bool _gameScoreSave = false;
+
+        private Rectangle _fullScreen;
+        private Rectangle _gameScreen;
+        private Rectangle _deadline;
+        private Color _gameColorBackground;
+        private Vector2 _textPosition;
+
         public GameScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
@@ -79,24 +87,27 @@ namespace NOBOIShooter.Screens
             _scoreTable = new ScoreData();
             _scoreTable.LoadSave();
 
-            //for (int i = 0; i < _scoreTable.ScoresTables.Count; i++) Debug.WriteLine(_scoreTable.ScoresTables[i].ScoreGet.ToString() + " " + _scoreTable.ScoresTables[i].ScoreDate.ToString());
-            
-            
+            _fullScreen = new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight);
+            _gameScreen = new Rectangle((int)_bord.Position.X, 0, _bord.Width, Singleton.Instance.ScreenHeight);
+            int line = (int)(_bord.Position.Y + _bord.Height - 2 * _bord.RowHeight + _bord.TileHeight );
+            _deadline = new Rectangle((int)_bord.Position.X, line, _bord.Width, DEAD_LINE_THICK);
+
+            _gameColorBackground = new Color(Color.Black, 0.5f);
+            _textPosition = new Vector2(1000, 180);
+
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             // Draw Backgrounds
-            spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            spriteBatch.Draw(_background, _fullScreen, Color.White);
             // Draw Backgrounds
-            spriteBatch.Draw(_pen, new Rectangle((int)_bord.Position.X, (int)_bord.Position.Y, _bord.Width, _bord.Height), new Color(Color.Black, 0.1f));
+            spriteBatch.Draw(_pen, _gameScreen, _gameColorBackground);
+            spriteBatch.Draw(_pen, _deadline, Color.DarkRed);
 
             _backButton.Draw(gameTime, spriteBatch);
             _player.Draw(spriteBatch, gameTime);
             _bord.Draw(spriteBatch, gameTime);
-
-            Vector2 _textPosition = new Vector2(1000, 180);
-            Rectangle FullDisplay = new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight);
 
             if (!_bord.GamePause)
             {
@@ -117,7 +128,7 @@ namespace NOBOIShooter.Screens
 
                 }
 
-                spriteBatch.Draw(_pen, FullDisplay, new Color(Color.Black, .6f));
+                spriteBatch.Draw(_pen, _fullScreen, new Color(Color.Black, .6f));
 
                 string gameScore = "Your score is " + _bord.GameScore;
                 spriteBatch.DrawString(_textFront, gameScore,

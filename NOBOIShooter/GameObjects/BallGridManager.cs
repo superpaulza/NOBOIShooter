@@ -21,6 +21,7 @@ namespace NOBOIShooter.GameObjects
         private const int TOTAL_BALL_COLOR = 2;
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
+        private const int SCOLLING_SPEED = 1;
 
         // Global variable
         public int TotalColor { get; private set; }
@@ -120,7 +121,7 @@ namespace NOBOIShooter.GameObjects
         public void Update(GameTime gameTime)
         {
             lastTimeScoling += gameTime.ElapsedGameTime.TotalSeconds;
-            if (lastTimeScoling > 10)
+            if (lastTimeScoling > SCOLLING_SPEED)
             {
                 lastTimeScoling = 0;
                 Scrolling();
