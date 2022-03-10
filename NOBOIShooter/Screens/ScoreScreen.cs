@@ -29,7 +29,7 @@ namespace NOBOIShooter.Screens
         List<Component> _components;
         private Rectangle _areaBackGround;
         private int _scorePage = 0;
-        bool _hasNextPage;
+        bool _hasNextPage = true;
 
         public ScoreScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
@@ -86,12 +86,14 @@ namespace NOBOIShooter.Screens
         {
             if (_scorePage > 0)
                 _scorePage--;
+            CheckHasNextPage();
         }
 
         private void _rightButtonOnClick(object sender, EventArgs e)
         {
             if (_hasNextPage)
                 _scorePage++;
+            CheckHasNextPage();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -103,7 +105,7 @@ namespace NOBOIShooter.Screens
 
             string scoretext = "Score List";
             spriteBatch.DrawString(_font, scoretext,
-                new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 100f), Color.White);
+                new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 100f), Color.Orange);
 
             
             for (int i = 0; i < LIMIT_SHOW_SCORE; i++)
@@ -112,7 +114,7 @@ namespace NOBOIShooter.Screens
                 if(pos < _scoreBord.ScoresTables.Count)
                 {
                     scoretext = (pos + 1) +  ". Score : "+ _scoreBord.ScoresTables[pos].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[pos].ScoreDate.ToString("g");
-                    spriteBatch.DrawString(_font, scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 150f + i* 50), Color.White);
+                    spriteBatch.DrawString(_font, scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(scoretext).X) / 2, 150f + i* 50), (i % 2 == 0) ? Color.White : Color.LightGray);
                 }
 
             }
@@ -122,8 +124,6 @@ namespace NOBOIShooter.Screens
                 _leftButton.Draw(gameTime, spriteBatch);
             if(_hasNextPage)
                 _rightButton.Draw(gameTime, spriteBatch);
-
-
 
             spriteBatch.End();
         }
@@ -135,11 +135,18 @@ namespace NOBOIShooter.Screens
 
         public override void Update(GameTime gameTime)
         {
-            _hasNextPage = _scorePage < _scoreBord.ScoresTables.Count / LIMIT_SHOW_SCORE;
+            
             //if click condition
             _backButton.Update(gameTime);
-            _leftButton.Update(gameTime);
-            _rightButton.Update(gameTime);
+            if (_scorePage > 0)
+                _leftButton.Update(gameTime);
+            if (_hasNextPage)
+                _rightButton.Update(gameTime);
+        }
+
+        private void CheckHasNextPage()
+        {
+            _hasNextPage = _scorePage < _scoreBord.ScoresTables.Count / LIMIT_SHOW_SCORE;
         }
     }
 }
