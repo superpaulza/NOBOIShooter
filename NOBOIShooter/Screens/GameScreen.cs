@@ -19,6 +19,7 @@ namespace NOBOIShooter.Screens
         private Texture2D _shooterImg;
         private Texture2D _backBlackIcon;
         private Texture2D _backWhiteIcon;
+        private Texture2D _restartIcon;
         private Texture2D _background;
         private Texture2D _pen;
 
@@ -34,6 +35,7 @@ namespace NOBOIShooter.Screens
         private Player _player;
 
         private DynamicButton _backButton;
+        private DynamicButton _restartButton;
 
         private ScoreData _scoreTable;
         private bool _gameScoreSave = false;
@@ -49,6 +51,7 @@ namespace NOBOIShooter.Screens
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
             _backBlackIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
             _backWhiteIcon = _content.Load<Texture2D>("Controls/BackButtonWhite");
+            _restartIcon = _content.Load<Texture2D>("Controls/RestartIcon");
             _background = _content.Load<Texture2D>("Backgrouds/gameBackground");
             _gameSfxBg = _content.Load<SoundEffect>("BGM/GameScreenBGM");
             _gameSfxEnd = _content.Load<SoundEffect>("BGM/GameOverBGM");
@@ -74,6 +77,13 @@ namespace NOBOIShooter.Screens
             };
 
             _backButton.Click += BackButton_Click;
+
+            _restartButton = new DynamicButton(_restartIcon, _content)
+            {
+                Position = new Vector2(500, 500),
+            };
+
+            _restartButton.Click += RestartButton_Click;
 
             // Adding Image Ball
             _ballTexture = new BallTexture();
@@ -123,7 +133,8 @@ namespace NOBOIShooter.Screens
             // Draw fade out
             if (_bord.GameWin || _bord.GameEnd)
             {
-                if(!_gameScoreSave)
+
+                if (!_gameScoreSave)
                 {
                     _scoreTable.Add(new Score(_bord.GameScore, DateTime.Now));
                     _scoreTable.Sort();
@@ -135,13 +146,13 @@ namespace NOBOIShooter.Screens
                     _backButton.Texture = _backWhiteIcon;
                 }
 
-
                 spriteBatch.Draw(_pen, _fullScreen, new Color(Color.Black, .6f));
 
                 string gameScore = "Your score is " + _bord.GameScore;
                 spriteBatch.DrawString(_textFront, gameScore,
                     new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameScore).X) / 2, 260f), Color.White);
 
+                _restartButton.Draw(gameTime, spriteBatch);
                 _sfxBgInstance.Pause();
             }
 
@@ -173,6 +184,7 @@ namespace NOBOIShooter.Screens
         public override void Update(GameTime gameTime)
         {
             _backButton.Update(gameTime);
+            _restartButton.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
         }
@@ -185,6 +197,15 @@ namespace NOBOIShooter.Screens
             _sfxEndInstance.Dispose();
             _sfxWinInstance.Dispose();
             _game.ChangeScreen(ScreenSelect.Menu);
+        }
+
+        private void RestartButton_Click(object sender, EventArgs e) 
+        {
+            _bord.ClearGame();
+            _sfxBgInstance.Dispose();
+            _sfxEndInstance.Dispose();
+            _sfxWinInstance.Dispose();
+            _game.ChangeScreen(ScreenSelect.Game);
         }
 
         // Create method wnt use lot of time
