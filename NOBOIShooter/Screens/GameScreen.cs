@@ -80,7 +80,7 @@ namespace NOBOIShooter.Screens
 
             _restartButton = new DynamicButton(_restartIcon, _content)
             {
-                Position = new Vector2(500, 500),
+                IsVisible = false,
             };
 
             _restartButton.Click += RestartButton_Click;
@@ -179,6 +179,7 @@ namespace NOBOIShooter.Screens
 
         public override void PostUpdate(GameTime gameTime)
         {
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -187,16 +188,22 @@ namespace NOBOIShooter.Screens
             _restartButton.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
+
+            if (_bord.GameWin || _bord.GameEnd)
+            {
+                _restartButton.IsVisible = true;
+                _restartButton.Position = new Vector2(500, 500);
+            }
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
             // Action went out
-            _bord.ClearGame();
-            _sfxBgInstance.Dispose();
-            _sfxEndInstance.Dispose();
-            _sfxWinInstance.Dispose();
-            _game.ChangeScreen(ScreenSelect.Menu);
+                _bord.ClearGame();
+                _sfxBgInstance.Dispose();
+                _sfxEndInstance.Dispose();
+                _sfxWinInstance.Dispose();
+                _game.ChangeScreen(ScreenSelect.Menu);
         }
 
         private void RestartButton_Click(object sender, EventArgs e) 
