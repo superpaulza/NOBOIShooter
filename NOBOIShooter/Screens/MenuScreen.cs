@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.Screens
 {
@@ -17,7 +16,6 @@ namespace NOBOIShooter.Screens
         private Texture2D _buttonTexture, _background, _logo, _options, _human, _leftEye, _rightEye;
         private SpriteFont _buttonFont;
         private Button _playButton, _leaderboardButton, _quitGameButton, _gameOptionsButton;
-        private DynamicButton _volumeControlButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
