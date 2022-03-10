@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Audio;
 using NOBOIShooter.Controls;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
 
 namespace NOBOIShooter.Screens
 {
@@ -17,7 +16,6 @@ namespace NOBOIShooter.Screens
         private Texture2D _buttonTexture, _background, _logo, _options, _human, _leftEye, _rightEye;
         private SpriteFont _buttonFont;
         private Button _playButton, _leaderboardButton, _quitGameButton, _gameOptionsButton;
-        private DynamicButton _volumeControlButton;
 
         private SoundEffect _soundEffect;
         private SoundEffectInstance _instance;
@@ -52,6 +50,7 @@ namespace NOBOIShooter.Screens
             //buttons config
             _playButton = new Button(_buttonTexture, _buttonFont, content)
             {
+                PenColour = Color.DarkGreen,
                 Position = new Vector2(730, 100),
                 Text = "Play",
             };
@@ -60,6 +59,7 @@ namespace NOBOIShooter.Screens
 
             _leaderboardButton = new Button(_buttonTexture, _buttonFont, content)
             {
+                PenColour = Color.Black,
                 Position = new Vector2(730, 240),
                 Text = "Leaderboard",
             };
@@ -68,7 +68,7 @@ namespace NOBOIShooter.Screens
 
             _quitGameButton = new Button(_buttonTexture, _buttonFont, content)
             {
-                PenColour = new Color(Color.Red, 1f),
+                PenColour = Color.DarkRed,
                 Position = new Vector2(730, 380),
                 Text = "Quit Game",
             };

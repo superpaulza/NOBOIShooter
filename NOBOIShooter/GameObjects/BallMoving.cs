@@ -2,14 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace NOBOIShooter.GameObjects
 {
     class BallMoving 
     {
-        
         public float Speed { get; set; }
         public float Angle { get; set; }
         public float DropSpeed { get; set; }
@@ -17,20 +14,17 @@ namespace NOBOIShooter.GameObjects
         public bool Visible { get; set; }
 
         private BallGridManager _bord;
-        private Texture2D _texture;
-        private float _scaleball;
+        private BallTexture _ballTexture;
 
-        private Vector2 Position;
+        private Vector2 Position, _posible, _velocity;
 
-        private Vector2 _posible;
-        private Vector2 _velocity;
         private Point _gridPosible;
 
-        public BallMoving(Texture2D texture, BallGridManager bord)
+        public BallMoving(BallTexture texture, BallGridManager bord)
         {
             _bord = bord;
-            _texture = texture;
-            _scaleball = (float)_bord.TileWidth / _texture.Width;
+            _ballTexture = texture;
+            TileType = 0;
             Speed = 1000;
             Visible = false;
         }
@@ -48,7 +42,7 @@ namespace NOBOIShooter.GameObjects
             if (Visible)
             {
                 //spriteBatch.Draw(_texture, Posible, null, Color.Orange, 0f, Vector2.Zero, scaleball, SpriteEffects.None, 0f);
-                spriteBatch.Draw(_texture, Position, null, _bord.GetColor(TileType), 0f, Vector2.Zero, _scaleball, SpriteEffects.None, 0f);
+                spriteBatch.Draw(_ballTexture.GetTexture(TileType), Position, null, _ballTexture.GetColor(TileType), 0f, Vector2.Zero, _ballTexture.GetScale(TileType), SpriteEffects.None, 0f);
             }
         }
 
@@ -66,9 +60,9 @@ namespace NOBOIShooter.GameObjects
             _velocity.Y = (float)Math.Sin(Angle) * Speed;
 
             Position += _velocity * gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
-            
 
             _gridPosible = _bord.GetGridPosition(Position.X, Position.Y);
+
             if (_bord.BallTiles[_gridPosible.X, _gridPosible.Y] < 1)
                 _posible = _bord.GetTileCoordinate(_gridPosible.X, _gridPosible.Y);
 
@@ -91,20 +85,20 @@ namespace NOBOIShooter.GameObjects
                 snapBubble((int)Position.X, (int)Position.Y);
                 return;
             }
+
             for (var i = 0; i < _bord.Columns; i++)
             {
                 for (var j = 0; j < _bord.Rows; j++)
                 {
-
                     var tile = _bord.BallTiles[i, j];
                     if (tile < 1)
                     {
                         continue;
                     }
 
-
                     Vector2 coord = _bord.GetTileCoordinate(i, j);
                     int posX = (int)(coord.X), posY = (int)(coord.Y);
+
                     if (circleIntersection(Position.X, Position.Y, _bord.Radius, posX, posY, _bord.Radius))
                     {
                         snapBubble((int)Position.X, (int)Position.Y);
@@ -112,28 +106,26 @@ namespace NOBOIShooter.GameObjects
                     }
                 }
             }
-
         }
 
         public void snapBubble(int atx, int aty)
         {
-
             Point gridpos = _bord.GetGridPosition(atx, aty);
             int posX = gridpos.X;
             int posY = gridpos.Y;
 
-
             if (posX < 0) posX = 0;
-            if (posX >= _bord.Columns) posX = _bord.Columns - 1;
             if (posY < 0) posY = 0;
+            if (posX >= _bord.Columns) posX = _bord.Columns - 1;
             if (posY >= _bord.Rows) posY = _bord.Rows - 1;
+
             bool isSnap = false;
             Point replace = new Point(0, 0);
 
             if (_bord.BallTiles[posX, posY] > 1)
             {
-
                 int newx = _gridPosible.X, newy = _gridPosible.Y;
+
                 if (_bord.BallTiles[newx, newy] < 1)
                 {
                     _bord.BallTiles[newx, newy] = TileType;
@@ -144,6 +136,7 @@ namespace NOBOIShooter.GameObjects
                 }
 
                 Point get = _bord.GetGridPosition(_posible.X, _posible.Y);
+
                 if (_bord.BallTiles[get.X, get.Y] < 1)
                 {
                     _bord.BallTiles[get.X, get.Y] = TileType;
@@ -151,8 +144,6 @@ namespace NOBOIShooter.GameObjects
                     //  Debug.WriteLine("Position found");
                     isSnap = true;
                 }
-
-
             }
             else
             {
@@ -170,7 +161,6 @@ namespace NOBOIShooter.GameObjects
                     //Debug.WriteLine("Game end");
                     return;
                 }
-
                
                 List<Point> RemoveCluster = _bord.FindCluster(replace.X, replace.Y, true, true, false);
                 //Debug.WriteLine("Touch : " + replace.X + " + " + replace.Y + " & Friend : " + RemoveCluster.Count);
@@ -184,12 +174,7 @@ namespace NOBOIShooter.GameObjects
                     return;
                 }
             }
-
         }
-
-
-
-        
 
         public bool circleIntersection(float x1, float y1, float r1, float x2, float y2, float r2)
         {

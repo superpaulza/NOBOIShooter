@@ -40,7 +40,7 @@ namespace NOBOIShooter.Data
         public void Sort()
         {
             ScoresTables.Sort(delegate(Score x, Score y) {
-                return x.ScoreGet.CompareTo(y.ScoreGet);
+                return y.ScoreGet.CompareTo(x.ScoreGet);
             });
         }
 

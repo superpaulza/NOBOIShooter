@@ -10,9 +10,9 @@ namespace NOBOIShooter.GameObjects
 
         private const float MoveStep = 0.1f;
 
-        private BallGridManager _bord;
+        //private BallGridManager _bord;
         private Texture2D _texture;
-        private Vector2 _startPosition;
+        //private Vector2 _startPosition;
         private Vector2 _position;
         private Vector2 _targetPosition;
         private Vector2 _moveWay;
@@ -21,17 +21,16 @@ namespace NOBOIShooter.GameObjects
 
         private double _timer = 0;
 
-        public BallDrop(Texture2D texture, BallGridManager bord, int ballType, Vector2 startPosition, Vector2 targetPosition)
+        public BallDrop(BallGridManager bord, Texture2D texture, Color color, float scale, Vector2 startPosition, Vector2 targetPosition)
         {
-            _bord = bord;
+            //_bord = bord;
             _texture = texture;
-            _scaleball = (float)_bord.TileWidth / _texture.Width;
-            TileType = ballType;
-            _startPosition = startPosition;
+            _scaleball = scale;
+           //_startPosition = startPosition;
             _position = startPosition;
             _moveWay = (targetPosition - startPosition) * MoveStep;
             _targetPosition = targetPosition;
-            _color = _bord.GetColor(TileType);
+            _color = color;
             Visible = true;
         }
 
@@ -49,6 +48,7 @@ namespace NOBOIShooter.GameObjects
             if (Visible)
             {
                 _timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
                 if (_timer > 10)
                 {
                     _position += _moveWay;
