@@ -1,1 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/Icons/ArrowLeft.png","D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Icons/ArrowLeft.xnb","TextureProcessor","Texture2DContent",442,9301,0.1071858
+"D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/Icons/ArrowRight.png","D:/Git/superpaulza/NOBOIShooter/NOBOIShooter/Content/bin/DesktopGL/Content/Icons/ArrowRight.xnb","TextureProcessor","Texture2DContent",440,9301,0.0050509
