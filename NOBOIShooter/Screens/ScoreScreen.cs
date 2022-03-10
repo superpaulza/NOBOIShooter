@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.Controls;
 using System;
 using NOBOIShooter.Data;
+using System.Collections.Generic;
 
 namespace NOBOIShooter.Screens
 {
@@ -11,8 +12,7 @@ namespace NOBOIShooter.Screens
     {
         private const int LIMIT_SHOW_SCORE = 7;
 
-        private Texture2D _backIcon;
-        private Texture2D _background;
+        private Texture2D _backIcon, _background, _leftIcon, _rightIcon, _pen;
 
         private Button _backButton;
         private Button _leftButton;
@@ -117,8 +117,6 @@ namespace NOBOIShooter.Screens
                 _leftButton.Draw(gameTime, spriteBatch);
             if(_hasNextPage)
                 _rightButton.Draw(gameTime, spriteBatch);
-
-
 
             spriteBatch.End();
         }
