@@ -27,13 +27,13 @@ namespace NOBOIShooter.Screens
         private SoundEffect _gameSfxEnd;
         private SoundEffect _gameSfxWin;
         private SoundEffectInstance _sfxBgInstance;
-        private SoundEffectInstance _sfxEndInstance2;
-        private SoundEffectInstance _sfxEndInstance3;
+        private SoundEffectInstance _sfxEndInstance;
+        private SoundEffectInstance _sfxWinInstance;
 
         private BallGridManager _bord;
         private Player _player;
 
-        private DynamicButton _backButton1;
+        private DynamicButton _backButton;
 
         private ScoreData _scoreTable;
         private bool _gameScoreSave = false;
@@ -49,53 +49,56 @@ namespace NOBOIShooter.Screens
             _textFront = _content.Load<SpriteFont>("Fonts/Font");
             _backBlackIcon = _content.Load<Texture2D>("Controls/BackButtonBlack");
             _backWhiteIcon = _content.Load<Texture2D>("Controls/BackButtonWhite");
-            _background = content.Load<Texture2D>("Backgrouds/gameBackground");
-      
+            _background = _content.Load<Texture2D>("Backgrouds/gameBackground");
+            _gameSfxBg = _content.Load<SoundEffect>("BGM/GameScreenBGM");
+            _gameSfxEnd = _content.Load<SoundEffect>("BGM/GameOverBGM");
+            _gameSfxWin = _content.Load<SoundEffect>("BGM/VictoryBGM");
             _bubbleImg = _content.Load<Texture2D>("Item/bubble");
-
-            _gameSfxBg = content.Load<SoundEffect>("BGM/GameScreenBGM");
-            _gameSfxEnd = content.Load<SoundEffect>("BGM/GameOverBGM");
-            _gameSfxWin = content.Load<SoundEffect>("BGM/VictoryBGM");
-
+            _shooterImg = _content.Load<Texture2D>("Item/hand-gun");
+            _pen = new Texture2D(_graphicsDevice, 1, 1);
+            _pen.SetData(new[] { Color.White });
+            
+            // Create Instance to control sound
             _sfxBgInstance = _gameSfxBg.CreateInstance();
+            _sfxWinInstance = _gameSfxWin.CreateInstance();
+            _sfxEndInstance = _gameSfxEnd.CreateInstance();
             _sfxBgInstance.Volume = Singleton.Instance.BGMVolume;
-            _sfxEndInstance2 = _gameSfxEnd.CreateInstance();
-            _sfxEndInstance2.Volume = Singleton.Instance.SFXVolume;
-            _sfxEndInstance3 = _gameSfxWin.CreateInstance();
-            _sfxEndInstance3.Volume = Singleton.Instance.SFXVolume;
-
+            _sfxWinInstance.Volume = Singleton.Instance.SFXVolume;
+            _sfxEndInstance.Volume = Singleton.Instance.SFXVolume;
             _sfxBgInstance.Play();
 
-            _shooterImg = _content.Load<Texture2D>("Item/hand-gun");
-            _pen = new Texture2D(graphicsDevice, 1, 1);
-            _pen.SetData(new[] { Color.White });
-
-            _backButton1 = new DynamicButton(_backBlackIcon, content)
+            // Create Button
+            _backButton = new DynamicButton(_backBlackIcon, _content)
             {
                 Position = new Vector2(1200, 20),
             };
 
-            _backButton1.Click += BackButton_Click;
+            _backButton.Click += BackButton_Click;
 
-            // Adding Image
+            // Adding Image Ball
             _ballTexture = new BallTexture();
             _ballTexture.Add(_bubbleImg);
             _ballTexture.Add(_bubbleImg,Color.Red);
             _ballTexture.Add(_bubbleImg,Color.Green);
             _ballTexture.Add(_bubbleImg,Color.Blue);
+
+            // Create Game Main object
             _bord = new BallGridManager(_ballTexture);
             _player = new Player(_bord, _shooterImg, _ballTexture, _pen);
+            
+            // Load Score damanager
             _scoreTable = new ScoreData();
             _scoreTable.LoadSave();
 
-            // set game value
+            // Set game ghaphic Value
             _fullScreen = new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight);
             _gameScreen = new Rectangle((int)_bord.Position.X, 0, _bord.Width, Singleton.Instance.ScreenHeight);
+            _gameColorBackground = new Color(Color.Black, 0.5f);
+            _textPosition = new Vector2(1000, 180);
+
             int line = (int)(_bord.Position.Y + _bord.Height - 2 * _bord.RowHeight + _bord.TileHeight );
             _deadline = new Rectangle((int)_bord.Position.X, line, _bord.Width, DEAD_LINE_THICK);
 
-            _gameColorBackground = new Color(Color.Black, 0.5f);
-            _textPosition = new Vector2(1000, 180);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -107,6 +110,7 @@ namespace NOBOIShooter.Screens
             spriteBatch.Draw(_pen, _gameScreen, _gameColorBackground);
             spriteBatch.Draw(_pen, _deadline, Color.DarkRed);
 
+            // Draw game object
             _player.Draw(spriteBatch, gameTime);
             _bord.Draw(spriteBatch, gameTime);
 
@@ -126,9 +130,11 @@ namespace NOBOIShooter.Screens
                     _scoreTable.SaveGame();
                     _gameScoreSave = true;
                     //Debug.WriteLine("Save Score ?: " + _bord.GameScore);
+                    
+                    // Change Color of back button went fade screen
+                    _backButton.Texture = _backWhiteIcon;
                 }
 
-                _backButton1.Texture = _backWhiteIcon;
 
                 spriteBatch.Draw(_pen, _fullScreen, new Color(Color.Black, .6f));
 
@@ -139,24 +145,24 @@ namespace NOBOIShooter.Screens
                 _sfxBgInstance.Pause();
             }
 
-            _backButton1.Draw(gameTime, spriteBatch);
-
+            // Write text Win
             if (_bord.GameWin)
             {
-                _sfxEndInstance3.Play();
-                string gameEnding = "You Won \n\n Want to play again?";
-                spriteBatch.DrawString(_textFront, gameEnding,
-                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X) / 2, 100f), Color.White);
+                _sfxWinInstance.Play();
+                string gameWon = "You Won \n\n Want to play again?";
+                spriteBatch.DrawString(_textFront, gameWon,  new Vector2(FindCenterText(gameWon), 100f), Color.White);
             }
 
+            // Write text Lose
             else if (_bord.GameEnd)
             {
-                _sfxEndInstance2.Play();
+                _sfxEndInstance.Play();
                 string gameEnding = "Game Ending \n\n Thank for playing.";
-                spriteBatch.DrawString(_textFront, gameEnding,
-                    new Vector2((float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(gameEnding).X)/2, 100f), Color.White);
+                spriteBatch.DrawString(_textFront, gameEnding, new Vector2(FindCenterText(gameEnding), 100f), Color.White);
             }
 
+            // Draw button
+            _backButton.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 
@@ -166,18 +172,25 @@ namespace NOBOIShooter.Screens
 
         public override void Update(GameTime gameTime)
         {
-            _backButton1.Update(gameTime);
+            _backButton.Update(gameTime);
             _bord.Update(gameTime);
             _player.Update(gameTime);
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
+            // Action went out
             _bord.ClearGame();
             _sfxBgInstance.Dispose();
-            _sfxEndInstance2.Dispose();
-            _sfxEndInstance3.Dispose();
+            _sfxEndInstance.Dispose();
+            _sfxWinInstance.Dispose();
             _game.ChangeScreen(ScreenSelect.Menu);
+        }
+
+        // Create method wnt use lot of time
+        private float FindCenterText(string text)
+        {
+            return (float)(Singleton.Instance.ScreenWidth - _textFront.MeasureString(text).X) / 2;
         }
     }
 }

@@ -131,7 +131,7 @@ namespace NOBOIShooter.Screens
                 _rightButton.Update(gameTime);
         }
 
-        private void CheckHasNextPage()
+        private void CheckHaveNextPage()
         {
             _hasNextPage = _scorePage < _scoreBord.ScoresTables.Count / LIMIT_SCORE_PER_PAGE;
         }
@@ -145,14 +145,14 @@ namespace NOBOIShooter.Screens
         {
             if (_scorePage > 0)
                 _scorePage--;
-            CheckHasNextPage();
+            CheckHaveNextPage();
         }
 
         private void RightButtonOnClick(object sender, EventArgs e)
         {
             if (_hasNextPage)
                 _scorePage++;
-            CheckHasNextPage();
+            CheckHaveNextPage();
         }
 
     }

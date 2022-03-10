@@ -9,6 +9,7 @@ namespace NOBOIShooter.Screens
 {
     class OptionScreen : AScreen
     {
+        // Create value
         private List<Component> _components;
         private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState;
         private SpriteFont _font, _headerFont;
@@ -20,6 +21,7 @@ namespace NOBOIShooter.Screens
         public OptionScreen(Main game, GraphicsDevice graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
+            // Load Content
             _background = _content.Load<Texture2D>("Backgrouds/background");
             _font = _content.Load<SpriteFont>("Fonts/Font");
             _headerFont = _content.Load<SpriteFont>("Fonts/Header");
@@ -29,10 +31,11 @@ namespace NOBOIShooter.Screens
             _increaseIcon = _content.Load<Texture2D>("Controls/increase");
             _decreaseIcon = _content.Load<Texture2D>("Controls/decrease");
 
+            // Get sound default
             _volumeBGMState = Singleton.Instance.IsBGMEnable ? _volumeOn : _volumeOff;
-
             _volumeSFXState = Singleton.Instance.IsSFXEnable ? _volumeOn : _volumeOff;
 
+            // Create Button
             _backButton = new Button(_backIcon, content)
             {
                 Position = new Vector2(1200, 20),
