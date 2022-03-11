@@ -11,10 +11,10 @@ namespace NOBOIShooter.Screens
     {
         // Create value
         private List<Component> _components;
-        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState;
+        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState;
         private SpriteFont _font, _headerFont;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton;
-        private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton;
+        private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
         private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
         private int _speed = 5;
 
@@ -30,10 +30,13 @@ namespace NOBOIShooter.Screens
             _volumeOff = _content.Load<Texture2D>("Item/volume-off");
             _increaseIcon = _content.Load<Texture2D>("Controls/increase");
             _decreaseIcon = _content.Load<Texture2D>("Controls/decrease");
+            _checkBoxEmpty = _content.Load<Texture2D>("Controls/CheckboxEmpty");
+            _checkBoxSelected = _content.Load<Texture2D>("Controls/CheckboxSelect");
 
             // Get sound default
             _volumeBGMState = Singleton.Instance.IsBGMEnable ? _volumeOn : _volumeOff;
             _volumeSFXState = Singleton.Instance.IsSFXEnable ? _volumeOn : _volumeOff;
+            _checkBoxState = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
 
             // Create Button
             _backButton = new Button(_backIcon, content)
@@ -90,7 +93,17 @@ namespace NOBOIShooter.Screens
             };
 
             _volumeBGMControlButton.Click += VolumeBGMControlButtonOnClick;
-            
+
+            _guidelineAimerButton = new DynamicButton(_checkBoxState, content)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
+                Text = "",
+
+            };
+
+            _guidelineAimerButton.Click += GuidelineAimerOnClick;
+
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
@@ -101,6 +114,7 @@ namespace NOBOIShooter.Screens
                 _decreaseSFXButton,
                 _increaseBGMButton,
                 _decreaseBGMButton,
+                _guidelineAimerButton,
             };
         }
 
@@ -252,6 +266,12 @@ namespace NOBOIShooter.Screens
             }
         }
 
+        private void GuidelineAimerOnClick(object sender, EventArgs e)
+        {
+            Singleton.Instance.IsEnableAimer = !Singleton.Instance.IsEnableAimer;
+            _guidelineAimerButton.Texture = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -265,6 +285,8 @@ namespace NOBOIShooter.Screens
             spriteBatch.DrawString(_font, "SFX", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 200), Color.White, 0f, _font.MeasureString("SFX") * 0.5f, 1f, SpriteEffects.None, 0f);
 
             spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.White, 0f, _font.MeasureString("BGM") * 0.5f, 1f, SpriteEffects.None, 0f);
+
+            spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 450), Color.White, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, 1f, SpriteEffects.None, 0f);
 
             spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
