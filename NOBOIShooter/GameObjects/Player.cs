@@ -69,9 +69,12 @@ namespace NOBOIShooter.GameObjects
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            // Draw Aimer
-            spriteBatch.Draw(_pencilDot, new Rectangle((int)_shooterCenterPosition.X, (int)_shooterCenterPosition.Y, _aimerLength, _aimerThick), null,
-                _aimerColor, _shooterAngle + MathHelper.ToRadians(-180f), _aimerMovePosition, SpriteEffects.None, 0);
+            if (Singleton.Instance.IsEnableAimer)
+            {
+                // Draw Aimer
+                spriteBatch.Draw(_pencilDot, new Rectangle((int)_shooterCenterPosition.X, (int)_shooterCenterPosition.Y, _aimerLength, _aimerThick), null,
+                    _aimerColor, _shooterAngle + MathHelper.ToRadians(-180f), _aimerMovePosition, SpriteEffects.None, 0);
+            }
 
             // Draw Swaping effect
             if (_isSwapping && _ballEffect.Visible)
