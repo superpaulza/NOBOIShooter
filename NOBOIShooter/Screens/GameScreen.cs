@@ -93,8 +93,8 @@ namespace NOBOIShooter.Screens
             _ballTexture.Add(_bubbleImg,Color.Blue);
 
             // Create Game Main object
-            _bord = new BallGridManager(_ballTexture);
-            _player = new Player(_bord, _shooterImg, _ballTexture, _pen);
+            _bord = new BallGridManager(_ballTexture, content);
+            _player = new Player(_bord, _shooterImg, _ballTexture, _pen, content);
             
             // Load Score damanager
             _scoreTable = new ScoreData();

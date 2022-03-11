@@ -9,8 +9,6 @@ namespace NOBOIShooter.Controls
 {
     public class DynamicButton : Component
     {
-        //Note: "#region" just break logic section or part for IDEs not effect any program logic
-        #region Fields
         SoundEffectInstance _sound;
 
         private MouseState _currentMouse;
@@ -24,10 +22,6 @@ namespace NOBOIShooter.Controls
         private Rectangle mouseRectangle;
 
         private Color colour;
-
-        #endregion
-
-        #region Properties
 
         public event EventHandler Click;
 
@@ -50,10 +44,6 @@ namespace NOBOIShooter.Controls
         public string Text { get; set; }
 
         public Texture2D Texture;
-
-        #endregion
-
-        #region Methods
 
         public DynamicButton(Texture2D texture, SpriteFont font, ContentManager _content)
         {
@@ -127,6 +117,5 @@ namespace NOBOIShooter.Controls
             }
         }
 
-        #endregion
     }
 }

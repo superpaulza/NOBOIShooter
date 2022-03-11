@@ -61,6 +61,12 @@
 /processorParam:TextureFormat=Color
 /build:Backgrouds/wild-west.jpg
 
+#begin BGM/BubblePop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/BubblePop.wav
+
 #begin BGM/ButtonBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -78,6 +84,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:BGM/GameScreenBGM.wav
+
+#begin BGM/GunSoundEffect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BGM/GunSoundEffect.wav
 
 #begin BGM/MainMenuBGM.wav
 /importer:WavImporter

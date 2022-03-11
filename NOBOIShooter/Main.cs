@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using NOBOIShooter.Screens;
 
+
 namespace NOBOIShooter
 {
     public class Main : Game
@@ -37,6 +38,7 @@ namespace NOBOIShooter
 
             // Load screen manager
             _screenManager = new ScreenManager(this, _graphics.GraphicsDevice, Content);
+            
 
         }
       
