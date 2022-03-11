@@ -29,7 +29,7 @@ namespace NOBOIShooter.GameObjects
             Visible = false;
         }
 
-        public void setAnimation(int type, Vector2 position, float nangle)
+        public void SetAnimation(int type, Vector2 position, float nangle)
         {
             Angle = nangle;
             Position = position;
@@ -50,11 +50,11 @@ namespace NOBOIShooter.GameObjects
         {
             if (Visible)
             {
-                calculate(gameTime);
+                Calculate(gameTime);
             }
         }
 
-        private void calculate(GameTime gameTime)
+        private void Calculate(GameTime gameTime)
         {
             _velocity.X = (float)Math.Cos(Angle) * Speed;
             _velocity.Y = (float)Math.Sin(Angle) * Speed;
@@ -82,7 +82,7 @@ namespace NOBOIShooter.GameObjects
             {
                 Position.Y = _bord.Position.Y;
                 //y = _bord.y;
-                snapBubble((int)Position.X, (int)Position.Y);
+                SnapBubble((int)Position.X, (int)Position.Y);
                 return;
             }
 
@@ -99,16 +99,16 @@ namespace NOBOIShooter.GameObjects
                     Vector2 coord = _bord.GetTileCoordinate(i, j);
                     int posX = (int)(coord.X), posY = (int)(coord.Y);
 
-                    if (circleIntersection(Position.X, Position.Y, _bord.Radius, posX, posY, _bord.Radius))
+                    if (CircleInterSection(Position.X, Position.Y, _bord.Radius, posX, posY, _bord.Radius))
                     {
-                        snapBubble((int)Position.X, (int)Position.Y);
+                        SnapBubble((int)Position.X, (int)Position.Y);
                         return;
                     }
                 }
             }
         }
 
-        public void snapBubble(int atx, int aty)
+        public void SnapBubble(int atx, int aty)
         {
             Point gridpos = _bord.GetGridPosition(atx, aty);
             int posX = gridpos.X;
@@ -170,13 +170,13 @@ namespace NOBOIShooter.GameObjects
                     //Debug.WriteLine("Take : " + RemoveCluster.Count);
                     _bord.RemoveCluster = RemoveCluster;
                     _bord.StateRemovecluster();
-                    _bord.gameWinCheck();
+                    _bord.GameWinCheck();
                     return;
                 }
             }
         }
 
-        public bool circleIntersection(float x1, float y1, float r1, float x2, float y2, float r2)
+        public bool CircleInterSection(float x1, float y1, float r1, float x2, float y2, float r2)
         {
             var dx = x1 - x2;
             var dy = y1 - y2;

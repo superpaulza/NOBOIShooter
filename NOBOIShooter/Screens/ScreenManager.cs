@@ -7,7 +7,9 @@ namespace NOBOIShooter.Screens
 {
     partial class ScreenManager : AScreen
     {
-        private AScreen _currentSreen, _nextScreen;
+        // Create all value in object
+        private AScreen _currentSreen;
+        private AScreen _nextScreen;
         private Texture2D _cursor;
 
         private MenuScreen _menuScreen;
@@ -63,6 +65,7 @@ namespace NOBOIShooter.Screens
         // Method to change sceen
         public void ChangeScreen(ScreenSelect screenSelect)
         {
+            // Screen select
             switch (screenSelect)
             {
                 case ScreenSelect.Game:

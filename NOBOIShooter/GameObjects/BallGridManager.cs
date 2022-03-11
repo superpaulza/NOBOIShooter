@@ -20,6 +20,7 @@ namespace NOBOIShooter.GameObjects
         private const int GRID_MOVE_DOWN = 20;
         private const int ANIMATION_DROP_HEIGHT = 50;
         private const int SCOLLING_SPEED = 1;
+        private const int SCORE_DROP_BALL = 100;
 
         // Global variable
         public int TotalColor { get; private set; }
@@ -182,7 +183,7 @@ namespace NOBOIShooter.GameObjects
             return new Vector2(tilex, tiley);
         }
 
-        public int nextColorBubble()
+        public int NextColorBubble()
         {
             var existingcolors = DetectedTileType();
             var randomColor = 0;
@@ -398,9 +399,7 @@ namespace NOBOIShooter.GameObjects
                         for (int ball = 0; ball < FloatingCluster[group].Count; ball++)
                         {
                             // Counting Point
-                            Point type = FloatingCluster[group][ball];
-                            
-                            GameScore += 100;
+                            GameScore += SCORE_DROP_BALL;
                         }
                     }
                 }
@@ -438,11 +437,11 @@ namespace NOBOIShooter.GameObjects
                     }
                 }
                 _removeClusterEffect = 0;
-                gameWinCheck();
+                GameWinCheck();
             }
         }
 
-        public bool gameWinCheck()
+        public bool GameWinCheck()
         {
             if (GameWin) return true;
             // Check the First Line

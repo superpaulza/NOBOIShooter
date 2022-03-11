@@ -31,6 +31,8 @@ namespace NOBOIShooter.Controls
 
         public event EventHandler Click;
 
+        public bool IsVisible { get; set; }
+
         public bool Clicked { get; private set; }
 
         public Color PenColour { get; set; }
@@ -63,6 +65,8 @@ namespace NOBOIShooter.Controls
 
             _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
+            IsVisible = true;
+
         }
 
         public DynamicButton(Texture2D texture, ContentManager _content)
@@ -71,45 +75,54 @@ namespace NOBOIShooter.Controls
 
             _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
+            IsVisible = true;
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            colour = Color.White;
-
-            if (_isHovering)
-                colour = Color.Gray;
-
-            spriteBatch.Draw(Texture, Rectangle, colour);
-
-            if (!string.IsNullOrEmpty(Text))
+            if (IsVisible)
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
+                colour = Color.White;
 
-                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+                if (_isHovering)
+                    colour = Color.Gray;
+
+                spriteBatch.Draw(Texture, Rectangle, colour);
+
+                if (!string.IsNullOrEmpty(Text))
+                {
+                    var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
+                    var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
+
+                    spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+                }
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            _sound.Volume = Singleton.Instance.SFXVolume;
-
-            _previousMouse = _currentMouse;
-            _currentMouse = Mouse.GetState();
-
-            mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
-
-            _isHovering = false;
-
-            if (mouseRectangle.Intersects(Rectangle))
+            if (IsVisible)
             {
-                _isHovering = true;
+                _sound.Volume = Singleton.Instance.SFXVolume;
 
-                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                _previousMouse = _currentMouse;
+                _currentMouse = Mouse.GetState();
+
+                mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+
+                _isHovering = false;
+
+                if (mouseRectangle.Intersects(Rectangle))
                 {
-                    Click?.Invoke(this, new EventArgs());
-                    _sound.Play();
+                    _isHovering = true;
+
+                    if (_currentMouse.LeftButton == ButtonState.Released &&
+                        _previousMouse.LeftButton == ButtonState.Pressed)
+                    {
+                        Click?.Invoke(this, new EventArgs());
+                        _sound.Play();
+                    }
                 }
             }
         }
