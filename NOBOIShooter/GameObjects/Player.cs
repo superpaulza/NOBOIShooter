@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NOBOIShooter.GameObjects
 {
@@ -38,12 +38,16 @@ namespace NOBOIShooter.GameObjects
 
         private Random _random = new Random();
 
-        public Player(BallGridManager ballGrid, Texture2D shooterTexture, BallTexture ballTexture, Texture2D pencil)
+        SoundEffectInstance _gunSound;
+
+        public Player(BallGridManager ballGrid, Texture2D shooterTexture, BallTexture ballTexture, Texture2D pencil, ContentManager _content)
         {
             _shooterTexture = shooterTexture;
             _ballTexture = ballTexture;
             _gameBord = ballGrid;
             _pencilDot = pencil;
+
+            _gunSound = _content.Load<SoundEffect>("BGM/GunSoundEffect").CreateInstance();
 
             _position = new Vector2((Singleton.Instance.ScreenWidth - SHOOTER_WIDTH) / 2f, Singleton.Instance.ScreenHeight - SHOOTER_MOVE_UP);
             _shooterCenterPosition = _position + new Vector2(SHOOTER_RADIAN, SHOOTER_RADIAN);
@@ -93,6 +97,7 @@ namespace NOBOIShooter.GameObjects
 
         public void Update(GameTime gameTime)
         {
+            _gunSound.Volume = Singleton.Instance.SFXVolume;
 
             // Load mouse state
             if (_isSwapping)
@@ -109,6 +114,7 @@ namespace NOBOIShooter.GameObjects
 
             if (!_gameBord.GamePause &&!_isShooting && MouseCurrent.Y < _position.Y + SHOOTER_RADIAN && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
             {
+                _gunSound.Play();
                 _ballShoot.SetAnimation( _currentBall, _shooterCenterPosition - new Vector2(_gameBord.Radius, _gameBord.Radius), (float)(_shooterAngle + MathHelper.ToRadians(180f)));
                 _currentBall = _nextBall;
                 _nextBall = _gameBord.NextColorBubble();
