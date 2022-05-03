@@ -1,4 +1,4 @@
-# withLuckAndWisdomProject
+# With Luck And Wisdom Project
 
 ## Overview
 
