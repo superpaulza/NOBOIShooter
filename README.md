@@ -1,16 +1,15 @@
-# NOBOIShooter
+# withLuckAndWisdomProject
 
 ## Overview
 
-Puzzle Bobble-like game project using Monogame (C#).
+Catapult game project using Monogame (C#).
 
 ## Mechanic
 
-- Starting pattern of bubbles
-- Shooting a bubble
-- Bubble-popping when three or more bubbles with same colour connect.
-- "Ceiling Dropping" when some time passes.
-- Player wins when they clear all bubbles, player loses when a bubble reaches the boundary.
+- Shooting object forward and it's affected by gravity.
+- Multiple action when object hit the destination object.
+- Endless game.
+- The difficulty increases as you progress through the levels.
 
 ## Tools
 
