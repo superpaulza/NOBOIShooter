@@ -43,7 +43,7 @@ namespace withLuckAndWisdomProject.Controls
 
         public string Text { get; set; }
 
-        public Button(Texture2D texture, SpriteFont font, ContentManager _content)
+        public Button(Texture2D texture, SpriteFont font)
         {
             _texture = texture;
 
@@ -51,15 +51,11 @@ namespace withLuckAndWisdomProject.Controls
 
             PenColour = Color.Black;
 
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
-
         }
 
-        public Button(Texture2D texture, ContentManager _content)
+        public Button(Texture2D texture)
         {
             _texture = texture;
-
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
         }
 
@@ -97,7 +93,6 @@ namespace withLuckAndWisdomProject.Controls
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
                     Click?.Invoke(this, new EventArgs());
-                    _sound.Play();
                 }
             }
         }

@@ -5,23 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace withLuckAndWisdomProject.Screens
 {
     class ResourceManager
     {
         // STATIC FIELDS
-        // public static Texture2D sprite;
-        // public static Texture2D pixel;
-
+        public static Texture2D button;
+        public static SpriteFont font;
 
         // LOAD CONTENT
         public static void LoadContent(ContentManager content)
         {
-            // sprite = content.Load<Texture2D>("sprite");
-            // pixel = content.Load<Texture2D>("pixel");
-            //
-            // buttonClick = content.Load<SoundEffect>("Sounds/buttonClick");
+            button = content.Load<Texture2D>("Controls/button");
+            font = content.Load<SpriteFont>("Fonts/Font");
         }
     }
 }
