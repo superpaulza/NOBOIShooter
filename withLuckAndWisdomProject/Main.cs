@@ -36,18 +36,24 @@ namespace withLuckAndWisdomProject
             // Create a spriteBatch
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Load all contents
+            ResourceManager.LoadContent(Content);
+
             // Load screen manager
-            _screenManager = new ScreenManager(this, _graphics.GraphicsDevice, Content);
-            
+            _screenManager = new ScreenManager();
+
 
         }
-      
+
         // Update program logic everytime
         protected override void Update(GameTime gameTime)
         {
-           
+
             // Update screen
             _screenManager.Update(gameTime);
+
+            if(ScreenManager.Quit)
+                Exit();
 
             base.Update(gameTime);
         }
@@ -57,16 +63,14 @@ namespace withLuckAndWisdomProject
         {
             // Clear programpage with white colour
             GraphicsDevice.Clear(Color.White);
-
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            
             // Draw program current screen
             _screenManager.Draw(gameTime, _spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        public void ChangeScreen(ScreenSelect screenSelect)
-        {
-            _screenManager.ChangeScreen(screenSelect);
-        }
     }
 }
