@@ -13,18 +13,16 @@ namespace withLuckAndWisdomProject.Screens
         private Texture2D _cursor;
 
         private MenuScreen _menuScreen;
-        private GameScreen _gameScreen;
-        private ScoreScreen _scoreScreen;
         private OptionScreen _optionScreen;
 
         public ScreenManager(Main game, GraphicsDevice graphicsDevice, ContentManager content)
            : base(game, graphicsDevice, content)
         {
             // Load image game cursor
-            _cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
+            // _cursor = _content.Load<Texture2D>("Item/sheriff-cursor");
 
             // Change cursor texture
-            Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
+            // Mouse.SetCursor(MouseCursor.FromTexture2D(_cursor, 0, 0));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -68,14 +66,6 @@ namespace withLuckAndWisdomProject.Screens
             // Screen select
             switch (screenSelect)
             {
-                case ScreenSelect.Game:
-                    _gameScreen = new GameScreen(_game, _graphicsDevice, _content);
-                    _nextScreen = _gameScreen;
-                    break;
-                case ScreenSelect.Score:
-                    _scoreScreen = new ScoreScreen(_game, _graphicsDevice, _content);
-                    _nextScreen = _scoreScreen;
-                    break;
                 case ScreenSelect.Setting:
                     _optionScreen = new OptionScreen(_game, _graphicsDevice, _content);
                     _nextScreen = _optionScreen;

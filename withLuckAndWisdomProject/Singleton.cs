@@ -7,17 +7,8 @@ namespace withLuckAndWisdomProject
     //apply for singleton design pattern
     class Singleton
     {
-        //Store default value or parameter here!
-        
-        public int Score = 0;
-        public bool IsMouseVisible = true, Shooting = false;
+        public bool IsMouseVisible = true;
         public string ContentRootDir = "Content";
-        public bool IsEnableAimer = false;
-        public bool IsBGMEnable = true;
-        public bool IsSFXEnable = true;
-        public float BGMVolume = 1.0f;
-        public float SFXVolume = 1.0f;
-
         public readonly int ScreenHeight = 720;
         public readonly int ScreenWidth = 1280;
 

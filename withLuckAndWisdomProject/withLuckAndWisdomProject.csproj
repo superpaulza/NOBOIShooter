@@ -10,6 +10,11 @@
     <StartupObject />
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Content\SFX\**" />
+    <EmbeddedResource Remove="Content\SFX\**" />
+    <None Remove="Content\SFX\**" />
+  </ItemGroup>
     <ItemGroup>
 	    <EmbeddedResource Include="icon.ico" />
 	    <EmbeddedResource Include="Icon.bmp" />
@@ -23,9 +28,5 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\BGM\" />
-    <Folder Include="Content\SFX\" />
   </ItemGroup>
 </Project>
