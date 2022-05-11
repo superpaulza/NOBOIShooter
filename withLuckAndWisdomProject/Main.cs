@@ -11,7 +11,7 @@ namespace withLuckAndWisdomProject
         private SpriteBatch _spriteBatch;
         private ScreenManager _screenManager;
 
-        // Main Constructure 
+        // Main Constructure
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
