@@ -9,6 +9,7 @@ namespace withLuckAndWisdomProject.Screens
 {
     class GameScreen
     {
+
         //Constructor inherit from base class
         public GameScreen()
         {
