@@ -11,14 +11,18 @@ namespace withLuckAndWisdomProject.Screens
     public class MenuScreen
     {
         private List<Component> _components;
-        private Texture2D button;
+        private Texture2D button, mainBackground, logo;
         private SpriteFont font;
         private Button _playButton;
 
         //Constructor inherit from base class
         public MenuScreen()
         {
+            //load assets
             button = ResourceManager.button;
+            mainBackground = ResourceManager.mainBackground;
+            logo = ResourceManager.logo;
+
             font = ResourceManager.font;
 
             _playButton = new Button(button, font)
@@ -44,8 +48,8 @@ namespace withLuckAndWisdomProject.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Rectangle test = new Rectangle(115, 0, 400, 350);
-            spriteBatch.Draw(button, test, Color.White);
+            spriteBatch.Draw(mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            spriteBatch.Draw(logo, new Rectangle(115, 0, 400, 350), Color.White);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
