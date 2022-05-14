@@ -8,7 +8,7 @@ using withLuckAndWisdomProject.Controls;
 namespace withLuckAndWisdomProject.Screens
 {
     //Menu screen
-    public class MenuScreen
+    public class MenuScreen : AScreen
     {
         private List<Component> _components;
         private Texture2D button, mainBackground, logo;
@@ -43,10 +43,10 @@ namespace withLuckAndWisdomProject.Screens
 
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
-            ScreenManager.ChangeScreen = "game";
+            ScreenManager.ChangeScreen = "test";
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
             spriteBatch.Draw(logo, new Rectangle(115, 0, 400, 350), Color.White);
@@ -55,13 +55,13 @@ namespace withLuckAndWisdomProject.Screens
                 component.Draw(gameTime, spriteBatch);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
         }
 
-        public void PostUpdate(GameTime gameTime)
+        public override void PostUpdate(GameTime gameTime)
         {
 
         }

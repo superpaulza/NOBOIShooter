@@ -32,6 +32,7 @@ namespace withLuckAndWisdomProject
         }
 
         // Load content (such as assets, picture, music)
+        // contentManager: The content manager to use
         protected override void LoadContent()
         {
             // Create a spriteBatch

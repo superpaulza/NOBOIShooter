@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace withLuckAndWisdomProject.Screens
 {
-    class GameScreen
+    class GameScreen : AScreen
     {
 
         //Constructor inherit from base class
@@ -16,17 +16,17 @@ namespace withLuckAndWisdomProject.Screens
 
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }
 
-        public void PostUpdate(GameTime gameTime)
+        public override void PostUpdate(GameTime gameTime)
         {
 
         }
