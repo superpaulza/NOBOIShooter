@@ -32,6 +32,7 @@ namespace withLuckAndWisdomProject.Object
             // Loads the ball's texture
             texture = ResourceManager.ball;
 
+            //When ball OnCollision (CollisionHandler)
             this.body.OnCollision += CollisionHandler;
         }
 
@@ -48,13 +49,18 @@ namespace withLuckAndWisdomProject.Object
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Use Green for visual collision indication
-            Color color = (Colliding) ? Color.Green : Color.White;
+            Color color = (Colliding) ? Color.Red : Color.White;
+
             spriteBatch.Draw(texture, body.Position, null, color, body.Rotation, origin, scale, SpriteEffects.None, 0);
         }
 
+        //Physic collision handler
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
+            contact.Restitution = 1f;
             Colliding = true;
+
+            //must always return ture for apply physic after collision
             return true;
         }
     }

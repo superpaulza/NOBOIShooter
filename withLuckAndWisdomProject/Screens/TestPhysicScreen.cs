@@ -35,7 +35,7 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var edge in edges)
             {
                 edge.BodyType = BodyType.Static;
-                edge.SetRestitution(1);
+                // edge.SetRestitution(1);
             }
 
             System.Random random = new System.Random();
@@ -49,11 +49,10 @@ namespace withLuckAndWisdomProject.Screens
                 );
                 var body = world.CreateCircle(radius, 1f, position, BodyType.Dynamic);
                 body.LinearVelocity = new Vector2(
-                    random.Next(-200, 200),
-                    random.Next(-200, 200)
+                    random.Next(-1000, 1000),
+                    random.Next(-1000, 1000)
                     );
                 body.AngularVelocity = (float) random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
-                body.SetRestitution(1);
                 balls.Add(new Ball(radius, body));
             }
         }
