@@ -8,6 +8,19 @@ namespace withLuckAndWisdomProject.Object
 {
     class Bamboo
     {
+        public Bamboo()
+        {
 
+        }
+
+        public void update(GameTime gameTime)
+        {
+
+        }
+
+        public void draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }
