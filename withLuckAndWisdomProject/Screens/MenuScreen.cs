@@ -43,6 +43,7 @@ namespace withLuckAndWisdomProject.Screens
 
         private void PlayButtonOnClick(object sender, EventArgs e)
         {
+            // Change to Screen when Clicked on Play button in Menu Screen. 
             ScreenManager.ChangeScreen = "test";
         }
 
