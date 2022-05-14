@@ -16,6 +16,7 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D mainBackground;
         public static Texture2D logo;
         public static Texture2D ball;
+        public static Texture2D _bamboo;
 
         public static SpriteFont font;
 
@@ -26,6 +27,7 @@ namespace withLuckAndWisdomProject.Screens
             mainBackground = content.Load<Texture2D>("Images/background");
             logo = content.Load<Texture2D>("Images/logo");
             ball = content.Load<Texture2D>("Images/CircleSprite");
+            _bamboo = content.Load<Texture2D>("Images/Bamboo");
 
             font = content.Load<SpriteFont>("Fonts/Font");
         }
