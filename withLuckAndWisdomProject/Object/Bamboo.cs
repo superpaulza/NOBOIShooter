@@ -11,8 +11,8 @@ namespace withLuckAndWisdomProject.Object
 {
     class Bamboo
     {
-        Texture2D _bamboo;
-        Vector2 _bambooPosition;
+        Texture2D bamboo;
+        Vector2 bambooPosition;
         public Bamboo()
         {
 
@@ -20,7 +20,7 @@ namespace withLuckAndWisdomProject.Object
 
         public void LoadContent()
         {
-            _bambooPosition = new Vector2(100, 0);
+            bambooPosition = new Vector2(100, 200);
         }
 
         public void update(GameTime gameTime)
@@ -30,7 +30,7 @@ namespace withLuckAndWisdomProject.Object
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_bamboo, _bambooPosition, Color.Yellow);
+            spriteBatch.Draw(bamboo, bambooPosition, Color.White);
         }
     }
 }
