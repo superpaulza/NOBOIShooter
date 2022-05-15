@@ -14,6 +14,7 @@ namespace withLuckAndWisdomProject.Screens
         private Texture2D button, mainBackground, logo;
         private SpriteFont font;
         private Button _playButton;
+        private Button _testButton;
 
         //Constructor inherit from base class
         public MenuScreen()
@@ -25,6 +26,8 @@ namespace withLuckAndWisdomProject.Screens
 
             font = ResourceManager.font;
 
+
+            // Create button on main screen
             _playButton = new Button(button, font)
             {
                 PenColour = Color.DarkGreen,
@@ -34,14 +37,32 @@ namespace withLuckAndWisdomProject.Screens
 
             _playButton.Click += PlayButtonOnClick;
 
+            _testButton = new Button(button, font)
+            {
+                PenColour = Color.DarkGreen,
+                Position = new Vector2(730, 400),
+                Text = "Test",
+            };
+
+            _testButton.Click += TestButtonOnClick;
+
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
                 _playButton,
+                _testButton,
             };
         }
 
         private void PlayButtonOnClick(object sender, EventArgs e)
+        {
+            // Change to Screen when Clicked on Play button in Menu Screen. 
+            ScreenManager.ChangeScreen = "game";
+        }
+
+
+
+        private void TestButtonOnClick(object sender, EventArgs e)
         {
             // Change to Screen when Clicked on Play button in Menu Screen. 
             ScreenManager.ChangeScreen = "test";
