@@ -57,6 +57,7 @@ namespace withLuckAndWisdomProject.Object
         //Physic collision handler
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
+            AudioManager.PlaySound("BallHitEffect");
             contact.Restitution = 1f;
             Colliding = true;
 
