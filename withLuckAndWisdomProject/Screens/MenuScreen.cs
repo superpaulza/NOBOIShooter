@@ -26,6 +26,7 @@ namespace withLuckAndWisdomProject.Screens
 
             font = ResourceManager.font;
 
+            AudioManager.PlaySound("TestMusic", true);
 
             // Create button on main screen
             _playButton = new Button(button, font)
@@ -59,7 +60,6 @@ namespace withLuckAndWisdomProject.Screens
         {
             // Change to Screen when Clicked on Play button in Menu Screen. 
             ScreenManager.ChangeScreen = "game";
-            AudioManager.StopSounds();
         }
 
 
@@ -68,7 +68,6 @@ namespace withLuckAndWisdomProject.Screens
         {
             // Change to Screen when Clicked on Play button in Menu Screen. 
             ScreenManager.ChangeScreen = "test";
-            AudioManager.StopSounds();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -80,18 +79,10 @@ namespace withLuckAndWisdomProject.Screens
                 component.Draw(gameTime, spriteBatch);
         }
 
-        public override void Update(GameTime gameTime, bool isActive)
+        public override void Update(GameTime gameTime)
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
-            if (isActive)
-            {
-                AudioManager.PlaySound("TestMusic", true);
-            }
-            else
-            {
-                AudioManager.StopSounds();
-            }
         }
 
         public override void PostUpdate(GameTime gameTime)

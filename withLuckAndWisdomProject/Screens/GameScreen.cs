@@ -118,7 +118,7 @@ namespace withLuckAndWisdomProject.Screens
 
             }
 
-        public override void Update(GameTime gameTime, bool isActive)
+        public override void Update(GameTime gameTime)
         {
             testBamboo.update(gameTime);
             testRabbit.update(gameTime);

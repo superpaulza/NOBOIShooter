@@ -14,7 +14,6 @@ namespace withLuckAndWisdomProject.Screens
 
         private string[] _menuList = {"menu", "game", "test"};
         private static string _currentSreen;
-        private static bool IsActive;
         private static bool quit;
         private static bool reset;
 
@@ -67,11 +66,11 @@ namespace withLuckAndWisdomProject.Screens
                 Quit = true;
 
             if (_currentSreen == "menu")
-                _menuScreen.Update(gameTime, true);
+                _menuScreen.Update(gameTime);
             else if (_currentSreen == "game")
-                _gameScreen.Update(gameTime, true);
+                _gameScreen.Update(gameTime);
             else if (_currentSreen == "test")
-                _testScreen.Update(gameTime, true);
+                _testScreen.Update(gameTime);
         }
 
     }
