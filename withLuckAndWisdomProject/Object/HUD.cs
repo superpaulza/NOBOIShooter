@@ -10,9 +10,22 @@ namespace withLuckAndWisdomProject.Object
 {
     public class HUD
     {
+        private int _score;
+        private int _distance;
+
         public HUD()
         {
             
+        }
+
+        public void DrawScore()
+        {
+
+        }
+
+        public void DrawDistance()
+        {
+
         }
 
         public void Update(GameTime gameTime, SpriteBatch spriteBatch)
