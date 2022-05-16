@@ -4,11 +4,23 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-namespace withLuckAndWisdomProject.Screens
+using withLuckAndWisdomProject.Screens;
+
+namespace withLuckAndWisdomProject.Object
 {
     public class HUD
     {
         public HUD()
+        {
+            
+        }
+
+        public void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+        }
+
+        public void Draw(GameTime gameTime)
         {
 
         }
