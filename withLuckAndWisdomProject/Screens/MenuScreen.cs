@@ -26,8 +26,6 @@ namespace withLuckAndWisdomProject.Screens
 
             font = ResourceManager.font;
 
-            AudioManager.PlaySound("TestMusic", true);
-
             // Create button on main screen
             _playButton = new Button(button, font)
             {
@@ -83,6 +81,7 @@ namespace withLuckAndWisdomProject.Screens
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
+            AudioManager.PlaySound("TestMusic", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
