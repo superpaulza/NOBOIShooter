@@ -8,9 +8,14 @@ namespace withLuckAndWisdomProject.Screens
 {
     public abstract class AScreen
     {
+        public AScreen()
+        {
+            AudioManager.StopSounds();
+        }
+
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime, bool isActive);
 
         public abstract void PostUpdate(GameTime gameTime);
     }

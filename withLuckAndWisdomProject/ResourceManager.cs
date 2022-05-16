@@ -22,7 +22,6 @@ namespace withLuckAndWisdomProject.Screens
 
         public static Texture2D BasicBtn;
 
-
         public static SpriteFont font;
 
         // load content here

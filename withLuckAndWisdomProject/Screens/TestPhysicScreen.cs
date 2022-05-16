@@ -65,7 +65,7 @@ namespace withLuckAndWisdomProject.Screens
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool isActive)
         {
             foreach (var ball in balls)
             {

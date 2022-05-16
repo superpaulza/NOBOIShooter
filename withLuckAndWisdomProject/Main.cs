@@ -18,6 +18,10 @@ namespace withLuckAndWisdomProject
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = Singleton.Instance.ContentRootDir;
             IsMouseVisible = Singleton.Instance.IsMouseVisible;
+
+            //Make it full screen
+            // _graphics.IsFullScreen = true;
+            AudioManager.Initialize(this);
         }
 
         // Initialize (Run on start)
@@ -40,6 +44,9 @@ namespace withLuckAndWisdomProject
 
             //Load all contents
             ResourceManager.LoadContent(Content);
+
+            //Load all sound
+            AudioManager.LoadSounds();
 
             // Load screen manager
             _screenManager = new ScreenManager();

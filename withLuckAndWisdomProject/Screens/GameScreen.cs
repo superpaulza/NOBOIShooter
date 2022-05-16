@@ -62,7 +62,7 @@ namespace withLuckAndWisdomProject.Screens
                 component.Draw(gameTime, spriteBatch);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool isActive)
         {
             foreach (Component component in _components)
                 component.Update(gameTime);

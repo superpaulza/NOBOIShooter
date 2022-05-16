@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/BeCrazyForMe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/BeCrazyForMe.wav
+
 #begin Controls/Achievement.png
 /importer:TextureImporter
 /processor:TextureProcessor
