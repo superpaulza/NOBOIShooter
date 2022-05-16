@@ -17,7 +17,7 @@ namespace withLuckAndWisdomProject.Screens
         {
             //world of physic
             world = new World();
-            world.Gravity = Vector2.Zero;
+            world.Gravity = new Vector2(0, -9.82f);
 
             //Create game border (set edges line foreach edge)
             var top = 0;
