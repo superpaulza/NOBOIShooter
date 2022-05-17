@@ -13,7 +13,7 @@ namespace withLuckAndWisdomProject.Screens
     class GameScreen : AScreen
     {
         private Button _backButton;
-        private Bamboo testBamboo;
+        private Bamboo testBamboo, testBamboo2, testBamboo3, testBamboo4, testBamboo5;
         private Rabbit testRabbit;
         private World world;
         private List<Ball> balls;
@@ -21,7 +21,12 @@ namespace withLuckAndWisdomProject.Screens
         //Constructor inherit from base class 
         public GameScreen()
         {
+            // Create Bamboo Object and Give a position as parameter. 
             testBamboo = new Bamboo(new Vector2(100, 200));
+            testBamboo2 = new Bamboo(new Vector2(300, 200));
+            testBamboo3 = new Bamboo(new Vector2(400, 200));
+            testBamboo4 = new Bamboo(new Vector2(500, 200));
+            testBamboo5 = new Bamboo(new Vector2(600, 200)); 
 
             //world of physic
             world = new World();
@@ -104,6 +109,11 @@ namespace withLuckAndWisdomProject.Screens
         {
             // Test texture in game
             testBamboo.draw(gameTime, spriteBatch);
+            testBamboo2.draw(gameTime, spriteBatch);
+            testBamboo3.draw(gameTime, spriteBatch);
+            testBamboo4.draw(gameTime, spriteBatch);
+            testBamboo5.draw(gameTime, spriteBatch);
+
             testRabbit.draw(gameTime, spriteBatch);
 
 
