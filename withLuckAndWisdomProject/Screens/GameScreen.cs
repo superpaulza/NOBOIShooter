@@ -21,9 +21,7 @@ namespace withLuckAndWisdomProject.Screens
         //Constructor inherit from base class 
         public GameScreen()
         {
-            testBamboo = new Bamboo();
-
-            
+            testBamboo = new Bamboo(new Vector2(100, 200));
 
             //world of physic
             world = new World();

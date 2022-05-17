@@ -26,11 +26,11 @@ namespace withLuckAndWisdomProject.Object
         } 
         
 
-        public Bamboo()
+        public Bamboo(Vector2 bambooPosition)
         {
+            this.bambooPosition = bambooPosition;
             _status = BambooState.Normal;
             _texture = ResourceManager.Bamboo;
-            bambooPosition = new Vector2(100, 200);
         }
 
         public void LoadContent()
@@ -46,7 +46,7 @@ namespace withLuckAndWisdomProject.Object
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, bambooPosition, Color.White);
+            spriteBatch.Draw(_texture, this.bambooPosition, Color.White);
         }
     }
 }
