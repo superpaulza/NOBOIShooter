@@ -163,7 +163,14 @@ namespace withLuckAndWisdomProject
                 audioManager.musicSound = audioManager.soundBank[musicSoundName];
                 if (!audioManager.musicSound.IsLooped)
                     audioManager.musicSound.IsLooped = true;
-                audioManager.musicSound.Play();
+                try
+                {
+                    audioManager.musicSound.Play();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
         #endregion
