@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/BackGroundBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/BackGroundBGM.wav
+
 #begin Audio/BallHit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -81,7 +81,7 @@ namespace withLuckAndWisdomProject.Screens
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
-            AudioManager.PlaySound("TestMusic", true);
+            AudioManager.PlaySound("TestMusic2", true);
         }
 
         public override void PostUpdate(GameTime gameTime)

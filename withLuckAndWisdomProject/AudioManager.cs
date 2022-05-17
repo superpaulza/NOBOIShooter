@@ -52,6 +52,7 @@ namespace withLuckAndWisdomProject
             string soundLocation = "Audio/";
             audioManager.soundNames = new string[,] {
                 {"BeCrazyForMe", "TestMusic"},
+                {"BackGroundBGM", "TestMusic2"},
                 {"BallHit", "BallHitEffect"}
 
             };
