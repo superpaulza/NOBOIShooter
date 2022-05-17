@@ -31,6 +31,12 @@
 /processorParam:Quality=Best
 /build:Audio/BeCrazyForMe.wav
 
+#begin Audio/BG.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/BG.wav
+
 #begin Controls/Achievement.png
 /importer:TextureImporter
 /processor:TextureProcessor

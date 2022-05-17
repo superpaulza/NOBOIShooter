@@ -133,6 +133,7 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Update(gameTime);
+            AudioManager.PlaySound("BG", true);
 
             foreach (var ball in balls)
                ball.Update(gameTime);
