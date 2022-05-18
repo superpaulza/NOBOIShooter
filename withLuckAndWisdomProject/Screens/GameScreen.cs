@@ -13,20 +13,16 @@ namespace withLuckAndWisdomProject.Screens
     class GameScreen : AScreen
     {
         private Button _backButton;
-        private Bamboo testBamboo, testBamboo2, testBamboo3, testBamboo4, testBamboo5;
         private Rabbit testRabbit;
         private World world;
-        private List<Ball> balls;
+        private List<Bamboo> _bamboos;
+        private List<Ball> _balls;
         List<Component> _components;
         //Constructor inherit from base class 
         public GameScreen()
         {
-            // Create Bamboo Object and Give a position as parameter. 
-            testBamboo = new Bamboo(new Vector2(100, 200));
-            testBamboo2 = new Bamboo(new Vector2(300, 200));
-            testBamboo3 = new Bamboo(new Vector2(400, 200));
-            testBamboo4 = new Bamboo(new Vector2(500, 200));
-            testBamboo5 = new Bamboo(new Vector2(600, 200)); 
+            
+    
 
             //world of physic
             world = new World();
@@ -53,8 +49,8 @@ namespace withLuckAndWisdomProject.Screens
 
             // Create sample Balls
             System.Random random = new System.Random();
-            balls = new List<Ball>();
-            for (int i = 0; i < 30; i++)
+            _balls = new List<Ball>();
+            for (int i = 0; i < 10; i++)
             {
                 var radius = random.Next(30, 50);
                 var position = new Vector2(
@@ -67,8 +63,19 @@ namespace withLuckAndWisdomProject.Screens
                     random.Next(-1000, 1000)
                     );
                 body.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
-                balls.Add(new Ball(radius, body));
+                _balls.Add(new Ball(radius, body));
             }
+
+            // Create Bamboo Object and Give a position as parameter. 
+            _bamboos = new List<Bamboo>();
+            int BambooHeight = Singleton.Instance.ScreenHeight - ResourceManager.Bamboo.Height/2; 
+            for (int Vertical = 100; Vertical < 1200; Vertical += 150)
+            {
+                var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width, ResourceManager.Bamboo.Height, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
+
+                _bamboos.Add(new Bamboo(bodyBaboo));
+            }
+
 
             // Add Rabbit in to world
             Vector2 PositionRabbit = new Vector2(600, 200);
@@ -95,6 +102,8 @@ namespace withLuckAndWisdomProject.Screens
                 _backButton,
             };
 
+            AudioManager.PlaySound("BG", true);
+
         }
 
         private void BackToMainMenu(object sender, EventArgs e)
@@ -107,35 +116,32 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Test texture in game
-            testBamboo.draw(gameTime, spriteBatch);
-            testBamboo2.draw(gameTime, spriteBatch);
-            testBamboo3.draw(gameTime, spriteBatch);
-            testBamboo4.draw(gameTime, spriteBatch);
-            testBamboo5.draw(gameTime, spriteBatch);
-
             testRabbit.draw(gameTime, spriteBatch);
 
-
+            foreach (var bamboo in _bamboos)
+                bamboo.draw(gameTime, spriteBatch);
+            
+            foreach (var ball in _balls)
+                ball.Draw(gameTime, spriteBatch);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            foreach (var ball in balls)
-                ball.Draw(gameTime, spriteBatch);
-
-            }
+        }
 
         public override void Update(GameTime gameTime)
         {
-            testBamboo.update(gameTime);
+            foreach (var bamboo in _bamboos)
+                bamboo.update(gameTime);
+            foreach (var ball in _balls)
+               ball.Update(gameTime);
+
             testRabbit.update(gameTime);
 
             foreach (Component component in _components)
                 component.Update(gameTime);
-            AudioManager.PlaySound("BG", true);
-
-            foreach (var ball in balls)
-               ball.Update(gameTime);
+            
+            
 
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
