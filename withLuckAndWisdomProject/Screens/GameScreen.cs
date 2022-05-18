@@ -51,6 +51,7 @@ namespace withLuckAndWisdomProject.Screens
                 // edge.SetRestitution(1);
             }
 
+            // Create sample Balls
             System.Random random = new System.Random();
             balls = new List<Ball>();
             for (int i = 0; i < 30; i++)
@@ -69,13 +70,11 @@ namespace withLuckAndWisdomProject.Screens
                 balls.Add(new Ball(radius, body));
             }
 
-
-
-
+            // Add Rabbit in to world
             Vector2 PositionRabbit = new Vector2(600, 200);
-            var bodyRabbit = world.CreateRectangle(ResourceManager.Rabbit.Width, ResourceManager.Rabbit.Height, 1f, PositionRabbit, 0f, BodyType.Dynamic);
-            
-            bodyRabbit.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
+            var bodyRabbit = world.CreateRectangle(ResourceManager.Rabbit.Width, ResourceManager.Rabbit.Height, .1f, PositionRabbit, 0f, BodyType.Dynamic);
+            bodyRabbit.FixedRotation = true;
+
             testRabbit = new Rabbit(PositionRabbit, bodyRabbit);
 
 

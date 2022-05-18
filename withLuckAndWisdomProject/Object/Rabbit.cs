@@ -44,12 +44,13 @@ namespace withLuckAndWisdomProject.Object
             Position = position;
             this.body = body;
             _pencilDot = ResourceManager.Pencil;
-            this.body.OnCollision += CollisionHandler;
+            //this.body.OnCollision += CollisionHandler;
         }
 
         public void update(GameTime gameTime)
         {
-
+            System.Diagnostics.Debug.WriteLine("Rotation = " + body.Rotation);
+            
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -58,13 +59,13 @@ namespace withLuckAndWisdomProject.Object
             //spriteBatch.Draw(_pencilDot, body.Position,Color.White);
 
             spriteBatch.Draw(_pencilDot, new Rectangle((int)body.Position.X, (int)body.Position.Y, _texture.Width, _texture.Height), null,
-                    Color.Green, body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
+                    Color.Pink, body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
 
             //spriteBatch.Draw(_texture, body.Position, Color.White);
             //spriteBatch.Draw(_texture, new Rectangle((int)(body.Position.X - _texture.Width/2), (int)(body.Position.Y - _texture.Height/2), _texture.Width, _texture.Height), null,
             //        Color.White, body.Rotation,Vector2.Zero, SpriteEffects.None, 0);
             spriteBatch.Draw(_texture, body.Position, null,
-                Color.White, body.Rotation + MathHelper.ToRadians(-90f), new Vector2(_texture.Width / 2, _texture.Height / 2),
+                Color.White, body.Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2),
                 1f, SpriteEffects.None, 0f);
 
 
