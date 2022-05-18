@@ -25,7 +25,7 @@ namespace withLuckAndWisdomProject.Object
 
         public void DrawDistance()
         {
-
+            
         }
 
         public void Update(GameTime gameTime, SpriteBatch spriteBatch)

@@ -51,7 +51,9 @@ namespace withLuckAndWisdomProject
         {
             string soundLocation = "Audio/";
             audioManager.soundNames = new string[,] {
+                {"BG", "BG" },
                 {"BeCrazyForMe", "TestMusic"},
+                {"BackGroundBGM", "TestMusic2"},
                 {"BallHit", "BallHitEffect"}
 
             };
@@ -162,7 +164,14 @@ namespace withLuckAndWisdomProject
                 audioManager.musicSound = audioManager.soundBank[musicSoundName];
                 if (!audioManager.musicSound.IsLooped)
                     audioManager.musicSound.IsLooped = true;
-                audioManager.musicSound.Play();
+                try
+                {
+                    audioManager.musicSound.Play();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
         #endregion

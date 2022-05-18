@@ -42,7 +42,7 @@ namespace withLuckAndWisdomProject.Screens
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // draw current screen
-            if(_currentSreen == "menu")
+            if (_currentSreen == "menu")
                 _menuScreen.Draw(gameTime, spriteBatch);
             else if (_currentSreen == "game")
                 _gameScreen.Draw(gameTime, spriteBatch);
