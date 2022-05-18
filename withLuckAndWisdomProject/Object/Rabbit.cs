@@ -35,8 +35,18 @@ namespace withLuckAndWisdomProject.Object
         private float _radian;
         private Vector2 _origin;
 
+        private bool _isClicked, _isReleased, _isCollision;
         private Body _body;
         private Texture2D _pencilDot;
+        private Vector2 _relationPositon;
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)_body.Position.X, (int)_body.Position.Y, _texture.Width, _texture.Height);
+            }
+        }
         public bool Colliding { get; protected set; }
 
         private MouseState MousePrevious, MouseCurrent;
@@ -47,9 +57,11 @@ namespace withLuckAndWisdomProject.Object
             _texture = ResourceManager.Rabbit;
     
             _body = body;
+            _body.Mass = 50000f;
             _pencilDot = ResourceManager.Pencil;
-            //this.body.OnCollision += CollisionHandler;
             _isMouseDrag = false;
+            
+            _body.OnCollision += CollisionHandler;
         }
 
         public void update(GameTime gameTime)
@@ -60,23 +72,42 @@ namespace withLuckAndWisdomProject.Object
             MousePrevious = MouseCurrent;
             MouseCurrent = Mouse.GetState();
 
-            if (MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
+
+
+            var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height/2, 1, 1);
+            
+            if (!_isMouseDrag && mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
             {
                 _isMouseDrag = true;
-                
+                _relationPositon = new Vector2(MouseCurrent.X - _body.Position.X, MouseCurrent.Y - _body.Position.Y);
                 _body.LinearVelocity = Vector2.Zero;
-                _body.AngularVelocity = 0f;
+                
             }
-            else if (MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
+            else if (_isMouseDrag && MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
             {
                 _isMouseDrag = false;
-                _body.LinearVelocity = new Vector2(0f,1200f);
+                
+                _body.LinearVelocity = new Vector2(0f, 1200f);
             }
 
-            if(_isMouseDrag)
+
+            if (_isMouseDrag)
             {
-                _body.Position = new Vector2(MouseCurrent.X , MouseCurrent.Y);
+                _body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
             }
+
+            if (_isCollision)
+            {
+                _body.BodyType = BodyType.Static;
+                
+            } 
+            else
+            {
+                _body.BodyType = BodyType.Dynamic;
+            }
+            
+            _isCollision = false;
+
 
 
         }
@@ -102,8 +133,7 @@ namespace withLuckAndWisdomProject.Object
 
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
-            contact.Restitution = 1f;
-            Colliding = true;
+            _isCollision = true;
 
             //must always return ture for apply physic after collision
             return true;
