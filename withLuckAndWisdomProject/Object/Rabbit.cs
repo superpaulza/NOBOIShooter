@@ -35,10 +35,13 @@ namespace withLuckAndWisdomProject.Object
         private float _radian;
         private Vector2 _origin;
 
-        private bool _isClicked, _isReleased, _isCollision;
+        private bool _isCollision;
         private Body _body;
         private Texture2D _pencilDot;
         private Vector2 _relationPositon;
+
+        private Point _dragStart, _dragEnd;
+        private float _dragAngle, _dragLength;
 
         public Rectangle Rectangle
         {
@@ -81,7 +84,9 @@ namespace withLuckAndWisdomProject.Object
                 _isMouseDrag = true;
                 _relationPositon = new Vector2(MouseCurrent.X - _body.Position.X, MouseCurrent.Y - _body.Position.Y);
                 _body.LinearVelocity = Vector2.Zero;
-                
+                _dragStart = MouseCurrent.Position;
+
+
             }
             else if (_isMouseDrag && MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
             {
@@ -108,6 +113,13 @@ namespace withLuckAndWisdomProject.Object
             
             _isCollision = false;
 
+            if (_isMouseDrag)
+            {
+                // find angle of shooter
+                _dragAngle = (float) Math.Atan2(MouseCurrent.Y - _dragStart.Y, MouseCurrent.X - _dragStart.X);
+                _dragLength = (float) Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
+            }
+
 
 
         }
@@ -119,6 +131,13 @@ namespace withLuckAndWisdomProject.Object
 
             spriteBatch.Draw(_pencilDot, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, _texture.Width, _texture.Height), null,
                     Color.Pink, _body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
+
+            if (_isMouseDrag)
+            {
+                // Draw Aimer
+                spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
+                    Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
+            }
 
             //spriteBatch.Draw(_texture, body.Position, Color.White);
             //spriteBatch.Draw(_texture, new Rectangle((int)(body.Position.X - _texture.Width/2), (int)(body.Position.Y - _texture.Height/2), _texture.Width, _texture.Height), null,
