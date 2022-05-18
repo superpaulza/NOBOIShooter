@@ -49,7 +49,7 @@ namespace withLuckAndWisdomProject.Screens
             _components = new List<Component>()
             {
                 _playButton,
-                _testButton,
+                _testButton
             };
 
         }
