@@ -75,7 +75,7 @@ namespace withLuckAndWisdomProject.Screens
             var bodyRabbit = world.CreateRectangle(ResourceManager.Rabbit.Width, ResourceManager.Rabbit.Height, .1f, PositionRabbit, 0f, BodyType.Dynamic);
             bodyRabbit.FixedRotation = true;
 
-            testRabbit = new Rabbit(PositionRabbit, bodyRabbit);
+            testRabbit = new Rabbit(bodyRabbit);
 
 
 
