@@ -26,8 +26,8 @@ namespace withLuckAndWisdomProject.Screens
 
             //world of physic
             world = new World();
-            world.Gravity = new Vector2(0, 40f);
-
+            world.Gravity = new Vector2(0, world.Gravity.Y * -1);
+                        
             //Create game border (set edges line foreach edge)
             var top = 0;
             var bottom = Singleton.Instance.ScreenHeight; //720
@@ -47,39 +47,46 @@ namespace withLuckAndWisdomProject.Screens
                 // edge.SetRestitution(1);
             }
 
+            
             // Create sample Balls
             System.Random random = new System.Random();
             _balls = new List<Ball>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var radius = random.Next(30, 50);
+                var radius = random.Next(20, 40);
                 var position = new Vector2(
                     random.Next(radius, Singleton.Instance.ScreenWidth - radius),
                     random.Next(radius, Singleton.Instance.ScreenHeight - radius)
                 );
                 var body = world.CreateCircle(radius, 1f, position, BodyType.Dynamic);
                 body.LinearVelocity = new Vector2(
-                    random.Next(-1000, 1000),
-                    random.Next(-1000, 1000)
+                    random.Next(-100, 100),
+                    random.Next(-100, 100)
                     );
                 body.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
                 _balls.Add(new Ball(radius, body));
             }
-
+            
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>();
-            int BambooHeight = Singleton.Instance.ScreenHeight - ResourceManager.Bamboo.Height/2; 
             for (int Vertical = 100; Vertical < 1200; Vertical += 150)
             {
-                var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width, ResourceManager.Bamboo.Height, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
+                
+                float h = random.Next(200,400);
+                int BambooHeight = Singleton.Instance.ScreenHeight - (int)(h/2); 
+                var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width * h / ResourceManager.Bamboo.Height, h, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
 
-                _bamboos.Add(new Bamboo(bodyBaboo));
+                _bamboos.Add(new Bamboo(h, bodyBaboo));
             }
 
 
             // Add Rabbit in to world
             Vector2 PositionRabbit = new Vector2(600, 200);
-            var bodyRabbit = world.CreateRectangle(ResourceManager.Rabbit.Width, ResourceManager.Rabbit.Height, .1f, PositionRabbit, 0f, BodyType.Dynamic);
+            Body x = new Body();
+            var Rabbitheight = 50;
+            var scale = Rabbitheight / (float)ResourceManager.Rabbit.Height;
+            var RabbitWidth = ResourceManager.Rabbit.Width * scale;
+            var bodyRabbit = world.CreateRectangle(RabbitWidth, Rabbitheight, 1f, PositionRabbit, 0f, BodyType.Dynamic);
             bodyRabbit.FixedRotation = true;
 
             testRabbit = new Rabbit(bodyRabbit);
@@ -115,6 +122,9 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(ResourceManager.mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            
+
             // Test texture in game
             testRabbit.draw(gameTime, spriteBatch);
 
@@ -134,7 +144,7 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
             foreach (var ball in _balls)
-               ball.Update(gameTime);
+                ball.Update(gameTime);
 
             testRabbit.update(gameTime);
 
