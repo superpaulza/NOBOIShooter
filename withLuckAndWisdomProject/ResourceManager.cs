@@ -30,7 +30,7 @@ namespace withLuckAndWisdomProject.Screens
         {
             button = content.Load<Texture2D>("Controls/Play");
             BasicBtn = content.Load<Texture2D>("Controls/BasicButton");
-            mainBackground = content.Load<Texture2D>("Images/background");
+            mainBackground = content.Load<Texture2D>("Images/background2");
             logo = content.Load<Texture2D>("Images/logo");
             ball = content.Load<Texture2D>("Images/CircleSprite");
             
