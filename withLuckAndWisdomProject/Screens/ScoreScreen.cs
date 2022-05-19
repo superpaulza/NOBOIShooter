@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace withLuckAndWisdomProject.Screens
 {
-    public class GameOverScreen : AScreen
+    class ScoreScreen : AScreen
     {
-        public GameOverScreen()
+        public ScoreScreen()
         {
 
         }

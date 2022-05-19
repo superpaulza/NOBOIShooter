@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Screens;
 
@@ -78,6 +79,12 @@ namespace withLuckAndWisdomProject
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+
+            base.OnExiting(sender, args);
         }
 
     }
