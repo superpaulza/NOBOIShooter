@@ -45,7 +45,7 @@ namespace withLuckAndWisdomProject.Controls
 
         public Texture2D Texture;
 
-        public DynamicButton(Texture2D texture, SpriteFont font, ContentManager _content)
+        public DynamicButton(Texture2D texture, SpriteFont font)
         {
             Texture = texture;
 
@@ -53,7 +53,6 @@ namespace withLuckAndWisdomProject.Controls
 
             PenColour = Color.Black;
 
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
             IsVisible = true;
 
