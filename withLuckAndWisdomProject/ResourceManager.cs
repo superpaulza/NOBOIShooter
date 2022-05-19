@@ -38,6 +38,7 @@ namespace withLuckAndWisdomProject.Screens
             Bamboo = content.Load<Texture2D>("Images/Bamboo");
             Rabbit = content.Load<Texture2D>("Images/Rabbit");
 
+
             font = content.Load<SpriteFont>("Fonts/Font");
         }
     }
