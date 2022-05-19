@@ -79,16 +79,16 @@ namespace withLuckAndWisdomProject.Screens
             {
                 PenColour = Color.DarkGreen,
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 100, Singleton.Instance.ScreenHeight / 4 * 3 - 100),
-                Text = "Play",
+                Text = "",
             };
 
             _playButton.Click += PlayButtonOnClick;
 
-            _optionButton = new Button(button, font)
+            _optionButton = new Button(ResourceManager.settingBtn, font)
             {
                 PenColour = Color.DarkGreen,
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 100),
-                Text = "Option",
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
+                Text = "",
             };
 
             _optionButton.Click += OptionButtonOnClick;
