@@ -20,6 +20,7 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D Bamboo;
         public static Texture2D Rabbit;
         public static Texture2D Pencil;
+        public static Texture2D Panda;
 
         public static Texture2D BasicBtn;
 
@@ -37,6 +38,7 @@ namespace withLuckAndWisdomProject.Screens
             Pencil = content.Load<Texture2D>("Controls/dot");
             Bamboo = content.Load<Texture2D>("Images/Bamboo");
             Rabbit = content.Load<Texture2D>("Images/Rabbit");
+            Panda = content.Load<Texture2D>("Images/Panda");
 
 
             font = content.Load<SpriteFont>("Fonts/Font");

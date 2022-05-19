@@ -81,7 +81,7 @@ namespace withLuckAndWisdomProject.Screens
             }
 
 
-            // Add Rabbit in to world
+            // Add Rabbit in to the world
             Vector2 PositionRabbit = new Vector2(250, 100);
             Body x = new Body();
             var Rabbitheight = 50;
