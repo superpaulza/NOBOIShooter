@@ -34,6 +34,10 @@ namespace withLuckAndWisdomProject
         public static void WriteToObject(string path, object obj)
         {
             string pathToPref = Path.Combine(saveToDir, path);
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(pathToPref, FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, obj);
+            stream.Close();
         }
     }
 }
