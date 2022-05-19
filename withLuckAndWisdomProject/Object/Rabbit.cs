@@ -35,11 +35,21 @@ namespace withLuckAndWisdomProject.Object
         private float _radian;
         private Vector2 _origin;
 
-        private bool _isClicked, _isReleased, _isCollision;
+        private bool _isCollision;
         private Body _body;
         private Texture2D _pencilDot;
         private Vector2 _relationPositon;
 
+        private Point _dragStart, _dragEnd;
+        private float _dragAngle, _dragLength;
+
+        private bool _isTrolling;
+        private Vector2 _projectile;
+
+        private float _height, _width;
+        private float scale;
+
+        
         public Rectangle Rectangle
         {
             get
@@ -57,16 +67,20 @@ namespace withLuckAndWisdomProject.Object
             _texture = ResourceManager.Rabbit;
     
             _body = body;
-            _body.Mass = 50000f;
+            _body.Mass = 500;
+            _height = 50;
+            scale = _height / (float)ResourceManager.Rabbit.Height;
+            _width = ResourceManager.Rabbit.Width * scale;
+
             _pencilDot = ResourceManager.Pencil;
             _isMouseDrag = false;
-            
+            _origin = new Vector2(_texture.Width / 2, _texture.Height / 2);
             _body.OnCollision += CollisionHandler;
         }
 
         public void update(GameTime gameTime)
         {
-            //System.Diagnostics.Debug.WriteLine("Rotation = " + body.Rotation);
+            //System.Diagnostics.Debug.WriteLine("Body = " + _body.LinearDamping);
 
             // Get mouse action
             MousePrevious = MouseCurrent;
@@ -81,21 +95,26 @@ namespace withLuckAndWisdomProject.Object
                 _isMouseDrag = true;
                 _relationPositon = new Vector2(MouseCurrent.X - _body.Position.X, MouseCurrent.Y - _body.Position.Y);
                 _body.LinearVelocity = Vector2.Zero;
-                
+                _dragStart = MouseCurrent.Position;
+        
+
             }
             else if (_isMouseDrag && MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
             {
                 _isMouseDrag = false;
-                
-                _body.LinearVelocity = new Vector2(0f, 1200f);
+                _dragEnd = MouseCurrent.Position;
+                _projectile  = new Vector2( (float)Math.Pow(10f, 4.5f) * - 1f *(MouseCurrent.X - _dragStart.X), (float)Math.Pow(10f, 4.5f) * -1f * (MouseCurrent.Y - _dragStart.Y));
+                _body.LinearVelocity  += _projectile;
+                AudioManager.PlaySound("Re");
+                //System.Diagnostics.Debug.WriteLine((MouseCurrent.X - _dragStart.X) + " " + (MouseCurrent.Y - _dragStart.Y));
             }
-
 
             if (_isMouseDrag)
             {
-                _body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
+                //_body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
             }
 
+            
             if (_isCollision)
             {
                 _body.BodyType = BodyType.Static;
@@ -106,7 +125,17 @@ namespace withLuckAndWisdomProject.Object
                 _body.BodyType = BodyType.Dynamic;
             }
             
+            
             _isCollision = false;
+
+            if (_isMouseDrag)
+            {
+                // find angle of shooter
+                _dragAngle = (float) Math.Atan2(MouseCurrent.Y - _dragStart.Y, MouseCurrent.X - _dragStart.X);
+                _dragEnd = MouseCurrent.Position;
+                
+                _dragLength = (float) Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
+            }
 
 
 
@@ -117,15 +146,18 @@ namespace withLuckAndWisdomProject.Object
             
             //spriteBatch.Draw(_pencilDot, body.Position,Color.White);
 
-            spriteBatch.Draw(_pencilDot, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, _texture.Width, _texture.Height), null,
-                    Color.Pink, _body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
+            //spriteBatch.Draw(_pencilDot, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
+            //        Color.Pink, _body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
 
-            //spriteBatch.Draw(_texture, body.Position, Color.White);
-            //spriteBatch.Draw(_texture, new Rectangle((int)(body.Position.X - _texture.Width/2), (int)(body.Position.Y - _texture.Height/2), _texture.Width, _texture.Height), null,
-            //        Color.White, body.Rotation,Vector2.Zero, SpriteEffects.None, 0);
-            spriteBatch.Draw(_texture, _body.Position, null,
-                Color.White, _body.Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2),
-                1f, SpriteEffects.None, 0f);
+            if (_isMouseDrag)
+            {
+                // Draw Aimer
+                spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
+                    Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
+            }
+
+            //spriteBatch.Draw(_texture, _body.Position, Color.White);
+            spriteBatch.Draw(_texture, _body.Position, null, Color.White, _body.Rotation, _origin, scale, SpriteEffects.None, 0f);
 
 
 
@@ -134,7 +166,7 @@ namespace withLuckAndWisdomProject.Object
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
             _isCollision = true;
-
+            contact.Restitution = 1f;
             //must always return ture for apply physic after collision
             return true;
         }

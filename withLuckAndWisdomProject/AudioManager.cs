@@ -51,10 +51,11 @@ namespace withLuckAndWisdomProject
         {
             string soundLocation = "Audio/";
             audioManager.soundNames = new string[,] {
-                {"BG", "BG" },
+                {"newBG", "BG" },
                 {"BeCrazyForMe", "TestMusic"},
                 {"BackGroundBGM", "TestMusic2"},
-                {"BallHit", "BallHitEffect"}
+                {"BallHit", "BallHitEffect"},
+                {"Release Sound Effect", "Re"}
 
             };
 
