@@ -16,13 +16,10 @@ namespace withLuckAndWisdomProject.Screens
         private Rabbit testRabbit;
         private World world;
         private List<Bamboo> _bamboos;
-        private List<Ball> _balls;
         List<Component> _components;
         //Constructor inherit from base class 
         public GameScreen()
         {
-            
-    
 
             //world of physic
             world = new World();
@@ -47,32 +44,12 @@ namespace withLuckAndWisdomProject.Screens
                 // edge.SetRestitution(1);
             }
 
-            
-            // Create sample Balls
-            System.Random random = new System.Random();
-            _balls = new List<Ball>();
-            for (int i = 0; i < 20; i++)
-            {
-                var radius = random.Next(20, 40);
-                var position = new Vector2(
-                    random.Next(radius, Singleton.Instance.ScreenWidth - radius),
-                    random.Next(radius, Singleton.Instance.ScreenHeight - radius)
-                );
-                var body = world.CreateCircle(radius, .1f, position, BodyType.Dynamic);
-                body.LinearVelocity = new Vector2(
-                    random.Next(-100, 100),
-                    random.Next(-100, 100)
-                    );
-                body.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
-                body.IgnoreGravity = true;
-                _balls.Add(new Ball(radius, body));
-            }
-            
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>();
             for (int Vertical = 250;  Vertical < 1200 ; Vertical += 150)
             {
-                
+
+                System.Random random = new System.Random();
                 float h = random.Next(200,400);
                 int BambooHeight = Singleton.Instance.ScreenHeight - (int)(h/2); 
                 var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width * h / ResourceManager.Bamboo.Height, h, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
@@ -80,8 +57,7 @@ namespace withLuckAndWisdomProject.Screens
                 _bamboos.Add(new Bamboo(h, bodyBaboo));
             }
 
-
-            // Add Rabbit in to world
+            // Add Rabbit in to the world
             Vector2 PositionRabbit = new Vector2(250, 100);
             Body x = new Body();
             var Rabbitheight = 50;
@@ -92,8 +68,6 @@ namespace withLuckAndWisdomProject.Screens
             bodyRabbit.FixedRotation = true;
 
             testRabbit = new Rabbit(bodyRabbit);
-
-
 
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
@@ -132,9 +106,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
-            
-            foreach (var ball in _balls)
-                ball.Draw(gameTime, spriteBatch);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -145,8 +116,6 @@ namespace withLuckAndWisdomProject.Screens
         {
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
-            foreach (var ball in _balls)
-                ball.Update(gameTime);
 
             testRabbit.update(gameTime);
 
