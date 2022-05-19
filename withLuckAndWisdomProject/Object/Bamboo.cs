@@ -57,12 +57,14 @@ namespace withLuckAndWisdomProject.Object
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-                       
+            // Draw conlison
+            spriteBatch.Draw(ResourceManager.Pencil, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
+                Color.Lime, _body.Rotation, new Vector2(.5f, .5f), SpriteEffects.None, 0);
+
             //spriteBatch.Draw(_texture, _body.Position, Color.White);
             spriteBatch.Draw(_texture, _body.Position, null, Color.White, _body.Rotation, _origin, scale, SpriteEffects.None, 0f);
 
-            //spriteBatch.Draw(ResourceManager.Pencil, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
-            //    Color.Green, _body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
+            
 
             //.Draw(_texture, _body.Position, null, Color.White, _body.Rotation, _origin, scale, SpriteEffects.None, 0);
         }
