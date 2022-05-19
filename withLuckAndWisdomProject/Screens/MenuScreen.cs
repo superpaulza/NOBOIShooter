@@ -15,8 +15,7 @@ namespace withLuckAndWisdomProject.Screens
         private List<Component> _components;
         private Texture2D button, mainBackground, logo;
         private SpriteFont font;
-        private Button _playButton;
-        private Button _testButton;
+        private Button _playButton, _optionButton;
         private List<Ball> _balls;
         private World world;
 
@@ -85,13 +84,29 @@ namespace withLuckAndWisdomProject.Screens
 
             _playButton.Click += PlayButtonOnClick;
 
+            _optionButton = new Button(button, font)
+            {
+                PenColour = Color.DarkGreen,
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 100),
+                Text = "Option",
+            };
+
+            _optionButton.Click += OptionButtonOnClick;
+
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
                 _playButton,
+                _optionButton
             };
 
+        }
+
+        private void OptionButtonOnClick(object sender, EventArgs e)
+        {
+            // Change to Screen when Clicked on Play button in Menu Screen. 
+            ScreenManager.ChangeScreen = "options";
         }
 
         private void PlayButtonOnClick(object sender, EventArgs e)

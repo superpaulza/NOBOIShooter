@@ -47,6 +47,8 @@ namespace withLuckAndWisdomProject.Screens
                 _menuScreen.Draw(gameTime, spriteBatch);
             else if (_currentSreen == "game")
                 _gameScreen.Draw(gameTime, spriteBatch);
+            else if (_currentSreen == "options")
+                _optionsScreen.Draw(gameTime, spriteBatch);
         }
 
         public void Update(GameTime gameTime)
@@ -55,6 +57,7 @@ namespace withLuckAndWisdomProject.Screens
             {
                 _menuScreen = new MenuScreen();
                 _gameScreen = new GameScreen();
+                _optionsScreen = new OptionsScreen();
                 reset = false;
             }
 
@@ -67,6 +70,8 @@ namespace withLuckAndWisdomProject.Screens
                 _menuScreen.Update(gameTime);
             else if (_currentSreen == "game")
                 _gameScreen.Update(gameTime);
+            else if (_currentSreen == "options")
+                _optionsScreen.Update(gameTime);
         }
 
     }
