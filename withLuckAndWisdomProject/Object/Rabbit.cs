@@ -96,7 +96,7 @@ namespace withLuckAndWisdomProject.Object
                 _relationPositon = new Vector2(MouseCurrent.X - _body.Position.X, MouseCurrent.Y - _body.Position.Y);
                 _body.LinearVelocity = Vector2.Zero;
                 _dragStart = MouseCurrent.Position;
-
+        
 
             }
             else if (_isMouseDrag && MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
@@ -105,6 +105,7 @@ namespace withLuckAndWisdomProject.Object
                 _dragEnd = MouseCurrent.Position;
                 _projectile  = new Vector2( (float)Math.Pow(10f, 10f) * - 1f *(MouseCurrent.X - _dragStart.X), (float)Math.Pow(10f, 10f) * -1f * (MouseCurrent.Y - _dragStart.Y));
                 _body.ApplyForce(_projectile);
+                AudioManager.PlaySound("Re");
                 //System.Diagnostics.Debug.WriteLine((MouseCurrent.X - _dragStart.X) + " " + (MouseCurrent.Y - _dragStart.Y));
             }
 
@@ -138,7 +139,7 @@ namespace withLuckAndWisdomProject.Object
                 // find angle of shooter
                 _dragAngle = (float) Math.Atan2(MouseCurrent.Y - _dragStart.Y, MouseCurrent.X - _dragStart.X);
                 _dragEnd = MouseCurrent.Position;
-
+                
                 _dragLength = (float) Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
             }
 

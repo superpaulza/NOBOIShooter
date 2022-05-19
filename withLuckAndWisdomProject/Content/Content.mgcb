@@ -43,6 +43,12 @@
 /processorParam:Quality=Best
 /build:Audio/newBG.wav
 
+#begin Audio/Release Sound Effect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Release Sound Effect.wav
+
 #begin Controls/Achievement.png
 /importer:TextureImporter
 /processor:TextureProcessor
