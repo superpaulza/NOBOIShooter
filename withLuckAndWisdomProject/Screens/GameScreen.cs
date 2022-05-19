@@ -26,7 +26,7 @@ namespace withLuckAndWisdomProject.Screens
 
             //world of physic
             world = new World();
-            world.Gravity = new Vector2(0, world.Gravity.Y * -1);
+            world.Gravity = new Vector2(0, world.Gravity.Y * -1f);
                         
             //Create game border (set edges line foreach edge)
             var top = 0;
@@ -58,18 +58,19 @@ namespace withLuckAndWisdomProject.Screens
                     random.Next(radius, Singleton.Instance.ScreenWidth - radius),
                     random.Next(radius, Singleton.Instance.ScreenHeight - radius)
                 );
-                var body = world.CreateCircle(radius, 1f, position, BodyType.Dynamic);
+                var body = world.CreateCircle(radius, .1f, position, BodyType.Dynamic);
                 body.LinearVelocity = new Vector2(
                     random.Next(-100, 100),
                     random.Next(-100, 100)
                     );
                 body.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
+                body.IgnoreGravity = true;
                 _balls.Add(new Ball(radius, body));
             }
             
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>();
-            for (int Vertical = 100; Vertical < 1200; Vertical += 150)
+            for (int Vertical = 250;  Vertical < 1200 ; Vertical += 150)
             {
                 
                 float h = random.Next(200,400);
@@ -81,12 +82,13 @@ namespace withLuckAndWisdomProject.Screens
 
 
             // Add Rabbit in to world
-            Vector2 PositionRabbit = new Vector2(600, 200);
+            Vector2 PositionRabbit = new Vector2(250, 100);
             Body x = new Body();
             var Rabbitheight = 50;
             var scale = Rabbitheight / (float)ResourceManager.Rabbit.Height;
             var RabbitWidth = ResourceManager.Rabbit.Width * scale;
-            var bodyRabbit = world.CreateRectangle(RabbitWidth, Rabbitheight, 1f, PositionRabbit, 0f, BodyType.Dynamic);
+            var bodyRabbit = world.CreateRectangle(RabbitWidth, Rabbitheight, 1.5f, PositionRabbit, 0f, BodyType.Dynamic);
+            bodyRabbit.LinearVelocity = new Vector2(0, 100000);
             bodyRabbit.FixedRotation = true;
 
             testRabbit = new Rabbit(bodyRabbit);

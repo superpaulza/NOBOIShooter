@@ -67,7 +67,7 @@ namespace withLuckAndWisdomProject.Object
             _texture = ResourceManager.Rabbit;
     
             _body = body;
-            _body.Mass = 50000;
+            _body.Mass = 500;
             _height = 50;
             scale = _height / (float)ResourceManager.Rabbit.Height;
             _width = ResourceManager.Rabbit.Width * scale;
@@ -103,27 +103,21 @@ namespace withLuckAndWisdomProject.Object
             {
                 _isMouseDrag = false;
                 _dragEnd = MouseCurrent.Position;
-                _projectile  = new Vector2( (float)Math.Pow(10f, 10f) * - 1f *(MouseCurrent.X - _dragStart.X), (float)Math.Pow(10f, 10f) * -1f * (MouseCurrent.Y - _dragStart.Y));
-                _body.ApplyForce(_projectile);
+                _projectile  = new Vector2( (float)Math.Pow(10f, 4.5f) * - 1f *(MouseCurrent.X - _dragStart.X), (float)Math.Pow(10f, 4.5f) * -1f * (MouseCurrent.Y - _dragStart.Y));
+                _body.LinearVelocity  += _projectile;
                 AudioManager.PlaySound("Re");
                 //System.Diagnostics.Debug.WriteLine((MouseCurrent.X - _dragStart.X) + " " + (MouseCurrent.Y - _dragStart.Y));
             }
 
-            if(!_isMouseDrag && _dragStart.X > _dragEnd.X)
-            {
-                _dragEnd.X += 10;
-                _body.ApplyForce(_projectile);
-            }
-
             if (_isMouseDrag)
             {
-                _body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
+                //_body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
             }
 
             
             if (_isCollision)
             {
-                //_body.BodyType = BodyType.Static;
+                _body.BodyType = BodyType.Static;
                 
             } 
             else
@@ -172,7 +166,7 @@ namespace withLuckAndWisdomProject.Object
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
             _isCollision = true;
-            //contact.Restitution = 1f;
+            contact.Restitution = 1f;
             //must always return ture for apply physic after collision
             return true;
         }
