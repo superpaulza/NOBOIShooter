@@ -90,7 +90,7 @@ namespace withLuckAndWisdomProject.Object
 
         public void update(GameTime gameTime)
         {
-            //System.Diagnostics.Debug.WriteLine("Body = " + _body.LinearDamping);
+            // System.Diagnostics.Debug.WriteLine("Body = " + _body.LinearDamping);
 
             // Get mouse action
             MousePrevious = MouseCurrent;
@@ -113,7 +113,6 @@ namespace withLuckAndWisdomProject.Object
             {
                 _isMouseDrag = false;
                 _dragEnd = MouseCurrent.Position;
-                
                 _body.LinearVelocity  += _projectile;
                 AudioManager.PlaySound("Re");
                 //System.Diagnostics.Debug.WriteLine((MouseCurrent.X - _dragStart.X) + " " + (MouseCurrent.Y - _dragStart.Y));
@@ -155,8 +154,6 @@ namespace withLuckAndWisdomProject.Object
                 
                 _dragLength = (float) Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
             }
-
-
 
         }
 
