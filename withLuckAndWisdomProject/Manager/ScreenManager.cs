@@ -10,8 +10,10 @@ namespace withLuckAndWisdomProject.Screens
         // Create all value in object
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
+        private OptionsScreen _optionsScreen;
+        private ScoreScreen _scoreScreen;
 
-        private string[] _menuList = {"menu", "game"};
+        private string[] _menuList = {"menu", "game", "options", "score"};
         private static string _currentSreen;
         private static bool quit;
         private static bool reset;

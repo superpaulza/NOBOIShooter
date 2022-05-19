@@ -6,5 +6,7 @@ namespace withLuckAndWisdomProject.Data
 {
     class Score
     {
+
+
     }
 }

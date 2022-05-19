@@ -6,19 +6,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace withLuckAndWisdomProject.Screens
 {
-    public class GameOverScreen
+    public class GameOverScreen : AScreen
     {
         public GameOverScreen()
         {
 
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+        }
+
+        public override void PostUpdate(GameTime gameTime)
         {
 
         }
