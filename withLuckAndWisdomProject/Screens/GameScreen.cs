@@ -24,7 +24,7 @@ namespace withLuckAndWisdomProject.Screens
             //world of physic
             world = new World();
             world.Gravity = new Vector2(0, world.Gravity.Y * -1f);
-                        
+
             //Create game border (set edges line foreach edge)
             var top = 0;
             var bottom = Singleton.Instance.ScreenHeight; //720
@@ -126,6 +126,12 @@ namespace withLuckAndWisdomProject.Screens
 
 
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            //very naive world time update
+            world.Step(gameTime.ElapsedGameTime);
+            world.Step(gameTime.ElapsedGameTime);
+            world.Step(gameTime.ElapsedGameTime);
+            world.Step(gameTime.ElapsedGameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
