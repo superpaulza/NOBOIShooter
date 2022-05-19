@@ -79,17 +79,17 @@ namespace withLuckAndWisdomProject.Screens
             _playButton = new Button(button, font)
             {
                 PenColour = Color.DarkGreen,
-                Position = new Vector2(730, 100),
-                Text = "Play",
+                Position = new Vector2(600, 400),
+                Text = "",
             };
 
             _playButton.Click += PlayButtonOnClick;
 
-            _testButton = new Button(button, font)
+            _testButton = new Button(ResourceManager.settingBtn, font)
             {
                 PenColour = Color.DarkGreen,
-                Position = new Vector2(730, 400),
-                Text = "Test",
+                Position = new Vector2(800, 450),
+                Text = "",
             };
 
             _testButton.Click += TestButtonOnClick;
