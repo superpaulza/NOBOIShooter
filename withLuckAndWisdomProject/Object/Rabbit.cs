@@ -89,7 +89,8 @@ namespace withLuckAndWisdomProject.Object
 
 
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height/2, 1, 1);
-            
+
+            // Rabbit Physics 
             if (!_isMouseDrag && mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
             {
                 _isMouseDrag = true;
