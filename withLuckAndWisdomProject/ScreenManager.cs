@@ -10,9 +10,8 @@ namespace withLuckAndWisdomProject.Screens
         // Create all value in object
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
-        private TestPhysicScreen _testScreen;
 
-        private string[] _menuList = {"menu", "game", "test"};
+        private string[] _menuList = {"menu", "game"};
         private static string _currentSreen;
         private static bool quit;
         private static bool reset;
@@ -46,8 +45,6 @@ namespace withLuckAndWisdomProject.Screens
                 _menuScreen.Draw(gameTime, spriteBatch);
             else if (_currentSreen == "game")
                 _gameScreen.Draw(gameTime, spriteBatch);
-            else if (_currentSreen == "test")
-                _testScreen.Draw(gameTime, spriteBatch);
         }
 
         public void Update(GameTime gameTime)
@@ -56,7 +53,6 @@ namespace withLuckAndWisdomProject.Screens
             {
                 _menuScreen = new MenuScreen();
                 _gameScreen = new GameScreen();
-                _testScreen = new TestPhysicScreen();
                 reset = false;
             }
 
@@ -69,8 +65,6 @@ namespace withLuckAndWisdomProject.Screens
                 _menuScreen.Update(gameTime);
             else if (_currentSreen == "game")
                 _gameScreen.Update(gameTime);
-            else if (_currentSreen == "test")
-                _testScreen.Update(gameTime);
         }
 
     }

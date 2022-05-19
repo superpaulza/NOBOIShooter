@@ -79,26 +79,17 @@ namespace withLuckAndWisdomProject.Screens
             _playButton = new Button(button, font)
             {
                 PenColour = Color.DarkGreen,
-                Position = new Vector2(730, 100),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 100, Singleton.Instance.ScreenHeight / 4 * 3 - 100),
                 Text = "Play",
             };
 
             _playButton.Click += PlayButtonOnClick;
 
-            _testButton = new Button(button, font)
-            {
-                PenColour = Color.DarkGreen,
-                Position = new Vector2(730, 400),
-                Text = "Test",
-            };
-
-            _testButton.Click += TestButtonOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
                 _playButton,
-                _testButton
             };
 
         }
@@ -109,13 +100,6 @@ namespace withLuckAndWisdomProject.Screens
             ScreenManager.ChangeScreen = "game";
         }
 
-
-
-        private void TestButtonOnClick(object sender, EventArgs e)
-        {
-            // Change to Screen when Clicked on Play button in Menu Screen. 
-            ScreenManager.ChangeScreen = "test";
-        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
