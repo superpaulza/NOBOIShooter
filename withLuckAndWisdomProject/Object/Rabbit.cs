@@ -163,6 +163,7 @@ namespace withLuckAndWisdomProject.Object
                 //else 
 
                 // Add Sound when hit the tree
+                AudioManager.StopSound("Jumping2");
                 AudioManager.PlaySound("ThreeHit");
             }
             _isCollision = false;

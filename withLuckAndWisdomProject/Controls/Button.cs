@@ -92,10 +92,10 @@ namespace withLuckAndWisdomProject.Controls
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
+                    //AudioManager.PlaySound("MC"); Problem!!
                     Click?.Invoke(this, new EventArgs());
                 }
             }
         }
-
     }
 }

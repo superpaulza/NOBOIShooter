@@ -84,7 +84,7 @@ namespace withLuckAndWisdomProject.Screens
 
         private void BackToMainMenu(object sender, EventArgs e)
         {
-            // Change to Screen when Clicked on Play button in Menu Screen. 
+            // Change to Screen when Clicked on Play button in Menu Screen.
             ScreenManager.ChangeScreen = "menu";
         }
 
@@ -117,8 +117,6 @@ namespace withLuckAndWisdomProject.Screens
             testRabbit.update(gameTime);
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
-
-            
 
             foreach (Component component in _components)
                 component.Update(gameTime);
