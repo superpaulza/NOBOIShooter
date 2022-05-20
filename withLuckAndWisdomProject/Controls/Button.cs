@@ -9,8 +9,6 @@ namespace withLuckAndWisdomProject.Controls
 {
     public class Button : Component
     {
-        SoundEffectInstance _sound;
-
         private MouseState _currentMouse;
 
         private SpriteFont _font;
