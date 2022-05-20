@@ -44,7 +44,7 @@ namespace withLuckAndWisdomProject.Screens
             // Create Button
             _backButton = new Button(_backIcon)
             {
-                Position = new Vector2(1200, 20),
+                Position = new Vector2(Singleton.Instance.ScreenWidth - 80, 20),
             };
 
             _backButton.Click += BackButtonOnClick;
@@ -125,7 +125,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
             spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 50), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)

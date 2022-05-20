@@ -57,8 +57,8 @@ namespace withLuckAndWisdomProject.Screens
             BackBtn = content.Load<Texture2D>("Controls/BackButtonWhite");
             checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
             checkBoxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
-            increseBtn = content.Load<Texture2D>("Controls/decrease");
-            decreseBtn = content.Load<Texture2D>("Controls/increase");
+            increseBtn = content.Load<Texture2D>("Controls/increase");
+            decreseBtn = content.Load<Texture2D>("Controls/decrease");
 
             font = content.Load<SpriteFont>("Fonts/Font");
         }

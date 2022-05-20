@@ -58,11 +58,9 @@ namespace withLuckAndWisdomProject.Controls
 
         }
 
-        public DynamicButton(Texture2D texture, ContentManager _content)
+        public DynamicButton(Texture2D texture)
         {
             Texture = texture;
-
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
 
             IsVisible = true;
 
@@ -109,7 +107,6 @@ namespace withLuckAndWisdomProject.Controls
                         _previousMouse.LeftButton == ButtonState.Pressed)
                     {
                         Click?.Invoke(this, new EventArgs());
-                        _sound.Play();
                     }
                 }
             }
