@@ -26,48 +26,43 @@ namespace withLuckAndWisdomProject.Screens
             world.Gravity = new Vector2(0, world.Gravity.Y * -1f);
 
             //Create game border (set edges line foreach edge)
-            var top = 0;
-            var bottom = Singleton.Instance.ScreenHeight; //720
-            var left = 0;
-            var right = Singleton.Instance.ScreenWidth; //1280
-            var edges = new Body[]
-            {
-                world.CreateEdge(new Vector2(left, top), new Vector2(right, top)),
-                world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
-                world.CreateEdge(new Vector2(left, top), new Vector2(left, bottom)),
-                world.CreateEdge(new Vector2(left, bottom), new Vector2(right, bottom))
-            };
+            //var top = 0;
+            //var bottom = Singleton.Instance.ScreenHeight; //720
+            //var left = 0;
+            //var right = Singleton.Instance.ScreenWidth; //1280
+            //var edges = new Body[]
+            //{
+            //    world.CreateEdge(new Vector2(left, top), new Vector2(right, top)),
+            //    //world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
+            //    world.CreateEdge(new Vector2(left, top), new Vector2(left, bottom)),
+            //    world.CreateEdge(new Vector2(left, bottom), new Vector2(right, bottom))
+            //};
 
-            foreach (var edge in edges)
-            {
-                edge.BodyType = BodyType.Static;
-                // edge.SetRestitution(1);
-            }
+            //foreach (var edge in edges)
+            //{
+            //    edge.BodyType = BodyType.Static;
+            //    // edge.SetRestitution(1);
+            //}
 
             // Create Bamboo Object and Give a position as parameter. 
-            _bamboos = new List<Bamboo>();
-            for (int Vertical = 250;  Vertical < 1200 ; Vertical += 150)
-            {
-
-                System.Random random = new System.Random();
-                float h = random.Next(200,400);
-                int BambooHeight = Singleton.Instance.ScreenHeight - (int)(h/2); 
-                var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width * h / ResourceManager.Bamboo.Height, h, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
-
-                _bamboos.Add(new Bamboo(h, bodyBaboo));
-            }
+            _bamboos = new List<Bamboo>(); 
+            float h = 250;
+            int BambooCenter = Singleton.Instance.ScreenHeight - (int)(h/2); 
+            var bodyBaboo = world.CreateRectangle(5, h, 1f, new Vector2(250, BambooCenter), 0f, BodyType.Static);
+             _bamboos.Add(new Bamboo(h, bodyBaboo));
+            
 
             // Add Rabbit in to the world
             Vector2 PositionRabbit = new Vector2(250, 100);
             Body x = new Body();
-            var Rabbitheight = 50;
+            var Rabbitheight = 100;
             var scale = Rabbitheight / (float)ResourceManager.Rabbit.Height;
             var RabbitWidth = ResourceManager.Rabbit.Width * scale;
             var bodyRabbit = world.CreateRectangle(RabbitWidth, Rabbitheight, 1.5f, PositionRabbit, 0f, BodyType.Dynamic);
-            bodyRabbit.LinearVelocity = new Vector2(0, 100000);
+            //bodyRabbit.LinearVelocity = new Vector2(0, 10);
             bodyRabbit.FixedRotation = true;
 
-            testRabbit = new Rabbit(bodyRabbit);
+            testRabbit = new Rabbit(bodyRabbit , _bamboos);
 
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
@@ -96,7 +91,12 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ResourceManager.mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            if (testRabbit.RabbitState == RabbitState.Ending)
+            {
+                spriteBatch.Draw(ResourceManager.Pencil, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), new Color(Color.Red, .1f));
+            }
+            else  
+                spriteBatch.Draw(ResourceManager.Pencil, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Cyan);
             
 
             // Test texture in game
@@ -105,6 +105,8 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
 
+            
+
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
@@ -112,18 +114,21 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Update(GameTime gameTime)
         {
+            testRabbit.update(gameTime);
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
 
-            testRabbit.update(gameTime);
+            
 
             foreach (Component component in _components)
                 component.Update(gameTime);
             AudioManager.PlaySound("BG", true);
 
-            world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update
+            world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);
