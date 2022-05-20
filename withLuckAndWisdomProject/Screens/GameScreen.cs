@@ -33,7 +33,7 @@ namespace withLuckAndWisdomProject.Screens
             var edges = new Body[]
             {
                 world.CreateEdge(new Vector2(left, top), new Vector2(right, top)),
-                world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
+                //world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
                 world.CreateEdge(new Vector2(left, top), new Vector2(left, bottom)),
                 world.CreateEdge(new Vector2(left, bottom), new Vector2(right, bottom))
             };
@@ -51,8 +51,8 @@ namespace withLuckAndWisdomProject.Screens
 
                 System.Random random = new System.Random();
                 float h = random.Next(200,400);
-                int BambooShoot = Singleton.Instance.ScreenHeight - (int)(h/2); 
-                var bodyBaboo = world.CreateRectangle(5, h, 1f, new Vector2(Vertical, BambooShoot), 0f, BodyType.Static);
+                int BambooCenter = Singleton.Instance.ScreenHeight - (int)(h/2); 
+                var bodyBaboo = world.CreateRectangle(5, h, 1f, new Vector2(Vertical, BambooCenter), 0f, BodyType.Static);
 
                 _bamboos.Add(new Bamboo(h, bodyBaboo));
             }
@@ -67,7 +67,7 @@ namespace withLuckAndWisdomProject.Screens
             //bodyRabbit.LinearVelocity = new Vector2(0, 10);
             bodyRabbit.FixedRotation = true;
 
-            testRabbit = new Rabbit(bodyRabbit);
+            testRabbit = new Rabbit(bodyRabbit , _bamboos);
 
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
