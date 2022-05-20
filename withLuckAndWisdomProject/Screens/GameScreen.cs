@@ -46,13 +46,13 @@ namespace withLuckAndWisdomProject.Screens
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>();
-            for (int Vertical = 250;  Vertical < 1200 ; Vertical += 150)
+            for (int Vertical = 250;  Vertical < 1200 ; Vertical += 200)
             {
 
                 System.Random random = new System.Random();
                 float h = random.Next(200,400);
-                int BambooHeight = Singleton.Instance.ScreenHeight - (int)(h/2); 
-                var bodyBaboo = world.CreateRectangle(ResourceManager.Bamboo.Width * h / ResourceManager.Bamboo.Height, h, 1f, new Vector2(Vertical, BambooHeight), 0f, BodyType.Static);
+                int BambooShoot = Singleton.Instance.ScreenHeight - (int)(h/2); 
+                var bodyBaboo = world.CreateRectangle(5, h, 1f, new Vector2(Vertical, BambooShoot), 0f, BodyType.Static);
 
                 _bamboos.Add(new Bamboo(h, bodyBaboo));
             }
@@ -60,11 +60,11 @@ namespace withLuckAndWisdomProject.Screens
             // Add Rabbit in to the world
             Vector2 PositionRabbit = new Vector2(250, 100);
             Body x = new Body();
-            var Rabbitheight = 50;
+            var Rabbitheight = 100;
             var scale = Rabbitheight / (float)ResourceManager.Rabbit.Height;
             var RabbitWidth = ResourceManager.Rabbit.Width * scale;
             var bodyRabbit = world.CreateRectangle(RabbitWidth, Rabbitheight, 1.5f, PositionRabbit, 0f, BodyType.Dynamic);
-            bodyRabbit.LinearVelocity = new Vector2(0, 100000);
+            //bodyRabbit.LinearVelocity = new Vector2(0, 10);
             bodyRabbit.FixedRotation = true;
 
             testRabbit = new Rabbit(bodyRabbit);
@@ -96,7 +96,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ResourceManager.mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
+            spriteBatch.Draw(ResourceManager.Pencil, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Cyan);
             
 
             // Test texture in game
@@ -121,9 +121,11 @@ namespace withLuckAndWisdomProject.Screens
                 component.Update(gameTime);
             AudioManager.PlaySound("BG", true);
 
-            world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update
+            world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);
             world.Step(gameTime.ElapsedGameTime);

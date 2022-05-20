@@ -243,6 +243,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Bamboo.png
 
+#begin Images/bamboo-first.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/bamboo-first.png
+
 #begin Images/Bamboo-old.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -254,6 +266,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Bamboo-old.png
+
+#begin Images/bamboo-second.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/bamboo-second.png
 
 #begin Images/Brid.png
 /importer:TextureImporter

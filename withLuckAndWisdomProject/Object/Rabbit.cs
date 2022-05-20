@@ -76,7 +76,7 @@ namespace withLuckAndWisdomProject.Object
     
             _body = body;
             _body.Mass = 500;
-            _height = 50;
+            _height = 100;
             scale = _height / (float)ResourceManager.Rabbit.Height;
             _width = ResourceManager.Rabbit.Width * scale;
 
@@ -120,7 +120,7 @@ namespace withLuckAndWisdomProject.Object
 
             if (_isMouseDrag)
             {
-                _projectile  = new Vector2( 1000f * - 1f *(MouseCurrent.X - _dragStart.X), 1000f * -1f * (MouseCurrent.Y - _dragStart.Y));
+                _projectile  = new Vector2( - 1f *(MouseCurrent.X - _dragStart.X), -.5f * (MouseCurrent.Y - _dragStart.Y));
                 //_body.Position = new Vector2(MouseCurrent.X, MouseCurrent.Y) - _relationPositon;
             }
 
@@ -133,13 +133,13 @@ namespace withLuckAndWisdomProject.Object
                 if (_rabbitStatus == RabbitStatus.Ready)
                     _rabbitStatus = RabbitStatus.Falling;
 
-                _body.BodyType = BodyType.Static;
+                //_body.BodyType = BodyType.Static;
                 
             } 
             else
             {
                 _rabbitStatus = RabbitStatus.Jumping;
-                _body.BodyType = BodyType.Dynamic;
+                //_body.BodyType = BodyType.Dynamic;
                 //_body.LinearVelocity += new Vector2(0, 100000);
             }
             
@@ -209,7 +209,7 @@ namespace withLuckAndWisdomProject.Object
 
         Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
         {
-            return g * (.5f * time * time) + v0* .001f * time + x0 ;
+            return g * (.5f * time * time) + v0* 1f * time + x0 ;
         }
     }
 }
