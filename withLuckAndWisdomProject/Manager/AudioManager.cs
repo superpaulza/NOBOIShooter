@@ -81,7 +81,10 @@ namespace withLuckAndWisdomProject
         {
             // If the sound exists, start it
             if (audioManager.soundBank.ContainsKey(soundName))
+            {
+                audioManager.soundBank[soundName].Volume = Singleton.Instance.SFXVolume;
                 audioManager.soundBank[soundName].Play();
+            }
         }
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace withLuckAndWisdomProject
             {
                 if (audioManager.soundBank[soundName].IsLooped != isLooped)
                     audioManager.soundBank[soundName].IsLooped = isLooped;
-
+                audioManager.soundBank[soundName].Volume = Singleton.Instance.BGMVolume;
                 audioManager.soundBank[soundName].Play();
             }
         }
