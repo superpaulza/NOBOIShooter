@@ -23,6 +23,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public OptionsScreen()
         {
+            //load save settings
             if (File.Exists("GameSetting.config"))
             {
                 _settings = (Settings)FileManager.ReadFromObj("GameSetting.config");
@@ -33,6 +34,12 @@ namespace withLuckAndWisdomProject.Screens
                 _settings = new Settings();
             }
 
+            _background = ResourceManager.mainBackground;
+            _font = ResourceManager.font;
+            _headerFont = ResourceManager.font;
+            _backIcon = ResourceManager.BackBtn;
+            _increaseIcon = ResourceManager.increseBtn;
+            _decreaseIcon = ResourceManager.decreseBtn;
 
             // Create Button
             _backButton = new Button(_backIcon)
@@ -70,47 +77,15 @@ namespace withLuckAndWisdomProject.Screens
 
             _decreaseBGMButton.Click += DecreaseBGMButtonOnClick;
 
-            _volumeSFXControlButton = new DynamicButton(_volumeSFXState, _font)
-            {
-                PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
-                Text = "",
-
-            };
-
-            _volumeSFXControlButton.Click += VolumeSFXControlButtonOnClick;
-
-            _volumeBGMControlButton = new DynamicButton(_volumeBGMState, _font)
-            {
-                PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),
-                Text = "",
-
-            };
-
-            _volumeBGMControlButton.Click += VolumeBGMControlButtonOnClick;
-
-            _guidelineAimerButton = new DynamicButton(_checkBoxState, _font)
-            {
-                PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
-                Text = "",
-
-            };
-
-            _guidelineAimerButton.Click += GuidelineAimerOnClick;
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
                 _backButton,
-                _volumeBGMControlButton,
-                _volumeSFXControlButton,
                 _increaseSFXButton,
                 _decreaseSFXButton,
                 _increaseBGMButton,
                 _decreaseBGMButton,
-                _guidelineAimerButton,
             };
 
         }
@@ -122,152 +97,24 @@ namespace withLuckAndWisdomProject.Screens
 
         private void IncreaseSFXButtonOnClick(object sender, EventArgs e)
         {
-            // if (Singleton.Instance.SFXVolume < 1.0f && Singleton.Instance.IsSFXEnable)
-            // {
-            //     Singleton.Instance.SFXVolume += 0.05f;
-            // } 
-            // else if (Singleton.Instance.SFXVolume.Equals(0.0f) && !Singleton.Instance.IsSFXEnable)
-            // {
-            //     Singleton.Instance.IsSFXEnable = true;
-            //     _volumeSFXControlButton.Texture = _volumeOn;
-            //     Singleton.Instance.SFXVolume += 0.05f;
-            // }
 
-            // if (_sfxVolume < 100 && Singleton.Instance.IsSFXEnable)
-            // {
-            //     _sfxVolume += _speed;
-            //     Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
-            // }
-            // else if (_sfxVolume == 0)
-            // {
-            //     Singleton.Instance.IsSFXEnable = true;
-            //     _volumeSFXControlButton.Texture = _volumeOn;
-            //     _sfxVolume += _speed;
-            //     Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
-            // }
         }
 
         private void DecreaseSFXButtonOnClick(object sender, EventArgs e)
         {
-            // if (Singleton.Instance.SFXVolume > 0.0f && Singleton.Instance.IsSFXEnable)
-            // {
-            //     Singleton.Instance.SFXVolume -= 0.05f;
-            // }
-            // else if (Singleton.Instance.SFXVolume.Equals(0.0f) || !Singleton.Instance.IsSFXEnable)
-            // {
-            //     Singleton.Instance.IsSFXEnable = false;
-            //     _volumeSFXControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.SFXVolume = 0.0f;
-            // }
-            // if (_sfxVolume > _speed && Singleton.Instance.IsSFXEnable)
-            // {
-            //     _sfxVolume -= _speed;
-            //     Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
-            // }
-            // else if (_sfxVolume == _speed)
-            // {
-            //     _sfxVolume -= _speed;
-            //     Singleton.Instance.IsSFXEnable = false;
-            //     _volumeSFXControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.SFXVolume = 0.0f;
-            // }
+
         }
 
         private void IncreaseBGMButtonOnClick(object sender, EventArgs e)
         {
-            // if (Singleton.Instance.BGMVolume < 1.0f && Singleton.Instance.IsBGMEnable)
-            // {
-            //     Singleton.Instance.BGMVolume += 0.05f;
-            // }
-            // else if (Singleton.Instance.SFXVolume.Equals(0.0f) && !Singleton.Instance.IsBGMEnable)
-            // {
-            //     Singleton.Instance.IsBGMEnable = true;
-            //     _volumeBGMControlButton.Texture = _volumeOn;
-            //     Singleton.Instance.BGMVolume += 0.05f;
-            // }
 
-            // if (_bgmVolume < 100 && Singleton.Instance.IsBGMEnable)
-            // {
-            //     _bgmVolume += _speed;
-            //     Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
-            // }
-            // else if (_bgmVolume == 0)
-            // {
-            //     Singleton.Instance.IsBGMEnable = true;
-            //     _volumeBGMControlButton.Texture = _volumeOn;
-            //     _bgmVolume += _speed;
-            //     Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
-            // }
         }
 
         private void DecreaseBGMButtonOnClick(object sender, EventArgs e)
         {
-            // if (Singleton.Instance.BGMVolume > 0.0f && Singleton.Instance.IsBGMEnable)
-            // {
-            //     Singleton.Instance.BGMVolume -= 0.05f;
-            // }
-            // else if (Singleton.Instance.BGMVolume.Equals(0.0f) || !Singleton.Instance.IsBGMEnable)
-            // {
-            //     Singleton.Instance.IsBGMEnable = false;
-            //     _volumeBGMControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.BGMVolume = 0.0f;
-            // }
 
-            // if (_bgmVolume > _speed && Singleton.Instance.IsBGMEnable)
-            // {
-            //     _bgmVolume -= _speed;
-            //     Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
-            // }
-            // else if (_bgmVolume == _speed)
-            // {
-            //     _bgmVolume -= _speed;
-            //     Singleton.Instance.IsBGMEnable = false;
-            //     _volumeBGMControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.BGMVolume = 0.0f;
-            // }
         }
 
-        private void VolumeSFXControlButtonOnClick(object sender, EventArgs e)
-        {
-            // if (Singleton.Instance.IsSFXEnable)
-            // {
-            //     _volumeSFXControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.IsSFXEnable = false;
-            //     _sfxVolume = 0;
-            //     Singleton.Instance.SFXVolume = 0.0f;
-            // }
-            // else if (!Singleton.Instance.IsSFXEnable)
-            // {
-            //     _volumeSFXControlButton.Texture = _volumeOn;
-            //     Singleton.Instance.IsSFXEnable = true;
-            //     _sfxVolume = 100;
-            //     Singleton.Instance.SFXVolume = 1.0f;
-            // }
-        }
-
-        private void VolumeBGMControlButtonOnClick(object sender, EventArgs e)
-        {
-            // if (Singleton.Instance.IsBGMEnable)
-            // {
-            //     _volumeBGMControlButton.Texture = _volumeOff;
-            //     Singleton.Instance.IsBGMEnable = false;
-            //     _bgmVolume = 0;
-            //     Singleton.Instance.BGMVolume = 0.0f;
-            // }
-            // else if (!Singleton.Instance.IsBGMEnable)
-            // {
-            //     _volumeBGMControlButton.Texture = _volumeOn;
-            //     Singleton.Instance.IsBGMEnable = true;
-            //     _bgmVolume = 100;
-            //     Singleton.Instance.BGMVolume = 1.0f;
-            // }
-        }
-
-        private void GuidelineAimerOnClick(object sender, EventArgs e)
-        {
-            // Singleton.Instance.IsEnableAimer = !Singleton.Instance.IsEnableAimer;
-            // _guidelineAimerButton.Texture = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
-        }
 
 
         public override void Update(GameTime gameTime)

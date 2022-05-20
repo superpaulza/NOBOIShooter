@@ -26,6 +26,12 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D BambooJoint2;
 
         public static Texture2D BasicBtn;
+        
+        public static Texture2D BackBtn;
+        public static Texture2D checkBoxEmpty;
+        public static Texture2D checkBoxSelect;
+        public static Texture2D increseBtn;
+        public static Texture2D decreseBtn;
 
         public static SpriteFont font;
 
@@ -46,6 +52,11 @@ namespace withLuckAndWisdomProject.Screens
             BambooJoint1 = content.Load<Texture2D>("Images/bamboo-first");
             BambooJoint2 = content.Load<Texture2D>("Images/bamboo-second");
 
+            BackBtn = content.Load<Texture2D>("Controls/BackButtonWhite");
+            checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
+            checkBoxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
+            increseBtn = content.Load<Texture2D>("Controls/decrease");
+            decreseBtn = content.Load<Texture2D>("Controls/increase");
 
             font = content.Load<SpriteFont>("Fonts/Font");
         }
