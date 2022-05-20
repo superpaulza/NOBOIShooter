@@ -11,18 +11,28 @@ using Microsoft.Xna.Framework.Input;
 
 namespace withLuckAndWisdomProject.Object
 {
-    
-    
+    public enum RabbitState
+    {
+        Start,
+        Ready,
+        Idle,
+        ProjectileFlying,
+        ProjectileHit,
+        Ending,
+
+        Falling,
+        Aiming,
+        Firing,
+        Hit,
+        Reset,
+        Stalling
+    }
 
 
     class Rabbit
     {
         // Create defualt variable
         private Texture2D _texture;
-        private Rectangle _ractangle;
-        private Rectangle _srcRact;
-        private float _rotation;
-        private float _radian;
         private Vector2 _origin;
 
         private bool _isCollision;
@@ -51,29 +61,14 @@ namespace withLuckAndWisdomProject.Object
 
 
         //Like a catapult state
-        public enum RabbitState
-        {
-            Start,
-            Ready,
-            Idle,
-            ProjectileFlying,
-            ProjectileHit,
-            
-            Falling,
-            Aiming,
-            Firing,
-            Hit,
-            Reset,
-            Stalling
-        }
+        
 
         
         public bool Colliding { get; protected set; }
 
         private MouseState MousePrevious, MouseCurrent;
         private bool _isMouseDrag;
-        private RabbitState _rabbitState;
-        
+        public RabbitState RabbitState { get; set; }
 
         public Rabbit (Body body, List<Bamboo> bamboos)
         {
@@ -90,7 +85,8 @@ namespace withLuckAndWisdomProject.Object
             _origin = new Vector2(_texture.Width / 2, _texture.Height / 2);
             _body.OnCollision += CollisionHandler;
 
-            _rabbitState = RabbitState.Start;
+            _moveForward = 1400;
+            RabbitState = RabbitState.Start;
         }
 
         public void update(GameTime gameTime)
@@ -103,11 +99,11 @@ namespace withLuckAndWisdomProject.Object
 
 
             // Get Mouse point 
-            var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height/2, 1, 1);
-            
-            
-            
-            if (_rabbitState == RabbitState.Ready)
+            var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
+
+
+
+            if (RabbitState == RabbitState.Ready)
             {
                 // Rabbit Draging 
                 if (!_isMouseDrag && mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
@@ -125,7 +121,7 @@ namespace withLuckAndWisdomProject.Object
                     _dragEnd = MouseCurrent.Position;
 
                     // Change State
-                    _rabbitState = RabbitState.ProjectileFlying;
+                    RabbitState = RabbitState.ProjectileFlying;
 
                     // Add Vector and Sound
                     _body.LinearVelocity += _projectile;
@@ -149,37 +145,38 @@ namespace withLuckAndWisdomProject.Object
                 }
             }
 
-            if (_rabbitState == RabbitState.ProjectileHit)
+            if (RabbitState == RabbitState.ProjectileHit)
             {
                 ////_hittingBody.Awake = false;
                 ///
                 var h = (int)(Singleton.Instance.ScreenHeight - _hittingFixture.Body.Position.Y);
-                _body.Position = new Vector2(_hittingFixture.Body.Position.X, _hittingFixture.Body.Position.Y - h - _height/2);
+                _body.Position = new Vector2(_hittingFixture.Body.Position.X, _hittingFixture.Body.Position.Y - h - _height / 2);
                 _body.LinearVelocity = Vector2.Zero;
                 _worldForward = _hittingFixture.Body.Position.X - 250;
-                
-                _rabbitState = RabbitState.Ready;
 
+                RabbitState = RabbitState.Ready;
+                System.Diagnostics.Debug.WriteLine(_body.Position.X + " " + _body.Position.Y);
                 //if(_isCollision)
                 //    _body.Position += new Vector2(0,10);
                 //else 
             }
             _isCollision = false;
 
-            if(_worldForward > 0)
+            if (_worldForward > 0)
             {
                 float forwardStep = (float)(gameTime.ElapsedGameTime.TotalMilliseconds * .5f);
+                if (_isMouseDrag) forwardStep *= .5f;
                 _body.World.ShiftOrigin(new Vector2(forwardStep, 0));
                 _worldForward -= forwardStep;
-                _moveForward += _worldForward;
+                _moveForward += forwardStep;
             }
 
             if (_moveForward > 250)
-            {   
+            {
                 System.Random random = new System.Random();
                 float h = random.Next(200, 400);
                 int BambooCenter = Singleton.Instance.ScreenHeight - (int)(h / 2);
-                
+
                 var Vertical = _bamboos[_bamboos.Count - 1].Body.Position.X + 250;
                 _moveForward -= 250;
                 var bodyBaboo = _body.World.CreateRectangle(5, h, 1f, new Vector2(Vertical, BambooCenter), 0f, BodyType.Static);
@@ -194,53 +191,62 @@ namespace withLuckAndWisdomProject.Object
                 }
             }
 
-           
+            if (_body.Position.Y > Singleton.Instance.ScreenHeight || _body.Position.X < 0)
+            {
+                RabbitState = RabbitState.Ending;
+                this._body.Enabled = false;
+            }
+
+
+
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
+            
             //spriteBatch.Draw(_pencilDot, body.Position,Color.White);
 
             // Draw Collision Box
             //spriteBatch.Draw(_pencilDot, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
             //        Color.Pink, _body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
-
-            if (_isMouseDrag)
+            if (RabbitState != RabbitState.Ending)
             {
-                // Draw Draging
-                spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
-                    Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
-
-                // Draw Pathing
-                for (int i = 0; i < 100; i++)
+                if (_isMouseDrag)
                 {
-                    float t0 = .1f * (float) i;
-                    float t1 = .1f * (float) (i+1);
-                    Vector2 x0 = PredictProjectileAtTime(t0, _projectile, _body.Position , _body.World.Gravity);
-                    Vector2 x1 = PredictProjectileAtTime(t1, _projectile, _body.Position , _body.World.Gravity);
-                    DrawLine(x0, x1, spriteBatch, Color.LightGreen);
+                    // Draw Draging
+                    spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
+                        Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
+
+                    // Draw Pathing
+                    for (int i = 0; i < 100; i++)
+                    {
+                        float t0 = .1f * (float) i;
+                        float t1 = .1f * (float) (i+1);
+                        Vector2 x0 = PredictProjectileAtTime(t0, _projectile, _body.Position , _body.World.Gravity);
+                        Vector2 x1 = PredictProjectileAtTime(t1, _projectile, _body.Position , _body.World.Gravity);
+                        DrawLine(x0, x1, spriteBatch, Color.LightGreen);
+                    }
                 }
+
+                //spriteBatch.Draw(_texture, _body.Position, Color.White);
+                spriteBatch.Draw(_texture, _body.Position, null, Color.White, _body.Rotation, _origin, scale, SpriteEffects.None, 0f);
+
+                //DrawLine(new Vector2(200,200), new Vector2(400, 400) , spriteBatch);
             }
 
-            //spriteBatch.Draw(_texture, _body.Position, Color.White);
-            spriteBatch.Draw(_texture, _body.Position, null, Color.White, _body.Rotation, _origin, scale, SpriteEffects.None, 0f);
-
-            //DrawLine(new Vector2(200,200), new Vector2(400, 400) , spriteBatch);
-
-
+            
 
         }
 
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
             _isCollision = true;
-            if (_rabbitState == RabbitState.Start)
-                   _rabbitState = RabbitState.Ready;
+            if (RabbitState == RabbitState.Start)
+                   RabbitState = RabbitState.Ready;
 
-            if(_rabbitState == RabbitState.ProjectileFlying)
+            if(RabbitState == RabbitState.ProjectileFlying)
             {
-                _rabbitState = RabbitState.ProjectileHit;
+                RabbitState = RabbitState.ProjectileHit;
                 _hittingFixture = other;
             }
 
@@ -258,7 +264,7 @@ namespace withLuckAndWisdomProject.Object
 
         Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
         {
-            return g * (.5f * time * time) + v0* 1f * time + x0 ;
+            return g * (.5f * time * time) + v0 * time + x0 ;
         }
     }
 }
