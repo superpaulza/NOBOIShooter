@@ -22,8 +22,12 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D Rabbit;
         public static Texture2D Pencil;
         public static Texture2D Panda;
+        public static Texture2D BambooShoot;
         public static Texture2D BambooJoint1;
         public static Texture2D BambooJoint2;
+
+        public static Texture2D BackgroundMoutain;
+        public static Texture2D BackgroundGame;
 
         public static Texture2D BasicBtn;
 
@@ -45,6 +49,11 @@ namespace withLuckAndWisdomProject.Screens
             Panda = content.Load<Texture2D>("Images/Panda");
             BambooJoint1 = content.Load<Texture2D>("Images/bamboo-first");
             BambooJoint2 = content.Load<Texture2D>("Images/bamboo-second");
+            BambooShoot = content.Load<Texture2D>("Images/bamboo-shoot");
+
+            BackgroundMoutain = content.Load<Texture2D>("Images/mountain");
+            BackgroundGame = content.Load<Texture2D>("Images/gamebackgroind");
+             
 
 
             font = content.Load<SpriteFont>("Fonts/Font");

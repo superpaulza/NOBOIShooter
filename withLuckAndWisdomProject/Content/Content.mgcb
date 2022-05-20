@@ -279,6 +279,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/bamboo-second.png
 
+#begin Images/bamboo-shoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/bamboo-shoot.png
+
 #begin Images/Brid.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -327,7 +339,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/Logo.jpg
 
-#begin Images/Panda.jpg
+#begin Images/mountain.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -337,7 +349,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Panda.jpg
+/build:Images/mountain.png
+
+#begin Images/Panda.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Panda.png
 
 #begin Images/Rabbit.png
 /importer:TextureImporter
