@@ -16,6 +16,7 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D settingBtn;
         public static Texture2D scoreBtn;
         public static Texture2D mainBackground;
+        public static Texture2D gameBackground;
         public static Texture2D logo;
         public static Texture2D ball;
 
@@ -44,6 +45,7 @@ namespace withLuckAndWisdomProject.Screens
             scoreBtn = content.Load<Texture2D>("Controls/Score");
             BasicBtn = content.Load<Texture2D>("Controls/BasicButton");
             mainBackground = content.Load<Texture2D>("Images/background2");
+            gameBackground = content.Load<Texture2D>("Images/background3");
             logo = content.Load<Texture2D>("Images/logo-first");
             ball = content.Load<Texture2D>("Images/CircleSprite");
             

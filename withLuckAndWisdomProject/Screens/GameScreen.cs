@@ -15,11 +15,15 @@ namespace withLuckAndWisdomProject.Screens
         private Button _backButton;
         private Rabbit testRabbit;
         private World world;
+        private Texture2D gameBackground;
         private List<Bamboo> _bamboos;
         List<Component> _components;
         //Constructor inherit from base class 
         public GameScreen()
         {
+
+            // load asset
+            gameBackground = ResourceManager.gameBackground;
 
             //world of physic
             world = new World();
@@ -91,6 +95,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
             if (testRabbit.RabbitState == RabbitState.Ending)
             {
                 spriteBatch.Draw(ResourceManager.Pencil, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), new Color(Color.Red, .1f));
