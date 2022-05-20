@@ -122,7 +122,9 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Update(gameTime);
-            AudioManager.PlaySound("BG", true);
+
+            // BGM
+            AudioManager.PlaySound("GameBGM", true);
 
             //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));

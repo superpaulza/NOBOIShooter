@@ -153,7 +153,9 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Update(gameTime);
-            AudioManager.PlaySound("TestMusic2", true);
+
+            // BGM
+            AudioManager.PlaySound("MenuBGM", true);
 
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
         }

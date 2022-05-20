@@ -125,7 +125,9 @@ namespace withLuckAndWisdomProject.Object
 
                     // Add Vector and Sound
                     _body.LinearVelocity += _projectile;
-                    AudioManager.PlaySound("Re");
+
+                    // Sound when Jumping
+                    AudioManager.PlaySound("Jumping2");
                 }
 
                 // finding projectile Line
@@ -159,6 +161,9 @@ namespace withLuckAndWisdomProject.Object
                 //if(_isCollision)
                 //    _body.Position += new Vector2(0,10);
                 //else 
+
+                // Add Sound when hit the tree
+                AudioManager.PlaySound("ThreeHit");
             }
             _isCollision = false;
 
