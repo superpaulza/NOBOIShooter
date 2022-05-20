@@ -20,6 +20,7 @@ namespace withLuckAndWisdomProject.Screens
 
         private Button _backButton;
         private List<Component> _components;
+        private Texture2D gameBackground;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -31,27 +32,8 @@ namespace withLuckAndWisdomProject.Screens
             gameBackground = ResourceManager.gameBackground;
 
             //world of physic
-            world = new World();
-            world.Gravity = new Vector2(0, world.Gravity.Y * -1f);
-
-            //Create game border (set edges line foreach edge)
-            //var top = 0;
-            //var bottom = Singleton.Instance.ScreenHeight; //720
-            //var left = 0;
-            //var right = Singleton.Instance.ScreenWidth; //1280
-            //var edges = new Body[]
-            //{
-            //    world.CreateEdge(new Vector2(left, top), new Vector2(right, top)),
-            //    //world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
-            //    world.CreateEdge(new Vector2(left, top), new Vector2(left, bottom)),
-            //    world.CreateEdge(new Vector2(left, bottom), new Vector2(right, bottom))
-            //};
-
-            //foreach (var edge in edges)
-            //{
-            //    edge.BodyType = BodyType.Static;
-            //    // edge.SetRestitution(1);
-            //}
+            _world = new World();
+            _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
@@ -94,23 +76,15 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            // Draw game backgriund
             spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
             
-            //if(_rabbit.RabbitState == RabbitState.Ending)
-            //    spriteBatch.Draw(ResourceManager.Pencil, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-            //     new Color(Color.Black,.2f));
-
-            
-            
-            // Test texture in game
+            // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
-
-            //foreach (var mout in _mountains)
-            //    spriteBatch.Draw(ResourceManager.BackgroundMoutain, mout, Color.Green);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -132,7 +106,7 @@ namespace withLuckAndWisdomProject.Screens
             //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
-            //very naive world time update
+            //very naive world time update speed up
             _world.Step(gameTime.ElapsedGameTime);
             _world.Step(gameTime.ElapsedGameTime);
             _world.Step(gameTime.ElapsedGameTime);

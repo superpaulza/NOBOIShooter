@@ -111,6 +111,9 @@ namespace withLuckAndWisdomProject.Object
                     _dragStart = MouseCurrent.Position;
 
                 }
+            }
+            if (RabbitState == RabbitState.Aiming) 
+            { 
                 // Rabbit Releasing
                 if (MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
                 {
@@ -121,7 +124,7 @@ namespace withLuckAndWisdomProject.Object
                     RabbitState = RabbitState.ProjectileFlying;
 
                     // Add Vector and Sound
-                    _body.LinearVelocity += _projectile;
+                    Body.LinearVelocity += _projectile;
 
                     // Add Sound when jumping
                     Random randomSound = new Random();
@@ -157,11 +160,7 @@ namespace withLuckAndWisdomProject.Object
                 Forwarding = _hitting.Body.Position.X - 250;
 
                 RabbitState = RabbitState.Ready;
-                System.Diagnostics.Debug.WriteLine(_body.Position.X + " " + _body.Position.Y);
-                //if(_isCollision)
-                //    _body.Position += new Vector2(0,10);
-                //else 
-
+                
                 // Add Sound when hit the tree
                 foreach(String st in RandomSound) {
                     AudioManager.StopSound(st);    
@@ -195,11 +194,8 @@ namespace withLuckAndWisdomProject.Object
             if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
             {
                 RabbitState = RabbitState.Ending;
-                this.Body.Enabled = false;
+                Body.Enabled = false;
             }
-
-
-
         }
 
         
