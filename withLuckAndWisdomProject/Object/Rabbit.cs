@@ -101,10 +101,12 @@ namespace withLuckAndWisdomProject.Object
             // Get Mouse point 
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
-            String JumpingSound = " ";
+            // Jumping Sound list
+            String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
 
             if (RabbitState == RabbitState.Ready)
             {
+
                 // Rabbit Draging 
                 if (!_isMouseDrag && mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
                 {
@@ -114,6 +116,7 @@ namespace withLuckAndWisdomProject.Object
                     _dragStart = MouseCurrent.Position;
 
                 }
+
                 // Rabbit Releasing
                 else if (_isMouseDrag && MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
                 {
@@ -126,14 +129,10 @@ namespace withLuckAndWisdomProject.Object
                     // Add Vector and Sound
                     _body.LinearVelocity += _projectile;
 
-                    // Random Sound when Jumping
-
-                    Random random = new Random();
-                    String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
-                    int index = random.Next(RandomSound.Length);
-                    JumpingSound = RandomSound[index];
-
-                    AudioManager.PlaySound(JumpingSound);
+                    // Add Sound when jumping
+                    Random randomSound = new Random();
+                    int index = randomSound.Next(RandomSound.Length);
+                    AudioManager.PlaySound(RandomSound[index]);
                 }
 
                 // finding projectile Line
@@ -169,7 +168,9 @@ namespace withLuckAndWisdomProject.Object
                 //else 
 
                 // Add Sound when hit the tree
-                AudioManager.StopSound(JumpingSound);
+                foreach(String st in RandomSound) {
+                    AudioManager.StopSound(st);    
+                }
                 AudioManager.PlaySound("ThreeHit");
             }
             _isCollision = false;
