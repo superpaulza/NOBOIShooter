@@ -7,6 +7,8 @@
         public string ContentRootDir = "Content";
         public readonly int ScreenHeight = 720;
         public readonly int ScreenWidth = 1280;
+        public float SFXVolume = 1f;
+        public float BGMVolume = 1f;
 
         //Base of singleton
         private static Singleton s_instance;

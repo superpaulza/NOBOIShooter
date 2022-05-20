@@ -150,7 +150,9 @@ namespace withLuckAndWisdomProject.Screens
                 ball.Update(gameTime);
 
             foreach (Component component in _components)
+            {
                 component.Update(gameTime);
+            }
 
             // BGM
             AudioManager.PlaySound("MenuBGM", true);
