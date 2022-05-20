@@ -104,6 +104,7 @@ namespace withLuckAndWisdomProject.Controls
                         _previousMouse.LeftButton == ButtonState.Pressed)
                     {
                         Click?.Invoke(this, new EventArgs());
+                        AudioManager.PlaySound("MC");
                     }
 
                 }
