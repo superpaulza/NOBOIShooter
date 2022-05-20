@@ -51,11 +51,13 @@ namespace withLuckAndWisdomProject
         {
             string soundLocation = "Audio/";
             audioManager.soundNames = new string[,] {
-                {"newBG", "BG" },
-                {"BeCrazyForMe", "TestMusic"},
-                {"BackGroundBGM", "TestMusic2"},
-                {"BallHit", "BallHitEffect"},
-                {"Release Sound Effect", "Re"}
+                {"MouseClicked", "MC"},
+                {"Bushing", "ThreeHit"},
+                {"GameBGM", "GameBGM" },
+                {"MenuBGM", "MenuBGM"},
+                {"JumpingSound", "Jumping"},
+                {"JumpingSound2", "Jumping2"},
+                {"JumpingSound3", "Jumping3"}
 
             };
 
@@ -80,7 +82,10 @@ namespace withLuckAndWisdomProject
         {
             // If the sound exists, start it
             if (audioManager.soundBank.ContainsKey(soundName))
+            {
+                audioManager.soundBank[soundName].Volume = Singleton.Instance.SFXVolume;
                 audioManager.soundBank[soundName].Play();
+            }
         }
 
         /// <summary>
@@ -95,7 +100,7 @@ namespace withLuckAndWisdomProject
             {
                 if (audioManager.soundBank[soundName].IsLooped != isLooped)
                     audioManager.soundBank[soundName].IsLooped = isLooped;
-
+                audioManager.soundBank[soundName].Volume = Singleton.Instance.BGMVolume;
                 audioManager.soundBank[soundName].Play();
             }
         }

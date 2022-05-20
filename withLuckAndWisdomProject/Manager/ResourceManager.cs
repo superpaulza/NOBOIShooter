@@ -14,7 +14,9 @@ namespace withLuckAndWisdomProject.Screens
         // create static fields
         public static Texture2D button;
         public static Texture2D settingBtn;
+        public static Texture2D scoreBtn;
         public static Texture2D mainBackground;
+        public static Texture2D gameBackground;
         public static Texture2D logo;
         public static Texture2D ball;
 
@@ -30,6 +32,12 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D BackgroundGame;
 
         public static Texture2D BasicBtn;
+        
+        public static Texture2D BackBtn;
+        public static Texture2D checkBoxEmpty;
+        public static Texture2D checkBoxSelect;
+        public static Texture2D increseBtn;
+        public static Texture2D decreseBtn;
 
         public static SpriteFont font;
 
@@ -38,9 +46,11 @@ namespace withLuckAndWisdomProject.Screens
         {
             button = content.Load<Texture2D>("Controls/Play");
             settingBtn = content.Load<Texture2D>("Controls/Setting");
+            scoreBtn = content.Load<Texture2D>("Controls/Score");
             BasicBtn = content.Load<Texture2D>("Controls/BasicButton");
             mainBackground = content.Load<Texture2D>("Images/background2");
-            logo = content.Load<Texture2D>("Images/logo");
+            gameBackground = content.Load<Texture2D>("Images/background3");
+            logo = content.Load<Texture2D>("Images/logo-first");
             ball = content.Load<Texture2D>("Images/CircleSprite");
             
             Pencil = content.Load<Texture2D>("Controls/dot");
@@ -55,6 +65,11 @@ namespace withLuckAndWisdomProject.Screens
             BackgroundGame = content.Load<Texture2D>("Images/gamebackgroind");
              
 
+            BackBtn = content.Load<Texture2D>("Controls/BackButtonWhite");
+            checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
+            checkBoxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
+            increseBtn = content.Load<Texture2D>("Controls/increase");
+            decreseBtn = content.Load<Texture2D>("Controls/decrease");
 
             font = content.Load<SpriteFont>("Fonts/Font");
         }

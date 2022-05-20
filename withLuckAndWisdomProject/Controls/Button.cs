@@ -9,8 +9,6 @@ namespace withLuckAndWisdomProject.Controls
 {
     public class Button : Component
     {
-        SoundEffectInstance _sound;
-
         private MouseState _currentMouse;
 
         private SpriteFont _font;
@@ -92,10 +90,10 @@ namespace withLuckAndWisdomProject.Controls
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
+                    AudioManager.PlaySound("MC");
                     Click?.Invoke(this, new EventArgs());
                 }
             }
         }
-
     }
 }

@@ -9,8 +9,6 @@ namespace withLuckAndWisdomProject.Controls
 {
     public class DynamicButton : Component
     {
-        SoundEffectInstance _sound;
-
         private MouseState _currentMouse;
 
         private SpriteFont _font;
@@ -58,12 +56,9 @@ namespace withLuckAndWisdomProject.Controls
 
         }
 
-        public DynamicButton(Texture2D texture, ContentManager _content)
+        public DynamicButton(Texture2D texture)
         {
             Texture = texture;
-
-            _sound = _content.Load<SoundEffect>("BGM/ButtonBGM").CreateInstance();
-
             IsVisible = true;
 
         }
@@ -108,11 +103,14 @@ namespace withLuckAndWisdomProject.Controls
                     if (_currentMouse.LeftButton == ButtonState.Released &&
                         _previousMouse.LeftButton == ButtonState.Pressed)
                     {
+                        AudioManager.PlaySound("MC");
                         Click?.Invoke(this, new EventArgs());
-                        _sound.Play();
                     }
+
                 }
+
             }
+
         }
 
     }

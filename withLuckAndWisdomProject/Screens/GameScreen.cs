@@ -27,6 +27,32 @@ namespace withLuckAndWisdomProject.Screens
             _world = new World();
             _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
+            // load asset
+            gameBackground = ResourceManager.gameBackground;
+
+            //world of physic
+            world = new World();
+            world.Gravity = new Vector2(0, world.Gravity.Y * -1f);
+
+            //Create game border (set edges line foreach edge)
+            //var top = 0;
+            //var bottom = Singleton.Instance.ScreenHeight; //720
+            //var left = 0;
+            //var right = Singleton.Instance.ScreenWidth; //1280
+            //var edges = new Body[]
+            //{
+            //    world.CreateEdge(new Vector2(left, top), new Vector2(right, top)),
+            //    //world.CreateEdge(new Vector2(right, top), new Vector2(right, bottom)),
+            //    world.CreateEdge(new Vector2(left, top), new Vector2(left, bottom)),
+            //    world.CreateEdge(new Vector2(left, bottom), new Vector2(right, bottom))
+            //};
+
+            //foreach (var edge in edges)
+            //{
+            //    edge.BodyType = BodyType.Static;
+            //    // edge.SetRestitution(1);
+            //}
+
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
             int BambooCenter = Singleton.Instance.ScreenHeight - BAMBOO_START_HEGIHT / 2; 
@@ -61,7 +87,7 @@ namespace withLuckAndWisdomProject.Screens
 
         private void BackToMainMenu(object sender, EventArgs e)
         {
-            // Change to Screen when Clicked on Play button in Menu Screen. 
+            // Change to Screen when Clicked on Play button in Menu Screen.
             ScreenManager.ChangeScreen = "menu";
         }
 
@@ -97,11 +123,11 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
 
-            
-
             foreach (Component component in _components)
                 component.Update(gameTime);
-            AudioManager.PlaySound("BG", true);
+
+            // BGM
+            AudioManager.PlaySound("GameBGM", true);
 
             //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));

@@ -98,10 +98,12 @@ namespace withLuckAndWisdomProject.Object
             // Get Mouse point 
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
-
+            // Jumping Sound list
+            String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
 
             if (RabbitState == RabbitState.Ready)
             {
+
                 // Rabbit Draging 
                 if (mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
                 {
@@ -109,11 +111,6 @@ namespace withLuckAndWisdomProject.Object
                     _dragStart = MouseCurrent.Position;
 
                 }
-            }
-
-            if (RabbitState == RabbitState.Aiming)
-            {
-
                 // Rabbit Releasing
                 if (MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
                 {
@@ -124,8 +121,12 @@ namespace withLuckAndWisdomProject.Object
                     RabbitState = RabbitState.ProjectileFlying;
 
                     // Add Vector and Sound
-                    Body.LinearVelocity += _projectile;
-                    AudioManager.PlaySound("Re");
+                    _body.LinearVelocity += _projectile;
+
+                    // Add Sound when jumping
+                    Random randomSound = new Random();
+                    int index = randomSound.Next(RandomSound.Length);
+                    AudioManager.PlaySound(RandomSound[index]);
                 }
 
                 // finding projectile Line
@@ -156,7 +157,16 @@ namespace withLuckAndWisdomProject.Object
                 Forwarding = _hitting.Body.Position.X - 250;
 
                 RabbitState = RabbitState.Ready;
-                //System.Diagnostics.Debug.WriteLine(Body.Position.X + " " + Body.Position.Y);
+                System.Diagnostics.Debug.WriteLine(_body.Position.X + " " + _body.Position.Y);
+                //if(_isCollision)
+                //    _body.Position += new Vector2(0,10);
+                //else 
+
+                // Add Sound when hit the tree
+                foreach(String st in RandomSound) {
+                    AudioManager.StopSound(st);    
+                }
+                AudioManager.PlaySound("ThreeHit");
             }
             IsCollision = false;
 

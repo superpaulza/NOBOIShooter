@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Audio/BackGroundBGM.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BackGroundBGM.wav
-
 #begin Audio/BallHit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -31,23 +25,53 @@
 /processorParam:Quality=Best
 /build:Audio/BeCrazyForMe.wav
 
-#begin Audio/BG.wav
+#begin Audio/Bushing.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/BG.wav
+/build:Audio/Bushing.wav
 
-#begin Audio/newBG.wav
+#begin Audio/EndCreditBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/newBG.wav
+/build:Audio/EndCreditBGM.wav
 
-#begin Audio/Release Sound Effect.wav
+#begin Audio/GameBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/Release Sound Effect.wav
+/build:Audio/GameBGM.wav
+
+#begin Audio/JumpingSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/JumpingSound.wav
+
+#begin Audio/JumpingSound2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/JumpingSound2.wav
+
+#begin Audio/JumpingSound3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/JumpingSound3.wav
+
+#begin Audio/MenuBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/MenuBGM.wav
+
+#begin Audio/MouseClicked.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/MouseClicked.wav
 
 #begin Controls/Achievement.png
 /importer:TextureImporter
@@ -231,6 +255,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/background2.jpg
 
+#begin Images/background3.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/background3.jpg
+
 #begin Images/Bamboo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -339,7 +375,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/Logo.jpg
 
-#begin Images/mountain.png
+#begin Images/logo-first.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -349,9 +385,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/mountain.png
+/build:Images/logo-first.png
 
-#begin Images/Panda.png
+#begin Images/Panda.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
