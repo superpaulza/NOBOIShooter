@@ -119,7 +119,7 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(mainBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
-            spriteBatch.Draw(logo, new Rectangle(115, 0, 400, 350), Color.White);
+            spriteBatch.Draw(logo, new Rectangle(320, 150, 650, 180), Color.White);
 
             foreach (var ball in _balls)
                 ball.Draw(gameTime, spriteBatch);
