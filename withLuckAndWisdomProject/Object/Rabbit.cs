@@ -101,7 +101,7 @@ namespace withLuckAndWisdomProject.Object
             // Get Mouse point 
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
-
+            String JumpingSound = " ";
 
             if (RabbitState == RabbitState.Ready)
             {
@@ -126,8 +126,14 @@ namespace withLuckAndWisdomProject.Object
                     // Add Vector and Sound
                     _body.LinearVelocity += _projectile;
 
-                    // Sound when Jumping
-                    AudioManager.PlaySound("Jumping2");
+                    // Random Sound when Jumping
+
+                    Random random = new Random();
+                    String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
+                    int index = random.Next(RandomSound.Length);
+                    JumpingSound = RandomSound[index];
+
+                    AudioManager.PlaySound(JumpingSound);
                 }
 
                 // finding projectile Line
@@ -163,7 +169,7 @@ namespace withLuckAndWisdomProject.Object
                 //else 
 
                 // Add Sound when hit the tree
-                AudioManager.StopSound("Jumping2");
+                AudioManager.StopSound(JumpingSound);
                 AudioManager.PlaySound("ThreeHit");
             }
             _isCollision = false;

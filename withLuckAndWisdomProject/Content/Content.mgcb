@@ -55,6 +55,12 @@
 /processorParam:Quality=Best
 /build:Audio/JumpingSound2.wav
 
+#begin Audio/JumpingSound3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/JumpingSound3.wav
+
 #begin Audio/MenuBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -186,18 +192,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Controls/Play.png
-
-#begin Controls/Score.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Controls/Score.png
 
 #begin Controls/Score.png
 /importer:TextureImporter
