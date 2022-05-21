@@ -76,9 +76,9 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Draw game backgrund
-            spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+            // Draw game backgriund
+            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
             
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
@@ -94,24 +94,34 @@ namespace withLuckAndWisdomProject.Screens
         public override void Update(GameTime gameTime)
         {
             _rabbit.update(gameTime);
+
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
 
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-            // BGM
-            AudioManager.PlaySound("GameBGM", true);
+            //when rabbit died
+            if (_rabbit.RabbitState == RabbitState.Ending)
+            {
+                ScreenManager.ChangeScreen = "menu";
+            }
+            else
+            {
+                // BGM
+                AudioManager.PlaySound("GameBGM", true);
+            }
 
             //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update speed up
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
+            //set update 6x
+            for (int i = 0; i < 6; i++)
+            {
+                _world.Step(gameTime.ElapsedGameTime);
+            }
+            
         }
 
         public override void PostUpdate(GameTime gameTime)

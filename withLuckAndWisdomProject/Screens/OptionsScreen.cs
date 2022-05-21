@@ -14,9 +14,9 @@ namespace withLuckAndWisdomProject.Screens
 
         // Create value
         private List<Component> _components;
-        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState;
+        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState, _basicBtn;
         private SpriteFont _font, _headerFont;
-        private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton;
+        private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton, _applyButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
         private float _sfxVolume = 100, _bgmVolume = 100;
         private int _speed = 5;
@@ -38,6 +38,7 @@ namespace withLuckAndWisdomProject.Screens
             _font = ResourceManager.font;
             _headerFont = ResourceManager.font;
             _backIcon = ResourceManager.BackBtn;
+            _basicBtn = ResourceManager.BasicBtn;
             _increaseIcon = ResourceManager.increseBtn;
             _decreaseIcon = ResourceManager.decreseBtn;
 
@@ -77,6 +78,11 @@ namespace withLuckAndWisdomProject.Screens
 
             _decreaseBGMButton.Click += DecreaseBGMButtonOnClick;
 
+            _applyButton = new Button(_basicBtn, _font)
+            {
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 70, Singleton.Instance.ScreenHeight / 2 + 120),
+                Text = "Apply"
+            };
 
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
@@ -86,6 +92,7 @@ namespace withLuckAndWisdomProject.Screens
                 _decreaseSFXButton,
                 _increaseBGMButton,
                 _decreaseBGMButton,
+                _applyButton,
             };
 
         }

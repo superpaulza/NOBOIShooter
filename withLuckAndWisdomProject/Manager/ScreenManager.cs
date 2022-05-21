@@ -10,10 +10,11 @@ namespace withLuckAndWisdomProject.Screens
         // Create all value in object
         private MenuScreen _menuScreen;
         private GameScreen _gameScreen;
+        private GameOverScreen _ganGameOverScreen;
         private OptionsScreen _optionsScreen;
         private ScoreScreen _scoreScreen;
 
-        private string[] _menuList = {"menu", "game", "options", "score"};
+        private string[] _menuList = {"menu", "game", "options", "score", "over"};
         private static string _currentSreen;
         private static bool quit;
         private static bool reset;
@@ -49,6 +50,10 @@ namespace withLuckAndWisdomProject.Screens
                 _gameScreen.Draw(gameTime, spriteBatch);
             else if (_currentSreen == "options")
                 _optionsScreen.Draw(gameTime, spriteBatch);
+            else if (_currentSreen == "score")
+                _scoreScreen.Draw(gameTime, spriteBatch);
+            else if (_currentSreen == "over")
+                _ganGameOverScreen.Draw(gameTime, spriteBatch);
         }
 
         public void Update(GameTime gameTime)
@@ -58,6 +63,8 @@ namespace withLuckAndWisdomProject.Screens
                 _menuScreen = new MenuScreen();
                 _gameScreen = new GameScreen();
                 _optionsScreen = new OptionsScreen();
+                _scoreScreen = new ScoreScreen();
+                _ganGameOverScreen = new GameOverScreen();
                 reset = false;
             }
 
@@ -72,6 +79,10 @@ namespace withLuckAndWisdomProject.Screens
                 _gameScreen.Update(gameTime);
             else if (_currentSreen == "options")
                 _optionsScreen.Update(gameTime);
+            else if (_currentSreen == "score")
+                _scoreScreen.Update(gameTime);
+            else if (_currentSreen == "over")
+                _ganGameOverScreen.Update(gameTime);
         }
 
     }
