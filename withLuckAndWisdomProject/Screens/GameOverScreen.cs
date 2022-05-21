@@ -65,7 +65,11 @@ namespace withLuckAndWisdomProject.Screens
                 component.Update(gameTime);
 
             //Change Sound When GameOver
-            AudioManager.StopSound("GameBGM");
+            String[] RandomSound = new string[] { "Jumping2", "Jumping3", "GameBGM", "wind" };
+            foreach (String st in RandomSound)
+            {
+                AudioManager.StopSound(st);
+            }
             AudioManager.PlaySound("GO");
         }
 
