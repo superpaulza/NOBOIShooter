@@ -77,8 +77,8 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Draw game backgriund
-            spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
             
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
@@ -107,11 +107,12 @@ namespace withLuckAndWisdomProject.Screens
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update speed up
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
-            _world.Step(gameTime.ElapsedGameTime);
+            //set update 4x
+            for (int i = 0; i < 4; i++)
+            {
+                _world.Step(gameTime.ElapsedGameTime);
+            }
+            
         }
 
         public override void PostUpdate(GameTime gameTime)
