@@ -12,12 +12,14 @@ namespace withLuckAndWisdomProject.Manager
     public class Score
     {
         public int ScoreGet { get; set; }
-        public DateTime ScoreDate { get;  set; }
+        public float Distance { get; set; }
+        public TimeSpan TimePlay { get;  set; }
 
-        public Score(int score, DateTime time)
+        public Score(int score, float distance, TimeSpan time)
         {
             ScoreGet = score;
-            ScoreDate = time;
+            TimePlay = time;
+            Distance = distance;
         }
     
     }

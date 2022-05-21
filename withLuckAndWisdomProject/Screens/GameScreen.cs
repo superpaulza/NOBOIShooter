@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Controls;
 using withLuckAndWisdomProject.Object;
-using tainicom.Aether.Physics2D.Dynamics; 
+using tainicom.Aether.Physics2D.Dynamics;
+using withLuckAndWisdomProject.Manager;
 
 namespace withLuckAndWisdomProject.Screens
 {
@@ -30,6 +31,9 @@ namespace withLuckAndWisdomProject.Screens
         private Texture2D gameBackground;
 
         private GameOverRays _gameOver;
+        private bool _gameEndSaveScore;
+
+        private ScoreData _scoreData;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -65,9 +69,7 @@ namespace withLuckAndWisdomProject.Screens
             _gameOver = new GameOverRays();
 
             _gameOver.SetPlayer(_rabbit);
-
-            
-            
+            _gameEndSaveScore = false;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -87,6 +89,18 @@ namespace withLuckAndWisdomProject.Screens
             if (_rabbit.RabbitState == RabbitState.Ending)
             {
                 _gameOver.Draw(gameTime, spriteBatch);
+                if (!_gameEndSaveScore)
+                {
+                    if(_rabbit.Score > 0)
+                    {
+                        _scoreData = new ScoreData();
+                        _scoreData.LoadSave();
+                        _scoreData.Add(new Score(_rabbit.Score,_rabbit.ForwardLenght,_rabbit.PlayTime));
+                        _scoreData.Sort();
+                        _scoreData.SaveGame();
+                    }
+                    _gameEndSaveScore = true;
+                }
             }
             else
             {

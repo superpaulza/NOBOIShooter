@@ -10,7 +10,7 @@ namespace withLuckAndWisdomProject.Screens
 {
     class ScoreScreen : AScreen
     {
-        private const int LIMIT_SCORE_PER_PAGE = 10;
+        private const int LIMIT_SCORE_PER_PAGE = 5;
 
         private Texture2D _mainBackground;
         private Texture2D _pen;
@@ -29,13 +29,16 @@ namespace withLuckAndWisdomProject.Screens
         private string _scoretext;
         private Vector2 _titlePosion;
 
+        private List<Component> _components;
         public ScoreScreen()
         {
             _mainBackground = ResourceManager.mainBackground;
             _pen = ResourceManager.Pencil;
             _font = ResourceManager.font;
             _scoreBord = new ScoreData();
+            _scoreBord.LoadSave();
             _scorePage = 0;
+            _hasNextPage = _scoreBord.ScoresTables.Count > LIMIT_SCORE_PER_PAGE;
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BackBtn)
             {
@@ -43,19 +46,27 @@ namespace withLuckAndWisdomProject.Screens
             };
             _backButton.Click += BackToMainMenu;
 
-            _leftButton = new Button(ResourceManager.increseBtn)
+            _leftButton = new Button(ResourceManager.decreseBtn)
             {
                 Position = new Vector2(550, 550),
             };
 
             _leftButton.Click += LeftButtonOnClick;
 
-            _rightButton = new Button(ResourceManager.decreseBtn)
+            _rightButton = new Button(ResourceManager.increseBtn)
             {
                 Position = new Vector2(700, 550),
             };
 
             _rightButton.Click += RightButtonOnClick;
+
+            _components = new List<Component>()
+            {
+                _backButton,
+                _leftButton,
+                _rightButton
+            };
+
             // Setting value
             int width = Singleton.Instance.ScreenWidth / 5;
             int height = Singleton.Instance.ScreenHeight / 15;
@@ -65,7 +76,8 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Update(GameTime gameTime)
         {
-            _backButton.Update(gameTime);
+            foreach (Component component in _components)
+                component.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -82,8 +94,8 @@ namespace withLuckAndWisdomProject.Screens
                 int index = _scorePage * LIMIT_SCORE_PER_PAGE + i;
                 if (index < _scoreBord.ScoresTables.Count)
                 {
-                    _scoretext = (index + 1) + ". Score : " + _scoreBord.ScoresTables[index].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[index].ScoreDate.ToString("g");
-                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 50), (i % 2 == 0) ? Color.White : Color.LightGray);
+                    _scoretext = (index + 1) + ". Score : " + _scoreBord.ScoresTables[index].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[index].TimePlay.ToString("g");
+                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 50), (i % 2 == 0) ? Color.Black : Color.DarkGray);
                 }
 
             }

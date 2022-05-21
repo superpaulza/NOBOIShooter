@@ -51,10 +51,11 @@ namespace withLuckAndWisdomProject.Object
 
         private const int START_BAMBOO_CREATE_LENGTH = 1600;
         private const int MIN_HEIGHT_OF_BAMBOO = 200;
-        private const int MAX_HEIGHT_OF_BAMBOO = 400;
+        private const int MAX_HEIGHT_OF_BAMBOO = 240;
 
         private const int MIN_DISTAN_OF_BAMBOO = 250;
         private const int MAX_DISTAN_OF_BAMBOO = 300;
+        private const int MINIMUM_DRAG_LENGHT = 40;
 
         // Create defualt variable
         private Fixture _hitting;
@@ -129,23 +130,31 @@ namespace withLuckAndWisdomProject.Object
                 {
                     _dragEnd = MouseCurrent.Position;
 
-                    // Change State
-                    RabbitState = RabbitState.ProjectileFlying;
+                    if(_dragLength < MINIMUM_DRAG_LENGHT)
+                    {
+                        RabbitState = RabbitState.Ready;
+                    }
+                    else
+                    {
+                        // Change State
+                        RabbitState = RabbitState.ProjectileFlying;
 
-                    // Add Vector and Sound
-                    Body.LinearVelocity += _projectile;
+                        // Add Vector and Sound
+                        Body.LinearVelocity += _projectile;
 
-                    // Add Sound when jumping
-                    Random randomSound = new Random();
-                    int index = randomSound.Next(RandomSound.Length);
-                    AudioManager.PlaySound(RandomSound[index]);
-                    AudioManager.PlaySound("wind");
+                        // Add Sound when jumping
+                        Random randomSound = new Random();
+                        int index = randomSound.Next(RandomSound.Length);
+                        AudioManager.PlaySound(RandomSound[index]);
+                        AudioManager.PlaySound("wind");
+                    }
                 }
 
                 // finding projectile Line
                 _projectile = new Vector2(-1f * (MouseCurrent.X - _dragStart.X), -.5f * (MouseCurrent.Y - _dragStart.Y));
 
                 // find angle of shooter
+                
                 _dragAngle = (float)Math.Atan2(MouseCurrent.Y - _dragStart.Y, MouseCurrent.X - _dragStart.X);
                 _dragEnd = MouseCurrent.Position;
                 _dragLength = (float)Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
@@ -172,7 +181,7 @@ namespace withLuckAndWisdomProject.Object
                 if (lenght2top < 150)
                 {
                     Body.Position = topBamboo;
-                    Score += (100 - Math.Abs(lenght2top) * -1) * 10;
+                    Score += (250 - Math.Abs(lenght2top));
                     Body.LinearVelocity = Vector2.Zero;
                 }
 
@@ -204,6 +213,7 @@ namespace withLuckAndWisdomProject.Object
                 float forwardStep = (float)(gameTime.ElapsedGameTime.TotalMilliseconds * .5f);
                 if (RabbitState == RabbitState.Aiming) forwardStep *= .5f;
                 Body.World.ShiftOrigin(new Vector2(forwardStep, 0));
+                Score += (int)(forwardStep * .2f);
                 Forwarding -= forwardStep;
                 Forwarder += forwardStep;
                 ForwardLenght += forwardStep;
@@ -221,9 +231,6 @@ namespace withLuckAndWisdomProject.Object
                         break;
                 }
             }
-            
-            
-            
 
             if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
             {
@@ -243,25 +250,24 @@ namespace withLuckAndWisdomProject.Object
             //spriteBatch.Draw(_pencilDot, new Rectangle((int)Body.Position.X, (int)Body.Position.Y, (int)_width, (int)_height), null,
             //        Color.Pink, Body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
 
-
+            // Draw rabbit
+            spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
             if (RabbitState != RabbitState.Ending)
             {
                 if (RabbitState == RabbitState.Aiming)
                 {
                     // Draw Draging
-                    
                     spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
-                        Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
+                        Color.Gray, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
 
                     // Draw Pathing
                     if (VisibleProjectile)
                         DrawProjectile(spriteBatch);
                 }
 
-                //spriteBatch.Draw(_texture, _body.Position, Color.White);
-                spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
+                
 
-                //DrawLine(new Vector2(200,200), new Vector2(400, 400) , spriteBatch);
+                
 
             }
         }
@@ -275,7 +281,7 @@ namespace withLuckAndWisdomProject.Object
                 float t1 = .1f * (i + 1);
                 Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position, Body.World.Gravity);
                 Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position, Body.World.Gravity);
-                DrawLine(x0, x1, spriteBatch, Color.LightGreen);
+                DrawLine(x0, x1, spriteBatch, Color.Orange);
                 if (x1.Y > Singleton.Instance.ScreenHeight) break;
                 i++;
             }
