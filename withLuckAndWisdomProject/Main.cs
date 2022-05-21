@@ -71,7 +71,7 @@ namespace withLuckAndWisdomProject
         {
             // Clear programpage with white colour
             GraphicsDevice.Clear(Color.White);
-            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             
             // Draw program current screen
             _screenManager.Draw(gameTime, _spriteBatch);
