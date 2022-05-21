@@ -88,7 +88,7 @@ namespace withLuckAndWisdomProject.Screens
             checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
             checkboxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
 
-            font = content.Load<SpriteFont>("Fonts/Font");
+            font = content.Load<SpriteFont>("Fonts/Font"); 
         }
     }
 }
