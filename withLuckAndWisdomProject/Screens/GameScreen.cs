@@ -19,6 +19,14 @@ namespace withLuckAndWisdomProject.Screens
         private List<Bamboo> _bamboos;
         private HUD _hud;
 
+        private Button _backButton;
+        private List<Component> _components;
+        private Texture2D _gameBackground;
+
+        private int _sceenWidth;
+        private int _sceenHeight;
+        private Rectangle _backgroundTile1;
+        private Rectangle _backgroundTile2;
         private Texture2D gameBackground;
 
         private GameOverScreen _gameOver;
@@ -30,11 +38,10 @@ namespace withLuckAndWisdomProject.Screens
             _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // load asset
-            gameBackground = ResourceManager.gameBackground;
+            _gameBackground = ResourceManager.BackgroundGame;
+            _sceenWidth = Singleton.Instance.ScreenWidth;
+            _sceenHeight = Singleton.Instance.ScreenHeight;
 
-            //world of physic
-            _world = new World();
-            _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
@@ -54,6 +61,9 @@ namespace withLuckAndWisdomProject.Screens
 
             //load game over
             _gameOver = new GameOverScreen();
+
+            
+            
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -93,15 +103,8 @@ namespace withLuckAndWisdomProject.Screens
         public override void Update(GameTime gameTime)
         {
 
-            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
-
-            //very naive world time update speed up
-            //set update 6x
-            for (int i = 0; i < 6; i++)
-            {
-                _world.Step(gameTime.ElapsedGameTime);
-            }
+            
+            _backgroundTile1 = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
@@ -117,6 +120,10 @@ namespace withLuckAndWisdomProject.Screens
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
+
+            // Naive way speed up game physic time
+            for (int i = 0; i < 6; i++) 
+                _world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 
         }
 

@@ -37,6 +37,7 @@ namespace withLuckAndWisdomProject.Object
         public bool VisibleProjectile{ get; set; }
         public float Forwarding { get; set; }
         public float Forwarder { get; set; }
+        public float ForwardLenght { get; set; }
         public Body Body { get; set; }
         public Rectangle Rectangle
         {
@@ -144,9 +145,19 @@ namespace withLuckAndWisdomProject.Object
                 _dragLength = (float)Math.Sqrt((Math.Pow(MouseCurrent.X - _dragStart.X, 2) + Math.Pow(MouseCurrent.Y - _dragStart.Y, 2)));
                     
             }
-            
 
-            if (RabbitState == RabbitState.ProjectileHit)
+            if (RabbitState == RabbitState.ProjectileFlying)
+            {
+                int limitRight = Singleton.Instance.ScreenWidth - 250;
+                if(Body.Position.X > limitRight)
+                {
+                    Forwarding = Body.Position.X - limitRight;
+                }
+
+            }
+
+
+                if (RabbitState == RabbitState.ProjectileHit)
             {
                 // Calculate after hitting
                 var centerBamboo = (int)(Singleton.Instance.ScreenHeight - _hitting.Body.Position.Y);
@@ -180,6 +191,7 @@ namespace withLuckAndWisdomProject.Object
                 Body.World.ShiftOrigin(new Vector2(forwardStep, 0));
                 Forwarding -= forwardStep;
                 Forwarder += forwardStep;
+                ForwardLenght += forwardStep;
             }
 
             if (Forwarder > 250)
