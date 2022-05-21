@@ -100,6 +100,7 @@ namespace withLuckAndWisdomProject.Screens
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
                 Text = "",
+                colour = Color.Orange
 
             };
 
@@ -110,7 +111,7 @@ namespace withLuckAndWisdomProject.Screens
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),
                 Text = "",
-
+                colour = Color.Orange
             };
 
             _volumeBGMControlButton.Click += VolumeBGMControlButtonOnClick;
@@ -120,7 +121,6 @@ namespace withLuckAndWisdomProject.Screens
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
                 Text = "",
-
             };
 
             _guidelineAimerButton.Click += GuidelineAimerOnClick;

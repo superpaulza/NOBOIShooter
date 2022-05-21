@@ -22,7 +22,7 @@ namespace withLuckAndWisdomProject.Controls
 
         private Rectangle mouseRectangle;
 
-        private Color colour;
+        public Color colour { get; set; }
 
         public event EventHandler Click;
 
@@ -50,22 +50,29 @@ namespace withLuckAndWisdomProject.Controls
 
             PenColour = Color.Black;
 
+            colour = Color.White;
+
         }
 
         public Button(Texture2D texture)
         {
             _texture = texture;
 
+            colour = Color.White;
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            colour = Color.White;
 
-            if (_isHovering)
-                colour = Color.Gray;
+            if (_isHovering) {
+                spriteBatch.Draw(_texture, Rectangle, Color.Gray);
+            }
+            else
+            {
+                spriteBatch.Draw(_texture, Rectangle, colour);
+            }
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
             {

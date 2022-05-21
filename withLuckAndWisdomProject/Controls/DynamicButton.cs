@@ -19,7 +19,7 @@ namespace withLuckAndWisdomProject.Controls
 
         private Rectangle mouseRectangle;
 
-        private Color colour;
+        public Color colour { get; set; }
 
         public event EventHandler Click;
 
@@ -51,6 +51,7 @@ namespace withLuckAndWisdomProject.Controls
 
             PenColour = Color.Black;
 
+            colour = Color.White;
 
             IsVisible = true;
 
@@ -59,6 +60,9 @@ namespace withLuckAndWisdomProject.Controls
         public DynamicButton(Texture2D texture)
         {
             Texture = texture;
+            
+            colour = Color.White;
+
             IsVisible = true;
 
         }
@@ -67,12 +71,16 @@ namespace withLuckAndWisdomProject.Controls
         {
             if (IsVisible)
             {
-                colour = Color.White;
+                colour = colour;
 
                 if (_isHovering)
-                    colour = Color.Gray;
-
-                spriteBatch.Draw(Texture, Rectangle, colour);
+                {
+                    spriteBatch.Draw(Texture, Rectangle, Color.Gray);
+                }
+                else
+                {
+                    spriteBatch.Draw(Texture, Rectangle, colour);
+                }
 
                 if (!string.IsNullOrEmpty(Text))
                 {
