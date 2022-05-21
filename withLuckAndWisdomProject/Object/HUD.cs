@@ -51,7 +51,7 @@ namespace withLuckAndWisdomProject.Object
             spriteBatch.DrawString(_font, " Score ", new Vector2(100, 20), Color.Black);
             spriteBatch.DrawString(_font, "0", new Vector2(120, 80), Color.Black);
             spriteBatch.DrawString(_font, " Distance ", new Vector2(700, 20), Color.Black);
-            spriteBatch.DrawString(_font, "0", new Vector2(120, 80), Color.Black); 
+            spriteBatch.DrawString(_font, "0", new Vector2(720, 80), Color.Black); 
         }
     }
 } 
