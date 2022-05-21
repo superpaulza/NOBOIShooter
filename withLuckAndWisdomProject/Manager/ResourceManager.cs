@@ -24,6 +24,11 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D logo;
         public static Texture2D ball;
 
+        public static Texture2D cloudFirst;
+        public static Texture2D cloudSecound;
+        public static Texture2D cloudDungo;
+        public static Texture2D cloudHammer;
+
         public static Texture2D Bamboo;
         public static Texture2D Rabbit;
         public static Texture2D Pencil;
@@ -68,6 +73,11 @@ namespace withLuckAndWisdomProject.Screens
             overBackground = content.Load<Texture2D>("Images/over_background");
             logo = content.Load<Texture2D>("Images/logo-first");
             ball = content.Load<Texture2D>("Images/CircleSprite");
+
+            cloudFirst = content.Load<Texture2D>("Images/cloud-first");
+            cloudSecound = content.Load<Texture2D>("Images/cloud-second");
+            cloudDungo = content.Load<Texture2D>("Images/cloud-dungo");
+            cloudHammer = content.Load<Texture2D>("Images/cloud-hammer");
             
             Pencil = content.Load<Texture2D>("Controls/dot");
             Bamboo = content.Load<Texture2D>("Images/Bamboo");

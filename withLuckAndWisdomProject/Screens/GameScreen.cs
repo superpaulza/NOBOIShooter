@@ -18,6 +18,9 @@ namespace withLuckAndWisdomProject.Screens
         private World _world;
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
+        private List<Vector2> _clouds;
+        private Texture2D[] _cloudTexture;
+        private float _backgroundMove;
         private HUD _hud;
         private Rectangle _backgroundArea;
         private Texture2D _background;
@@ -41,7 +44,19 @@ namespace withLuckAndWisdomProject.Screens
             _sceenWidth = Singleton.Instance.ScreenWidth;
             _sceenHeight = Singleton.Instance.ScreenHeight;
             _backgroundArea = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
+            _clouds = new List<Vector2>();
+            _clouds.Add(new Vector2(100,200));
+            for (int i = 0; i < 5; i++)
+                GetRandomCloud();
+            _cloudTexture = new Texture2D[]
+            {
+                ResourceManager.cloudFirst,
+                ResourceManager.cloudSecound,
+                ResourceManager.cloudDungo,
+                ResourceManager.cloudHammer,
 
+            };
+            _backgroundMove = 0;
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
             int BambooCenter = Singleton.Instance.ScreenHeight - BAMBOO_START_HEGIHT / 2; 
@@ -70,18 +85,52 @@ namespace withLuckAndWisdomProject.Screens
             _gamePause.SetPlayer(_rabbit);
         }
 
+        public void GetRandomCloud()
+        {
+            Random random = new Random();
+            int y = random.Next(100, 300);
+            int next = random.Next(300, 600);
+            int x = (int)(_clouds[_clouds.Count - 1].X + next);
+            _clouds.Add(new Vector2(x, y));
+        }
+
+        public void MoveClound(GameTime gameTime)
+        {
+            var distance = _rabbit.ForwardLenght - _backgroundMove;
+            if (distance > 0)
+            {
+                for (int i = 0; i < _clouds.Count; i++)
+                    _clouds[i] = new Vector2(_clouds[i].X - distance * .1f, _clouds[i].Y );
+                _backgroundMove += distance;
+                for (int i = 0; i < _clouds.Count; i++)
+                {
+                    if(_clouds[i].X < -340)
+                    {
+                        _clouds.RemoveAt(i);
+                        GetRandomCloud();
+                    }
+                }
+                
+            }
+            
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
             // Draw game backgriund
             // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
             //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-
+            
 
 
             // Draw game background
-            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            spriteBatch.Draw(ResourceManager.gameBackground,_backgroundArea,
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
+            
+            
+            
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
@@ -106,16 +155,23 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
+                // Draw Clound
+                foreach (var cloud in _clouds) 
+                    spriteBatch.Draw(_cloudTexture[(int)cloud.Y % 4], cloud, Color.LightGray);
+                
+
                 // Draw HUD.
                 _hud.draw(gameTime, spriteBatch);
 
             }
 
+            
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
+
 
 
         }
@@ -132,6 +188,7 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
+                MoveClound(gameTime);
                 _rabbit.update(gameTime);
                 _hud.update(gameTime);
 

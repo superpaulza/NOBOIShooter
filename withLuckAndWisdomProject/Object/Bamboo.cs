@@ -41,6 +41,7 @@ namespace withLuckAndWisdomProject.Object
         private Texture2D _leaftexture;
         private float _height;
         private float _width;
+        private bool _drawLeaf;
 
         private List<Point> _joint;
         private List<float> _leaf;
@@ -61,7 +62,7 @@ namespace withLuckAndWisdomProject.Object
 
             _jointHeight = SET_HEIGHT_OF_JOINT;
             _width = SET_WIDTH_OF_BAMBOOS;
-            
+            _drawLeaf = false;
 
             _state = BambooState.Living;
             _joint = new List<Point>();
@@ -110,7 +111,7 @@ namespace withLuckAndWisdomProject.Object
             //spriteBatch.Draw(ResourceManager.Pencil, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
             //    Color.Lime, _body.Rotation, new Vector2(.5f, .5f), SpriteEffects.None, 0);
 
-            if(_type != BambooType.Friable)
+            if(_drawLeaf && _type != BambooType.Friable)
                 for (int i = 0; i < _leaf.Count; i++)
                     spriteBatch.Draw(_leaftexture, new Rectangle((int)Body.Position.X + _joint[i].X, (int)(Body.Position.Y - _height / 2 + _joint[i].Y), (int)_width, (int)_jointHeight), null,
                           Color.LightGreen, _leaf[i], new Vector2(0, _leaftexture.Height), SpriteEffects.None, 0);
