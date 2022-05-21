@@ -13,7 +13,7 @@ namespace withLuckAndWisdomProject.Object
     public class HUD
     {
         private int _score;
-        private int _distance;
+        private float _distance;
         private SpriteFont _font;
         private Vector2 _rabbitPosition;
         private Rabbit _rabbit;
@@ -21,7 +21,8 @@ namespace withLuckAndWisdomProject.Object
         public HUD(Vector2 rabbitPosition)
         {
             // Constructor Parameter Init.
-            //this._rabbitPosition = rabbitPosition;
+            this._rabbitPosition = rabbitPosition;
+            _distance = this._rabbitPosition.X;
 
             // Font Init.
             _font = ResourceManager.font;
@@ -59,7 +60,8 @@ namespace withLuckAndWisdomProject.Object
 
         public void update(GameTime gameTime)
         {
-            Console.WriteLine("Distance: " + _rabbitPosition.X);
+            
+            Console.WriteLine("Distance: " + _distance);
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)

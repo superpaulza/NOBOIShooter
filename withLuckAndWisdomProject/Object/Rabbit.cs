@@ -50,6 +50,11 @@ namespace withLuckAndWisdomProject.Object
         }
 
         private const int START_BAMBOO_CREATE_LENGTH = 1600;
+        private const int MIN_HEIGHT_OF_BAMBOO = 200;
+        private const int MAX_HEIGHT_OF_BAMBOO = 400;
+
+        private const int MIN_DISTAN_OF_BAMBOO = 250;
+        private const int MAX_DISTAN_OF_BAMBOO = 300;
 
         // Create defualt variable
         private Fixture _hitting;
@@ -220,6 +225,12 @@ namespace withLuckAndWisdomProject.Object
             
             
 
+            if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
+            {
+                RabbitState = RabbitState.Ending;
+                Body.Enabled = false;
+            }
+
             IsCollision = false;
         }
 
@@ -244,31 +255,41 @@ namespace withLuckAndWisdomProject.Object
 
                     // Draw Pathing
                     if (VisibleProjectile)
-                        for (int i = 0; i < 100; i++)
-                        {
-                            float t0 = .1f * i;
-                            float t1 = .1f * (i+1);
-                            Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position , Body.World.Gravity);
-                            Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position , Body.World.Gravity);
-                            DrawLine(x0, x1, spriteBatch, Color.LightGreen);
-                        }
+                        DrawProjectile(spriteBatch);
                 }
 
                 //spriteBatch.Draw(_texture, _body.Position, Color.White);
                 spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
 
                 //DrawLine(new Vector2(200,200), new Vector2(400, 400) , spriteBatch);
+
+            }
+        }
+
+        private void DrawProjectile (SpriteBatch spriteBatch)
+        {
+            int i = 0;
+            while (true)
+            {
+                float t0 = .1f * i;
+                float t1 = .1f * (i + 1);
+                Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position, Body.World.Gravity);
+                Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position, Body.World.Gravity);
+                DrawLine(x0, x1, spriteBatch, Color.LightGreen);
+                if (x1.Y > Singleton.Instance.ScreenHeight) break;
+                i++;
             }
         }
 
         private void RandomNextBamboo()
         {
             System.Random random = new System.Random();
-            float nextHeight = random.Next(200, 400);
+            float nextHeight = random.Next(MIN_HEIGHT_OF_BAMBOO, MAX_HEIGHT_OF_BAMBOO);
             int BambooCenter = Singleton.Instance.ScreenHeight - (int)(nextHeight / 2);
 
-            var Vertical = _bamboos[_bamboos.Count - 1].Body.Position.X + 250;
-            Forwarder -= 250;
+            float nextDistan = random.Next(MIN_DISTAN_OF_BAMBOO, MAX_DISTAN_OF_BAMBOO);
+            var Vertical = _bamboos[_bamboos.Count - 1].Body.Position.X + nextDistan;
+            Forwarder -= nextDistan;
             var bodyBaboo = Body.World.CreateRectangle(5, nextHeight, 1f, new Vector2(Vertical, BambooCenter), 0f, BodyType.Static);
 
             var nextType = random.NextDouble() > .2f ?
