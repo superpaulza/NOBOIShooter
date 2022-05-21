@@ -313,11 +313,6 @@
 /processorParam:TextureFormat=Color
 /build:Controls/Play.png
 
-#begin Controls/playedbackground.afdesign
-/importer:
-/processor:
-/build:Controls/playedbackground.afdesign
-
 #begin Controls/Score.png
 /importer:TextureImporter
 /processor:TextureProcessor
