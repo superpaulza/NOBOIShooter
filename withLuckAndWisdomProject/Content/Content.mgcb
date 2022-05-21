@@ -37,6 +37,12 @@
 /processorParam:Quality=Best
 /build:Audio/EndCreditBGM.wav
 
+#begin Audio/FallenSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/FallenSound.wav
+
 #begin Audio/GameBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -327,18 +333,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/bamboo-shoot.png
 
-#begin Images/bird-first.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/bird-first.png
-
 #begin Images/Bird-first.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -350,18 +344,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Bird-first.png
-
-#begin Images/bird-second.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/bird-second.png
 
 #begin Images/Bird-second.png
 /importer:TextureImporter
