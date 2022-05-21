@@ -63,6 +63,10 @@ namespace withLuckAndWisdomProject.Screens
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
+
+            //Change Sound When GameOver
+            AudioManager.StopSound("GameBGM");
+            AudioManager.PlaySound("GO");
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
