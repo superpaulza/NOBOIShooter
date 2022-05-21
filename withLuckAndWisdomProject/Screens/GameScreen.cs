@@ -130,7 +130,17 @@ namespace withLuckAndWisdomProject.Screens
             spriteBatch.Draw(ResourceManager.gameBackground,_backgroundArea,
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
 
-            
+            // Draw Clound
+            foreach (var cloud in _clouds)
+                spriteBatch.Draw(_cloudTexture[(int)cloud.Y % 4], cloud, Color.LightGray);
+
+            // Draw game object
+            _rabbit.draw(gameTime, spriteBatch);
+
+            // Draw bamboo
+            foreach (var bamboo in _bamboos)
+                bamboo.draw(gameTime, spriteBatch);
+
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
@@ -156,20 +166,10 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
-                // Draw Clound
-                foreach (var cloud in _clouds)
-                    spriteBatch.Draw(_cloudTexture[(int)cloud.Y % 4], cloud, Color.LightGray);
-
                 // Draw HUD.
                 _hud.draw(gameTime, spriteBatch);
-
-                // Draw game object
-                _rabbit.draw(gameTime, spriteBatch);
             }
 
-            // Draw bamboo
-            foreach (var bamboo in _bamboos)
-                bamboo.draw(gameTime, spriteBatch);
 
         }
 
