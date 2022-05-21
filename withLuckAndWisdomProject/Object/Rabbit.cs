@@ -132,6 +132,7 @@ namespace withLuckAndWisdomProject.Object
                     Random randomSound = new Random();
                     int index = randomSound.Next(RandomSound.Length);
                     AudioManager.PlaySound(RandomSound[index]);
+                    AudioManager.PlaySound("wind");
                 }
 
                 // finding projectile Line
@@ -167,6 +168,7 @@ namespace withLuckAndWisdomProject.Object
                 foreach(String st in RandomSound) {
                     AudioManager.StopSound(st);    
                 }
+                AudioManager.StopSound("wind");
                 AudioManager.PlaySound("ThreeHit");
             }
             IsCollision = false;
