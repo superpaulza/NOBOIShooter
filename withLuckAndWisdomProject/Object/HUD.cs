@@ -32,7 +32,7 @@ namespace withLuckAndWisdomProject.Object
         {
             // Draw Score Section.
             spriteBatch.DrawString(_font, "Score", new Vector2(100, 20), Color.Black);
-            spriteBatch.DrawString(_font, _rabbit.Score.ToString(), new Vector2(120, 80), Color.Black);
+            spriteBatch.DrawString(_font, _rabbit.Score.ToString(), new Vector2(110, 80), Color.Black);
 
         }
 
@@ -50,7 +50,7 @@ namespace withLuckAndWisdomProject.Object
         {
             // Draw Timer.
             spriteBatch.DrawString(_font, "Time", new Vector2(900, 20), Color.Black);
-            spriteBatch.DrawString(_font, _rabbit.PlayTime.ToString(@"hh\:mm\:ss"), new Vector2(920, 80), Color.Black);
+            spriteBatch.DrawString(_font, _rabbit.PlayTime.ToString(@"hh\:mm\:ss"), new Vector2(880, 80), Color.Black);
         }
 
         public void SetPlayer(object player)
