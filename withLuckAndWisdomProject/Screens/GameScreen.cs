@@ -29,7 +29,7 @@ namespace withLuckAndWisdomProject.Screens
         private Rectangle _backgroundTile2;
         private Texture2D gameBackground;
 
-        private GameOverScreen _gameOver;
+        private GameOverRays _gameOver;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -60,7 +60,9 @@ namespace withLuckAndWisdomProject.Screens
             _hud = new HUD(); 
 
             //load game over
-            _gameOver = new GameOverScreen();
+            _gameOver = new GameOverRays();
+
+            _gameOver.SetPlayer(_rabbit);
 
             
             

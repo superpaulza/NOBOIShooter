@@ -6,22 +6,26 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Controls;
 using withLuckAndWisdomProject.Data;
+using withLuckAndWisdomProject.Object;
 
 namespace withLuckAndWisdomProject.Screens
 {
-    public class GameOverScreen
+    public class GameOverRays
     {
         private List<Component> _components;
         private Texture2D _texture, _textureBtn;
         private SpriteFont _font;
         private Button _replayBtn, _homeBtn;
 
-        public GameOverScreen()
+        private Rabbit _player;
+
+        
+
+        public GameOverRays()
         {
             _texture = ResourceManager.overBackground;
             _textureBtn = ResourceManager.BasicBtn;
             _font = ResourceManager.font;
-
             _replayBtn = new Button(_textureBtn, _font)
             {
                 PenColour = Color.Yellow,
@@ -48,6 +52,10 @@ namespace withLuckAndWisdomProject.Screens
             };
 
         }
+        public void SetPlayer(object player)
+        {
+            _player = (Rabbit) player;
+        }
 
         private void replayBtnOnClick(object sender, EventArgs e)
         {
@@ -72,7 +80,7 @@ namespace withLuckAndWisdomProject.Screens
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
-            string gameScore = "Distance: " + " " + ", Time: " + " ";
+            string gameScore = "Distance: " + _player.ForwardLenght.ToString("N2") + " , Score: " + _player.Score.ToString();
             spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 350), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
             
