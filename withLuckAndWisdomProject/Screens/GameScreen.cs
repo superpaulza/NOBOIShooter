@@ -17,6 +17,7 @@ namespace withLuckAndWisdomProject.Screens
         private World _world;
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
+        private HUD _hud;
 
         private Button _backButton;
         private List<Component> _components;
@@ -79,7 +80,10 @@ namespace withLuckAndWisdomProject.Screens
             // Draw game backgriund
             // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
             //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-            
+
+            // Draw HUD.
+            _hud?.draw(gameTime, spriteBatch);
+
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
@@ -88,7 +92,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
-
         }
 
         public override void Update(GameTime gameTime)
