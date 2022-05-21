@@ -7,7 +7,12 @@ namespace withLuckAndWisdomProject
     [Serializable]
     class Settings
     {
-        public int gameMainSound;
-        public int gameSFXSound;
+        public float gameMainSound;
+        public float gameSFXSound;
+        public bool IsEnableAimer;
+        public bool IsEnableSFX;
+        public bool IsEnableBGM;
+
+
     }
 }
