@@ -172,7 +172,7 @@ namespace withLuckAndWisdomProject.Object
                 if (lenght2top < 150)
                 {
                     Body.Position = topBamboo;
-                    Score += (100 - lenght2top) * 10;
+                    Score += (100 - Math.Abs(lenght2top) * -1) * 10;
                     Body.LinearVelocity = Vector2.Zero;
                 }
 

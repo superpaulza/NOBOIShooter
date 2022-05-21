@@ -265,6 +265,7 @@ namespace withLuckAndWisdomProject.Screens
         private void ApplyBtnOnClick(object sender, EventArgs e)
         {
             OnExiting();
+            ScreenManager.ChangeScreen = "menu";
         }
 
         public override void Update(GameTime gameTime)
@@ -276,7 +277,7 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
-            spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 50), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 100), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1.5f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -293,6 +294,8 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
+
+            AudioManager.PlaySound("GameBGM", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
