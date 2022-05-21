@@ -99,7 +99,7 @@ namespace withLuckAndWisdomProject.Object
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
             // Jumping Sound list
-            String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
+            String[] RandomSound = new string[] { "Jumping2", "Jumping3" };
 
             if (RabbitState == RabbitState.Ready)
             {

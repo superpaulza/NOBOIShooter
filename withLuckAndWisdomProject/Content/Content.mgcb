@@ -13,18 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Audio/BallHit.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BallHit.wav
-
-#begin Audio/BeCrazyForMe.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BeCrazyForMe.wav
-
 #begin Audio/Bushing.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -48,12 +36,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/GameBGM.wav
-
-#begin Audio/JumpingSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/JumpingSound.wav
 
 #begin Audio/JumpingSound2.wav
 /importer:WavImporter
