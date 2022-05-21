@@ -269,7 +269,7 @@ namespace withLuckAndWisdomProject.Object
         private void DrawProjectile (SpriteBatch spriteBatch)
         {
             int i = 0;
-            while (true)
+            while (Singleton.Instance.IsEnableAimer)
             {
                 float t0 = .1f * i;
                 float t1 = .1f * (i + 1);
