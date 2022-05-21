@@ -37,6 +37,12 @@
 /processorParam:Quality=Best
 /build:Audio/GameBGM.wav
 
+#begin Audio/GameOverBGM.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/GameOverBGM.wav
+
 #begin Audio/JumpingSound2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

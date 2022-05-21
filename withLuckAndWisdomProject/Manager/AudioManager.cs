@@ -55,6 +55,7 @@ namespace withLuckAndWisdomProject
                 {"Bushing", "ThreeHit"},
                 {"GameBGM", "GameBGM" },
                 {"MenuBGM", "MenuBGM"},
+                {"GameOverBGM", "GO"},
                 {"JumpingSound2", "Jumping2"},
                 {"JumpingSound3", "Jumping3"},
                 {"FallenSound", "fall"},
