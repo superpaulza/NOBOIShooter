@@ -30,6 +30,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public static Texture2D BackgroundMoutain;
         public static Texture2D BackgroundGame;
+        public static Texture2D overBackground;
 
         public static Texture2D BasicBtn;
         

@@ -28,6 +28,8 @@ namespace withLuckAndWisdomProject.Screens
             {
                 _settings = (Settings)FileManager.ReadFromObj("GameSetting.config");
                 //load settings
+                Singleton.Instance.SFXVolume = _settings.gameSFXSound;
+                Singleton.Instance.BGMVolume = _settings.gameMainSound;
             }
             else
             {

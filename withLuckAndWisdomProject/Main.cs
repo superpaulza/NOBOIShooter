@@ -11,7 +11,6 @@ namespace withLuckAndWisdomProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private ScreenManager _screenManager;
-        public static SpriteBatch spriteBatch;
 
         // Main Constructure
         public Main()
