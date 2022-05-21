@@ -62,7 +62,7 @@ namespace withLuckAndWisdomProject.Screens
             BambooShoot = content.Load<Texture2D>("Images/bamboo-shoot");
 
             // BackgroundMoutain = content.Load<Texture2D>("Images/mountain");
-            // BackgroundGame = content.Load<Texture2D>("Images/gamebackgroind");
+            BackgroundGame = content.Load<Texture2D>("Images/gamebackgroind");
              
 
             BackBtn = content.Load<Texture2D>("Controls/BackButtonWhite");

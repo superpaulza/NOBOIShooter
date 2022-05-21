@@ -20,7 +20,12 @@ namespace withLuckAndWisdomProject.Screens
 
         private Button _backButton;
         private List<Component> _components;
-        private Texture2D gameBackground;
+        private Texture2D _gameBackground;
+
+        private int _sceenWidth;
+        private int _sceenHeight;
+        private Rectangle _backgroundTile1;
+        private Rectangle _backgroundTile2;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -29,7 +34,9 @@ namespace withLuckAndWisdomProject.Screens
             _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // load asset
-            gameBackground = ResourceManager.gameBackground;
+            _gameBackground = ResourceManager.BackgroundGame;
+            _sceenWidth = Singleton.Instance.ScreenWidth;
+            _sceenHeight = Singleton.Instance.ScreenHeight;
 
             //world of physic
             _world = new World();
@@ -47,8 +54,8 @@ namespace withLuckAndWisdomProject.Screens
             var bodyRabbit = _world.CreateRectangle(rabbitWidth, RABBIT_HEIGHT, 1.5f, rabbitPosition, 0f, BodyType.Dynamic);
             bodyRabbit.FixedRotation = true;
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
-            
 
+            
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
             {
@@ -77,9 +84,12 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Draw game background
-            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-            
+            if (_rabbit.RabbitState != RabbitState.Ending)
+            {
+                spriteBatch.Draw(_gameBackground, _backgroundTile1, Color.White);
+                spriteBatch.Draw(_gameBackground, _backgroundTile2, Color.White);
+            }
+
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
@@ -100,6 +110,12 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Update(gameTime);
+            //_backgroundNow = (int) _rabbit.ForwardLenght;
+            //_backgroundMove = (int)(_rabbit.ForwardLenght * gameTime.ElapsedGameTime.TotalSeconds * 5);
+            //System.Diagnostics.Debug.WriteLine(_backgroundMove);
+            //_backgroundTile1 = new Rectangle(-_backgroundMove, 0, _sceenWidth, _sceenHeight);
+            //_backgroundTile2 = new Rectangle(_sceenWidth - _backgroundMove, 0, _sceenWidth, _sceenHeight);
+            _backgroundTile1 = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
