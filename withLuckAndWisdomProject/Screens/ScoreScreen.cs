@@ -112,6 +112,8 @@ namespace withLuckAndWisdomProject.Screens
                 _rightButton.Draw(gameTime, spriteBatch);
 
             _backButton.Draw(gameTime,spriteBatch);
+
+            AudioManager.PlaySound("GameBGM", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
