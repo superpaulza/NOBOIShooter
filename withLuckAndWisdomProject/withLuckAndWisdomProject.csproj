@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+	<ApplicationIcon>icon.ico</ApplicationIcon>
     <StartupObject />
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="icon.ico" />
+		<EmbeddedResource Include="Icon.bmp" />
+	</ItemGroup>
   <ItemGroup>
     <Compile Remove="Content\SFX\**" />
     <EmbeddedResource Remove="Content\SFX\**" />
     <None Remove="Content\SFX\**" />
   </ItemGroup>
-    <ItemGroup>
-	    <EmbeddedResource Include="icon.ico" />
-	    <EmbeddedResource Include="Icon.bmp" />
-    </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
