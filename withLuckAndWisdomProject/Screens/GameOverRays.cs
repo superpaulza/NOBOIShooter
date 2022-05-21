@@ -84,7 +84,7 @@ namespace withLuckAndWisdomProject.Screens
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
-            string gameScore = "Distance: " + _player.ForwardLenght.ToString("N2") + " , Score: " + _player.Score.ToString();
+            string gameScore = "Distance: " + _player.ForwardLenght.ToString("N2") + "\n\n\n\n\n" + "Score: " + _player.Score.ToString() + "\n\n\n\n\n" + "Time: " + _player.PlayTime.ToString();
             spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 350), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
             
