@@ -89,6 +89,7 @@ namespace withLuckAndWisdomProject.Object
             {
                 _hitter.LinearVelocity += new Vector2(-50, 0);
                 _state = BambooState.Living;
+                AudioManager.PlaySound("fall");
             }
         }
 

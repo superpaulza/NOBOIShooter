@@ -13,18 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Audio/BallHit.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BallHit.wav
-
-#begin Audio/BeCrazyForMe.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BeCrazyForMe.wav
-
 #begin Audio/Bushing.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -37,17 +25,17 @@
 /processorParam:Quality=Best
 /build:Audio/EndCreditBGM.wav
 
+#begin Audio/FallenSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/FallenSound.wav
+
 #begin Audio/GameBGM.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/GameBGM.wav
-
-#begin Audio/JumpingSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/JumpingSound.wav
 
 #begin Audio/JumpingSound2.wav
 /importer:WavImporter
@@ -423,7 +411,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/bamboo-shoot.png
 
-#begin Images/bamboo-shoot.png
+#begin Images/Bird-first.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -433,7 +421,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/bamboo-shoot.png
+/build:Images/Bird-first.png
+
+#begin Images/Bird-second.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Bird-second.png
 
 #begin Images/Brid.png
 /importer:TextureImporter
@@ -519,42 +519,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/Jump.png
 
-#begin Images/Jump.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Jump.png
-
-#begin Images/leaderboard.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/leaderboard.png
-
-#begin Images/logo.jpg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/logo.jpg
-
 #begin Images/Logo.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -590,18 +554,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/logo-first.png
-
-#begin Images/over_background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/over_background.png
 
 #begin Images/Panda.jpg
 /importer:TextureImporter

@@ -17,6 +17,7 @@ namespace withLuckAndWisdomProject.Screens
         private World _world;
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
+        private HUD _hud;
 
         private Button _backButton;
         private List<Component> _components;
@@ -67,11 +68,22 @@ namespace withLuckAndWisdomProject.Screens
             else
             {
 
-            }
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+<<<<<<< HEAD
             // Draw game backgriund
             // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
             //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
 
+            // Draw HUD.
+            _hud?.draw(gameTime, spriteBatch);
+
+=======
+            // Draw game background
+            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+            
+>>>>>>> 71f4835b78dc82f064b94b8719a373cf7a7aa305
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
@@ -80,7 +92,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -108,7 +119,7 @@ namespace withLuckAndWisdomProject.Screens
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update speed up
-            //set update 6x
+            //set update 5x
             for (int i = 0; i < 6; i++)
             {
                 _world.Step(gameTime.ElapsedGameTime);

@@ -34,6 +34,7 @@ namespace withLuckAndWisdomProject.Object
     {
         // Public variable
         public int Score { get; set; }
+        public bool VisibleProjectile{ get; set; }
         public float Forwarding { get; set; }
         public float Forwarder { get; set; }
         public Body Body { get; set; }
@@ -80,6 +81,7 @@ namespace withLuckAndWisdomProject.Object
             _origin = new Vector2(_texture.Width / 2, _texture.Height / 2);
 
             Score = 0;
+            VisibleProjectile = true;
             Body.OnCollision += CollisionHandler;
 
             Forwarder = START_BAMBOO_CREATE_LENGTH;
@@ -99,7 +101,7 @@ namespace withLuckAndWisdomProject.Object
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
             // Jumping Sound list
-            String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
+            String[] RandomSound = new string[] { "Jumping2", "Jumping3" };
 
             if (RabbitState == RabbitState.Ready)
             {
@@ -213,18 +215,20 @@ namespace withLuckAndWisdomProject.Object
                 if (RabbitState == RabbitState.Aiming)
                 {
                     // Draw Draging
+                    
                     spriteBatch.Draw(_pencilDot, new Rectangle((int)_dragStart.X, (int)_dragStart.Y, 3, (int)_dragLength), null,
                         Color.Red, _dragAngle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
 
                     // Draw Pathing
-                    for (int i = 0; i < 100; i++)
-                    {
-                        float t0 = .1f * i;
-                        float t1 = .1f * (i+1);
-                        Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position , Body.World.Gravity);
-                        Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position , Body.World.Gravity);
-                        DrawLine(x0, x1, spriteBatch, Color.LightGreen);
-                    }
+                    if (VisibleProjectile)
+                        for (int i = 0; i < 100; i++)
+                        {
+                            float t0 = .1f * i;
+                            float t1 = .1f * (i+1);
+                            Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position , Body.World.Gravity);
+                            Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position , Body.World.Gravity);
+                            DrawLine(x0, x1, spriteBatch, Color.LightGreen);
+                        }
                 }
 
                 //spriteBatch.Draw(_texture, _body.Position, Color.White);
