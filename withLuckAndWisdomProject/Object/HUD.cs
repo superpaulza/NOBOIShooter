@@ -41,6 +41,16 @@ namespace withLuckAndWisdomProject.Object
 
         }
 
+        public void UpdateScore()
+        {
+
+        }
+
+        public void UpdateDistance()
+        {
+            
+        }
+
         public void update(GameTime gameTime)
         {
 
