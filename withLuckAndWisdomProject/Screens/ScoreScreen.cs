@@ -26,7 +26,7 @@ namespace withLuckAndWisdomProject.Screens
         private Rectangle _areaBackGround;
 
         private string _titleText = "Score List";
-        private string _scoretext;
+        private string _scoretext, _scoretextMore;
         private Vector2 _titlePosion;
 
         private List<Component> _components;
@@ -48,14 +48,14 @@ namespace withLuckAndWisdomProject.Screens
 
             _leftButton = new Button(ResourceManager.decreseBtn)
             {
-                Position = new Vector2(550, 550),
+                Position = new Vector2(550, 650),
             };
 
             _leftButton.Click += LeftButtonOnClick;
 
             _rightButton = new Button(ResourceManager.increseBtn)
             {
-                Position = new Vector2(700, 550),
+                Position = new Vector2(700, 650),
             };
 
             _rightButton.Click += RightButtonOnClick;
@@ -71,7 +71,7 @@ namespace withLuckAndWisdomProject.Screens
             int width = Singleton.Instance.ScreenWidth / 5;
             int height = Singleton.Instance.ScreenHeight / 15;
             _areaBackGround = new Rectangle(width, height, width * 3, height * 10);
-            _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_titleText).X) / 2, 100f);
+            _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_titleText).X) / 2, 80f);
         }
 
         public override void Update(GameTime gameTime)
@@ -86,7 +86,7 @@ namespace withLuckAndWisdomProject.Screens
             
 
             // Draw text title
-            spriteBatch.DrawString(_font, _titleText, _titlePosion, Color.White);
+            spriteBatch.DrawString(_font, _titleText, _titlePosion, Color.DarkGreen);
 
             // Write score 
             for (int i = 0; i < LIMIT_SCORE_PER_PAGE; i++)
@@ -94,8 +94,12 @@ namespace withLuckAndWisdomProject.Screens
                 int index = _scorePage * LIMIT_SCORE_PER_PAGE + i;
                 if (index < _scoreBord.ScoresTables.Count)
                 {
-                    _scoretext = (index + 1) + ". Score : " + _scoreBord.ScoresTables[index].ScoreGet.ToString() + " | " + _scoreBord.ScoresTables[index].TimePlay.ToString("g");
-                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 50), (i % 2 == 0) ? Color.Black : Color.DarkGray);
+                    _scoretext = (index + 1) + ". Score : " + _scoreBord.ScoresTables[index].ScoreGet.ToString();
+                    _scoretextMore = "Distance : " + _scoreBord.ScoresTables[index].Distance.ToString("N0") +
+                        " | Play : " + _scoreBord.ScoresTables[index].TimePlay.ToString(@"mm\:ss");
+                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 100), (i % 2 == 0) ? Color.Black : Color.DarkSlateGray);
+                    spriteBatch.DrawString(_font, _scoretextMore, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretextMore).X), 200f + i * 100), Color.White, 0f, _font.MeasureString(_scoretextMore) * 0.5f, .5f, SpriteEffects.None, 0f);
+
                 }
 
             }
