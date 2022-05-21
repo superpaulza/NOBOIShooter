@@ -42,9 +42,6 @@ namespace withLuckAndWisdomProject.Screens
             _sceenWidth = Singleton.Instance.ScreenWidth;
             _sceenHeight = Singleton.Instance.ScreenHeight;
 
-            //world of physic
-            _world = new World();
-            _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
@@ -64,16 +61,10 @@ namespace withLuckAndWisdomProject.Screens
 
             //load game over
             _gameOver = new GameOverScreen();
-        }
 
             
-            // Create back to main menu button
-            _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
-            {
-                PenColour = Color.Red,
-                Position = new Vector2(1000, 40),
-                Text = "Back",
-            };
+            
+        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -112,16 +103,7 @@ namespace withLuckAndWisdomProject.Screens
         public override void Update(GameTime gameTime)
         {
 
-            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
-
-            foreach (Component component in _components)
-                component.Update(gameTime);
-            //_backgroundNow = (int) _rabbit.ForwardLenght;
-            //_backgroundMove = (int)(_rabbit.ForwardLenght * gameTime.ElapsedGameTime.TotalSeconds * 5);
-            //System.Diagnostics.Debug.WriteLine(_backgroundMove);
-            //_backgroundTile1 = new Rectangle(-_backgroundMove, 0, _sceenWidth, _sceenHeight);
-            //_backgroundTile2 = new Rectangle(_sceenWidth - _backgroundMove, 0, _sceenWidth, _sceenHeight);
+            
             _backgroundTile1 = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
 
             //when rabbit died
@@ -138,6 +120,10 @@ namespace withLuckAndWisdomProject.Screens
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
+
+            // Naive way speed up game physic time
+            for (int i = 0; i < 6; i++) 
+                _world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 
         }
 
