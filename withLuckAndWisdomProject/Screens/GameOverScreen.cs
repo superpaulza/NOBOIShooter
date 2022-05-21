@@ -24,7 +24,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _replayBtn = new Button(_textureBtn, _font)
             {
-                PenColour = Color.DarkGreen,
+                PenColour = Color.Yellow,
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
                 Text = "Replay"
             };
@@ -33,7 +33,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _homeBtn = new Button(_textureBtn, _font)
             {
-                PenColour = Color.DarkGreen,
+                PenColour = Color.Yellow,
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
                 Text = "Home"
             };
@@ -67,10 +67,10 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
             string gameScore = "Distance: " + " " + ", Time: " + " ";
-            spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black);
-            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 200), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 400), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 350), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
             
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);

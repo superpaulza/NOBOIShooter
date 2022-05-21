@@ -57,7 +57,8 @@ namespace withLuckAndWisdomProject
                 {"MenuBGM", "MenuBGM"},
                 {"JumpingSound2", "Jumping2"},
                 {"JumpingSound3", "Jumping3"},
-                {"FallenSound", "fall"}
+                {"FallenSound", "fall"},
+                {"WindSound", "wind"}
 
             };
 

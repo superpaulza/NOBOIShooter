@@ -19,6 +19,14 @@ namespace withLuckAndWisdomProject.Screens
         private List<Bamboo> _bamboos;
         private HUD _hud;
 
+        private Button _backButton;
+        private List<Component> _components;
+        private Texture2D _gameBackground;
+
+        private int _sceenWidth;
+        private int _sceenHeight;
+        private Rectangle _backgroundTile1;
+        private Rectangle _backgroundTile2;
         private Texture2D gameBackground;
 
         private GameOverScreen _gameOver;
@@ -30,11 +38,10 @@ namespace withLuckAndWisdomProject.Screens
             _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // load asset
-            gameBackground = ResourceManager.gameBackground;
+            _gameBackground = ResourceManager.BackgroundGame;
+            _sceenWidth = Singleton.Instance.ScreenWidth;
+            _sceenHeight = Singleton.Instance.ScreenHeight;
 
-            //world of physic
-            _world = new World();
-            _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
@@ -49,13 +56,29 @@ namespace withLuckAndWisdomProject.Screens
             bodyRabbit.FixedRotation = true;
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
+            // Load HUD.
+            //_hud = new HUD(); // Comment the HUD instance because of the bug will happen. 
 
             //load game over
             _gameOver = new GameOverScreen();
+
+            
+            
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
+            // Draw game backgriund
+            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
+
+
+            // Draw game background
+            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
             {
@@ -63,32 +86,25 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
+                // Draw HUD.
+                _hud?.draw(gameTime, spriteBatch);
+
             }
 
-            // Draw game backgriund
-            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-
-            // Draw HUD.
-            _hud?.draw(gameTime, spriteBatch);
-
-            // Draw game background
-            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-            
             // Draw game object
             _rabbit.draw(gameTime, spriteBatch);
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
+
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            _rabbit.update(gameTime);
 
-            foreach (var bamboo in _bamboos)
-                bamboo.update(gameTime);
+            
+            _backgroundTile1 = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
@@ -97,20 +113,18 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
+                _rabbit.update(gameTime);
+
+                foreach (var bamboo in _bamboos)
+                    bamboo.update(gameTime);
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
 
-            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
+            // Naive way speed up game physic time
+            for (int i = 0; i < 6; i++) 
+                _world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            //very naive world time update speed up
-            //set update 5x
-            for (int i = 0; i < 6; i++)
-            {
-                _world.Step(gameTime.ElapsedGameTime);
-            }
-            
         }
 
         public override void PostUpdate(GameTime gameTime)
