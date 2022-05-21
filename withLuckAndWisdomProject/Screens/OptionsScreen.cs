@@ -30,6 +30,10 @@ namespace withLuckAndWisdomProject.Screens
                 //load settings
                 Singleton.Instance.SFXVolume = _settings.gameSFXSound;
                 Singleton.Instance.BGMVolume = _settings.gameMainSound;
+                Singleton.Instance.IsEnableAimer = _settings.IsEnableAimer;
+                Singleton.Instance.IsEnableSFX = _settings.IsEnableSFX;
+                Singleton.Instance.IsEnableBGM = _settings.IsEnableBGM;
+
             }
             else
             {
@@ -129,6 +133,8 @@ namespace withLuckAndWisdomProject.Screens
                 Text = "Apply"
             };
 
+            _applyButton.Click += ApplyBtnOnClick;
+
             //load buttons onto component aka. dynamic drawing list
             _components = new List<Component>()
             {
@@ -160,7 +166,7 @@ namespace withLuckAndWisdomProject.Screens
             else if (_sfxVolume == 0)
             {
                 Singleton.Instance.IsEnableSFX = true;
-                // _volumeSFXControlButton.Texture = _volumeOn;
+                _volumeSFXControlButton.Texture = _volumeOn;
                 _sfxVolume += _speed;
                 Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
             }
@@ -177,7 +183,7 @@ namespace withLuckAndWisdomProject.Screens
             {
                 _sfxVolume -= _speed;
                 Singleton.Instance.IsEnableSFX = false;
-                // _volumeSFXControlButton.Texture = _volumeOff;
+                _volumeSFXControlButton.Texture = _volumeOff;
                 Singleton.Instance.SFXVolume = 0.0f;
             }
         }
@@ -192,7 +198,7 @@ namespace withLuckAndWisdomProject.Screens
             else if (_bgmVolume == 0)
             {
                 Singleton.Instance.IsEnableBGM = true;
-                // _volumeBGMControlButton.Texture = _volumeOn;
+                _volumeBGMControlButton.Texture = _volumeOn;
                 _bgmVolume += _speed;
                 Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
             }
@@ -209,7 +215,7 @@ namespace withLuckAndWisdomProject.Screens
             {
                 _bgmVolume -= _speed;
                 Singleton.Instance.IsEnableBGM = false;
-                // _volumeBGMControlButton.Texture = _volumeOff;
+                _volumeBGMControlButton.Texture = _volumeOff;
                 Singleton.Instance.BGMVolume = 0.0f;
             }
         }
@@ -256,6 +262,12 @@ namespace withLuckAndWisdomProject.Screens
             _guidelineAimerButton.Texture = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
         }
 
+        private void ApplyBtnOnClick(object sender, EventArgs e)
+        {
+            OnExiting();
+            ScreenManager.ChangeScreen = "menu";
+        }
+
         public override void Update(GameTime gameTime)
         {
             foreach (Component component in _components)
@@ -265,7 +277,7 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
-            spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 50), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 100), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1.5f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
@@ -282,6 +294,8 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
+
+            AudioManager.PlaySound("GameBGM", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -293,7 +307,11 @@ namespace withLuckAndWisdomProject.Screens
         {
             _settings = new Settings();
             //save setting to file
-
+            _settings.gameMainSound = Singleton.Instance.BGMVolume;
+            _settings.gameSFXSound = Singleton.Instance.SFXVolume;
+            _settings.IsEnableAimer = Singleton.Instance.IsEnableAimer;
+            _settings.IsEnableSFX = Singleton.Instance.IsEnableSFX;
+            _settings.IsEnableBGM = Singleton.Instance.IsEnableBGM;
             FileManager.WriteToObj("GameSetting.config", _settings);
         }
     }

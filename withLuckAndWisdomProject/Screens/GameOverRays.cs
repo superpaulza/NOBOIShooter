@@ -29,7 +29,7 @@ namespace withLuckAndWisdomProject.Screens
             _replayBtn = new Button(_textureBtn, _font)
             {
                 PenColour = Color.Yellow,
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
                 Text = "Replay"
             };
 
@@ -38,7 +38,7 @@ namespace withLuckAndWisdomProject.Screens
             _homeBtn = new Button(_textureBtn, _font)
             {
                 PenColour = Color.Yellow,
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 175, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
                 Text = "Home"
             };
 
@@ -84,10 +84,14 @@ namespace withLuckAndWisdomProject.Screens
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
-            string gameScore = "Distance: " + _player.ForwardLenght.ToString("N2") + " , Score: " + _player.Score.ToString();
-            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 350), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
-            
+            string gameScore = _player.Score.ToString();
+            string gameDistance = "Distance: " + _player.ForwardLenght.ToString("N2");
+            string Timer = "Time: " + _player.PlayTime.ToString(@"hh\:mm\:ss");
+            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.Red, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "Score", new Vector2(Singleton.Instance.ScreenWidth / 2, 275), Color.White, 0f, _font.MeasureString("Score") * 0.5f, 2f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 375), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 2f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, gameDistance + "      " + Timer, new Vector2(Singleton.Instance.ScreenWidth / 2, 450), Color.White, 0f, _font.MeasureString(gameDistance + "      " + Timer) * 0.5f, 1f, SpriteEffects.None, 0f);
+
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
         }
