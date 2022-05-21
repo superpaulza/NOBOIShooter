@@ -18,8 +18,6 @@ namespace withLuckAndWisdomProject.Screens
         private SpriteFont _font, _headerFont;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton, _applyButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
-        private float _sfxVolume = 100, _bgmVolume = 100;
-        private int _speed = 5;
 
         public OptionsScreen()
         {
@@ -52,6 +50,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _backButton.Click += BackButtonOnClick;
 
+            //SFXVolume
             _increaseSFXButton = new Button(_increaseIcon)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 175),
@@ -66,6 +65,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _decreaseSFXButton.Click += DecreaseSFXButtonOnClick;
 
+            //BGMVolume
             _increaseBGMButton = new Button(_increaseIcon)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 150, 275),
@@ -80,6 +80,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _decreaseBGMButton.Click += DecreaseBGMButtonOnClick;
 
+            //apply
             _applyButton = new Button(_basicBtn, _font)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 70, Singleton.Instance.ScreenHeight / 2 + 120),
@@ -146,9 +147,9 @@ namespace withLuckAndWisdomProject.Screens
 
             spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 450), Color.White, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, Singleton.Instance.SFXVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, Singleton.Instance.BGMVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);

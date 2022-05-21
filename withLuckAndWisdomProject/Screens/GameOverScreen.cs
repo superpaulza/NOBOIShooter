@@ -9,7 +9,7 @@ using withLuckAndWisdomProject.Data;
 
 namespace withLuckAndWisdomProject.Screens
 {
-    public class GameOverScreen : AScreen
+    public class GameOverScreen
     {
         private List<Component> _components;
         private Texture2D _texture, _textureBtn;
@@ -59,13 +59,13 @@ namespace withLuckAndWisdomProject.Screens
             ScreenManager.ChangeScreen = "menu";
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             foreach (Component component in _components)
                 component.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
             string gameScore = "Distance: " + " " + ", Time: " + " ";
@@ -76,7 +76,7 @@ namespace withLuckAndWisdomProject.Screens
                 component.Draw(gameTime, spriteBatch);
         }
 
-        public override void PostUpdate(GameTime gameTime)
+        public void PostUpdate(GameTime gameTime)
         {
 
         }
