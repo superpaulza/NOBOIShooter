@@ -69,11 +69,7 @@ namespace withLuckAndWisdomProject.Object
             spriteBatch.DrawString(_font, "Score", new Vector2(100, 20), Color.Black);
             spriteBatch.DrawString(_font, _rabbit.Score.ToString(), new Vector2(120, 80), Color.Black);
             spriteBatch.DrawString(_font, "Distance", new Vector2(500, 20), Color.Black);
-<<<<<<< HEAD
-            spriteBatch.DrawString(_font, _distance.ToString(), new Vector2(520, 80), Color.Black);
-=======
             spriteBatch.DrawString(_font, _rabbit.ForwardLenght.ToString("N0"), new Vector2(520, 80), Color.Black);
->>>>>>> 5815400d0ccdfb608aaeba7d30549f24a52fe413
             spriteBatch.DrawString(_font, "Time", new Vector2(900, 20), Color.Black);
             spriteBatch.DrawString(_font, _rabbit.PlayTime.ToString(@"hh\:mm\:ss"), new Vector2(920, 80), Color.Black);
         }

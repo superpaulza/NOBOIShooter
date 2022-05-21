@@ -220,16 +220,13 @@ namespace withLuckAndWisdomProject.Object
             
             
 
-<<<<<<< HEAD
             if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
             {
                 RabbitState = RabbitState.Ending;
                 Body.Enabled = false;
             }
 
-=======
             IsCollision = false;
->>>>>>> 5815400d0ccdfb608aaeba7d30549f24a52fe413
         }
 
         

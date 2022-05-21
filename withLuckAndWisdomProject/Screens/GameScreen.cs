@@ -57,11 +57,8 @@ namespace withLuckAndWisdomProject.Screens
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
             // Load HUD.
-<<<<<<< HEAD
             //_hud = new HUD(rabbitPosition); 
-=======
             _hud = new HUD(rabbitPosition);
->>>>>>> 5815400d0ccdfb608aaeba7d30549f24a52fe413
 
             _hud.SetPlayer(_rabbit);
             //load game over
@@ -94,7 +91,7 @@ namespace withLuckAndWisdomProject.Screens
             else
             {
                 // Draw HUD.
-                //_hud.draw(gameTime, spriteBatch);
+                _hud.draw(gameTime, spriteBatch);
 
             }
 
