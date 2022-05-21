@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Controls;
-using withLuckAndWisdomProject.Data;
 using withLuckAndWisdomProject.Object;
 
 namespace withLuckAndWisdomProject.Screens
