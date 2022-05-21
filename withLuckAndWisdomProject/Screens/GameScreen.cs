@@ -19,8 +19,6 @@ namespace withLuckAndWisdomProject.Screens
         private List<Bamboo> _bamboos;
         private HUD _hud;
 
-        private Button _backButton;
-        private List<Component> _components;
         private Texture2D gameBackground;
 
         private GameOverScreen _gameOver;
@@ -83,9 +81,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
-
-            foreach (Component component in _components)
-                component.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
@@ -94,9 +89,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
-
-            foreach (Component component in _components)
-                component.Update(gameTime);
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
