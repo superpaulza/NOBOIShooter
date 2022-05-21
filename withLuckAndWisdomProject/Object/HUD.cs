@@ -15,9 +15,14 @@ namespace withLuckAndWisdomProject.Object
         private int _score;
         private int _distance;
         private SpriteFont _font;
+        private Vector2 _rabbitPosition;
+        private Rabbit _rabbit;
 
         public HUD()
         {
+            // Constructor Parameter Init.
+            //this._rabbitPosition = rabbitPosition;
+
             // Font Init.
             _font = ResourceManager.font;
         }

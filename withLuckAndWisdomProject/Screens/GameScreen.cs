@@ -57,7 +57,7 @@ namespace withLuckAndWisdomProject.Screens
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
             // Load HUD.
-            //_hud = new HUD(); // Comment the HUD instance because of the bug will happen. 
+            _hud = new HUD(); 
 
             //load game over
             _gameOver = new GameOverScreen();
@@ -87,7 +87,7 @@ namespace withLuckAndWisdomProject.Screens
             else
             {
                 // Draw HUD.
-                _hud?.draw(gameTime, spriteBatch);
+                _hud.draw(gameTime, spriteBatch);
 
             }
 
