@@ -79,12 +79,13 @@ namespace withLuckAndWisdomProject.Screens
                 // Draw HUD.
                 _hud?.draw(gameTime, spriteBatch);
 
-                // Draw game object
-                _rabbit.draw(gameTime, spriteBatch);
-
-                foreach (var bamboo in _bamboos)
-                    bamboo.draw(gameTime, spriteBatch);
             }
+
+            // Draw game object
+            _rabbit.draw(gameTime, spriteBatch);
+
+            foreach (var bamboo in _bamboos)
+                bamboo.draw(gameTime, spriteBatch);
 
 
         }
