@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:Controls/Achievement.png
 
+#begin Controls/Apply.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Apply.png
+
 #begin Controls/BackButtonBlack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -169,6 +181,18 @@
 /processorParam:TextureFormat=Color
 /build:Controls/dot.png
 
+#begin Controls/Home.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Home.png
+
 #begin Controls/increase.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -181,6 +205,18 @@
 /processorParam:TextureFormat=Color
 /build:Controls/increase.png
 
+#begin Controls/Pause.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Pause.png
+
 #begin Controls/Play.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -192,6 +228,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Controls/Play.png
+
+#begin Controls/Replay.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Replay.png
 
 #begin Controls/Score.png
 /importer:TextureImporter
