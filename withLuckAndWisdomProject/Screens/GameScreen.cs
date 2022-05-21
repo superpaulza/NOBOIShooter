@@ -57,8 +57,9 @@ namespace withLuckAndWisdomProject.Screens
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
             // Load HUD.
-            _hud = new HUD(rabbitPosition); 
+            _hud = new HUD(rabbitPosition);
 
+            _hud.SetPlayer(_rabbit);
             //load game over
             _gameOver = new GameOverRays();
 
