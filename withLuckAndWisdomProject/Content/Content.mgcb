@@ -61,6 +61,12 @@
 /processorParam:Quality=Best
 /build:Audio/MouseClicked.wav
 
+#begin Audio/WindSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/WindSound.wav
+
 #begin Controls/Achievement.png
 /importer:TextureImporter
 /processor:TextureProcessor
