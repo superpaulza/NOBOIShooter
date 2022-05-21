@@ -28,7 +28,8 @@ namespace withLuckAndWisdomProject.Screens
 
             float centerOfWidth = Singleton.Instance.ScreenWidth / 2;
             float positionBtnHeight = Singleton.Instance.ScreenHeight / 4 * 3 - 250;
-            // Create button on Game over screen
+
+            // Create button on Game to replay
             _replayBtn = new Button(ResourceManager.replayBtn, _font)
             {
                 PenColour = Color.Yellow,
@@ -37,7 +38,8 @@ namespace withLuckAndWisdomProject.Screens
             };
 
             _replayBtn.Click += replayBtnOnClick;
-            // Create button on main screen
+
+            // Create button to continuous 
             _playButton = new Button(ResourceManager.button, _font)
             {
                 PenColour = Color.DarkGreen,
@@ -47,6 +49,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _playButton.Click += PlayButtonOnClick;
 
+            // Create back to home screen
             _homeBtn = new Button(ResourceManager.homeBtn, _font)
             {
                 PenColour = Color.Yellow,
@@ -56,7 +59,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _homeBtn.Click += homeBtnOnClick;
 
-
+            // Add to list contain
             _components = new List<Component>()
             {
                 _replayBtn,
@@ -105,9 +108,6 @@ namespace withLuckAndWisdomProject.Screens
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
-            string gameScore = _player.Score.ToString();
-            string gameDistance = "Distance: " + _player.ForwardLenght.ToString("N2");
-            string Timer = "Time: " + _player.PlayTime.ToString(@"hh\:mm\:ss");
             spriteBatch.DrawString(_font, "Game Pause", new Vector2(Singleton.Instance.ScreenWidth / 2 + 30, 225), Color.HotPink, 0f, _font.MeasureString("Game Pause") * 0.5f, 1.5f, SpriteEffects.None, 0f);
            
             foreach (Component component in _components)

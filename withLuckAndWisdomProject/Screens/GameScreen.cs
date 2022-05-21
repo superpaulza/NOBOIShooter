@@ -44,6 +44,8 @@ namespace withLuckAndWisdomProject.Screens
             _sceenWidth = Singleton.Instance.ScreenWidth;
             _sceenHeight = Singleton.Instance.ScreenHeight;
             _backgroundArea = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
+
+            // create cloud
             _clouds = new List<Vector2>();
             _clouds.Add(new Vector2(100,200));
             for (int i = 0; i < 5; i++)
@@ -57,6 +59,7 @@ namespace withLuckAndWisdomProject.Screens
 
             };
             _backgroundMove = 0;
+
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
             int BambooCenter = Singleton.Instance.ScreenHeight - BAMBOO_START_HEGIHT / 2; 
@@ -87,6 +90,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public void GetRandomCloud()
         {
+            // random next cloud
             Random random = new Random();
             int y = random.Next(100, 300);
             int next = random.Next(300, 600);
@@ -96,12 +100,16 @@ namespace withLuckAndWisdomProject.Screens
 
         public void MoveClound(GameTime gameTime)
         {
+            // find distance
             var distance = _rabbit.ForwardLenght - _backgroundMove;
             if (distance > 0)
             {
+                // move cloud
                 for (int i = 0; i < _clouds.Count; i++)
                     _clouds[i] = new Vector2(_clouds[i].X - distance * .1f, _clouds[i].Y );
                 _backgroundMove += distance;
+
+                // remove cloud
                 for (int i = 0; i < _clouds.Count; i++)
                 {
                     if(_clouds[i].X < -340)
@@ -117,20 +125,14 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
-            // Draw game backgriund
-            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
-            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
-            
-
-
+     
             // Draw game background
             spriteBatch.Draw(ResourceManager.gameBackground,_backgroundArea,
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
 
-            
-            
-            
+            // Draw Clound
+            foreach (var cloud in _clouds)
+                spriteBatch.Draw(_cloudTexture[(int)cloud.Y % 4], cloud, Color.LightGray);
 
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
@@ -138,6 +140,7 @@ namespace withLuckAndWisdomProject.Screens
                 _gameOver.Draw(gameTime, spriteBatch);
                 if (!_gameEndSaveScore)
                 {
+                    // Save score
                     if(_rabbit.Score > 0)
                     {
                         _scoreData = new ScoreData();
@@ -154,25 +157,17 @@ namespace withLuckAndWisdomProject.Screens
                 _gamePause.Draw(gameTime, spriteBatch);
             }
             else
-            {
-                // Draw Clound
-                foreach (var cloud in _clouds) 
-                    spriteBatch.Draw(_cloudTexture[(int)cloud.Y % 4], cloud, Color.LightGray);
-                
-
+            {                
                 // Draw HUD.
                 _hud.draw(gameTime, spriteBatch);
 
+                // Draw game object
+                _rabbit.draw(gameTime, spriteBatch);
             }
 
-            
-            // Draw game object
-            _rabbit.draw(gameTime, spriteBatch);
-
+            // Draw bamboo
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
-
-
 
         }
 
@@ -188,6 +183,7 @@ namespace withLuckAndWisdomProject.Screens
             }
             else
             {
+                // calculate game effect
                 MoveClound(gameTime);
                 _rabbit.update(gameTime);
                 _hud.update(gameTime);
@@ -202,9 +198,6 @@ namespace withLuckAndWisdomProject.Screens
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
-
-            
-
         }
 
         public override void PostUpdate(GameTime gameTime)

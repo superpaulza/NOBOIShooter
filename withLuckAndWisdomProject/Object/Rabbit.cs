@@ -22,11 +22,11 @@ namespace withLuckAndWisdomProject.Object
         ProjectileHit,
         Ending,
 
-        Falling,
-        Firing,
-        Hit,
-        Reset,
-        Stalling
+        //Falling,
+        //Firing,
+        //Hit,
+        //Reset,
+        //Stalling
     }
 
 
@@ -71,7 +71,7 @@ namespace withLuckAndWisdomProject.Object
         private Point _dragStart, _dragEnd;
         private float _dragAngle, _dragLength;
 
-        public bool IsCollision { get; set; }
+        
 
         List<Bamboo> _bamboos;
 
@@ -199,6 +199,7 @@ namespace withLuckAndWisdomProject.Object
                 AudioManager.StopSound("wind");
                 AudioManager.PlaySound("ThreeHit");
             }
+
             if (RabbitState != RabbitState.Ending)
             {
                 PlayTime += gameTime.ElapsedGameTime;
@@ -209,7 +210,7 @@ namespace withLuckAndWisdomProject.Object
                 }
             }
 
-
+            // move camera check
             if (Forwarding > 0)
             {
                 float forwardStep = (float)(gameTime.ElapsedGameTime.TotalMilliseconds * .5f);
@@ -234,13 +235,6 @@ namespace withLuckAndWisdomProject.Object
                 }
             }
 
-            if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
-            {
-                RabbitState = RabbitState.Ending;
-                Body.Enabled = false;
-            }
-
-            IsCollision = false;
         }
 
         
@@ -266,11 +260,6 @@ namespace withLuckAndWisdomProject.Object
                     if (VisibleProjectile)
                         DrawProjectile(spriteBatch);
                 }
-
-                
-
-                
-
             }
         }
 
@@ -279,11 +268,18 @@ namespace withLuckAndWisdomProject.Object
             int i = 0;
             while (Singleton.Instance.IsEnableAimer)
             {
+                // find at time 
                 float t0 = .1f * i;
                 float t1 = .1f * (i + 1);
+
+                // find position
                 Vector2 x0 = PredictProjectileAtTime(t0, _projectile, Body.Position, Body.World.Gravity);
                 Vector2 x1 = PredictProjectileAtTime(t1, _projectile, Body.Position, Body.World.Gravity);
+
+                // draw line
                 DrawLine(x0, x1, spriteBatch, Color.Orange);
+
+                // break while under screen
                 if (x1.Y > Singleton.Instance.ScreenHeight) break;
                 i++;
             }
@@ -291,6 +287,7 @@ namespace withLuckAndWisdomProject.Object
 
         private void RandomNextBamboo()
         {
+            // get next bamboo
             System.Random random = new System.Random();
             float nextHeight = random.Next(MIN_HEIGHT_OF_BAMBOO, MAX_HEIGHT_OF_BAMBOO);
             int BambooCenter = Singleton.Instance.ScreenHeight - (int)(nextHeight / 2);
@@ -298,20 +295,22 @@ namespace withLuckAndWisdomProject.Object
             float nextDistan = random.Next(MIN_DISTAN_OF_BAMBOO, MAX_DISTAN_OF_BAMBOO);
             var Vertical = _bamboos[_bamboos.Count - 1].Body.Position.X + nextDistan;
             Forwarder -= nextDistan;
+            
+            // create body
             var bodyBaboo = Body.World.CreateRectangle(5, nextHeight, 1f, new Vector2(Vertical, BambooCenter), 0f, BodyType.Static);
-
+            // random type
             var nextType = random.NextDouble() > .2f ?
                 BambooType.Normal :
                     random.NextDouble() > .4f ?
                           BambooType.Friable :
                           BambooType.Pandle;
-
+            // add to list
             _bamboos.Add(new Bamboo(nextHeight, nextType, bodyBaboo));
         }
 
         bool CollisionHandler(Fixture fixture, Fixture other, Contact contact)
         {
-            IsCollision = true;
+            
             if (RabbitState == RabbitState.Start)
                 RabbitState = RabbitState.Ready;
 
