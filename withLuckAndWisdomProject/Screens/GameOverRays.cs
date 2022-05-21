@@ -87,7 +87,7 @@ namespace withLuckAndWisdomProject.Screens
             string gameScore = _player.Score.ToString();
             string gameDistance = "Distance: " + _player.ForwardLenght.ToString("N2");
             string Timer = "Time: " + _player.PlayTime.ToString(@"hh\:mm\:ss");
-            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.Red, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.HotPink, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(_font, "Score", new Vector2(Singleton.Instance.ScreenWidth / 2, 275), Color.White, 0f, _font.MeasureString("Score") * 0.5f, 2f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 375), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 2f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(_font, gameDistance + "      " + Timer, new Vector2(Singleton.Instance.ScreenWidth / 2, 450), Color.White, 0f, _font.MeasureString(gameDistance + "      " + Timer) * 0.5f, 1f, SpriteEffects.None, 0f);

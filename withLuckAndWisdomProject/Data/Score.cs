@@ -4,9 +4,9 @@ using System.Text;
 
 namespace withLuckAndWisdomProject.Data
 {
+    [Serializable]
     class Score
     {
-
 
     }
 }
