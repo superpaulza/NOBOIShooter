@@ -11,110 +11,69 @@ namespace withLuckAndWisdomProject.Screens
 {
     public class GameOverScreen : AScreen
     {
-        Texture2D texture;
-        bool loaded;
+        private List<Component> _components;
+        private Texture2D _texture, _textureBtn;
+        private SpriteFont _font;
+        private Button _replayBtn, _homeBtn;
 
-        Rectangle title;
-        Rectangle titleSource;
-
-        Rectangle box;
-        Rectangle boxSource;
-
-        Rectangle newScore;
-        Rectangle newScoreSource;
-
-        Button retryButton;
-        Button menuButton;
-
-        int score;
-        int highScore;
-
-        int medalLevel;
-        SoundEffect highSound;
-
-        Score writeScore;
-        Score writeBest;
-
-        bool soundPlayed;
         public GameOverScreen()
         {
-            texture = ResourceManager.BackBtn;
-            loaded = false;
+            _texture = ResourceManager.overBackground;
+            _textureBtn = ResourceManager.BasicBtn;
+            _font = ResourceManager.font;
 
-            titleSource = new Rectangle(558, 179, 94, 19);
-            title = new Rectangle(Singleton.Instance.ScreenWidth / 2 - titleSource.Width * 3 / 2, 0 - titleSource.Height * 3, titleSource.Width * 3, titleSource.Height * 3);
+            _replayBtn = new Button(_textureBtn, _font)
+            {
+                PenColour = Color.Yellow,
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 100, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
+                Text = "Replay"
+            };
 
-            boxSource = new Rectangle(558, 0, 113, 58);
-            box = new Rectangle(Singleton.Instance.ScreenWidth / 2 - boxSource.Width * 3 / 2, Singleton.Instance.ScreenHeight, boxSource.Width * 3, boxSource.Height * 3);
+            _replayBtn.Click += replayBtnOnClick;
 
-            // retryButton = new Button(texture, new Point(Singleton.Instance.ScreenWidth / 2, Game1.screenHeight / 2 + box.Height / 2 + 32), new Rectangle(558, 226, 40, 14));
-            // menuButton = new Button(texture, new Point(Singleton.Instance.ScreenWidth / 2, retryButton.ButtonY + 80), new Rectangle(558, 212, 40, 14));
+            _homeBtn = new Button(_textureBtn, _font)
+            {
+                PenColour = Color.Yellow,
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, Singleton.Instance.ScreenHeight / 4 * 3 - 75),
+                Text = "Home"
+            };
 
-            // highScore = MenuBase.HighScore;
-            // score = MenuBase.TotalScore;
+            _homeBtn.Click += homeBtnOnClick;
 
-            // writeScore = new Score((Singleton.Instance.ScreenWidth / 2 - boxSource.Width * 3 / 2) + 92 * 3, (Singleton.Instance.ScreenHeight / 2 - boxSource.Height * 3 / 2) + 17 * 3, false);
-            // writeBest = new Score((Singleton.Instance.ScreenWidth / 2 - boxSource.Width * 3 / 2) + 92 * 3, (Singleton.Instance.ScreenHeight / 2 - boxSource.Height * 3 / 2) + 38 * 3, false);
 
-            newScoreSource = new Rectangle(617, 58, 16, 7);
-            newScore = new Rectangle((Singleton.Instance.ScreenWidth / 2 - boxSource.Width * 3 / 2) + 60 * 3, (Singleton.Instance.ScreenHeight / 2 - boxSource.Height * 3 / 2) + 8 * 3, newScoreSource.Width * 3, newScoreSource.Height * 3);
-            soundPlayed = false;
+            _components = new List<Component>()
+            {
+                _replayBtn,
+                _homeBtn
+            };
 
+        }
+
+        private void replayBtnOnClick(object sender, EventArgs e)
+        {
+            ScreenManager.ChangeScreen = "game";
+        }
+
+        private void homeBtnOnClick(object sender, EventArgs e)
+        {
+            ScreenManager.ChangeScreen = "menu";
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!loaded)
-            {
-                // if (!soundPlayed && title.Y > 32)
-                // {
-                //     soundPlayed = true;
-                //     RessourcesManager.over.Play();
-                // }
-                // if (title.Y < 64)
-                //     title.Y += 8;
-                // box.Y -= 8;
-                //
-                // if (box.Y + box.Height / 2 <= Game1.screenHeight / 2)
-                // {
-                //     box.Y = Game1.screenHeight / 2 - box.Height / 2;
-                //     loaded = true;
-                //     soundPlayed = false;
-                // }
-            }
-            else
-            {
-                retryButton.Update(gameTime);
-                if (retryButton.Clicked)
-                    ScreenManager.ChangeScreen = "game";
-                menuButton.Update(gameTime);
-                if (menuButton.Clicked)
-                    ScreenManager.ChangeScreen = "main";
-                if (!soundPlayed && highSound != null)
-                {
-                    highSound.Play();
-                    soundPlayed = true;
-                }
-            }
+            foreach (Component component in _components)
+                component.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // spriteBatch.Draw(texture, title, titleSource, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
-            // spriteBatch.Draw(texture, box, boxSource, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
-            // if (box.Y < retryButton.ButtonY - retryButton.ButtonHeight / 2)
-            // {
-            //     retryButton.Draw(spriteBatch);
-            //     menuButton.Draw(spriteBatch);
-            // }
-            // if (loaded)
-            // {
-            //     medal.Draw(spriteBatch);
-            //     writeScore.Draw(spriteBatch, score.ToString());
-            //     writeBest.Draw(spriteBatch, highScore.ToString());
-            //     if (MenuBase.NewScore)
-            //         spriteBatch.Draw(texture, newScore, newScoreSource, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
-            // }
+            spriteBatch.Draw(_texture, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.Black * 0.5f);
+            string gameScore = "Distance: " + " " + ", Time: " + " ";
+            spriteBatch.DrawString(_font, "Game Over", new Vector2(Singleton.Instance.ScreenWidth / 2, 150), Color.White, 0f, _font.MeasureString("Game Over") * 0.5f, 3f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, gameScore, new Vector2(Singleton.Instance.ScreenWidth / 2, 350), Color.White, 0f, _font.MeasureString(gameScore) * 0.5f, 1f, SpriteEffects.None, 0f);
+            
+            foreach (Component component in _components)
+                component.Draw(gameTime, spriteBatch);
         }
 
         public override void PostUpdate(GameTime gameTime)

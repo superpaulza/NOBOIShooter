@@ -17,6 +17,7 @@ namespace withLuckAndWisdomProject.Screens
         private World _world;
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
+        private HUD _hud;
 
         private Button _backButton;
         private List<Component> _components;
@@ -26,6 +27,9 @@ namespace withLuckAndWisdomProject.Screens
         private int _sceenHeight;
         private Rectangle _backgroundTile1;
         private Rectangle _backgroundTile2;
+        private Texture2D gameBackground;
+
+        private GameOverScreen _gameOver;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -55,6 +59,13 @@ namespace withLuckAndWisdomProject.Screens
             bodyRabbit.FixedRotation = true;
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
+            // Load HUD.
+            //_hud = new HUD(); // Comment the HUD instance because of the bug will happen. 
+
+            //load game over
+            _gameOver = new GameOverScreen();
+        }
+
             
             // Create back to main menu button
             _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
@@ -64,30 +75,29 @@ namespace withLuckAndWisdomProject.Screens
                 Text = "Back",
             };
 
-            _backButton.Click += BackToMainMenu;
-
-            //load buttons onto component aka. dynamic drawing list
-            _components = new List<Component>()
-            {
-                _backButton,
-            };
-
-        }
-
-        private void BackToMainMenu(object sender, EventArgs e)
-        {
-            // Change to Screen when Clicked on Play button in Menu Screen.
-            ScreenManager.ChangeScreen = "menu";
-        }
-
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
+            // Draw game backgriund
+            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
+
+
             // Draw game background
-            if (_rabbit.RabbitState != RabbitState.Ending)
+            spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+                _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
+            //when rabbit died
+            if (_rabbit.RabbitState == RabbitState.Ending)
             {
-                spriteBatch.Draw(_gameBackground, _backgroundTile1, Color.White);
-                spriteBatch.Draw(_gameBackground, _backgroundTile2, Color.White);
+                _gameOver.Draw(gameTime, spriteBatch);
+            }
+            else
+            {
+                // Draw HUD.
+                _hud?.draw(gameTime, spriteBatch);
+
             }
 
             // Draw game object
@@ -96,17 +106,14 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
 
-            foreach (Component component in _components)
-                component.Draw(gameTime, spriteBatch);
 
         }
 
         public override void Update(GameTime gameTime)
         {
-            _rabbit.update(gameTime);
 
-            foreach (var bamboo in _bamboos)
-                bamboo.update(gameTime);
+            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             foreach (Component component in _components)
                 component.Update(gameTime);
@@ -120,24 +127,18 @@ namespace withLuckAndWisdomProject.Screens
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
             {
-                ScreenManager.ChangeScreen = "menu";
+                _gameOver.Update(gameTime);
             }
             else
             {
+                _rabbit.update(gameTime);
+
+                foreach (var bamboo in _bamboos)
+                    bamboo.update(gameTime);
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
 
-            //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
-
-            //very naive world time update speed up
-            //set update 5x
-            for (int i = 0; i < 6; i++)
-            {
-                _world.Step(gameTime.ElapsedGameTime);
-            }
-            
         }
 
         public override void PostUpdate(GameTime gameTime)

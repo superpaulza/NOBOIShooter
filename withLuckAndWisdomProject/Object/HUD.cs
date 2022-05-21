@@ -19,28 +19,34 @@ namespace withLuckAndWisdomProject.Object
         public HUD()
         {
             // Font Init.
-            
+            _font = ResourceManager.font;
         }
 
-        public void DrawScore()
+        public void DrawScore(SpriteBatch spriteBatch)
         {
             // Draw Score Section.
             
         }
 
-        public void DrawDistance()
+        public void DrawDistance(SpriteBatch spriteBatch)
         {
-            // Draw Distance Section.    
+            // Draw Distance Section.
+
+            // Reference from Rabbit Position.
+
         }
 
-        public void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public void update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(GameTime gameTime)
+        public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
+            spriteBatch.DrawString(_font, " Score ", new Vector2(100, 20), Color.Black);
+            spriteBatch.DrawString(_font, "0", new Vector2(120, 80), Color.Black);
+            spriteBatch.DrawString(_font, " Distance ", new Vector2(700, 20), Color.Black);
+            spriteBatch.DrawString(_font, "0", new Vector2(120, 80), Color.Black); 
         }
     }
-}
+} 

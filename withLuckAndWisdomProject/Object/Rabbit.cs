@@ -102,7 +102,7 @@ namespace withLuckAndWisdomProject.Object
             var mouseRectangle = new Rectangle(MouseCurrent.X + _texture.Width / 2, MouseCurrent.Y + _texture.Height / 2, 1, 1);
 
             // Jumping Sound list
-            String[] RandomSound = new string[] { "Jumping", "Jumping2", "Jumping3" };
+            String[] RandomSound = new string[] { "Jumping2", "Jumping3" };
 
             if (RabbitState == RabbitState.Ready)
             {
@@ -133,6 +133,7 @@ namespace withLuckAndWisdomProject.Object
                     Random randomSound = new Random();
                     int index = randomSound.Next(RandomSound.Length);
                     AudioManager.PlaySound(RandomSound[index]);
+                    AudioManager.PlaySound("wind");
                 }
 
                 // finding projectile Line
@@ -178,6 +179,7 @@ namespace withLuckAndWisdomProject.Object
                 foreach(String st in RandomSound) {
                     AudioManager.StopSound(st);    
                 }
+                AudioManager.StopSound("wind");
                 AudioManager.PlaySound("ThreeHit");
             }
             IsCollision = false;
