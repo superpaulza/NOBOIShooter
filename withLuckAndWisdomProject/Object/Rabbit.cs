@@ -225,6 +225,12 @@ namespace withLuckAndWisdomProject.Object
             
             
 
+            if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
+            {
+                RabbitState = RabbitState.Ending;
+                Body.Enabled = false;
+            }
+
             IsCollision = false;
         }
 
@@ -256,6 +262,7 @@ namespace withLuckAndWisdomProject.Object
                 spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
 
                 //DrawLine(new Vector2(200,200), new Vector2(400, 400) , spriteBatch);
+
             }
         }
 
