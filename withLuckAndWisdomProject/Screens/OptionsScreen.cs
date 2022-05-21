@@ -14,7 +14,7 @@ namespace withLuckAndWisdomProject.Screens
 
         // Create value
         private List<Component> _components;
-        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState, _basicBtn;
+        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState, _applyBtn;
         private SpriteFont _font, _headerFont;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton, _applyButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
@@ -44,7 +44,7 @@ namespace withLuckAndWisdomProject.Screens
             _font = ResourceManager.font;
             _headerFont = ResourceManager.font;
             _backIcon = ResourceManager.BackBtn;
-            _basicBtn = ResourceManager.BasicBtn;
+            _applyBtn = ResourceManager.applyBtn;
             _increaseIcon = ResourceManager.increseBtn;
             _decreaseIcon = ResourceManager.decreseBtn;
             _volumeOn = ResourceManager.volumeOnIcon;
@@ -127,10 +127,10 @@ namespace withLuckAndWisdomProject.Screens
 
 
             //apply
-            _applyButton = new Button(_basicBtn, _font)
+            _applyButton = new Button(_applyBtn, _font)
             {
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 70, Singleton.Instance.ScreenHeight / 2 + 120),
-                Text = "Apply"
+                Text = ""
             };
 
             _applyButton.Click += ApplyBtnOnClick;
