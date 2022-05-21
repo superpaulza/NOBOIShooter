@@ -39,6 +39,8 @@ namespace withLuckAndWisdomProject.Object
         public float Forwarder { get; set; }
         public float ForwardLenght { get; set; }
         public Body Body { get; set; }
+
+        public TimeSpan PlayTime { get; set; }
         public Rectangle Rectangle
         {
             get
@@ -120,7 +122,6 @@ namespace withLuckAndWisdomProject.Object
                 // Rabbit Releasing
                 if (MouseCurrent.LeftButton == ButtonState.Released && MousePrevious.LeftButton == ButtonState.Pressed)
                 {
-                    RabbitState = RabbitState.Ready;
                     _dragEnd = MouseCurrent.Position;
 
                     // Change State
@@ -157,7 +158,7 @@ namespace withLuckAndWisdomProject.Object
             }
 
 
-                if (RabbitState == RabbitState.ProjectileHit)
+            if (RabbitState == RabbitState.ProjectileHit)
             {
                 // Calculate after hitting
                 var centerBamboo = (int)(Singleton.Instance.ScreenHeight - _hitting.Body.Position.Y);
@@ -166,7 +167,7 @@ namespace withLuckAndWisdomProject.Object
                 if (lenght2top < 150)
                 {
                     Body.Position = topBamboo;
-                    Score += (200 - lenght2top) * 10;
+                    Score += (100 - lenght2top) * 10;
                     Body.LinearVelocity = Vector2.Zero;
                 }
 
@@ -182,7 +183,16 @@ namespace withLuckAndWisdomProject.Object
                 AudioManager.StopSound("wind");
                 AudioManager.PlaySound("ThreeHit");
             }
-            IsCollision = false;
+            if (RabbitState != RabbitState.Ending)
+            {
+                PlayTime += gameTime.ElapsedGameTime;
+                if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
+                {
+                    RabbitState = RabbitState.Ending;
+                    Body.Enabled = false;
+                }
+            }
+
 
             if (Forwarding > 0)
             {
@@ -206,13 +216,20 @@ namespace withLuckAndWisdomProject.Object
                         break;
                 }
             }
+            
+            
+            
 
+<<<<<<< HEAD
             if (Body.Position.Y > Singleton.Instance.ScreenHeight || Body.Position.X < 0)
             {
                 RabbitState = RabbitState.Ending;
                 Body.Enabled = false;
             }
 
+=======
+            IsCollision = false;
+>>>>>>> 5815400d0ccdfb608aaeba7d30549f24a52fe413
         }
 
         

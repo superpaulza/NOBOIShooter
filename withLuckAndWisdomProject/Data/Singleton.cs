@@ -10,6 +10,10 @@
         public float SFXVolume = 1f;
         public float BGMVolume = 1f;
 
+        public bool IsEnableSFX = true;
+        public bool IsEnableBGM = true;
+        public bool IsEnableAimer = true;
+
         //Base of singleton
         private static Singleton s_instance;
 
