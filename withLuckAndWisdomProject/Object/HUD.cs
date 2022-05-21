@@ -13,7 +13,7 @@ namespace withLuckAndWisdomProject.Object
     public class HUD
     {
         private int _score;
-        private int _distance;
+        private float _distance;
         private SpriteFont _font;
         private Vector2 _rabbitPosition;
         private Rabbit _rabbit;
@@ -21,7 +21,8 @@ namespace withLuckAndWisdomProject.Object
         public HUD(Vector2 rabbitPosition)
         {
             // Constructor Parameter Init.
-            //this._rabbitPosition = rabbitPosition;
+            this._rabbitPosition = rabbitPosition;
+            _distance = this._rabbitPosition.X;
 
             // Font Init.
             _font = ResourceManager.font;
@@ -53,7 +54,8 @@ namespace withLuckAndWisdomProject.Object
 
         public void update(GameTime gameTime)
         {
-            Console.WriteLine("Distance: " + _rabbitPosition.X);
+            
+            Console.WriteLine("Distance: " + _distance);
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -61,7 +63,7 @@ namespace withLuckAndWisdomProject.Object
             spriteBatch.DrawString(_font, "Score", new Vector2(100, 20), Color.Black);
             spriteBatch.DrawString(_font, "0", new Vector2(120, 80), Color.Black);
             spriteBatch.DrawString(_font, "Distance", new Vector2(500, 20), Color.Black);
-            spriteBatch.DrawString(_font, "0", new Vector2(520, 80), Color.Black);
+            spriteBatch.DrawString(_font, _distance.ToString(), new Vector2(520, 80), Color.Black);
             spriteBatch.DrawString(_font, "Time", new Vector2(900, 20), Color.Black);
             spriteBatch.DrawString(_font, "0", new Vector2(920, 80), Color.Black);
         }
