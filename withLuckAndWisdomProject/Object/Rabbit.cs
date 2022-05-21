@@ -38,6 +38,7 @@ namespace withLuckAndWisdomProject.Object
         public float Forwarding { get; set; }
         public float Forwarder { get; set; }
         public float ForwardLenght { get; set; }
+        public bool GamePause { get; set; }
         public Body Body { get; set; }
 
         public TimeSpan PlayTime { get; set; }
@@ -94,6 +95,7 @@ namespace withLuckAndWisdomProject.Object
             Body.OnCollision += CollisionHandler;
 
             Forwarder = START_BAMBOO_CREATE_LENGTH;
+            GamePause = false;
             RabbitState = RabbitState.Start;
         }
 
@@ -251,9 +253,9 @@ namespace withLuckAndWisdomProject.Object
             //        Color.Pink, Body.Rotation, new Vector2(.5f,.5f), SpriteEffects.None, 0);
 
             // Draw rabbit
-            spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
             if (RabbitState != RabbitState.Ending)
             {
+                spriteBatch.Draw(_texture, Body.Position, null, Color.White, Body.Rotation, _origin, _scale, SpriteEffects.None, 0f);
                 if (RabbitState == RabbitState.Aiming)
                 {
                     // Draw Draging

@@ -19,17 +19,12 @@ namespace withLuckAndWisdomProject.Screens
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
         private HUD _hud;
-
-        private Button _backButton;
-        private List<Component> _components;
-        private Texture2D _gameBackground;
-
+        private Rectangle _backgroundArea;
+        private Texture2D _background;
         private int _sceenWidth;
         private int _sceenHeight;
-        private Rectangle _backgroundTile1;
-        private Rectangle _backgroundTile2;
-        private Texture2D gameBackground;
 
+        private GamePauseRays _gamePause;
         private GameOverRays _gameOver;
         private bool _gameEndSaveScore;
 
@@ -42,10 +37,10 @@ namespace withLuckAndWisdomProject.Screens
             _world.Gravity = new Vector2(0, _world.Gravity.Y * -1f);
 
             // load asset
-            _gameBackground = ResourceManager.BackgroundGame;
+            _background = ResourceManager.BackgroundGame;
             _sceenWidth = Singleton.Instance.ScreenWidth;
             _sceenHeight = Singleton.Instance.ScreenHeight;
-
+            _backgroundArea = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
 
             // Create Bamboo Object and Give a position as parameter. 
             _bamboos = new List<Bamboo>(); 
@@ -67,9 +62,12 @@ namespace withLuckAndWisdomProject.Screens
             _hud.SetPlayer(_rabbit);
             //load game over
             _gameOver = new GameOverRays();
-
             _gameOver.SetPlayer(_rabbit);
             _gameEndSaveScore = false;
+
+            // load game pause
+            _gamePause = new GamePauseRays();
+            _gamePause.SetPlayer(_rabbit);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -102,6 +100,10 @@ namespace withLuckAndWisdomProject.Screens
                     _gameEndSaveScore = true;
                 }
             }
+            else if (_rabbit.GamePause)
+            {
+                _gamePause.Draw(gameTime, spriteBatch);
+            }
             else
             {
                 // Draw HUD.
@@ -120,29 +122,31 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Update(GameTime gameTime)
         {
-
-            
-            _backgroundTile1 = new Rectangle(0, 0, _sceenWidth, _sceenHeight);
-
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
             {
                 _gameOver.Update(gameTime);
             }
+            else if (_rabbit.GamePause) {
+                _gamePause.Update(gameTime);
+            }
             else
             {
                 _rabbit.update(gameTime);
-                //_hud.update(gameTime);
+                _hud.update(gameTime);
 
                 foreach (var bamboo in _bamboos)
                     bamboo.update(gameTime);
+
+                // Naive way speed up game physic time
+                for (int i = 0; i < 6; i++)
+                    _world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+
                 // BGM
                 AudioManager.PlaySound("GameBGM", true);
             }
 
-            // Naive way speed up game physic time
-            for (int i = 0; i < 6; i++) 
-                _world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+            
 
         }
 
