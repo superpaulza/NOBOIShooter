@@ -76,7 +76,7 @@ namespace withLuckAndWisdomProject.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Draw game backgriund
+            // Draw game backgrund
             spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
             
