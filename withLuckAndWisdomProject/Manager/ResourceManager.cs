@@ -49,7 +49,7 @@ namespace withLuckAndWisdomProject.Screens
             scoreBtn = content.Load<Texture2D>("Controls/Score");
             BasicBtn = content.Load<Texture2D>("Controls/BasicButton");
             mainBackground = content.Load<Texture2D>("Images/background2");
-            gameBackground = content.Load<Texture2D>("Images/background3");
+            gameBackground = content.Load<Texture2D>("Images/playedbackground");
             logo = content.Load<Texture2D>("Images/logo-first");
             ball = content.Load<Texture2D>("Images/CircleSprite");
             
