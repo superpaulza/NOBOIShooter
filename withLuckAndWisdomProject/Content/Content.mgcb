@@ -255,6 +255,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Header.spritefont
 
+#begin Fonts/Itim.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Itim.spritefont
+
 #begin Images/background.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -445,7 +452,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/cloud-first.png
+/build:Images/cloud-first.png;Images/cloud-first.png
 
 #begin Images/cloud-second.png
 /importer:TextureImporter
@@ -457,7 +464,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/cloud-second.png
+/build:Images/cloud-second.png;Images/cloud-second.png
 
 #begin Images/Jump.png
 /importer:TextureImporter
