@@ -94,21 +94,30 @@ namespace withLuckAndWisdomProject.Screens
         public override void Update(GameTime gameTime)
         {
             _rabbit.update(gameTime);
+
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
 
             foreach (Component component in _components)
                 component.Update(gameTime);
 
-            // BGM
-            AudioManager.PlaySound("GameBGM", true);
+            //when rabbit died
+            if (_rabbit.RabbitState == RabbitState.Ending)
+            {
+                ScreenManager.ChangeScreen = "menu";
+            }
+            else
+            {
+                // BGM
+                AudioManager.PlaySound("GameBGM", true);
+            }
 
             //world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             //world.ShiftOrigin(new Vector2((float)(gameTime.ElapsedGameTime.TotalMilliseconds * .05f), 0 ));
 
             //very naive world time update speed up
-            //set update 4x
-            for (int i = 0; i < 4; i++)
+            //set update 6x
+            for (int i = 0; i < 6; i++)
             {
                 _world.Step(gameTime.ElapsedGameTime);
             }
