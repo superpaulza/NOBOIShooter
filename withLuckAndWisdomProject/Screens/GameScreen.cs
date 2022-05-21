@@ -17,10 +17,11 @@ namespace withLuckAndWisdomProject.Screens
         private World _world;
         private Rabbit _rabbit;
         private List<Bamboo> _bamboos;
+        private HUD _hud;
 
-        private Button _backButton;
-        private List<Component> _components;
         private Texture2D gameBackground;
+
+        private GameOverScreen _gameOver;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -47,35 +48,30 @@ namespace withLuckAndWisdomProject.Screens
             var bodyRabbit = _world.CreateRectangle(rabbitWidth, RABBIT_HEIGHT, 1.5f, rabbitPosition, 0f, BodyType.Dynamic);
             bodyRabbit.FixedRotation = true;
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
-            
 
-            // Create back to main menu button
-            _backButton = new Button(ResourceManager.BasicBtn, ResourceManager.font)
-            {
-                PenColour = Color.Red,
-                Position = new Vector2(1000, 40),
-                Text = "Back",
-            };
 
-            _backButton.Click += BackToMainMenu;
-
-            //load buttons onto component aka. dynamic drawing list
-            _components = new List<Component>()
-            {
-                _backButton,
-            };
-
+            //load game over
+            _gameOver = new GameOverScreen();
         }
-
-        private void BackToMainMenu(object sender, EventArgs e)
-        {
-            // Change to Screen when Clicked on Play button in Menu Screen.
-            ScreenManager.ChangeScreen = "menu";
-        }
-
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //when rabbit died
+            if (_rabbit.RabbitState == RabbitState.Ending)
+            {
+                _gameOver.Draw(gameTime, spriteBatch);
+            }
+            else
+            {
+            }
+
+            // Draw game backgriund
+            // spriteBatch.Draw(ResourceManager.BackgroundGame, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
+            //     _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
+
+            // Draw HUD.
+            _hud?.draw(gameTime, spriteBatch);
+
             // Draw game background
             spriteBatch.Draw(ResourceManager.gameBackground, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight),
                 _rabbit.RabbitState == RabbitState.Ending ? Color.DarkCyan : Color.Cyan);
@@ -85,10 +81,6 @@ namespace withLuckAndWisdomProject.Screens
 
             foreach (var bamboo in _bamboos)
                 bamboo.draw(gameTime, spriteBatch);
-
-            foreach (Component component in _components)
-                component.Draw(gameTime, spriteBatch);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -98,13 +90,10 @@ namespace withLuckAndWisdomProject.Screens
             foreach (var bamboo in _bamboos)
                 bamboo.update(gameTime);
 
-            foreach (Component component in _components)
-                component.Update(gameTime);
-
             //when rabbit died
             if (_rabbit.RabbitState == RabbitState.Ending)
             {
-                ScreenManager.ChangeScreen = "menu";
+                _gameOver.Update(gameTime);
             }
             else
             {
