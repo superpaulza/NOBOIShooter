@@ -57,7 +57,7 @@ namespace withLuckAndWisdomProject.Screens
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
             // Load HUD.
-            _hud = new HUD(); 
+            _hud = new HUD(rabbitPosition); 
 
             //load game over
             _gameOver = new GameOverScreen();
@@ -114,6 +114,7 @@ namespace withLuckAndWisdomProject.Screens
             else
             {
                 _rabbit.update(gameTime);
+                _hud.update(gameTime);
 
                 foreach (var bamboo in _bamboos)
                     bamboo.update(gameTime);
