@@ -39,6 +39,10 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D checkBoxSelect;
         public static Texture2D increseBtn;
         public static Texture2D decreseBtn;
+        public static Texture2D volumeOnIcon;
+        public static Texture2D volumeOffIcon;
+        public static Texture2D checkboxEmpty;
+        public static Texture2D checkboxSelect;
 
         public static SpriteFont font;
 
@@ -68,6 +72,10 @@ namespace withLuckAndWisdomProject.Screens
             checkBoxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
             increseBtn = content.Load<Texture2D>("Controls/increase");
             decreseBtn = content.Load<Texture2D>("Controls/decrease");
+            volumeOnIcon = content.Load<Texture2D>("Controls/volume-on");
+            volumeOffIcon = content.Load<Texture2D>("Controls/volume-off");
+            checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
+            checkboxSelect = content.Load<Texture2D>("Controls/CheckboxSelect");
 
             font = content.Load<SpriteFont>("Fonts/Font");
         }

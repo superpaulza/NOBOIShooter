@@ -18,6 +18,8 @@ namespace withLuckAndWisdomProject.Screens
         private SpriteFont _font, _headerFont;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton, _applyButton;
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
+        private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
+        private int _speed = 5;
 
         public OptionsScreen()
         {
@@ -41,6 +43,15 @@ namespace withLuckAndWisdomProject.Screens
             _basicBtn = ResourceManager.BasicBtn;
             _increaseIcon = ResourceManager.increseBtn;
             _decreaseIcon = ResourceManager.decreseBtn;
+            _volumeOn = ResourceManager.volumeOnIcon;
+            _volumeOff = ResourceManager.volumeOffIcon;
+            _checkBoxEmpty = ResourceManager.checkBoxEmpty;
+            _checkBoxSelected = ResourceManager.checkBoxSelect;
+
+            // Get sound default
+            _volumeBGMState = Singleton.Instance.IsEnableBGM ? _volumeOn : _volumeOff;
+            _volumeSFXState = Singleton.Instance.IsEnableSFX ? _volumeOn : _volumeOff;
+            _checkBoxState = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
 
             // Create Button
             _backButton = new Button(_backIcon)
@@ -80,6 +91,37 @@ namespace withLuckAndWisdomProject.Screens
 
             _decreaseBGMButton.Click += DecreaseBGMButtonOnClick;
 
+            _volumeSFXControlButton = new DynamicButton(_volumeSFXState)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
+                Text = "",
+
+            };
+
+            _volumeSFXControlButton.Click += VolumeSFXControlButtonOnClick;
+
+            _volumeBGMControlButton = new DynamicButton(_volumeBGMState)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),
+                Text = "",
+
+            };
+
+            _volumeBGMControlButton.Click += VolumeBGMControlButtonOnClick;
+
+            _guidelineAimerButton = new DynamicButton(_checkBoxState)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
+                Text = "",
+
+            };
+
+            _guidelineAimerButton.Click += GuidelineAimerOnClick;
+
+
             //apply
             _applyButton = new Button(_basicBtn, _font)
             {
@@ -95,6 +137,9 @@ namespace withLuckAndWisdomProject.Screens
                 _decreaseSFXButton,
                 _increaseBGMButton,
                 _decreaseBGMButton,
+                _volumeSFXControlButton,
+                _volumeBGMControlButton,
+                _guidelineAimerButton,
                 _applyButton,
             };
 
@@ -107,25 +152,109 @@ namespace withLuckAndWisdomProject.Screens
 
         private void IncreaseSFXButtonOnClick(object sender, EventArgs e)
         {
-
+            if (_sfxVolume < 100 && Singleton.Instance.IsEnableSFX)
+            {
+                _sfxVolume += _speed;
+                Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
+            }
+            else if (_sfxVolume == 0)
+            {
+                Singleton.Instance.IsEnableSFX = true;
+                // _volumeSFXControlButton.Texture = _volumeOn;
+                _sfxVolume += _speed;
+                Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
+            }
         }
 
         private void DecreaseSFXButtonOnClick(object sender, EventArgs e)
         {
-
+            if (_sfxVolume > _speed && Singleton.Instance.IsEnableSFX)
+            {
+                _sfxVolume -= _speed;
+                Singleton.Instance.SFXVolume = (float)_sfxVolume / 100;
+            }
+            else if (_sfxVolume == _speed)
+            {
+                _sfxVolume -= _speed;
+                Singleton.Instance.IsEnableSFX = false;
+                // _volumeSFXControlButton.Texture = _volumeOff;
+                Singleton.Instance.SFXVolume = 0.0f;
+            }
         }
 
         private void IncreaseBGMButtonOnClick(object sender, EventArgs e)
         {
-
+            if (_bgmVolume < 100 && Singleton.Instance.IsEnableBGM)
+            {
+                _bgmVolume += _speed;
+                Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
+            }
+            else if (_bgmVolume == 0)
+            {
+                Singleton.Instance.IsEnableBGM = true;
+                // _volumeBGMControlButton.Texture = _volumeOn;
+                _bgmVolume += _speed;
+                Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
+            }
         }
 
         private void DecreaseBGMButtonOnClick(object sender, EventArgs e)
         {
-
+            if (_bgmVolume > _speed && Singleton.Instance.IsEnableBGM)
+            {
+                _bgmVolume -= _speed;
+                Singleton.Instance.BGMVolume = (float)_bgmVolume / 100;
+            }
+            else if (_bgmVolume == _speed)
+            {
+                _bgmVolume -= _speed;
+                Singleton.Instance.IsEnableBGM = false;
+                // _volumeBGMControlButton.Texture = _volumeOff;
+                Singleton.Instance.BGMVolume = 0.0f;
+            }
         }
 
+        private void VolumeSFXControlButtonOnClick(object sender, EventArgs e)
+        {
+            if (Singleton.Instance.IsEnableSFX)
+            {
+                _volumeSFXControlButton.Texture = _volumeOff;
+                Singleton.Instance.IsEnableSFX = false;
+                _sfxVolume = 0;
+                Singleton.Instance.SFXVolume = 0.0f;
+            }
+            else if (!Singleton.Instance.IsEnableSFX)
+            {
+                _volumeSFXControlButton.Texture = _volumeOn;
+                Singleton.Instance.IsEnableSFX = true;
+                _sfxVolume = 100;
+                Singleton.Instance.SFXVolume = 1.0f;
+            }
+        }
 
+        private void VolumeBGMControlButtonOnClick(object sender, EventArgs e)
+        {
+            if (Singleton.Instance.IsEnableBGM)
+            {
+                _volumeBGMControlButton.Texture = _volumeOff;
+                Singleton.Instance.IsEnableBGM = false;
+                _bgmVolume = 0;
+                Singleton.Instance.BGMVolume = 0.0f;
+            }
+            else if (!Singleton.Instance.IsEnableBGM)
+            {
+                _volumeBGMControlButton.Texture = _volumeOn;
+                Singleton.Instance.IsEnableBGM = true;
+                _bgmVolume = 100;
+                Singleton.Instance.BGMVolume = 1.0f;
+            }
+        }
+
+        private void GuidelineAimerOnClick(object sender, EventArgs e)
+        {
+            Singleton.Instance.IsEnableAimer = !Singleton.Instance.IsEnableAimer;
+            _guidelineAimerButton.Texture = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -147,9 +276,9 @@ namespace withLuckAndWisdomProject.Screens
 
             spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 450), Color.White, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, Singleton.Instance.SFXVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, Singleton.Instance.BGMVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
