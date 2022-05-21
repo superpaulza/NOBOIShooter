@@ -49,6 +49,8 @@ namespace withLuckAndWisdomProject.Screens
             bodyRabbit.FixedRotation = true;
             _rabbit = new Rabbit(bodyRabbit , RABBIT_HEIGHT, _bamboos);
 
+            // Load HUD.
+            //_hud = new HUD(); // Comment the HUD instance because of the bug will happen. 
 
             //load game over
             _gameOver = new GameOverScreen();
