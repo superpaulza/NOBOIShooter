@@ -30,6 +30,7 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D BambooShoot;
         public static Texture2D BambooJoint1;
         public static Texture2D BambooJoint2;
+        public static Texture2D BambooLeaf;
 
         public static Texture2D BackgroundMoutain;
         public static Texture2D BackgroundGame;
@@ -73,6 +74,7 @@ namespace withLuckAndWisdomProject.Screens
             BambooJoint1 = content.Load<Texture2D>("Images/bamboo-first");
             BambooJoint2 = content.Load<Texture2D>("Images/bamboo-second");
             BambooShoot = content.Load<Texture2D>("Images/bamboo-shoot");
+            BambooLeaf = content.Load<Texture2D>("Images/bamboo-leaf");
 
             BackBtn = content.Load<Texture2D>("Controls/BackButtonWhite");
             checkBoxEmpty = content.Load<Texture2D>("Controls/CheckboxEmpty");
