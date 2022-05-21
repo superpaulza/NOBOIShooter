@@ -435,7 +435,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/cloud-hammer.png
 
-#begin Images/clound-first.png
+#begin Images/cloud-first.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -445,9 +445,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/clound-first.png
+/build:Images/cloud-first.png
 
-#begin Images/clound-second.png
+#begin Images/cloud-second.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -457,7 +457,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/clound-second.png
+/build:Images/cloud-second.png
 
 #begin Images/Jump.png
 /importer:TextureImporter
