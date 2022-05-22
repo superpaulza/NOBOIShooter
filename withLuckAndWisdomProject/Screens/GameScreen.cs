@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Controls;
 using withLuckAndWisdomProject.Object;
 using tainicom.Aether.Physics2D.Dynamics;
-using withLuckAndWisdomProject.Manager;
 
 namespace withLuckAndWisdomProject.Screens
 {
@@ -31,7 +30,6 @@ namespace withLuckAndWisdomProject.Screens
         private GameOverRays _gameOver;
         private bool _gameEndSaveScore;
 
-        private ScoreData _scoreData;
         //Constructor inherit from base class 
         public GameScreen()
         {
@@ -149,14 +147,7 @@ namespace withLuckAndWisdomProject.Screens
                 if (!_gameEndSaveScore)
                 {
                     // Save score
-                    if(_rabbit.Score > 0)
-                    {
-                        _scoreData = new ScoreData();
-                        _scoreData.LoadSave();
-                        _scoreData.Add(new Score(_rabbit.Score,_rabbit.ForwardLenght,_rabbit.PlayTime));
-                        _scoreData.Sort();
-                        _scoreData.SaveGame();
-                    }
+                    _rabbit.SaveGameScore();
                     _gameEndSaveScore = true;
                 }
             }

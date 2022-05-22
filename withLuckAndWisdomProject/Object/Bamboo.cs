@@ -33,6 +33,8 @@ namespace withLuckAndWisdomProject.Object
 
         private const int SET_WIDTH_OF_BAMBOOS = 10;
         private const int SET_HEIGHT_OF_JOINT = 50;
+        private const int SET_WIDTH_OF_LEAF = 10;
+        private const int SET_HEIGHT_OF_LEAF = 20;
 
         // Create use variable
         private BambooType _type;
@@ -43,7 +45,8 @@ namespace withLuckAndWisdomProject.Object
         private float _height;
         private float _width;
         private bool _drawLeaf;
-
+        private int _leafWidth;
+        private int _leafHeight;
         private List<Point> _joint;
         private List<float> _leaf;
         private int _jointHeight;
@@ -67,7 +70,7 @@ namespace withLuckAndWisdomProject.Object
             // Set basic value
             _jointHeight = SET_HEIGHT_OF_JOINT;
             _width = SET_WIDTH_OF_BAMBOOS;
-            _drawLeaf = false;
+            _drawLeaf = true;
 
             _state = BambooState.Living;
             // Create bamboo feature
@@ -77,15 +80,17 @@ namespace withLuckAndWisdomProject.Object
 
             if(_drawLeaf)
             {
+                _leafWidth = SET_WIDTH_OF_LEAF;
+                _leafHeight = SET_HEIGHT_OF_LEAF;
                 Random random = new Random();
                 _leaf = new List<float>();
                 for (int i = 0; i < _joint.Count; i++)
 
-                    _leaf.Add(MathHelper.ToRadians(i % 2 == 0 ? random.Next(-60, -30) : random.Next(30, 60)));
+                    _leaf.Add(MathHelper.ToRadians(random.NextDouble() > 0.5 ? random.Next(-60, -30) : random.Next(30, 60)));
             }
             
             if (bambooType == BambooType.Pandle)
-                _pandaPosition = new Vector2(-_width /2  -ResourceManager.Panda.Width, -height/2);
+                _pandaPosition = new Vector2(-ResourceManager.Panda.Width, -height/2);
 
             // Add Collision action
             Body.OnCollision += CollisionHandler;
@@ -99,7 +104,8 @@ namespace withLuckAndWisdomProject.Object
 
             if (_state == BambooState.Pankick)
             {
-                _hitter.LinearVelocity += new Vector2(-50, 0);
+                Random random = new Random();
+                _hitter.LinearVelocity += new Vector2(random.Next(-50,50), random.Next(-30, -10));
                 _state = BambooState.Living;
                 AudioManager.PlaySound("fall");
             }
@@ -111,10 +117,7 @@ namespace withLuckAndWisdomProject.Object
             //spriteBatch.Draw(ResourceManager.Pencil, new Rectangle((int)_body.Position.X, (int)_body.Position.Y, (int)_width, (int)_height), null,
             //    Color.Lime, _body.Rotation, new Vector2(.5f, .5f), SpriteEffects.None, 0);
 
-            if(_drawLeaf && _type != BambooType.Friable)
-                for (int i = 0; i < _leaf.Count; i++)
-                    spriteBatch.Draw(_leaftexture, new Rectangle((int)Body.Position.X + _joint[i].X, (int)(Body.Position.Y - _height / 2 + _joint[i].Y), (int)_width, (int)_jointHeight), null,
-                          Color.LightGreen, _leaf[i], new Vector2(0, _leaftexture.Height), SpriteEffects.None, 0);
+            
 
             if (_type == BambooType.Normal)
             {
@@ -134,7 +137,7 @@ namespace withLuckAndWisdomProject.Object
                 // Draw dead bamboo
                 for (int i = 0; i < _joint.Count; i++)
                     spriteBatch.Draw(i % 2 == 0 ? _joint1texture : _joint2texture, new Rectangle((int)Body.Position.X + _joint[i].X, (int)(Body.Position.Y - _height / 2 + _jointHeight / 2 + _joint[i].Y), (int)_width, (int)_jointHeight), null,
-                         Color.Gold, Body.Rotation, new Vector2(_joint1texture.Width / 2, _joint1texture.Height / 2), SpriteEffects.None, 0);
+                         i < 2 ? Color.Gold : Color.Orange, Body.Rotation, new Vector2(_joint1texture.Width / 2, _joint1texture.Height / 2), SpriteEffects.None, 0);
                 
             }
 
@@ -149,6 +152,11 @@ namespace withLuckAndWisdomProject.Object
                 // Draw panda
                 spriteBatch.Draw(ResourceManager.Panda,Body.Position + _pandaPosition,Color.White);
             }
+
+            if (_drawLeaf && _type != BambooType.Friable)
+                for (int i = 0; i < _leaf.Count; i++)
+                    spriteBatch.Draw(_leaftexture, new Rectangle((int)Body.Position.X + _joint[i].X, (int)(Body.Position.Y - _height / 2 + _joint[i].Y), _leafWidth, _leafHeight), null,
+                          Color.LightGreen, _leaf[i], new Vector2(0, _leaftexture.Height), SpriteEffects.None, 0);
 
         }
 

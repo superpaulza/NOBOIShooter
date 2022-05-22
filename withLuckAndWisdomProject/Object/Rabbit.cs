@@ -8,6 +8,7 @@ using withLuckAndWisdomProject.Screens;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using Microsoft.Xna.Framework.Input;
+using withLuckAndWisdomProject.Data;
 
 namespace withLuckAndWisdomProject.Object
 {
@@ -57,6 +58,7 @@ namespace withLuckAndWisdomProject.Object
         private const int MIN_DISTAN_OF_BAMBOO = 250;
         private const int MAX_DISTAN_OF_BAMBOO = 300;
         private const int MINIMUM_DRAG_LENGHT = 40;
+        private const int SPEED_UP_CAMERA_AT_X = 1000;
 
         // Create defualt variable
         private Fixture _hitting;
@@ -70,8 +72,8 @@ namespace withLuckAndWisdomProject.Object
         private Vector2 _projectile;
         private Point _dragStart, _dragEnd;
         private float _dragAngle, _dragLength;
+        private int _scoreUp;
 
-        
 
         List<Bamboo> _bamboos;
 
@@ -116,7 +118,6 @@ namespace withLuckAndWisdomProject.Object
 
             if (RabbitState == RabbitState.Ready)
             {
-
                 // Rabbit Draging 
                 if (mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
                 {
@@ -170,7 +171,7 @@ namespace withLuckAndWisdomProject.Object
                 {
                     Forwarding = Body.Position.X - limitRight;
                 }
-
+                
             }
 
 
@@ -213,10 +214,15 @@ namespace withLuckAndWisdomProject.Object
             // move camera check
             if (Forwarding > 0)
             {
-                float forwardStep = (float)(gameTime.ElapsedGameTime.TotalMilliseconds * .5f);
+                float forwardStep = (float) gameTime.ElapsedGameTime.TotalMilliseconds;
+                
+                if (Body.Position.X < SPEED_UP_CAMERA_AT_X) forwardStep *= .45f;
+                else forwardStep *= .55f;
                 if (RabbitState == RabbitState.Aiming) forwardStep *= .5f;
+
                 Body.World.ShiftOrigin(new Vector2(forwardStep, 0));
-                Score += (int)(forwardStep * .2f);
+                _scoreUp = (int)(forwardStep * .2f + .5f * _scoreUp);
+                Score += _scoreUp ;
                 Forwarding -= forwardStep;
                 Forwarder += forwardStep;
                 ForwardLenght += forwardStep;
@@ -314,7 +320,7 @@ namespace withLuckAndWisdomProject.Object
             if (RabbitState == RabbitState.Start)
                 RabbitState = RabbitState.Ready;
 
-            if(RabbitState == RabbitState.ProjectileFlying)
+            if (RabbitState == RabbitState.ProjectileFlying ) 
             {
                 RabbitState = RabbitState.ProjectileHit;
                 _hitting = other;
@@ -332,9 +338,21 @@ namespace withLuckAndWisdomProject.Object
                     color, angle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
         }
 
-        Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
+        private Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
         {
             return g * (.5f * time * time) + v0 * time + x0 ;
+        }
+
+        public void SaveGameScore()
+        {
+            if (Score > 0)
+            {
+                ScoreData scoreData = new ScoreData();
+                scoreData.LoadSave();
+                scoreData.Add(new Score(Score, ForwardLenght, PlayTime));
+                scoreData.Sort();
+                scoreData.SaveGame();
+            }
         }
     }
 }

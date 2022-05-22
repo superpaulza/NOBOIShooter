@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using withLuckAndWisdomProject.Data;
 
-namespace withLuckAndWisdomProject.Manager
+namespace withLuckAndWisdomProject.Data
 {
     [Serializable]
     public class Score
@@ -28,6 +28,8 @@ namespace withLuckAndWisdomProject.Manager
     class ScoreData
     {
         private const string SAVE_FILE_NAME = "sav.dat";
+        private const int SET_MAX_SAVE_SCORE = 50;
+
         public List<Score> ScoresTables { get; private set; }
 
         public ScoreData ()
@@ -50,6 +52,9 @@ namespace withLuckAndWisdomProject.Manager
             ScoresTables.Sort(delegate(Score x, Score y) {
                 return y.ScoreGet.CompareTo(x.ScoreGet);
             });
+
+            if (ScoresTables.Count > SET_MAX_SAVE_SCORE)
+                ScoresTables.RemoveRange(SET_MAX_SAVE_SCORE, ScoresTables.Count - SET_MAX_SAVE_SCORE);
         }
 
         public void SaveGame()

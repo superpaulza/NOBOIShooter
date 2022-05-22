@@ -20,6 +20,8 @@ namespace withLuckAndWisdomProject.Screens
         private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
         private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
         private int _speed = 5;
+        private Texture2D _pen;
+        private Vector2 _underLine;
 
         public OptionsScreen()
         {
@@ -43,7 +45,7 @@ namespace withLuckAndWisdomProject.Screens
             _background = ResourceManager.mainBackground;
             _font = ResourceManager.font;
             _headerFont = ResourceManager.font;
-            _backIcon = ResourceManager.BackBtn;
+            _backIcon = ResourceManager.homeBtn;
             _applyBtn = ResourceManager.applyBtn;
             _increaseIcon = ResourceManager.increseBtn;
             _decreaseIcon = ResourceManager.decreseBtn;
@@ -51,6 +53,7 @@ namespace withLuckAndWisdomProject.Screens
             _volumeOff = ResourceManager.volumeOffIcon;
             _checkBoxEmpty = ResourceManager.checkBoxEmpty;
             _checkBoxSelected = ResourceManager.checkBoxSelect;
+            _pen = ResourceManager.Pencil;
 
             // Get sound default
             _volumeBGMState = Singleton.Instance.IsEnableBGM ? _volumeOn : _volumeOff;
@@ -60,7 +63,7 @@ namespace withLuckAndWisdomProject.Screens
             // Create Button
             _backButton = new Button(_backIcon)
             {
-                Position = new Vector2(Singleton.Instance.ScreenWidth - 80, 20),
+                Position = new Vector2(Singleton.Instance.ScreenWidth - 120, 20),
             };
 
             _backButton.Click += BackButtonOnClick;
@@ -99,7 +102,6 @@ namespace withLuckAndWisdomProject.Screens
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 180),
-                Text = "",
                 colour = Color.Orange
 
             };
@@ -110,7 +112,6 @@ namespace withLuckAndWisdomProject.Screens
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 250, 280),
-                Text = "",
                 colour = Color.Orange
             };
 
@@ -120,17 +121,15 @@ namespace withLuckAndWisdomProject.Screens
             {
                 PenColour = new Color(Color.White, 1f),
                 Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
-                Text = "",
             };
 
             _guidelineAimerButton.Click += GuidelineAimerOnClick;
 
 
             //apply
-            _applyButton = new Button(_applyBtn, _font)
+            _applyButton = new Button(_applyBtn)
             {
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 70, Singleton.Instance.ScreenHeight / 2 + 120),
-                Text = ""
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 - 70, Singleton.Instance.ScreenHeight / 2 + 180),
             };
 
             _applyButton.Click += ApplyBtnOnClick;
@@ -277,20 +276,21 @@ namespace withLuckAndWisdomProject.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, Singleton.Instance.ScreenHeight), Color.White);
-            spriteBatch.DrawString(_headerFont, "Options", new Vector2(Singleton.Instance.ScreenWidth / 2, 100), Color.White, 0f, _font.MeasureString("Options") * 0.5f, 1.5f, SpriteEffects.None, 0f);
-
+            var titlePosition = new Vector2(Singleton.Instance.ScreenWidth / 2, 100);
+            spriteBatch.DrawString(_headerFont, "Options", titlePosition, Color.DarkGreen, 0f, _font.MeasureString("Options") * 0.5f, 1.2f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_pen, new Rectangle((int)titlePosition.X - 100, (int)titlePosition.Y + 25, 200, 5), Color.DarkSeaGreen);
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            spriteBatch.DrawString(_font, "SFX", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 200), Color.White, 0f, _font.MeasureString("SFX") * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "SFX", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 200), Color.DarkSlateGray, 0f, _font.MeasureString("SFX") * 0.5f, .8f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.White, 0f, _font.MeasureString("BGM") * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.DarkSlateGray, 0f, _font.MeasureString("BGM") * 0.5f, .8f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 450), Color.White, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 420), Color.DarkSlateGray, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, .6f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 170), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 190), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 270), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 290), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
