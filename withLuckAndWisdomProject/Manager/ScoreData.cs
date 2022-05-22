@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading.Tasks;
+using withLuckAndWisdomProject.Data;
 
 namespace withLuckAndWisdomProject.Manager
 {
@@ -37,6 +39,10 @@ namespace withLuckAndWisdomProject.Manager
         public void Add(Score score)
         {
             ScoresTables.Add(score);
+            if (Singleton.Instance.IsShareDataToDev)
+            {
+                Task http = Task.Run(() => ShareData.RunAsync(score));
+            }
         }
 
         public void Sort()
