@@ -67,6 +67,12 @@
 /processorParam:Quality=Best
 /build:Audio/MouseClicked.wav
 
+#begin Audio/OptionBG.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/OptionBG.wav
+
 #begin Audio/WindSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

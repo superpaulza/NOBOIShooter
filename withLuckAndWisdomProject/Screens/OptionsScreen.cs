@@ -295,7 +295,7 @@ namespace withLuckAndWisdomProject.Screens
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-            AudioManager.PlaySound("GameBGM", true);
+            AudioManager.PlaySound("Opbg", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
