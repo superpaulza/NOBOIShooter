@@ -478,6 +478,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/cloud-dungo.png
 
+#begin Images/cloud-first.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/cloud-first.png
+
 #begin Images/cloud-hammer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -490,18 +502,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/cloud-hammer.png
 
-#begin Images/cloud-first.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/cloud-first.png;Images/cloud-first.png
-
 #begin Images/cloud-second.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -512,7 +512,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/cloud-second.png;Images/cloud-second.png
+/build:Images/cloud-second.png
+
+#begin Images/hud-background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/hud-background.png
 
 #begin Images/Jump.png
 /importer:TextureImporter
@@ -633,6 +645,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Rabbit.png
+
+#begin Images/Rabbit-hugbamboo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Rabbit-hugbamboo.png
 
 #begin Images/RectangleSprite.png
 /importer:TextureImporter

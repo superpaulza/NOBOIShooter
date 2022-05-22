@@ -29,11 +29,11 @@ namespace withLuckAndWisdomProject.Object
             // Font Init.
             _font = ResourceManager.font;
             // Texture Init.
-            _background = ResourceManager.overBackground;
+            _background = ResourceManager.hudBackground;
             // Button Init.
             _pauseBtn = new Button(ResourceManager.pauseBtn)
             {
-                Position = new Vector2(20, 20),
+                Position = new Vector2(50, 40),
             };
             _pauseBtn.Click += pauseBtnOnClick;
         }
@@ -46,22 +46,22 @@ namespace withLuckAndWisdomProject.Object
         public void DrawBackGround(SpriteBatch spriteBatch)
         {
             // Draw Background.
-            spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, (int)(Singleton.Instance.ScreenHeight * .2f)), Color.Black * 0.5f);
+            spriteBatch.Draw(_background, new Rectangle(0, 0, Singleton.Instance.ScreenWidth, (int)(Singleton.Instance.ScreenHeight * .2f)), Color.White);
         }
 
         public void DrawScore(SpriteBatch spriteBatch)
         {
             // Draw Score Section.
-            spriteBatch.DrawString(_font, "Score", new Vector2(200, 20), Color.OrangeRed);
-            spriteBatch.DrawString(_font, _rabbit.Score.ToString(), new Vector2(210, 80), Color.Black);
+            spriteBatch.DrawString(_font, "Score", new Vector2(200, 40), Color.OrangeRed);
+            spriteBatch.DrawString(_font, _rabbit.Score.ToString(), new Vector2(210, 100), Color.Black);
 
         }
 
         public void DrawDistance(SpriteBatch spriteBatch)
         {
             // Draw Distance Section.
-            spriteBatch.DrawString(_font, "Distance", new Vector2(600, 20), Color.OrangeRed);
-            spriteBatch.DrawString(_font, _rabbit.ForwardLenght.ToString("N0"), new Vector2(620, 80), Color.Black);
+            spriteBatch.DrawString(_font, "Distance", new Vector2(600, 40), Color.OrangeRed);
+            spriteBatch.DrawString(_font, _rabbit.ForwardLenght.ToString("N0"), new Vector2(620, 100), Color.Black);
 
             // Reference from Rabbit Position.
 
@@ -70,8 +70,8 @@ namespace withLuckAndWisdomProject.Object
         public void DrawTime(SpriteBatch spriteBatch)
         {
             // Draw Timer.
-            spriteBatch.DrawString(_font, "Time", new Vector2(1000, 20), Color.OrangeRed);
-            spriteBatch.DrawString(_font, _rabbit.PlayTime.ToString(@"hh\:mm\:ss"), new Vector2(980, 80), Color.Black);
+            spriteBatch.DrawString(_font, "Time", new Vector2(1000, 40), Color.OrangeRed);
+            spriteBatch.DrawString(_font, _rabbit.PlayTime.ToString(@"hh\:mm\:ss"), new Vector2(980, 100), Color.Black);
         }
         public void UpdatePauseBtn(GameTime gameTime)
         {

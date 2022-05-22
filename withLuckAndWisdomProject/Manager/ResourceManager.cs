@@ -19,8 +19,10 @@ namespace withLuckAndWisdomProject.Screens
         public static Texture2D pauseBtn;
         public static Texture2D replayBtn;
         public static Texture2D applyBtn;
+
         public static Texture2D mainBackground;
         public static Texture2D gameBackground;
+        public static Texture2D hudBackground;
         public static Texture2D logo;
         public static Texture2D ball;
 
@@ -71,6 +73,7 @@ namespace withLuckAndWisdomProject.Screens
             mainBackground = content.Load<Texture2D>("Images/background2");
             gameBackground = content.Load<Texture2D>("Images/playedbackground");
             overBackground = content.Load<Texture2D>("Images/over_background");
+            hudBackground = content.Load<Texture2D>("Images/hud-background");
             logo = content.Load<Texture2D>("Images/logo-first");
             ball = content.Load<Texture2D>("Images/CircleSprite");
 
