@@ -12,7 +12,7 @@ namespace withLuckAndWisdomProject
         public bool IsEnableAimer;
         public bool IsEnableSFX;
         public bool IsEnableBGM;
-
+        public bool IsShareDataToDev;
 
     }
 }

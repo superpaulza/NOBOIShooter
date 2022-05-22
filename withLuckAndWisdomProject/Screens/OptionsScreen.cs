@@ -14,10 +14,10 @@ namespace withLuckAndWisdomProject.Screens
 
         // Create value
         private List<Component> _components;
-        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState, _applyBtn;
+        private Texture2D _background, _backIcon, _volumeOn, _volumeOff, _increaseIcon, _decreaseIcon, _volumeBGMState, _volumeSFXState, _checkBoxEmpty, _checkBoxSelected, _checkBoxState, _applyBtn, _checkBoxShareState;
         private SpriteFont _font, _headerFont;
         private Button _backButton, _increaseSFXButton, _decreaseSFXButton, _increaseBGMButton, _decreaseBGMButton, _applyButton;
-        private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton;
+        private DynamicButton _volumeSFXControlButton, _volumeBGMControlButton, _guidelineAimerButton, _uploadScoreButton;
         private float _sfxVolume = Singleton.Instance.SFXVolume * 100, _bgmVolume = Singleton.Instance.BGMVolume * 100;
         private int _speed = 5;
         private Texture2D _pen;
@@ -35,6 +35,7 @@ namespace withLuckAndWisdomProject.Screens
                 Singleton.Instance.IsEnableAimer = _settings.IsEnableAimer;
                 Singleton.Instance.IsEnableSFX = _settings.IsEnableSFX;
                 Singleton.Instance.IsEnableBGM = _settings.IsEnableBGM;
+                Singleton.Instance.IsShareDataToDev = _settings.IsShareDataToDev;
 
             }
             else
@@ -59,6 +60,7 @@ namespace withLuckAndWisdomProject.Screens
             _volumeBGMState = Singleton.Instance.IsEnableBGM ? _volumeOn : _volumeOff;
             _volumeSFXState = Singleton.Instance.IsEnableSFX ? _volumeOn : _volumeOff;
             _checkBoxState = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
+            _checkBoxShareState = Singleton.Instance.IsShareDataToDev ? _checkBoxSelected : _checkBoxEmpty;
 
             // Create Button
             _backButton = new Button(_backIcon)
@@ -120,11 +122,18 @@ namespace withLuckAndWisdomProject.Screens
             _guidelineAimerButton = new DynamicButton(_checkBoxState)
             {
                 PenColour = new Color(Color.White, 1f),
-                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 350),
             };
 
             _guidelineAimerButton.Click += GuidelineAimerOnClick;
 
+            _uploadScoreButton = new DynamicButton(_checkBoxShareState)
+            {
+                PenColour = new Color(Color.White, 1f),
+                Position = new Vector2(Singleton.Instance.ScreenWidth / 2 + 85, 400),
+            };
+
+            _uploadScoreButton.Click += uploadScoreButtonOnClick;
 
             //apply
             _applyButton = new Button(_applyBtn)
@@ -145,6 +154,7 @@ namespace withLuckAndWisdomProject.Screens
                 _volumeSFXControlButton,
                 _volumeBGMControlButton,
                 _guidelineAimerButton,
+                _uploadScoreButton,
                 _applyButton,
             };
 
@@ -261,6 +271,12 @@ namespace withLuckAndWisdomProject.Screens
             _guidelineAimerButton.Texture = Singleton.Instance.IsEnableAimer ? _checkBoxSelected : _checkBoxEmpty;
         }
 
+        private void uploadScoreButtonOnClick(object sender, EventArgs e)
+        {
+            Singleton.Instance.IsShareDataToDev = !Singleton.Instance.IsShareDataToDev;
+            _uploadScoreButton.Texture = Singleton.Instance.IsShareDataToDev ? _checkBoxSelected : _checkBoxEmpty;
+        }
+
         private void ApplyBtnOnClick(object sender, EventArgs e)
         {
             OnExiting();
@@ -286,8 +302,10 @@ namespace withLuckAndWisdomProject.Screens
 
             spriteBatch.DrawString(_font, "BGM", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 300), Color.DarkSlateGray, 0f, _font.MeasureString("BGM") * 0.5f, .8f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 420), Color.DarkSlateGray, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, .6f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, "Guideline Aimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 375), Color.DarkSlateGray, 0f, _font.MeasureString("Guideline Aimer") * 0.5f, .6f, SpriteEffects.None, 0f);
 
+            spriteBatch.DrawString(_font, "Auto upload score", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 425), Color.DarkSlateGray, 0f, _font.MeasureString("Auto upload score") * 0.5f, .6f, SpriteEffects.None, 0f);
+            
             spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 160), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
             spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 260), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
@@ -312,6 +330,7 @@ namespace withLuckAndWisdomProject.Screens
             _settings.IsEnableAimer = Singleton.Instance.IsEnableAimer;
             _settings.IsEnableSFX = Singleton.Instance.IsEnableSFX;
             _settings.IsEnableBGM = Singleton.Instance.IsEnableBGM;
+            _settings.IsShareDataToDev = Singleton.Instance.IsShareDataToDev;
             FileManager.WriteToObj("GameSetting.config", _settings);
         }
     }
