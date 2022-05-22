@@ -316,6 +316,20 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Itim.spritefont
 
+#begin Fonts/Phuket.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Phuket.spritefont
+
+#begin Fonts/Pixel.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Pixel.spritefont
+
 #begin Images/background.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -651,18 +665,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Rabbit.png
-
-#begin Images/Rabbit-hugbamboo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Rabbit-hugbamboo.png
 
 #begin Images/RectangleSprite.png
 /importer:TextureImporter
