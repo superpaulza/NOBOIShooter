@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using withLuckAndWisdomProject.Controls;
-using withLuckAndWisdomProject.Manager;
+using withLuckAndWisdomProject.Data;
 
 namespace withLuckAndWisdomProject.Screens
 {
@@ -30,6 +30,8 @@ namespace withLuckAndWisdomProject.Screens
         private Vector2 _titlePosion;
 
         private List<Component> _components;
+        private Rectangle _underLine;
+
         public ScoreScreen()
         {
             _mainBackground = ResourceManager.mainBackground;
@@ -40,22 +42,24 @@ namespace withLuckAndWisdomProject.Screens
             _scorePage = 0;
             _hasNextPage = _scoreBord.ScoresTables.Count > LIMIT_SCORE_PER_PAGE;
             // Create back to main menu button
-            _backButton = new Button(ResourceManager.BackBtn)
+            _backButton = new Button(ResourceManager.homeBtn)
             {
-                Position = new Vector2(Singleton.Instance.ScreenWidth - 80, 20),
+                Position = new Vector2(Singleton.Instance.ScreenWidth - 120, 20),
             };
             _backButton.Click += BackToMainMenu;
 
             _leftButton = new Button(ResourceManager.decreseBtn)
             {
                 Position = new Vector2(550, 650),
-            };
+                colour = Color.Orange,
+        };
 
             _leftButton.Click += LeftButtonOnClick;
 
             _rightButton = new Button(ResourceManager.increseBtn)
             {
                 Position = new Vector2(700, 650),
+                colour = Color.Orange,
             };
 
             _rightButton.Click += RightButtonOnClick;
@@ -71,7 +75,9 @@ namespace withLuckAndWisdomProject.Screens
             int width = Singleton.Instance.ScreenWidth / 5;
             int height = Singleton.Instance.ScreenHeight / 15;
             _areaBackGround = new Rectangle(width, height, width * 3, height * 10);
-            _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_titleText).X) / 2, 80f);
+            var font_size = _font.MeasureString(_titleText);
+            _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - font_size.X) / 2, 80f);
+            _underLine = new Rectangle((int)_titlePosion.X, (int)_titlePosion.Y + 25, (int)font_size.X, 5 );
         }
 
         public override void Update(GameTime gameTime)
@@ -87,7 +93,7 @@ namespace withLuckAndWisdomProject.Screens
 
             // Draw text title
             spriteBatch.DrawString(_font, _titleText, _titlePosion, Color.DarkGreen);
-
+            spriteBatch.Draw(_pen, _underLine, Color.DarkSeaGreen);
             // Write score 
             for (int i = 0; i < LIMIT_SCORE_PER_PAGE; i++)
             {
@@ -97,8 +103,8 @@ namespace withLuckAndWisdomProject.Screens
                     _scoretext = (index + 1) + ". Score : " + _scoreBord.ScoresTables[index].ScoreGet.ToString();
                     _scoretextMore = "Distance : " + _scoreBord.ScoresTables[index].Distance.ToString("N0") +
                         " | Play : " + _scoreBord.ScoresTables[index].TimePlay.ToString(@"mm\:ss");
-                    spriteBatch.DrawString(_font, _scoretext, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 100), (i % 2 == 0) ? Color.Black : Color.DarkSlateGray);
-                    spriteBatch.DrawString(_font, _scoretextMore, new Vector2((float)(Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretextMore).X), 200f + i * 100), Color.White, 0f, _font.MeasureString(_scoretextMore) * 0.5f, .5f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(_font, _scoretext, new Vector2((Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 100), (i % 2 == 0) ? Color.Black : Color.DarkSlateGray);
+                    spriteBatch.DrawString(_font, _scoretextMore, new Vector2(Singleton.Instance.ScreenWidth/2 , 200f + i * 100), Color.White, 0f, _font.MeasureString(_scoretextMore)* 0.5f , .5f, SpriteEffects.None, 0f);
 
                 }
 

@@ -8,6 +8,7 @@ using withLuckAndWisdomProject.Screens;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using Microsoft.Xna.Framework.Input;
+using withLuckAndWisdomProject.Data;
 
 namespace withLuckAndWisdomProject.Object
 {
@@ -337,9 +338,21 @@ namespace withLuckAndWisdomProject.Object
                     color, angle + MathHelper.ToRadians(-90f), Vector2.Zero, SpriteEffects.None, 0);
         }
 
-        Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
+        private Vector2 PredictProjectileAtTime (float time, Vector2 v0, Vector2 x0, Vector2 g)
         {
             return g * (.5f * time * time) + v0 * time + x0 ;
+        }
+
+        public void SaveGameScore()
+        {
+            if (Score > 0)
+            {
+                ScoreData scoreData = new ScoreData();
+                scoreData.LoadSave();
+                scoreData.Add(new Score(Score, ForwardLenght, PlayTime));
+                scoreData.Sort();
+                scoreData.SaveGame();
+            }
         }
     }
 }

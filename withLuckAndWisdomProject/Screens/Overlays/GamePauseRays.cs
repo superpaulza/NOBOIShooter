@@ -88,6 +88,7 @@ namespace withLuckAndWisdomProject.Screens
 
         private void homeBtnOnClick(object sender, EventArgs e)
         {
+            _player.SaveGameScore();
             ScreenManager.ChangeScreen = "menu";
         }
 
