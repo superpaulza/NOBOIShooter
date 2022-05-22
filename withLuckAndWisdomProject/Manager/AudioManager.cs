@@ -59,7 +59,8 @@ namespace withLuckAndWisdomProject
                 {"JumpingSound2", "Jumping2"},
                 {"JumpingSound3", "Jumping3"},
                 {"FallenSound", "fall"},
-                {"WindSound", "wind"}
+                {"WindSound", "wind"},
+                {"OptionBG", "Opbg"}
 
             };
 

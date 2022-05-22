@@ -119,7 +119,7 @@ namespace withLuckAndWisdomProject.Screens
 
             _backButton.Draw(gameTime,spriteBatch);
 
-            AudioManager.PlaySound("GameBGM", true);
+            AudioManager.PlaySound("Opbg", true);
         }
 
         public override void PostUpdate(GameTime gameTime)
