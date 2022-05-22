@@ -38,12 +38,12 @@ namespace withLuckAndWisdomProject.Data
                 ScoresTables = new List<Score>();
             LoadSave();
         }
-        public void Add(Score score)
+        public async void Add(Score score)
         {
             ScoresTables.Add(score);
             if (Singleton.Instance.IsShareDataToDev)
             {
-                Task http = Task.Run(() => ShareData.RunAsync(score));
+                await Task.Run(() => ShareData.RunAsync(score));
             }
         }
 
