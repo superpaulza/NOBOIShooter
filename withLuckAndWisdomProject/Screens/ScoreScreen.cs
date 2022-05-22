@@ -77,7 +77,7 @@ namespace withLuckAndWisdomProject.Screens
             _areaBackGround = new Rectangle(width, height, width * 3, height * 10);
             var font_size = _font.MeasureString(_titleText);
             _titlePosion = new Vector2((float)(Singleton.Instance.ScreenWidth - font_size.X) / 2, 80f);
-            _underLine = new Rectangle((int)_titlePosion.X, (int)_titlePosion.Y + 25, (int)font_size.X, 5 );
+            _underLine = new Rectangle((int)_titlePosion.X, (int)_titlePosion.Y + 45, (int)font_size.X, 5 );
         }
 
         public override void Update(GameTime gameTime)
@@ -104,7 +104,7 @@ namespace withLuckAndWisdomProject.Screens
                     _scoretextMore = "Distance : " + _scoreBord.ScoresTables[index].Distance.ToString("N0") +
                         " | Play : " + _scoreBord.ScoresTables[index].TimePlay.ToString(@"mm\:ss");
                     spriteBatch.DrawString(_font, _scoretext, new Vector2((Singleton.Instance.ScreenWidth - _font.MeasureString(_scoretext).X) / 2, 150f + i * 100), (i % 2 == 0) ? Color.Black : Color.DarkSlateGray);
-                    spriteBatch.DrawString(_font, _scoretextMore, new Vector2(Singleton.Instance.ScreenWidth/2 , 200f + i * 100), Color.White, 0f, _font.MeasureString(_scoretextMore)* 0.5f , .5f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(_font, _scoretextMore, new Vector2(Singleton.Instance.ScreenWidth/2 , 221f + i * 100), Color.White, 0f, _font.MeasureString(_scoretextMore)* 0.5f , .5f, SpriteEffects.None, 0f);
 
                 }
 

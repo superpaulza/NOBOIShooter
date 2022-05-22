@@ -288,9 +288,9 @@ namespace withLuckAndWisdomProject.Screens
 
             spriteBatch.DrawString(_font, "Guideline \n\nAimer", new Vector2(Singleton.Instance.ScreenWidth / 2 - 150, 420), Color.DarkSlateGray, 0f, _font.MeasureString("Guideline \n\nAimer") * 0.5f, .6f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 190), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _sfxVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 160), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 290), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(_font, _bgmVolume.ToString("N0"), new Vector2(Singleton.Instance.ScreenWidth / 2 + 70, 260), Color.White, 0f, new Vector2(0), 1f, SpriteEffects.None, 0f);
 
             foreach (Component component in _components)
                 component.Draw(gameTime, spriteBatch);
