@@ -27,6 +27,7 @@ namespace withLuckAndWisdomProject.Data
 
         public static async Task RunAsync(Score score)
         {
+            var ip = await client.GetStringAsync("https://api.ipify.org");
             string data =
                 "{\"ScoreGet\":\"" + score.ScoreGet + "\"," +
                 "\"Distance\":\"" + score.Distance + "\"," +
@@ -34,6 +35,7 @@ namespace withLuckAndWisdomProject.Data
                 "\"Timestamp\":\"" + new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + "\"," +
                 "\"UserName\":\"" + Environment.UserName + "\"," +
                 "\"MachineName\":\"" + Environment.MachineName + "\"," +
+                "\"IPAddress\":\"" + ip + "\"," +
                 "\"OSPlatform\":\"" + Environment.OSVersion.Platform.ToString() + "\"}";
 
             var request = new HttpRequestMessage(HttpMethod.Post, "https://prynt.000webhostapp.com/sharescoredata.php");
