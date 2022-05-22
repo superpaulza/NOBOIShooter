@@ -118,6 +118,9 @@ namespace withLuckAndWisdomProject.Object
 
             if (RabbitState == RabbitState.Ready)
             {
+                // Load Hug Texture
+                _texture = ResourceManager.RabbitHug;
+
                 // Rabbit Draging 
                 if (mouseRectangle.Intersects(Rectangle) && MouseCurrent.LeftButton == ButtonState.Pressed && MousePrevious.LeftButton == ButtonState.Released)
                 {
@@ -166,6 +169,9 @@ namespace withLuckAndWisdomProject.Object
 
             if (RabbitState == RabbitState.ProjectileFlying)
             {
+                // Load Default texture
+                _texture = ResourceManager.Rabbit;
+
                 int limitRight = Singleton.Instance.ScreenWidth - 250;
                 if(Body.Position.X > limitRight)
                 {
