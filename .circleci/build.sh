@@ -11,7 +11,7 @@ export ARTIFACTS_DIR=/root/repo/artifacts
 export ARTIFACT_FULL_PATH=${ARTIFACTS_DIR}/${ARTIFACT_FILENAME}
 
 export PUBLISH_DIR=/root/repo/bin/release/netcoreapp2.2/${BUILD_PLATFORM}/publish
-export MGCB_VERSION=3.7.0.4
+export MGCB_VERSION=3.6
 export MGCB_PACKAGE_PATH=/root/.nuget/packages/monogame.content.builder/${MGCB_VERSION}/build/MGCB/build
 
 dotnet restore
