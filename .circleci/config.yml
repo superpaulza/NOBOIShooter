@@ -3,39 +3,43 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1  # Use a .NET Core SDK image
-
-    working_directory: ~/repo
-
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      
+    working_directory: ~/project
+    
     steps:
       - checkout
 
-      # Windows Build
+      # Install MonoGame SDK on Windows
+      - run:
+          name: Install MonoGame SDK on Windows
+          command: |
+            if [[ "$CIRCLE_BRANCH" == "master" && "$CIRCLE_OS" == "windows" ]]; then
+              curl -L -o MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.6/MonoGameSetup.exe
+              ./MonoGameSetup.exe /S
+            fi
+
+      # Build on Windows
       - run:
           name: Build on Windows
-          command: |
-            # Install MonoGame prerequisites for Windows
-            choco install -y monogame
-            # Your build command for Windows
-            msbuild YourProject.sln /p:Configuration=Release /p:Platform=AnyCPU
+          command: msbuild NOBOIShooter.sln /p:Configuration=Release
 
-      # MacOS Build
+      # Build on MacOS
       - run:
           name: Build on MacOS
-          command: |
-            # Install MonoGame prerequisites for MacOS
-            brew install mono
-            brew install monogame
-            # Your build command for MacOS
-            msbuild YourProject.sln /p:Configuration=Release /p:Platform=AnyCPU
+          command: msbuild NOBOIShooter.sln /p:Configuration=Release
 
-      # Android Build
+      # Build on Android
       - run:
           name: Build on Android
-          command: |
-            # Install MonoGame prerequisites for Android
-            # Include any additional Android setup commands
-            # Your build command for Android
-            msbuild YourAndroidProject.sln /p:Configuration=Release /p:Platform=AnyCPU
+          command: msbuild NOBOIShooter.sln /p:Configuration=Release /t:Build /p:Platform=Android
 
-# Add more steps if necessary, such as running tests, deploying artifacts, etc.
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
