@@ -8,7 +8,7 @@ job_configuration: &job_configuration
     - checkout
     - run:
         name: Install Dependencies
-        command: ./build.sh
+        command: .circleci/build.sh
     - persist_to_workspace:
         root: ~/repo
         paths:
