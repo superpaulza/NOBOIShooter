@@ -15,8 +15,8 @@ job_configuration: &job_configuration
           - artifacts/
 
 environment:
-  PROJECT_NAME: example_project_name
-  MONOGAME_CONTENT_VERSION: 3.7.0.4
+  PROJECT_NAME: NOBOIShooter
+  MONOGAME_CONTENT_VERSION: 3.6
 
 jobs:
   windows:
