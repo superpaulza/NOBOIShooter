@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+  </PropertyGroup>
+  <PropertyGroup>
+	<ApplicationIcon>icon.ico</ApplicationIcon>
+    <StartupObject />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="icon.ico" />
+		<EmbeddedResource Include="Icon.bmp" />
+	</ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Content\SFX\**" />
+    <EmbeddedResource Remove="Content\SFX\**" />
+    <None Remove="Content\SFX\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aether.Physics2D.Diagnostics.MG" Version="1.6.1" />
+    <PackageReference Include="Aether.Physics2D.MG" Version="1.6.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.8" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
+  </ItemGroup>
+</Project>
