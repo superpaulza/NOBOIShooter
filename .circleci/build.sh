@@ -3,7 +3,7 @@
 set -x
 set -e
 
-export PROJECT_NAME=example_project_name
+export PROJECT_NAME=NOBOIShooter
 export BUILD_CONFIGURATION='release'
 
 export ARTIFACT_FILENAME=${PROJECT_NAME}-${BUILD_PLATFORM}.zip
