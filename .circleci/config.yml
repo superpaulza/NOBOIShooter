@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: mcr.microsoft.com/powershell
 
     steps:
       - checkout
@@ -14,13 +14,11 @@ jobs:
           command: |
             Invoke-WebRequest -Uri "https://github.com/MonoGame/MonoGame/releases/download/v3.6/MonoGameSetup.exe" -OutFile "MonoGameSetup.exe"
             Start-Process -Wait -FilePath "MonoGameSetup.exe" -ArgumentList "/S"
-          shell: powershell  # Specify PowerShell as the shell
 
       # Build MonoGame for Windows
       - run:
           name: Build MonoGame for Windows
           command: dotnet publish NOBOIShooter.sln -c Release -r win-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained
-          shell: powershell  # Specify PowerShell as the shell
 
       - persist_to_workspace:
           root: ./bin/Release/netcoreapp3.1/win-x64
