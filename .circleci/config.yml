@@ -3,43 +3,68 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
-      
+      - image: mcr.microsoft.com/dotnet/framework/sdk:4.8  # Windows image with .NET Framework SDK
+
     working_directory: ~/project
-    
+
     steps:
       - checkout
 
-      # Install MonoGame SDK on Windows
       - run:
-          name: Install MonoGame SDK on Windows
+          name: Install MonoGame for Windows
           command: |
-            if [[ "$CIRCLE_BRANCH" == "master" && "$CIRCLE_OS" == "windows" ]]; then
-              curl -L -o MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.6/MonoGameSetup.exe
-              ./MonoGameSetup.exe /S
-            fi
+            Invoke-WebRequest -Uri 'https://github.com/MonoGame/MonoGame/releases/download/v3.6/MonoGameSetup.exe' -OutFile 'MonoGameSetup.exe'
+            Start-Process -Wait -FilePath 'MonoGameSetup.exe' -ArgumentList '/S'
+            Remove-Item 'MonoGameSetup.exe'
 
-      # Build on Windows
       - run:
-          name: Build on Windows
-          command: msbuild NOBOIShooter.sln /p:Configuration=Release
+          name: Build for Windows
+          command: msbuild /p:Configuration=Release NOBOIShooter.sln
 
-      # Build on MacOS
-      - run:
-          name: Build on MacOS
-          command: msbuild NOBOIShooter.sln /p:Configuration=Release
+  build_macos:
+    macos:
+      xcode: '11.3.0'  # or a version that supports MonoGame
 
-      # Build on Android
+    working_directory: ~/project
+
+    steps:
+      - checkout
+
       - run:
-          name: Build on Android
-          command: msbuild NOBOIShooter.sln /p:Configuration=Release /t:Build /p:Platform=Android
+          name: Install MonoGame for macOS
+          command: |
+            curl -LO 'https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/MonoGame.pkg'
+            sudo installer -pkg 'MonoGame.pkg' -target /
+
+      - run:
+          name: Build for macOS
+          command: msbuild /p:Configuration=Release NOBOIShooter.sln
+
+  build_android:
+    docker:
+      - image: circleci/android:api-30  # Android image
+
+    working_directory: ~/project
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install MonoGame for Android
+          command: |
+            echo y | sdkmanager "platform-tools" "platforms;android-30"
+            wget 'https://github.com/MonoGame/MonoGame/releases/download/v3.6/MonoGameSetup.exe' -O 'MonoGameSetup.exe'
+            wine 'MonoGameSetup.exe' /S
+            rm 'MonoGameSetup.exe'
+
+      - run:
+          name: Build for Android
+          command: msbuild /p:Configuration=Release /t:SignAndroidPackage NOBOIShooter.sln
 
 workflows:
   version: 2
-  build:
+  build_all:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - master
+      - build
+      - build_macos
+      - build_android
