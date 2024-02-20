@@ -23,14 +23,20 @@ jobs:
     <<: *job_configuration
     environment:
       BUILD_PLATFORM: 'win-x64'
+      # Make sure your project targets .NET Core 2.2
+      BUILD_FRAMEWORK: netcoreapp2.2
   linux:
     <<: *job_configuration
     environment:
       BUILD_PLATFORM: 'linux-x64'
+      # Make sure your project targets .NET Core 2.2
+      BUILD_FRAMEWORK: netcoreapp2.2
   macos:
     <<: *job_configuration
     environment:
       BUILD_PLATFORM: 'osx-x64'
+      # Make sure your project targets .NET Core 2.2
+      BUILD_FRAMEWORK: netcoreapp2.2
 
 workflows:
   version: 2
